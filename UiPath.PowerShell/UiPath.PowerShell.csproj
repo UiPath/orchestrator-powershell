@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44B751E2-B09D-4C65-BB54-70A64F875E77}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UiPath.PowerShell</RootNamespace>
+    <AssemblyName>UiPath.PowerShell</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\UiPath.PowerShell.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\UiPath.PowerShell.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.10\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BindingResolver.cs" />
+    <Compile Include="Cmdlets\AddAsset.cs" />
+    <Compile Include="Cmdlets\AddEnvironment.cs" />
+    <Compile Include="Cmdlets\AddEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\AddPackage.cs" />
+    <Compile Include="Cmdlets\AddQueueItem.cs" />
+    <Compile Include="Cmdlets\AddProcess.cs" />
+    <Compile Include="Cmdlets\AddRobot.cs" />
+    <Compile Include="Cmdlets\AddTenant.cs" />
+    <Compile Include="Cmdlets\AddUser.cs" />
+    <Compile Include="Cmdlets\EditRobot.cs" />
+    <Compile Include="Cmdlets\RemoveAsset.cs" />
+    <Compile Include="Cmdlets\GetAsset.cs" />
+    <Compile Include="Cmdlets\GetAuthToken.cs" />
+    <Compile Include="Cmdlets\AddQueueDefinition.cs" />
+    <Compile Include="Cmdlets\GetEnvironment.cs" />
+    <Compile Include="Cmdlets\GetJob.cs" />
+    <Compile Include="Cmdlets\GetPackage.cs" />
+    <Compile Include="Cmdlets\GetProcess.cs" />
+    <Compile Include="Cmdlets\GetQueueDefinition.cs" />
+    <Compile Include="Cmdlets\GetRobot.cs" />
+    <Compile Include="Cmdlets\GetTenant.cs" />
+    <Compile Include="Cmdlets\GetUser.cs" />
+    <Compile Include="Cmdlets\Nouns.cs" />
+    <Compile Include="Cmdlets\RegisterLicense.cs" />
+    <Compile Include="Cmdlets\RemoveEnvironment.cs" />
+    <Compile Include="Cmdlets\RemoveEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\RemovePackage.cs" />
+    <Compile Include="Cmdlets\RemoveProcess.cs" />
+    <Compile Include="Cmdlets\RemoveQueueDefinition.cs" />
+    <Compile Include="Cmdlets\RemoveQueueItem.cs" />
+    <Compile Include="Cmdlets\RemoveRobot.cs" />
+    <Compile Include="Cmdlets\RemoveTenant.cs" />
+    <Compile Include="Cmdlets\RemoveUser.cs" />
+    <Compile Include="Cmdlets\SetAuthentication.cs" />
+    <Compile Include="Cmdlets\StartJob.cs" />
+    <Compile Include="Cmdlets\StopJob.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Util\AuthenticatedCmdlet.cs" />
+    <Compile Include="Util\FilterAttribute.cs" />
+    <Compile Include="Util\FilteredCmdlet.cs" />
+    <Compile Include="Util\UiPathCmdlet.cs" />
+    <Compile Include="Models\Asset.cs" />
+    <Compile Include="Models\Environment.cs" />
+    <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\QueueDefinition.cs" />
+    <Compile Include="Models\AuthToken.cs" />
+    <Compile Include="Models\QueueItem.cs" />
+    <Compile Include="Models\Process.cs" />
+    <Compile Include="Models\Robot.cs" />
+    <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Util\SpecificItemDtoConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Web.Client\UiPath.Web.Client.csproj">
+      <Project>{4729246b-ee53-4760-bce3-05f14640dfb0}</Project>
+      <Name>UiPath.Web.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets" Condition="Exists('..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets'))" />
+  </Target>
+</Project>

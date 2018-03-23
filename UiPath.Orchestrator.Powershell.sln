@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Web.Client", "UiPath.Web.Client\UiPath.Web.Client.csproj", "{4729246B-EE53-4760-BCE3-05F14640DFB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.PowerShell", "UiPath.PowerShell\UiPath.PowerShell.csproj", "{44B751E2-B09D-4C65-BB54-70A64F875E77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B414573-14ED-4BCC-AE35-FE9F6173BE86}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4729246B-EE53-4760-BCE3-05F14640DFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4729246B-EE53-4760-BCE3-05F14640DFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4729246B-EE53-4760-BCE3-05F14640DFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4729246B-EE53-4760-BCE3-05F14640DFB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B751E2-B09D-4C65-BB54-70A64F875E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B751E2-B09D-4C65-BB54-70A64F875E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B751E2-B09D-4C65-BB54-70A64F875E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B751E2-B09D-4C65-BB54-70A64F875E77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B57DFF7-3E8B-483B-B18B-36EF73C729B4}
+	EndGlobalSection
+EndGlobal
