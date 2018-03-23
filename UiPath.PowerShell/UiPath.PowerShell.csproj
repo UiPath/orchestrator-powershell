@@ -97,6 +97,7 @@
     <Compile Include="Cmdlets\RemoveTenant.cs" />
     <Compile Include="Cmdlets\RemoveUser.cs" />
     <Compile Include="Cmdlets\SetAuthentication.cs" />
+    <Compile Include="Cmdlets\SetRobot.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />
     <Compile Include="Cmdlets\StopJob.cs" />
     <Compile Include="Models\Job.cs" />
