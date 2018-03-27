@@ -1,5 +1,4 @@
-﻿using System;
-using UiPath.Web.Client.Models;
+﻿using UiPath.Web.Client.Models;
 
 namespace UiPath.PowerShell.Models
 {
@@ -27,6 +26,19 @@ namespace UiPath.PowerShell.Models
                 Description = queue.Description,
                 EnforceUniqueReference = queue.EnforceUniqueReference,
                 MaxNumberOfRetries = queue.MaxNumberOfRetries
+            };
+        }
+
+        internal QueueDefinitionDto ToDto(QueueDefinition queueDefinition)
+        {
+            return new QueueDefinitionDto
+            {
+                Id = queueDefinition.Id,
+                Name = queueDefinition.Name,
+                Description = queueDefinition.Description,
+                AcceptAutomaticallyRetry = queueDefinition.AcceptAutomaticallyRetry,
+                EnforceUniqueReference = queueDefinition.EnforceUniqueReference,
+                MaxNumberOfRetries = queueDefinition.MaxNumberOfRetries
             };
         }
     }

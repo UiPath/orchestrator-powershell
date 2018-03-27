@@ -13,7 +13,7 @@ namespace UiPath.PowerShell.Cmdlets
     public class AddUser : AuthenticatedCmdlet
     {
         [Parameter(Mandatory = true)]
-        public string UserName { get; private set; }
+        public string Username { get; private set; }
 
         //[Credential]
         [Parameter]
@@ -34,7 +34,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public List<long> OrganizationUnitIds { get; set; }
 
-        [ValidateSet("User", "Robot")]
+        [ValidateEnum(typeof(UserDtoType))]
         [Parameter]
         public string Type { get; set; }
 
@@ -42,7 +42,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             var user = new UserDto
             {
-                UserName = UserName,
+                UserName = Username,
                 Password = Password,
                 Name = Name,
                 Surname = Surname,

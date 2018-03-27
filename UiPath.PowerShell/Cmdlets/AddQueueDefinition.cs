@@ -29,9 +29,9 @@ namespace UiPath.PowerShell.Cmdlets
             var queue = Api.QueueDefinitions.Post(new QueueDefinitionDto
             {
                 Name = Name,
-                AcceptAutomaticallyRetry = AcceptAutomaticallyRetry.IsPresent,
+                AcceptAutomaticallyRetry = AcceptAutomaticallyRetry.ToBool(),
                 Description = Description,
-                EnforceUniqueReference = EnforceUniqueReference.IsPresent,
+                EnforceUniqueReference = EnforceUniqueReference.ToBool(),
                 MaxNumberOfRetries = MaxNumberOfRetries
             });
             WriteObject(QueueDefinition.FromDto(queue));

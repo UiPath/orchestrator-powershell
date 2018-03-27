@@ -1,5 +1,4 @@
-﻿using System;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -8,56 +7,55 @@ using UiPath.Web.Client.Models;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsData.Edit, Nouns.Robot)]
-    public class EditRobot : AuthenticatedCmdlet
+    public class EditRobot : EditCmdlet<RobotDto>
     {
+
+        private const string RobotParameterSet = "Robot";
+        private const string IdParameterSet = "Id";
+
         [ValidateNotNull]
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = RobotParameterSet)]
         public Robot Robot { get; set; }
 
+        [ValidateNotNull]
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = IdParameterSet)]
+        public long Id { get; set; }
+
+        [SetParameter]
         [Parameter]
         public string Name { get; private set; }
 
+        [SetParameter]
         [Parameter]
         public string MachineName { get; private set; }
 
+        [SetParameter]
         [Parameter]
         public string LicenseKey { get; private set; }
 
+        [SetParameter]
         [Parameter]
         public string Username { get; private set; }
 
         //[Credential]
+        [SetParameter]
         [Parameter]
         public string Password { get; private set; }
 
+        [SetParameter]
         [Parameter]
         public string Description { get; private set; }
 
-        [ValidateSet("NonProduction", "Attended", "Unattended")]
+        [SetParameter]
+        [ValidateEnum(typeof(RobotDtoType))]
         [Parameter]
         public string Type { get; set; }
 
         protected override void ProcessRecord()
         {
-            var robot = new RobotDto
-            {
-                Id = Robot.Id, // bugbug: UI-6895
-                Name = Name ?? Robot.Name,
-                MachineName = MachineName ?? Robot.MachineName,
-                LicenseKey = LicenseKey ?? Robot.LicenseKey,
-                Username = Username ?? Robot.Username,
-                Password = Password,
-                Description = Description ?? Robot.Description,
-            };
-
-            RobotDtoType type;
-            if (Enum.TryParse<RobotDtoType>(Type, out type))
-            {
-                robot.Type = type;
-            }
-
-            var dto = Api.Robots.PutById(Robot.Id, robot);
-            // WriteObject(Robot.FromDto(dto)); PUT methods do not return object (bug)
+            ProcessImpl(
+                () => (ParameterSetName == RobotParameterSet) ? Robot.ToDto(Robot) : Api.Robots.GetById(Id),
+                (robotDto) => Api.Robots.PutById(robotDto.Id.Value, robotDto));
         }
     }
 }

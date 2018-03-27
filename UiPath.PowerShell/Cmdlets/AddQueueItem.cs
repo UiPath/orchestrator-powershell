@@ -16,7 +16,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true)]
         public string QueueName { get; set; }
 
-        [ValidateSet("Low", "Normal", "High")]
+        [ValidateEnum(typeof(QueueItemDtoPriority))]
         [Parameter]
         public string Priority { get; set; }
 

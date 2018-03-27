@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UiPath.PowerShell.Cmdlets
+﻿namespace UiPath.PowerShell.Cmdlets
 {
     internal static class Nouns
     {
@@ -24,5 +18,8 @@ namespace UiPath.PowerShell.Cmdlets
         internal const string QueueItem = UiPath + "QueuItem";
         internal const string Tenant = UiPath + "Tenant";
         internal const string User = UiPath + "User";
+        internal const string Role = UiPath + "Role";
+        internal const string Permission = UiPath + "Permission";
+        internal const string RolePermission = UiPath + "RolePermission";
     }
 }

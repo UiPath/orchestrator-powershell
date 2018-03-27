@@ -1,19 +1,20 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
+using UiPath.Web.Client.Models;
 using Environment = UiPath.PowerShell.Models.Environment;
 
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Environment)]
-    public class GetEnvironment: FilteredCmdlet
+    public class GetEnvironment: FilteredIdCmdlet
     {
         [Filter]
         [Parameter(ParameterSetName = "Filter")]
         public string Name { get; set; }
 
         [Filter]
-        [ValidateSet("Dev", "Test", "Prod")]
+        [ValidateEnum(typeof(EnvironmentDtoType))]
         [Parameter(ParameterSetName = "Filter")]
         public string Type { get; set; }
 

@@ -5,8 +5,6 @@ using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -51,7 +49,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = "Credential")]
         public PSCredential Credential { get; set; }
 
-        [ValidateSet("DBConnectionString", "HttpConnectionString", "Text", "Bool", "Integer", "Credential", "WindowsCredential", "KeyValueList")]
+        [ValidateEnum(typeof(AssetDtoValueType))]
         [Parameter(Mandatory = true, ParameterSetName = "RobotValues")]
         public string ValueType { get; set; }
 

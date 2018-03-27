@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UiPath.Web.Client.Models;
 
 namespace UiPath.PowerShell.Models
@@ -28,6 +24,20 @@ namespace UiPath.PowerShell.Models
                 Description = dto.Description,
                 Username = dto.Username,
                 Type = dto.Type.ToString()
+            };
+        }
+
+        internal static RobotDto ToDto(Robot robot)
+        {
+            return new RobotDto
+            {
+                Id = robot.Id,
+                LicenseKey = robot.LicenseKey,
+                MachineName = robot.MachineName,
+                Name = robot.Name,
+                Description = robot.Description,
+                Username = robot.Username,
+                Type = (RobotDtoType)Enum.Parse(typeof(RobotDtoType), robot.Type)
             };
         }
     }

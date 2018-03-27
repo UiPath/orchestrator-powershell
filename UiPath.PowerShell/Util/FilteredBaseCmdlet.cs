@@ -3,39 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace UiPath.PowerShell.Util
 {
-    public abstract class FilteredCmdlet: AuthenticatedCmdlet
+    public class FilteredBaseCmdlet : AuthenticatedCmdlet
     {
-        [Parameter(Mandatory = true, ParameterSetName = "Id")]
-        public long? Id { get; set; }
-
-        /*
-        [Parameter(Mandatory = false, ParameterSetName = "Filter")]
-        public SwitchParameter Filter { get; set; }
-        */
-
-            /*
-        [Parameter(Mandatory = false, ParameterSetName = "All")]
-        public SwitchParameter All { get; set; }
-        */
-
-        protected void ProcessImpl<TDto>(Func<string, IList<TDto>> getCollection, Func<long, TDto> getItem, Func<TDto, object> writer)
+        protected void ProcessImpl<TDto>(Func<string, IList<TDto>> getCollection, Func<TDto, object> writer)
         {
-            if (Id.HasValue)
+            var dtos = getCollection(BuildFilter());
+            foreach (var dto in dtos)
             {
-                var dto = getItem(Id.Value);
                 WriteObject(writer(dto));
-            }
-            else
-            {
-                var dtos = getCollection(BuildFilter());
-                foreach(var dto in dtos)
-                {
-                    WriteObject(writer(dto));
-                }
             }
         }
 
@@ -43,7 +22,7 @@ namespace UiPath.PowerShell.Util
         {
             StringBuilder sb = new StringBuilder();
             string and = null;
-            foreach(var p in this.GetType()
+            foreach (var p in this.GetType()
                 .GetProperties()
                 .Where(pi => pi.GetCustomAttributes(true)
                     .Where(o => o is FilterAttribute)
@@ -55,7 +34,7 @@ namespace UiPath.PowerShell.Util
                     var type = value.GetType();
                     if (type.IsAssignableFrom(typeof(SwitchParameter)))
                     {
-                        SwitchParameter sw = (SwitchParameter) value;
+                        SwitchParameter sw = (SwitchParameter)value;
                         if (!sw.IsPresent)
                         {
                             continue;
@@ -74,7 +53,7 @@ namespace UiPath.PowerShell.Util
                     }
                     else
                     {
-                        eqToken = $"'{value.ToString().Replace("'", "''")}'";
+                        eqToken = $"'{HttpUtility.UrlEncode(value.ToString().Replace("'", "''"))}'";
                     }
                     sb.Append($"{and}{p.Name} eq {eqToken}");
                     and = " and ";

@@ -2,11 +2,12 @@
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
+using UiPath.Web.Client.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.User)]
-    public class GetUser: FilteredCmdlet
+    public class GetUser: FilteredIdCmdlet
     {
         [Filter]
         [Parameter(ParameterSetName = "Filter")]
@@ -37,7 +38,7 @@ namespace UiPath.PowerShell.Cmdlets
         public string TenancyName { get; private set; }
 
         [Filter]
-        [ValidateSet("User", "Robot")]
+        [ValidateEnum(typeof(UserDtoType))]
         [Parameter(ParameterSetName = "Filter")]
         public string Type { get; private set; }
 

@@ -6,7 +6,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.QueueDefinition)]
-    public class GetQueueDefinition: FilteredCmdlet
+    public class GetQueueDefinition: FilteredIdCmdlet
     {
 
         [Filter]

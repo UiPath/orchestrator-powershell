@@ -23,13 +23,13 @@ namespace UiPath.PowerShell.Cmdlets
         public string Username { get; private set; }
 
         //[Credential]
-        [Parameter(Mandatory = true)]
+        [Parameter()]
         public string Password { get; private set; }
 
         [Parameter()]
         public string Description { get; private set; }
 
-        [ValidateSet("NonProduction", "Attended", "Unattended")]
+        [ValidateEnum(typeof(RobotDtoType))]
         [Parameter()]
         public string Type { get; set; }
 

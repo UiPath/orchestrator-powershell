@@ -6,7 +6,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Process)]
-    public class GetProcess: FilteredCmdlet
+    public class GetProcess: FilteredIdCmdlet
     {
 
         [Filter]

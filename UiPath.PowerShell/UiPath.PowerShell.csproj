@@ -70,9 +70,14 @@
     <Compile Include="Cmdlets\AddQueueItem.cs" />
     <Compile Include="Cmdlets\AddProcess.cs" />
     <Compile Include="Cmdlets\AddRobot.cs" />
+    <Compile Include="Cmdlets\AddRole.cs" />
     <Compile Include="Cmdlets\AddTenant.cs" />
     <Compile Include="Cmdlets\AddUser.cs" />
+    <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
+    <Compile Include="Cmdlets\GetPermission.cs" />
+    <Compile Include="Cmdlets\GetRole.cs" />
+    <Compile Include="Cmdlets\GrantRolePermission.cs" />
     <Compile Include="Cmdlets\RemoveAsset.cs" />
     <Compile Include="Cmdlets\GetAsset.cs" />
     <Compile Include="Cmdlets\GetAuthToken.cs" />
@@ -94,16 +99,22 @@
     <Compile Include="Cmdlets\RemoveQueueDefinition.cs" />
     <Compile Include="Cmdlets\RemoveQueueItem.cs" />
     <Compile Include="Cmdlets\RemoveRobot.cs" />
+    <Compile Include="Cmdlets\RemoveRole.cs" />
     <Compile Include="Cmdlets\RemoveTenant.cs" />
     <Compile Include="Cmdlets\RemoveUser.cs" />
     <Compile Include="Cmdlets\SetAuthentication.cs" />
-    <Compile Include="Cmdlets\SetRobot.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />
     <Compile Include="Cmdlets\StopJob.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Cmdlets\RevokeRolePermission.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
     <Compile Include="Util\FilterAttribute.cs" />
-    <Compile Include="Util\FilteredCmdlet.cs" />
+    <Compile Include="Util\FilteredBaseCmdlet.cs" />
+    <Compile Include="Util\FilteredIdCmdlet.cs" />
+    <Compile Include="Util\EditCmdlet.cs" />
+    <Compile Include="Util\SetParameterAttribute.cs" />
     <Compile Include="Util\UiPathCmdlet.cs" />
     <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\Environment.cs" />
@@ -120,6 +131,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Util\SpecificItemDtoConverter.cs" />
+    <Compile Include="Util\ValidateEnumAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

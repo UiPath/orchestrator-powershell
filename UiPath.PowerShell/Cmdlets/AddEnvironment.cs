@@ -16,7 +16,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public string Description { get; set; }
 
-        [ValidateSet("Dev", "Test", "Prod")]
+        [ValidateEnum(typeof(EnvironmentDtoType))]
         [Parameter]
         public string Type { get; set; }
 

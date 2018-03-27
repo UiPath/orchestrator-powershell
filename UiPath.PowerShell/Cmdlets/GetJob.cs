@@ -5,7 +5,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Job)]
-    public class GetJob: FilteredCmdlet
+    public class GetJob: FilteredIdCmdlet
     {
         protected override void ProcessRecord()
         {

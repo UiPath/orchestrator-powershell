@@ -6,7 +6,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Robot)]
-    public class GetRobot:FilteredCmdlet
+    public class GetRobot:FilteredIdCmdlet
     {
         [Filter]
         [Parameter(ParameterSetName = "Filter")]

@@ -7,7 +7,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Package)]
-    public class GetPackage: FilteredCmdlet
+    public class GetPackage: FilteredIdCmdlet
     {
         [Filter]
         [Parameter(ParameterSetName = "Filter")]

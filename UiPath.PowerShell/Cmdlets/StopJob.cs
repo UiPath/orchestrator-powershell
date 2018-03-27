@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "JobId")]
         public long? JobId { get; set; }
 
-        [ValidateSet("SoftStop","Kill")]
+        [ValidateSet("SoftStop","Kill")] // There is no StopJob Strategy enum
         [Parameter(Mandatory = true, Position = 1)]
         public string Strategy { get; set; }
 
