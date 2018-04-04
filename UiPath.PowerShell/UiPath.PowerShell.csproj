@@ -71,6 +71,7 @@
     <Compile Include="Cmdlets\AddProcess.cs" />
     <Compile Include="Cmdlets\AddRobot.cs" />
     <Compile Include="Cmdlets\AddRole.cs" />
+    <Compile Include="Cmdlets\EditRoleUser.cs" />
     <Compile Include="Cmdlets\AddTenant.cs" />
     <Compile Include="Cmdlets\AddUser.cs" />
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />

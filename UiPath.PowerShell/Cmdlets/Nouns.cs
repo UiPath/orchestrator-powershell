@@ -19,6 +19,7 @@
         internal const string Tenant = UiPath + "Tenant";
         internal const string User = UiPath + "User";
         internal const string Role = UiPath + "Role";
+        internal const string RoleUser = UiPath + "RoleUser";
         internal const string Permission = UiPath + "Permission";
         internal const string RolePermission = UiPath + "RolePermission";
     }
