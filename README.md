@@ -4,7 +4,7 @@ A PowerShell library for interacting with [UiPath Orchestrator](https://orchestr
 
 # Getting Started
 
-Build solution to obtain the `UiPath.PowerShell.dll` module. Import the module in PowerShell:
+Download the desired version module from the [Releases](https://github.com/UiPath/orchestrator-powershell/releases) page, or build solution to obtain the `UiPath.PowerShell.dll` module. Import the module in PowerShell:
 
 ```PowerShell
 PS C:\>Import-Module UiPath.PowerShell.dll

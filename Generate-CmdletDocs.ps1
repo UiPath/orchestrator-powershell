@@ -5,7 +5,7 @@ $file = "docs\Home.md"
 "" | Out-File $file -Encoding utf8
 foreach($cmdlet in $cmdlets)
 {
-	"[$($cmdlet.Name)]($($cmdlet.Name).md)" | Out-File  $file -Encoding utf8 -Append
+	"- [$($cmdlet.Name)]($($cmdlet.Name).md)" | Out-File  $file -Encoding utf8 -Append
 }
 
 foreach($cmdlet in $cmdlets) 

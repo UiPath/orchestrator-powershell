@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.PowerShell", "UiPath
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B414573-14ED-4BCC-AE35-FE9F6173BE86}"
 	ProjectSection(SolutionItems) = preProject
+		Generate-CmdletDocs.ps1 = Generate-CmdletDocs.ps1
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
@@ -19,6 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C28CC0D0
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.PowerShell.Tests", "UiPath.PowerShell.Tests\UiPath.PowerShell.Tests.csproj", "{94A57D5B-56BC-482F-88B0-0DF1FEDFB148}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{BBCF7871-E3BE-491E-B522-8616CFACB4E8}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Sync-UiPathADUsers.ps1 = Examples\Sync-UiPathADUsers.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,5 +11,4 @@ using System.Reflection;
 
 // The version should be set to match the current released platform version
 //
-[assembly: AssemblyVersion("18.1.3.0")]
-[assembly: AssemblyFileVersion("18.1.3.0")]
+[assembly: AssemblyVersion("18.1.3.*")]
