@@ -80,6 +80,7 @@
     <Compile Include="Cmdlets\GetPermission.cs" />
     <Compile Include="Cmdlets\GetRole.cs" />
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
+    <Compile Include="Cmdlets\GetTimeZones.cs" />
     <Compile Include="Cmdlets\GrantRolePermission.cs" />
     <Compile Include="Cmdlets\RemoveAsset.cs" />
     <Compile Include="Cmdlets\GetAsset.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Cmdlets\RevokeRolePermission.cs" />
     <Compile Include="Models\ProcessSchedule.cs" />
+    <Compile Include="Models\Timezone.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
     <Compile Include="Util\FilterAttribute.cs" />
     <Compile Include="Util\FilteredBaseCmdlet.cs" />

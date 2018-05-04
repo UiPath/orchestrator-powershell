@@ -26,6 +26,7 @@
 - [Get-UiPathRobot](Get-UiPathRobot.md)
 - [Get-UiPathRole](Get-UiPathRole.md)
 - [Get-UiPathTenant](Get-UiPathTenant.md)
+- [Get-UiPathTimeZones](Get-UiPathTimeZones.md)
 - [Get-UiPathUser](Get-UiPathUser.md)
 - [Grant-UiPathRolePermission](Grant-UiPathRolePermission.md)
 - [Register-UiPathLicense](Register-UiPathLicense.md)
