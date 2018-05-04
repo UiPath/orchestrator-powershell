@@ -23,12 +23,12 @@ namespace UiPath.PowerShell.Util
         {
             if (Id.HasValue)
             {
-                var dto = getItem(Id.Value);
+                var dto = HandleHttpOperationException(() => getItem(Id.Value));
                 WriteObject(writer(dto));
             }
             else
             {
-                var dtos = getCollection(BuildFilter());
+                var dtos = HandleHttpOperationException(() => getCollection(BuildFilter()));
                 foreach(var dto in dtos)
                 {
                     WriteObject(writer(dto));

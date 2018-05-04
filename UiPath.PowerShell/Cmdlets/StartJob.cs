@@ -47,7 +47,7 @@ namespace UiPath.PowerShell.Cmdlets
                 startJob.StartInfo.Strategy = StartProcessDtoStrategy.Specific;
                 startJob.StartInfo.RobotIds = Robots.Cast<long?>().ToList();
             }
-            var jobs = Api.Jobs.StartJobs(startJob);
+            var jobs = HandleHttpOperationException(() => Api.Jobs.StartJobs(startJob));
             foreach(var dto in jobs.Value)
             {
                 WriteObject(Models.Job.FromDto(dto));

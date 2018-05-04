@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 environment.Type = type;
             }
-            var dto = Api.Environments.Post(environment);
+            var dto = HandleHttpOperationException(() => Api.Environments.Post(environment));
 
             WriteObject(Environment.FromDto(dto));
         }

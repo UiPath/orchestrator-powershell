@@ -24,10 +24,10 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            Api.Environments.RemoveRobotById(Environment?.Id ?? EnvironmentId.Value, new RemoveRobotParameters
+            HandleHttpOperationException(() => Api.Environments.RemoveRobotById(Environment?.Id ?? EnvironmentId.Value, new RemoveRobotParameters
             {
                 RobotId = (Robot?.Id ?? RobotId.Value).ToString()
-            });
+            }));
         }
     }
 }

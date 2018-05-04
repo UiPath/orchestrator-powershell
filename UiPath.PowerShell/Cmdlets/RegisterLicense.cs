@@ -21,7 +21,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             using (var stream = File.OpenRead(LicenseFile))
             {
-                Api.Settings.UploadLicense(stream);
+                HandleHttpOperationException(() => Api.Settings.UploadLicense(stream));
             }
         }
     }

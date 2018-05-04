@@ -18,7 +18,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            Api.QueueDefinitions.DeleteById(QueueDefinition?.Id ?? Id.Value);
+            HandleHttpOperationException(() => Api.QueueDefinitions.DeleteById(QueueDefinition?.Id ?? Id.Value));
         }
     }
 }

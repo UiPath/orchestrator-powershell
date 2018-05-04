@@ -27,11 +27,11 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            Api.Roles.SetUsersById(Role?.Id ?? Id.Value, new SetUsersParameters
+            HandleHttpOperationException(() => Api.Roles.SetUsersById(Role?.Id ?? Id.Value, new SetUsersParameters
             {
                 AddedUserIds = Add?.Select(id => (long?)id).ToList() ?? new List<long?>(),
                 RemovedUserIds = Remove?.Select(id => (long?)id).ToList() ?? new List<long?>(),
-            });
+            }));
         }
     }
 }

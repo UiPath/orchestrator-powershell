@@ -37,6 +37,12 @@
         public const string Asset = "Asset";
         public const string QueueDefinition = "QueueDefinition";
 
+        public const string Environment = "Environment";
+        public const string Process = "Process";
+        public const string StartProcessCron = "StartProcessCron";
+        public const string RobotCount = "RobotCount";
+        public const string TimeZoneId = "TimeZoneId";
+
         public const string AddUiPathAsset = "Add-UiPathAsset";
         public const string GetUiPathAsset = "Get-UiPathAsset";
         public const string EditUiPathAsset = "Edit-UiPathAsset";
@@ -72,5 +78,17 @@
         public const string GetUiPathTenant = "Get-UiPathTenant";
         public const string EditUiPathTenant = "Edit-UiPathTenant";
         public const string RemoveUiPathTenant = "Remove-UiPathTenant";
+
+        public const string AddUiPathProcess = "Add-UiPathProcess";
+        public const string GetUiPathProcess = "Get-UiPathProcess";
+        public const string EditUiPathProcess = "Edit-UiPathProcess";
+        public const string RemoveUiPathProcess = "Remove-UiPathProcess";
+
+
+        public const string AddUiPathProcessSchedule = "Add-UiPathProcessSchedule";
+        public const string GetUiPathProcessSchedule = "Get-UiPathProcessSchedule";
+        public const string EditUiPathProcessSchedule = "Edit-UiPathProcessSchedule";
+        public const string RemoveUiPathProcessSchedule = "Remove-UiPathProcessSchedule";
+
     }
 }

@@ -15,16 +15,16 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "JobId")]
         public long? JobId { get; set; }
 
-        [ValidateSet("SoftStop","Kill")] // There is no StopJob Strategy enum
+        [ValidateEnum(typeof(ProcessScheduleDtoStopStrategy))]
         [Parameter(Mandatory = true, Position = 1)]
         public string Strategy { get; set; }
 
         protected override void ProcessRecord()
         {
-            Api.Jobs.StopJobById(Job?.Id ?? JobId.Value, new StopJobParameters
+            HandleHttpOperationException(() => Api.Jobs.StopJobById(Job?.Id ?? JobId.Value, new StopJobParameters
             {
                 Strategy = Strategy
-            });
+            }));
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="Cmdlets\AddEnvironment.cs" />
     <Compile Include="Cmdlets\AddEnvironmentRobot.cs" />
     <Compile Include="Cmdlets\AddPackage.cs" />
+    <Compile Include="Cmdlets\AddProcessSchedule.cs" />
     <Compile Include="Cmdlets\AddQueueItem.cs" />
     <Compile Include="Cmdlets\AddProcess.cs" />
     <Compile Include="Cmdlets\AddRobot.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Cmdlets\EditRobot.cs" />
     <Compile Include="Cmdlets\GetPermission.cs" />
     <Compile Include="Cmdlets\GetRole.cs" />
+    <Compile Include="Cmdlets\GetProcessSchedule.cs" />
     <Compile Include="Cmdlets\GrantRolePermission.cs" />
     <Compile Include="Cmdlets\RemoveAsset.cs" />
     <Compile Include="Cmdlets\GetAsset.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Cmdlets\RemoveEnvironmentRobot.cs" />
     <Compile Include="Cmdlets\RemovePackage.cs" />
     <Compile Include="Cmdlets\RemoveProcess.cs" />
+    <Compile Include="Cmdlets\RemoveProcessSchedule.cs" />
     <Compile Include="Cmdlets\RemoveQueueDefinition.cs" />
     <Compile Include="Cmdlets\RemoveQueueItem.cs" />
     <Compile Include="Cmdlets\RemoveRobot.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Cmdlets\RevokeRolePermission.cs" />
+    <Compile Include="Models\ProcessSchedule.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
     <Compile Include="Util\FilterAttribute.cs" />
     <Compile Include="Util\FilteredBaseCmdlet.cs" />

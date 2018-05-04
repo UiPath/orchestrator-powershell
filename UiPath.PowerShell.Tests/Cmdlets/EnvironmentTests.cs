@@ -24,7 +24,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.Name, name)
                         .AddParameter(UiPathStrings.Description, description)
                         .AddParameter(UiPathStrings.Type, EnvironmentDtoType.Dev);
-                    var environments = cmdlet.Invoke<Environment>();
+                    var environments = Invoke<Environment>(cmdlet);
 
                     Validators.ValidateEnvironmentResponse(environments, null, name, description, EnvironmentDtoType.Dev);
 
@@ -35,7 +35,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathEnvironment)
                         .AddParameter(UiPathStrings.Id, environmentId);
-                    var environments = cmdlet.Invoke<Environment>();
+                    var environments = Invoke<Environment>(cmdlet);
 
                     Validators.ValidateEnvironmentResponse(environments, environmentId, name, description, EnvironmentDtoType.Dev);
                 }
@@ -44,14 +44,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathEnvironment)
                         .AddParameter(UiPathStrings.Id, environmentId);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathEnvironment)
                         .AddParameter(UiPathStrings.Name, name);
-                    var environments = cmdlet.Invoke<Environment>();
+                    var environments = Invoke<Environment>(cmdlet);
                     Validators.ValidatEmptyResponse(environments);
                 }
             }
@@ -72,7 +72,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                             .AddParameter(UiPathStrings.Name, name)
                             .AddParameter(UiPathStrings.Description, description)
                             .AddParameter(UiPathStrings.Type, envType);
-                        var environments = cmdlet.Invoke<Environment>();
+                        var environments = Invoke<Environment>(cmdlet);
 
                         Validators.ValidateEnvironmentResponse(environments, null, name, description, (EnvironmentDtoType)envType);
 
@@ -97,7 +97,17 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.Name, name)
                         .AddParameter(UiPathStrings.Description, description)
                         .AddParameter(UiPathStrings.Type, "Invalid");
-                    Assert.ThrowsException<ValidationMetadataException>(() => cmdlet.Invoke<Environment>());
+                    // Not clear if it should be ParameterBindingValidationException or ValidationMetadataException
+                    // And ParameterBindingValidationException does not resolve...
+                    try
+                    {
+                        Invoke<Environment>(cmdlet);
+                        Assert.Fail("The Invoke was supposed to throw!");
+                    }
+                    catch(RuntimeException re)
+                    {
+                        Assert.AreEqual("Cannot validate argument on parameter 'Type'. The argument \"Invalid\" does not belong to the set \"Dev,Test,Prod\" specified by the ValidateEnum attribute. Supply an argument that is in the set and then try the command again", re.Message);
+                    }
                 }
             }
         }

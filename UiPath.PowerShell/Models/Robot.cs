@@ -27,6 +27,17 @@ namespace UiPath.PowerShell.Models
             };
         }
 
+        internal static Robot FromDto(RobotExecutorDto dto)
+        {
+            return new Robot
+            {
+                Id = dto.Id.Value,
+                MachineName = dto.MachineName,
+                Name = dto.Name,
+                Description = dto.Description,
+            };
+        }
+
         internal static RobotDto ToDto(Robot robot)
         {
             return new RobotDto

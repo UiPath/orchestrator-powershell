@@ -26,14 +26,14 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            var queue = Api.QueueDefinitions.Post(new QueueDefinitionDto
+            var queue = HandleHttpOperationException(() => Api.QueueDefinitions.Post(new QueueDefinitionDto
             {
                 Name = Name,
                 AcceptAutomaticallyRetry = AcceptAutomaticallyRetry.ToBool(),
                 Description = Description,
                 EnforceUniqueReference = EnforceUniqueReference.ToBool(),
                 MaxNumberOfRetries = MaxNumberOfRetries
-            });
+            }));
             WriteObject(QueueDefinition.FromDto(queue));
         }
     }

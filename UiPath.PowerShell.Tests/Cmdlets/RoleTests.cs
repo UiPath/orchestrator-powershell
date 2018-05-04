@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         //.AddParameter(UiPathStrings.DisplayName, displaName)  -- bugbug: the displayname is ignored by Orchestrator
                         .AddParameter(UiPathStrings.IsEditable)
                         .AddParameter(UiPathStrings.Permissions, permissions);
-                    var roles = cmdlet.Invoke<Role>();
+                    var roles = Invoke<Role>(cmdlet);
                     Validators.ValidateRoleResult(roles, null, name, name, true, false, null);
                     role = roles[0];
                 }
@@ -41,7 +41,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRole)
                         .AddParameter(UiPathStrings.Name, role.Name);
-                    var roles = cmdlet.Invoke<Role>();
+                    var roles = Invoke<Role>(cmdlet);
                     Validators.ValidateRoleResult(roles, role.Id, name, name, true, false, permissions);
                 }
 
@@ -49,14 +49,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathRole)
                         .AddParameter(UiPathStrings.Id, role.Id);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
 
                     using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRole)
                         .AddParameter(UiPathStrings.Name, role.Name);
-                    var roles = cmdlet.Invoke<Role>();
+                    var roles = Invoke<Role>(cmdlet);
                     Validators.ValidatEmptyResponse(roles);
                 }
             }

@@ -40,7 +40,7 @@ namespace UiPath.PowerShell.Cmdlets
                 }).ToList()
             };
 
-            var resp = Api.Roles.Post(req);
+            var resp = HandleHttpOperationException(() => Api.Roles.Post(req));
             WriteObject(Role.FromDto(resp));
         }
     }

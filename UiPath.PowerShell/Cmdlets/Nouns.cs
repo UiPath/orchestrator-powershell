@@ -12,15 +12,16 @@
         internal const string Job = UiPath + "Job";
         internal const string License = UiPath + "License";
         internal const string Package = UiPath + "Package";
+        internal const string Permission = UiPath + "Permission";
         internal const string Process = UiPath + "Process";
+        internal const string ProcessSchedule = UiPath + "ProcessSchedule";
         internal const string Robot = UiPath + "Robot";
+        internal const string Role = UiPath + "Role";
+        internal const string RoleUser = UiPath + "RoleUser";
+        internal const string RolePermission = UiPath + "RolePermission";
         internal const string QueueDefinition = UiPath + "QueueDefinition";
         internal const string QueueItem = UiPath + "QueuItem";
         internal const string Tenant = UiPath + "Tenant";
         internal const string User = UiPath + "User";
-        internal const string Role = UiPath + "Role";
-        internal const string RoleUser = UiPath + "RoleUser";
-        internal const string Permission = UiPath + "Permission";
-        internal const string RolePermission = UiPath + "RolePermission";
     }
 }

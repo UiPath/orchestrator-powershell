@@ -147,7 +147,7 @@ namespace UiPath.PowerShell.Cmdlets
                 }).ToList();
             }
 
-            var dto = Api.Assets.Post(asset);
+            var dto = HandleHttpOperationException(() => Api.Assets.Post(asset));
             WriteObject(Asset.FromDto(dto));
         }
 

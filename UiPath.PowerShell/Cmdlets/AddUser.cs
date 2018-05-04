@@ -55,7 +55,7 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 user.Type = type;
             }
-            var dto = Api.Users.Post(user);
+            var dto = HandleHttpOperationException(() => Api.Users.Post(user));
             WriteObject(User.FromDto(dto));
         }
     }

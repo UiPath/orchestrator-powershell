@@ -28,8 +28,8 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                () => (ParameterSetName == QueueDefinitionParameterSet) ? QueueDefinition.ToDto(QueueDefinition) : Api.QueueDefinitions.GetById(Id),
-                (queueDto) => Api.QueueDefinitions.PutById(queueDto.Id.Value, queueDto));
+                () => (ParameterSetName == QueueDefinitionParameterSet) ? QueueDefinition.ToDto(QueueDefinition) : HandleHttpOperationException(() => Api.QueueDefinitions.GetById(Id)),
+                (queueDto) => HandleHttpOperationException(() => Api.QueueDefinitions.PutById(queueDto.Id.Value, queueDto)));
         }
     }
 }

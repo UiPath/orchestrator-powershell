@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.EmailAddress, email)
                         .AddParameter(UiPathStrings.Type, userType)
                         .AddParameter(UiPathStrings.RolesList, new List<string>() { UiPathStrings.Administrator });
-                    var users = cmdlet.Invoke<User>();
+                    var users = Invoke<User>(cmdlet);
                     Validators.ValidateUserResponse(users, null, userName, password, name, surname, email, userType);
                     user = users[0];
                 }
@@ -41,7 +41,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathUser)
                         .AddParameter(UiPathStrings.Id, user.Id);
-                    var users = cmdlet.Invoke<User>();
+                    var users = Invoke<User>(cmdlet);
                     Validators.ValidateUserResponse(users, user.Id, userName, password, name, surname, email, userType);
                 }
 
@@ -49,14 +49,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathUser)
                         .AddParameter(UiPathStrings.Id, user.Id);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathUser)
                         .AddParameter(UiPathStrings.Username, userName);
-                    var users = cmdlet.Invoke<User>();
+                    var users = Invoke<User>(cmdlet);
                     Validators.ValidatEmptyResponse(users);
                 }
             }

@@ -40,7 +40,7 @@ namespace UiPath.PowerShell.Cmdlets
                 ProcessKey = Package?.Id ?? PackageId,
                 ProcessVersion = Package?.Version ?? PackageVersion
             };
-            var dto = Api.Releases.Post(release);
+            var dto = HandleHttpOperationException(() => Api.Releases.Post(release));
             WriteObject(Process.FromDto(dto));
         }
     }

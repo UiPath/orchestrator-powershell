@@ -34,7 +34,7 @@ namespace UiPath.PowerShell.Cmdlets
                 AdminPassword = AdminPassword,
                 AdminSurname = AdminSurname
             };
-            var dto = Api.Tenants.Post(tenant);
+            var dto = HandleHttpOperationException(() => Api.Tenants.Post(tenant));
             WriteObject(Tenant.ForDto(dto));
         }
     }

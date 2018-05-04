@@ -27,7 +27,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         [Filter]
         [Parameter(ParameterSetName = "Filter")]
-        public long EnvironmentId { get; private set; }
+        public long? EnvironmentId { get; private set; }
 
         [Filter]
         [Parameter(ParameterSetName = "Filter")]

@@ -22,7 +22,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.Name, name)
                         .AddParameter(UiPathStrings.Description, description)
                         .AddParameter(UiPathStrings.AcceptAutomaticallyRetry);
-                    var queues = cmdlet.Invoke<QueueDefinition>();
+                    var queues = Invoke<QueueDefinition>(cmdlet);
 
                     Validators.ValidateQueueDefinitionResponse(queues, null, name, description, true, false, 0);
 
@@ -33,7 +33,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathQueueDefinition)
                         .AddParameter(UiPathStrings.Id, queue.Id);
-                    var queues = cmdlet.Invoke<QueueDefinition>();
+                    var queues = Invoke<QueueDefinition>(cmdlet);
 
                     Validators.ValidateQueueDefinitionResponse(queues, queue.Id, name, description, true, false, 0);
                 }
@@ -42,7 +42,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathQueueDefinition)
                         .AddParameter(UiPathStrings.Id, queue.Id);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.Name, name)
                         .AddParameter(UiPathStrings.Description, description)
                         .AddParameter(UiPathStrings.AcceptAutomaticallyRetry);
-                    var queues = cmdlet.Invoke<QueueDefinition>();
+                    var queues = Invoke<QueueDefinition>(cmdlet);
 
                     Validators.ValidateQueueDefinitionResponse(queues, null, name, description, true, false, 0);
 
@@ -76,14 +76,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                     cmdlet.AddCommand(UiPathStrings.EditUiPathQueueDefinition)
                         .AddArgument(queue)
                         .AddParameter(UiPathStrings.Description, description);
-                    cmdlet.Invoke<QueueDefinition>();
+                    Invoke<QueueDefinition>(cmdlet);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathQueueDefinition)
                         .AddParameter(UiPathStrings.Id, queue.Id);
-                    var queues = cmdlet.Invoke<QueueDefinition>();
+                    var queues = Invoke<QueueDefinition>(cmdlet);
 
                     Validators.ValidateQueueDefinitionResponse(queues, queue.Id, name, description, true, false, 0);
                 }
@@ -92,7 +92,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathQueueDefinition)
                         .AddParameter(UiPathStrings.QueueDefinition, queue);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
             }
         }

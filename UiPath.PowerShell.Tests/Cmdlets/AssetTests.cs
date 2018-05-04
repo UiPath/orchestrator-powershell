@@ -23,7 +23,7 @@ namespace UiPath.PowerShell.Tests
                     cmdlet.AddCommand(UiPathStrings.AddUiPathAsset)
                         .AddArgument(assetName)
                         .AddParameter(UiPathStrings.TextValue, assetValue);
-                    var assets = cmdlet.Invoke<Asset>();
+                    var assets = Invoke<Asset>(cmdlet);
 
                     Validators.ValidateAssetResponse(assets, null, assetName, AssetDtoValueType.Text, assetValue);
 
@@ -35,7 +35,7 @@ namespace UiPath.PowerShell.Tests
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathAsset)
                         .AddArgument(asset);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace UiPath.PowerShell.Tests
                     cmdlet.AddCommand(UiPathStrings.AddUiPathAsset)
                         .AddParameter(UiPathStrings.Name, assetName)
                         .AddParameter(UiPathStrings.TextValue, assetValue);
-                    var assets = cmdlet.Invoke<Asset>();
+                    var assets = Invoke<Asset>(cmdlet);
 
                     Validators.ValidateAssetResponse(assets, null, assetName, AssetDtoValueType.Text, assetValue);
 
@@ -65,7 +65,7 @@ namespace UiPath.PowerShell.Tests
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathAsset)
                         .AddParameter(UiPathStrings.Name, assetName);
-                    var assets = cmdlet.Invoke<Asset>();
+                    var assets = Invoke<Asset>(cmdlet);
                     Validators.ValidateAssetResponse(assets, assetId, assetName, AssetDtoValueType.Text, assetValue);
                 }
 
@@ -74,7 +74,7 @@ namespace UiPath.PowerShell.Tests
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathAsset)
                         .AddParameter(UiPathStrings.Id, assetId);
-                    cmdlet.Invoke();
+                    Invoke(cmdlet);
                 }
 
                 // Validate is removed
@@ -82,7 +82,7 @@ namespace UiPath.PowerShell.Tests
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathAsset)
                         .AddParameter(UiPathStrings.Name, assetName);
-                    var assets = cmdlet.Invoke<Asset>();
+                    var assets = Invoke<Asset>(cmdlet);
                     Validators.ValidatEmptyResponse(assets);
                 }
             }

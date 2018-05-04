@@ -51,7 +51,7 @@ namespace UiPath.PowerShell.Cmdlets
                 robot.Type = type;
             }
 
-            var dto = Api.Robots.Post(robot);
+            var dto = HandleHttpOperationException(() => Api.Robots.Post(robot));
             WriteObject(Robot.FromDto(dto));
         }
     }

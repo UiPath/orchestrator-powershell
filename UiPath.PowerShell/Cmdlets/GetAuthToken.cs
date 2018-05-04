@@ -44,7 +44,7 @@ namespace UiPath.PowerShell.Cmdlets
                     UsernameOrEmailAddress = Username,
                     Password = Password
                 };
-                var response = client.Account.Authenticate(loginModel);
+                var response = HandleHttpOperationException(() => client.Account.Authenticate(loginModel));
                 var token = (string) response.Result;
 
                 var authToken = new AuthToken

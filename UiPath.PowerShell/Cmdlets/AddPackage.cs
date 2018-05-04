@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             using (var stream = File.OpenRead(PackageFile))
             {
-                Api.Processes.UploadPackage(stream);
+                HandleHttpOperationException(() => Api.Processes.UploadPackage(stream));
             }
         }
     }

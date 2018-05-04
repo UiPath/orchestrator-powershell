@@ -17,10 +17,10 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            Api.Environments.AddRobotById(Environment.Id, new AddRobotParameters
+            HandleHttpOperationException(() => Api.Environments.AddRobotById(Environment.Id, new AddRobotParameters
             {
                 RobotId = Robot.Id.ToString()
-            });
+            }));
         }
     }
 }

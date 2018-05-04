@@ -30,7 +30,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.LicenseKey, licenseKey)
                         .AddParameter(UiPathStrings.Username, username)
                         .AddParameter(UiPathStrings.Type, RobotDtoType.NonProduction);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidateRobotResponse(robots, null, name, description, machine, licenseKey, RobotDtoType.NonProduction);
 
@@ -41,7 +41,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRobot)
                         .AddParameter(UiPathStrings.Id, robotId);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidateRobotResponse(robots, robotId, name, description, machine, licenseKey, RobotDtoType.NonProduction);
                 }
@@ -50,14 +50,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathRobot)
                         .AddParameter(UiPathStrings.Id, robotId);
-                    cmdlet.Invoke<Robot>();
+                    Invoke<Robot>(cmdlet);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRobot)
                         .AddParameter(UiPathStrings.Name, name);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidatEmptyResponse(robots);
                 }
@@ -86,7 +86,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.LicenseKey, licenseKey)
                         .AddParameter(UiPathStrings.Username, username)
                         .AddParameter(UiPathStrings.Type, RobotDtoType.NonProduction);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidateRobotResponse(robots, null, name, description, machine, licenseKey, RobotDtoType.NonProduction);
 
@@ -99,7 +99,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.Id, robotId)
                         .AddParameter(UiPathStrings.Password, TestRandom.RandomPassword())
                         .AddParameter(UiPathStrings.Type, RobotDtoType.Unattended);
-                    cmdlet.Invoke<Robot>();
+                    Invoke<Robot>(cmdlet);
                 }
 
                 Robot robot = null;
@@ -108,7 +108,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRobot)
                         .AddParameter(UiPathStrings.Id, robotId);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidateRobotResponse(robots, robotId, name, description, machine, licenseKey, RobotDtoType.Unattended);
                     robot = robots[0];
@@ -119,14 +119,14 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 {
                     cmdlet.AddCommand(UiPathStrings.RemoveUiPathRobot)
                         .AddArgument(robot);
-                    cmdlet.Invoke<Robot>();
+                    Invoke<Robot>(cmdlet);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRobot)
                         .AddParameter(UiPathStrings.Name, name);
-                    var robots = cmdlet.Invoke<Robot>();
+                    var robots = Invoke<Robot>(cmdlet);
 
                     Validators.ValidatEmptyResponse(robots);
                 }

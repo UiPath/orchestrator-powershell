@@ -50,10 +50,10 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 dto.Priority = priority;
             }
-            var queueItem = Api.Queues.AddQueueItem(new QueueItemParameters
+            var queueItem = HandleHttpOperationException(() => Api.Queues.AddQueueItem(new QueueItemParameters
             {
                 ItemData = dto
-            });
+            }));
 
             WriteObject(QueueItem.FromDto(queueItem));
         }

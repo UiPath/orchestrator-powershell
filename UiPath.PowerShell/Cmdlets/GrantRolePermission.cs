@@ -31,7 +31,7 @@ namespace UiPath.PowerShell.Cmdlets
                     IsGranted = true,
                     RoleId = dto.Id.Value
                 }).ToList();
-            Api.Roles.PutById(dto.Id.Value, dto);
+            HandleHttpOperationException(() => Api.Roles.PutById(dto.Id.Value, dto));
         }
     }
 }

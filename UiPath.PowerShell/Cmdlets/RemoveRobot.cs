@@ -18,7 +18,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            Api.Robots.DeleteById(Robot?.Id ?? Id.Value);
+            HandleHttpOperationException(() => Api.Robots.DeleteById(Robot?.Id ?? Id.Value));
         }
     }
 }

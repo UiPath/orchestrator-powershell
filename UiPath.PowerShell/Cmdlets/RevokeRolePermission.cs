@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Cmdlets
             }
             if (hasChanges)
             {
-                Api.Roles.PutById(dto.Id.Value, dto);
+                HandleHttpOperationException(() => Api.Roles.PutById(dto.Id.Value, dto));
             }
         }
     }

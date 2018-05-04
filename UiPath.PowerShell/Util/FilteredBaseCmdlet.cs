@@ -11,7 +11,7 @@ namespace UiPath.PowerShell.Util
     {
         protected void ProcessImpl<TDto>(Func<string, IList<TDto>> getCollection, Func<TDto, object> writer)
         {
-            var dtos = getCollection(BuildFilter());
+            var dtos = HandleHttpOperationException(() => getCollection(BuildFilter()));
             foreach (var dto in dtos)
             {
                 WriteObject(writer(dto));
