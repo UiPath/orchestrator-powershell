@@ -1,8 +1,8 @@
 ﻿using Microsoft.Rest;
 using System;
 using System.Management.Automation;
+using System.Net;
 using UiPath.PowerShell.Models;
-using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
 
 namespace UiPath.PowerShell.Util
@@ -27,7 +27,21 @@ namespace UiPath.PowerShell.Util
                     {
                         throw new Exception("An authentication token is required. Specify a value for -AuthToken on the cmdlet or call Set-Authentication for the session");
                     }
-                    _api = new UiPathWebApi(new TokenCredentials(authToken.Token))
+
+                    ServiceClientCredentials creds = null;
+                    if (authToken.WindowsCredentials)
+                    {
+                        creds = new NetworkAuthenticationCredentials
+                        {
+                            Credentials = CredentialCache.DefaultNetworkCredentials
+                        };
+                    }
+                    else
+                    {
+                        creds = new TokenCredentials(authToken.Token);
+                    }
+
+                    _api = new UiPathWebApi(creds)
                     {
                         BaseUri = new Uri(authToken.URL)
                     };

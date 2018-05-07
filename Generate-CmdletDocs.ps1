@@ -12,6 +12,6 @@ foreach($cmdlet in $cmdlets)
 {
 	$file = "docs\$($cmdlet.Name).md"
 	"``````PowerShell" | Out-File $file -Encoding utf8
-	Get-Help $cmdlet.Name | Out-File $file -Encoding utf8 -Append
+	Get-Help $cmdlet.Name -example | Out-File $file -Encoding utf8 -Append
 	"``````" | Out-File $file -Encoding utf8 -Append
 }

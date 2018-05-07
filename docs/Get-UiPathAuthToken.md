@@ -7,21 +7,23 @@ SYNOPSIS
     Obtains an UiPath authentication token
     
     
-SYNTAX
-    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-Session <SwitchParameter>] 
-    [-TenantName <string>] [<CommonParameters>]
+    ----------  EXAMPLE 1  ----------
     
+    Get-UiPathAuthToken -URL https://platform.uipath.com -Username <myuser> -Password <mypassword>
     
-DESCRIPTION
-    The authentication token is needed for other UiPath Powershell cmdlets.
+    Connect to UiPath public platform Orchestrator, using user name and password.
+    ----------  EXAMPLE 2  ----------
     
-
-RELATED LINKS
-
-REMARKS
-    To see the examples, type: "get-help Get-UiPathAuthToken -examples".
-    For more information, type: "get-help Get-UiPathAuthToken -detailed".
-    For technical information, type: "get-help Get-UiPathAuthToken -full".
+    Get-UiPathAuthToken -URL https://platform.uipath.com -Username <myuser> -Password <mypassword> -Session
+    
+    Connect to UiPath public platform Orchestrator, using user name and password and save the token for the current 
+    session.
+    ----------  EXAMPLE 3  ----------
+    
+    Get-UiPathAuthToken -URL https://uipath.corpnet -WindowsCredentials -Session
+    
+    Connect to a private Orchestrator with Windows enabled, using current Windows credentials and save the token for 
+    current session.
 
 
 
