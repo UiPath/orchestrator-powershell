@@ -46,7 +46,7 @@ namespace UiPath.PowerShell.Tests.Util
             Assert.AreEqual(expectedDescription, environment.Description);
         }
 
-        internal static void ValidateRoleResult(Collection<Role> roles, int? id, string name, string displaName, bool isEditable, bool isStatic, List<string> permissions)
+        internal static void ValidateRoleResult(Collection<Role> roles, int? id, string name, string displaName, bool isStatic, List<string> permissions)
         {
             Assert.IsNotNull(roles);
             Assert.AreEqual(1, roles.Count);
@@ -60,7 +60,6 @@ namespace UiPath.PowerShell.Tests.Util
             }
             Assert.AreEqual(name, role.Name);
             Assert.AreEqual(displaName, role.DisplayName);
-            Assert.AreEqual(isEditable, role.IsEditable);
             Assert.AreEqual(isStatic, role.IsStatic);
 
 

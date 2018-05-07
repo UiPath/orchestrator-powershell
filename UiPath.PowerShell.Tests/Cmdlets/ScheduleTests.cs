@@ -23,7 +23,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))
                 {
                     cmdlet.AddCommand(UiPathStrings.GetUiPathProcess)
-                        .AddParameter(UiPathStrings.Id, 2);
+                        .AddParameter(UiPathStrings.Id, 1);
                     var processes = Invoke<Process>(cmdlet);
                     process = processes[0];
                 }

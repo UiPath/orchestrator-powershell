@@ -13,9 +13,6 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true)]
         public string Name { get; set; }
 
-        //[Parameter]
-        //public string DisplayName { get; set; } 
-
         [Parameter]
         public string[] Permissions { get; set; }
 
@@ -30,8 +27,6 @@ namespace UiPath.PowerShell.Cmdlets
             var req = new RoleDto
             {
                 Name = Name,
-                //DisplayName = DisplayName,
-                IsEditable = IsEditable.IsPresent,
                 IsStatic = IsStatic.IsPresent,
                 Permissions = Permissions?.Select(p => new PermissionDto
                 {

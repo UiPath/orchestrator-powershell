@@ -105,7 +105,6 @@
     <Compile Include="Cmdlets\RemoveQueueItem.cs" />
     <Compile Include="Cmdlets\RemoveRobot.cs" />
     <Compile Include="Cmdlets\RemoveRole.cs" />
-    <Compile Include="Cmdlets\RemoveTenant.cs" />
     <Compile Include="Cmdlets\RemoveUser.cs" />
     <Compile Include="Cmdlets\SetAuthentication.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />

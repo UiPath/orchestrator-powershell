@@ -39,7 +39,6 @@ namespace UiPath.PowerShell.Models
                 startProcessCronDetails = dto.StartProcessCronDetails,
                 StartProcessCronSummary = dto.StartProcessCronSummary,
                 StopProcessCron = dto.StopProcessExpression,
-                TimeZoneIana = dto.TimeZoneIana,
                 TimeZoneId = dto.TimeZoneId,
                 StopStrategy = dto.StopStrategy.ToString(),
                 ExecutorRobots = dto.ExecutorRobots?.Select(re => Robot.FromDto(re)).ToList(),

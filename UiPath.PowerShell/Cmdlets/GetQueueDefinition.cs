@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Linq;
+using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -33,7 +34,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             ProcessImpl(
                 filter => Api.QueueDefinitions.GetQueueDefinitions(filter: filter).Value,
-                id => Api.QueueDefinitions.GetById(id),
+                id => Api.QueueDefinitions.GetQueueDefinitions(filter: $"Id eq {Id}").Value.First(qd => qd.Id == Id),
                 dto => QueueDefinition.FromDto(dto));
         }
     }

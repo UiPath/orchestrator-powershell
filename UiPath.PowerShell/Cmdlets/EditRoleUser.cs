@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -27,11 +25,22 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            HandleHttpOperationException(() => Api.Roles.SetUsersById(Role?.Id ?? Id.Value, new SetUsersParameters
+            foreach(var id in Add)
             {
-                AddedUserIds = Add?.Select(id => (long?)id).ToList() ?? new List<long?>(),
-                RemovedUserIds = Remove?.Select(id => (long?)id).ToList() ?? new List<long?>(),
-            }));
+                HandleHttpOperationException(() => Api.Users.ToggleRoleById(id, new ToggleRoleParameters
+                {
+                    Role = Role.Name,
+                    Toggle = true
+                }));
+            }
+            foreach(var id in Remove)
+            {
+                HandleHttpOperationException(() => Api.Users.ToggleRoleById(id, new ToggleRoleParameters
+                {
+                    Role = Role.Name,
+                    Toggle = false
+                }));
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Linq;
+using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -27,8 +28,8 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Tenants.GetTenants(filter: filter).Value,
-                id => Api.Tenants.GetById((int)id),
+                filter => HandleHttpOperationException(() => Api.Tenants.GetTenants(filter: filter).Value),
+                id => HandleHttpOperationException(() => Api.Tenants.GetTenants(filter: $"Id eq {Id}").Value.First(t => t.Id == Id)),
                 dto => Tenant.ForDto(dto));
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Linq;
+using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -28,7 +29,9 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                () => (ParameterSetName == QueueDefinitionParameterSet) ? QueueDefinition.ToDto(QueueDefinition) : HandleHttpOperationException(() => Api.QueueDefinitions.GetById(Id)),
+                () => (ParameterSetName == QueueDefinitionParameterSet) ? 
+                    QueueDefinition.ToDto(QueueDefinition) : 
+                    HandleHttpOperationException(() => Api.QueueDefinitions.GetQueueDefinitions(filter: $"Id eq {Id}").Value.First(qd => qd.Id == Id)),
                 (queueDto) => HandleHttpOperationException(() => Api.QueueDefinitions.PutById(queueDto.Id.Value, queueDto)));
         }
     }

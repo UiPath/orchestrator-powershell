@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Linq;
+using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -50,7 +51,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             ProcessImpl(
                 filter => Api.Users.GetUsers(filter: filter).Value,
-                id => Api.Users.GetById(id),
+                id => Api.Users.GetUsers(filter: $"Id eq {Id}").Value.First(u => u.Id == Id),
                 dto => User.FromDto(dto));
         }
     }

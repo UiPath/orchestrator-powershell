@@ -22,7 +22,6 @@ namespace UiPath.PowerShell.Models
                 Id = dto.Id.Value,
                 DisplayName = dto.DisplayName,
                 Groups = dto.Groups,
-                IsEditable = dto.IsEditable,
                 IsStatic = dto.IsStatic,
                 Permissions = dto.Permissions?.Where(p => p.IsGranted.HasValue && p.IsGranted.Value && Permission.IsVisiblePermission(p)).Select(p => p.Name).ToList()
             };
@@ -36,7 +35,6 @@ namespace UiPath.PowerShell.Models
                 Id = role.Id,
                 DisplayName = role.DisplayName,
                 Groups = role.Groups,
-                IsEditable = role.IsEditable,
                 IsStatic = role.IsStatic,
                 Permissions = role.Permissions?.Select(p => new PermissionDto
                 {

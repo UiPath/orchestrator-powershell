@@ -26,8 +26,6 @@ namespace UiPath.PowerShell.Models
                 AdminName = dto.AdminName,
                 AdminSurname = dto.AdminSurname,
                 AdminEmailAddress = dto.AdminEmailAddress,
-                IsActive = dto.IsActive,
-                LastLoginTime= dto.LastLoginTime
             };
         }
     }

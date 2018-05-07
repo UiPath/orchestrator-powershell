@@ -33,7 +33,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                         .AddParameter(UiPathStrings.IsEditable)
                         .AddParameter(UiPathStrings.Permissions, permissions);
                     var roles = Invoke<Role>(cmdlet);
-                    Validators.ValidateRoleResult(roles, null, name, name, true, false, null);
+                    Validators.ValidateRoleResult(roles, null, name, name, false, null);
                     role = roles[0];
                 }
 
@@ -42,7 +42,7 @@ namespace UiPath.PowerShell.Tests.Cmdlets
                     cmdlet.AddCommand(UiPathStrings.GetUiPathRole)
                         .AddParameter(UiPathStrings.Name, role.Name);
                     var roles = Invoke<Role>(cmdlet);
-                    Validators.ValidateRoleResult(roles, role.Id, name, name, true, false, permissions);
+                    Validators.ValidateRoleResult(roles, role.Id, name, name, false, permissions);
                 }
 
                 using (var cmdlet = PowershellFactory.CreateCmdlet(runspace))

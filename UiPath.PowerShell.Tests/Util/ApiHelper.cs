@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Tests.Util
                     UsernameOrEmailAddress = testSettings.UserName,
                     Password = testSettings.Password
                 };
-                var response = client.Account.Authenticate(loginModel);
+                var response = client.Account.One(loginModel);
                 var token = (string)response.Result;
 
                 var tokenCreds = new TokenCredentials(token);

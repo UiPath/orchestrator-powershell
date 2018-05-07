@@ -40,7 +40,6 @@
 - [Remove-UiPathQueuItem](Remove-UiPathQueuItem.md)
 - [Remove-UiPathRobot](Remove-UiPathRobot.md)
 - [Remove-UiPathRole](Remove-UiPathRole.md)
-- [Remove-UiPathTenant](Remove-UiPathTenant.md)
 - [Remove-UiPathUser](Remove-UiPathUser.md)
 - [Revoke-UiPathRolePermission](Revoke-UiPathRolePermission.md)
 - [Set-UiPathAuthentication](Set-UiPathAuthentication.md)
