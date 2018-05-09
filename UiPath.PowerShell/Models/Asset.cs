@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using UiPath.Web.Client.Models;
 
 namespace UiPath.PowerShell.Models
@@ -27,25 +23,32 @@ namespace UiPath.PowerShell.Models
 
         internal static Asset FromDto(AssetDto dto)
         {
-            return new Asset
+            var asset = new Asset
             {
                 Id = dto.Id.Value,
                 Name = dto.Name,
                 ValueType = dto.ValueType,
                 ValueScope = dto.ValueScope,
-                Value = dto.Value,
-                RobotValues = dto.RobotValues?.ToDictionary(r => r.RobotId.Value, r=> r.Value),
+                Value = dto.ValueScope == AssetDtoValueScope.Global ? dto.Value : null,
+                RobotValues = dto.RobotValues?.ToDictionary(r => r.RobotId.Value, r => r.Value),
                 KeyValueList = dto.KeyValueList?.ToDictionary(kv => kv.Key, kv => kv.Value),
                 CanBeDeleted = dto.CanBeDeleted,
-                WindowsCredential = (dto.ValueType == AssetDtoValueType.WindowsCredential) ?
-                    new PSCredential(
-                        dto.CredentialUsername,
-                        Cmdlets.AddAsset.MakeSecureString(dto.CredentialPassword)) : null,
-                Credential = (dto.ValueType == AssetDtoValueType.Credential) ?
-                    new PSCredential(
-                        dto.CredentialUsername,
-                        Cmdlets.AddAsset.MakeSecureString(dto.CredentialPassword)) : null
             };
+
+            if (dto.ValueScope == AssetDtoValueScope.Global && dto.ValueType == AssetDtoValueType.WindowsCredential)
+            {
+                asset.WindowsCredential = new PSCredential(
+                         dto.CredentialUsername,
+                         Cmdlets.AddAsset.MakeSecureString(dto.CredentialPassword));
+            }
+            else if (dto.ValueScope == AssetDtoValueScope.Global && dto.ValueType == AssetDtoValueType.Credential)
+            {
+                asset.Credential = new PSCredential(
+                        dto.CredentialUsername,
+                        Cmdlets.AddAsset.MakeSecureString(dto.CredentialPassword));
+
+            };
+            return asset;
         }
     }
 }

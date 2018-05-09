@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Assets.GetAssets(filter: filter).Value,
+                filter => Api.Assets.GetAssets(filter: filter, expand: "RobotValues").Value,
                 dto => Asset.FromDto(dto));
         }
     }
