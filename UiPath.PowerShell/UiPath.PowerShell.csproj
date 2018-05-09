@@ -73,11 +73,13 @@
     <Compile Include="Cmdlets\AddProcess.cs" />
     <Compile Include="Cmdlets\AddRobot.cs" />
     <Compile Include="Cmdlets\AddRole.cs" />
+    <Compile Include="Cmdlets\ClearAuthToken.cs" />
     <Compile Include="Cmdlets\EditRoleUser.cs" />
     <Compile Include="Cmdlets\AddTenant.cs" />
     <Compile Include="Cmdlets\AddUser.cs" />
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
+    <Compile Include="Cmdlets\EditUserPassword.cs" />
     <Compile Include="Cmdlets\GetPermission.cs" />
     <Compile Include="Cmdlets\GetRole.cs" />
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
@@ -108,9 +110,10 @@
     <Compile Include="Cmdlets\RemoveRole.cs" />
     <Compile Include="Cmdlets\RemoveTenant.cs" />
     <Compile Include="Cmdlets\RemoveUser.cs" />
-    <Compile Include="Cmdlets\SetAuthentication.cs" />
+    <Compile Include="Cmdlets\SetAuthToken.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />
     <Compile Include="Cmdlets\StopJob.cs" />
+    <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />
@@ -140,6 +143,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Util\SpecificItemDtoConverter.cs" />
+    <Compile Include="Util\UiPathWebApiExtenssions.cs" />
     <Compile Include="Util\ValidateEnumAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Rest;
 using System;
+using System.Linq;
 using System.Management.Automation;
+using System.Net.Http;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -29,6 +31,7 @@ namespace UiPath.PowerShell.Cmdlets
     {
         private const string UserPasswordSet = "UserPassword";
         private const string WindowsCredentialsSet = "WindowsCredentials";
+        private const string UnauthenticatedSet = "Unauthenticated";
 
         [Parameter(Mandatory = true, Position = 0)]
         public string URL { get; set; }
@@ -45,26 +48,65 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = WindowsCredentialsSet)]
         public SwitchParameter WindowsCredentials { get; set; }
 
+        [Parameter(Mandatory = true, ParameterSetName = UnauthenticatedSet)]
+        public SwitchParameter Unauthenticated { get; set; }
+
         [Parameter]
         public SwitchParameter Session { get; set; }
 
         protected override void ProcessRecord()
         {
-            AuthToken authToken = null;
-            if (ParameterSetName == UserPasswordSet)
+            try
             {
-                authToken = GetUserToken();
-            }
-            else if (ParameterSetName == WindowsCredentialsSet)
-            {
-                authToken = GetWindowsToken();
-            }
-            if (Session.IsPresent)
-            {
-                AuthenticatedCmdlet.SetAuthToken(authToken);
-            }
+                AuthToken authToken = null;
+                if (ParameterSetName == UserPasswordSet)
+                {
+                    authToken = GetUserToken();
+                }
+                else if (ParameterSetName == WindowsCredentialsSet)
+                {
+                    authToken = GetWindowsToken();
+                }
+                else if (ParameterSetName == UnauthenticatedSet)
+                {
+                    authToken = GetUnauthenticatedToken();
+                }
 
-            WriteObject(authToken);
+                GetServerVersion(authToken);
+
+                if (Session.IsPresent)
+                {
+                    AuthenticatedCmdlet.SetAuthToken(authToken);
+                }
+
+                WriteObject(authToken);
+            }
+            catch(Exception e)
+            {
+                WriteVerbose(e.ToString());
+            }
+        }
+
+        private void GetServerVersion(AuthToken authToken)
+        {
+            using (var api = AuthenticatedCmdlet.MakeApi(authToken))
+            {
+                api.MakeHttpRequest(HttpMethod.Get, "/odata/$metadata", null, out var response, out var headers);
+                if (headers.TryGetValues("api-supported-versions", out var values))
+                {
+                    authToken.ApiVersion = values.First();
+                }
+            }
+        }
+
+        private AuthToken GetUnauthenticatedToken()
+        {
+            return new AuthToken
+            {
+                URL = URL,
+                WindowsCredentials = false,
+                Authenticated = false
+            };
         }
 
         private AuthToken GetWindowsToken()
@@ -72,7 +114,8 @@ namespace UiPath.PowerShell.Cmdlets
             return new AuthToken
             {
                 URL = URL,
-                WindowsCredentials = true
+                WindowsCredentials = true,
+                Authenticated = true
             };
         }
 
@@ -97,7 +140,8 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     Token = token,
                     URL = URL,
-                    WindowsCredentials = false
+                    WindowsCredentials = false,
+                    Authenticated = true
                 };
 
             }

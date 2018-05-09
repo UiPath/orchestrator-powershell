@@ -1,7 +1,7 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathUser
+    Clear-UiPathAuthToken
     
 SYNOPSIS
     

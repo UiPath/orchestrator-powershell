@@ -10,5 +10,7 @@
         public string Token { get; internal set; }
 
         public bool WindowsCredentials { get; internal set; }
+        public bool Authenticated { get; internal set; }
+        public string ApiVersion { get; internal set; }
     }
 }

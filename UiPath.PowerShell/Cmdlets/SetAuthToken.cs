@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 
 namespace UiPath.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, Nouns.Authentication)]
-    public class SetAuthentication: UiPathCmdlet
+    /// <summary>
+    /// <para name="synopsis">Sets the Powershell session Orchestrator authentication token.</para>
+    /// </summary>
+    [Cmdlet(VerbsCommon.Set, Nouns.AuthToken)]
+    public class SetAuthToken: UiPathCmdlet
     {
         [Parameter(Mandatory = true, ParameterSetName = "AuthToken", Position = 0, ValueFromPipeline = true)]
         public AuthToken AuthToken { get; set; }

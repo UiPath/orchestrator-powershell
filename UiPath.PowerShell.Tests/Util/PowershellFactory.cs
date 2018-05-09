@@ -28,10 +28,11 @@ namespace UiPath.PowerShell.Tests.Util
             return cmdlet;
         }
 
-        public static void AuthenticateSession(Runspace rss, string url, string tenantName, string userName, string password)
+        public static void AuthenticateSession(Runspace rss, string url, string tenantName, string userName, string password, TestContext testContext)
         {
             using (var cmdlet = CreateCmdlet(rss))
             {
+                TestClassBase.HookCmdlet(cmdlet, testContext);
                 cmdlet.AddCommand(UiPathStrings.GetUiPathAuthToken)
                     .AddParameter(UiPathStrings.URL, url)
                     .AddParameter(UiPathStrings.Username, userName)
@@ -54,7 +55,7 @@ namespace UiPath.PowerShell.Tests.Util
             try
             {
                 runspace.Open();
-                AuthenticateSession(runspace, testSettings.URL, testSettings.TenantName, testSettings.UserName, testSettings.Password);
+                AuthenticateSession(runspace, testSettings.URL, testSettings.TenantName, testSettings.UserName, testSettings.Password, testContext);
             }
             catch
             {

@@ -5,7 +5,6 @@
         internal const string UiPath = "UiPath";
 
         internal const string Asset = UiPath + "Asset";
-        internal const string Authentication = UiPath + "Authentication";
         internal const string AuthToken = UiPath + "AuthToken";
         internal const string Environment = UiPath + "Environment";
         internal const string EnvironmentRobot = UiPath + "EnvironmentRobot";
@@ -24,5 +23,6 @@
         internal const string Tenant = UiPath + "Tenant";
         internal const string TimeZones = UiPath + "TimeZones";
         internal const string User = UiPath + "User";
+        internal const string UserPassword = UiPath + "UserPassword";
     }
 }
