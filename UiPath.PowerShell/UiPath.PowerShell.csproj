@@ -85,6 +85,7 @@
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
     <Compile Include="Cmdlets\GetTimeZones.cs" />
     <Compile Include="Cmdlets\GrantRolePermission.cs" />
+    <Compile Include="Cmdlets\NewAssetRobotValue.cs" />
     <Compile Include="Cmdlets\RemoveAsset.cs" />
     <Compile Include="Cmdlets\GetAsset.cs" />
     <Compile Include="Cmdlets\GetAuthToken.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\AssetRobotValue.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Cmdlets\RevokeRolePermission.cs" />
     <Compile Include="Models\ProcessSchedule.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Util\FilteredIdCmdlet.cs" />
     <Compile Include="Util\EditCmdlet.cs" />
     <Compile Include="Util\NetworkAuthenticationCredentials.cs" />
+    <Compile Include="Util\PSCredentialExtenssions.cs" />
     <Compile Include="Util\SetParameterAttribute.cs" />
     <Compile Include="Util\UiPathCmdlet.cs" />
     <Compile Include="Models\Asset.cs" />

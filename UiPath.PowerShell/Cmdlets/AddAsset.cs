@@ -15,46 +15,54 @@ namespace UiPath.PowerShell.Cmdlets
     /// <summary>
     /// <para type="synopsis">Adds an Asset into Orchestrator</para>
     /// <para type="description">This cmdlet can add global asset value or per-robot asset values.</para>
+    /// <para type="description">The asset type is deduced from the parameter set used.</para>
+    /// <para type="description">To create per robot values, use New-UiPathAssetRobotValue</para>
+    /// <example>
+    /// <code>Add-UiPathAsset AGlobalTextAsset -TextValue SomeText</code>
+    /// <para>Creates a global asset of type text with the value SomeText.</para>
+    /// </example>
+    /// <example>
+    /// <code>$creds = Get-Credential
+    /// Add-UiPathAsset AGlobalWindowsCredentialAsset -WindowsCredential $creds</code>
+    /// <para>Creates a global asset of type text with the value SomeText.</para>
+    /// </example>
     /// </summary>
     [Cmdlet(VerbsCommon.Add, Nouns.Asset)]
     public class AddAsset: AuthenticatedCmdlet
     {
+        public const string RobotValuesSet = "RobotValues";
         /// <summary>
         /// <para type="description">The asset name.</para>
         /// </summary>
         [Parameter(Mandatory = true, Position = 0)]
         public string Name { get; private set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "TextValue")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.TextValueSet)]
         public string TextValue { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "IntValue")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.IntValueSet)]
         public int? IntValue { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "DBConnectionString")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.DBConnectionStringSet)]
         public string DBConnectionString { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "HttpConnectionString")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.HttpConnectionStringSet)]
         public string HttpConnectionString { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "BoolValue")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.BoolValueSet)]
         public bool? BoolValue { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "KeyValueList")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.KeyValueListSet)]
         public Hashtable KeyValueList { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "WindowsCredential")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.WindowsCredentialSet)]
         public PSCredential WindowsCredential { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "Credential")]
+        [Parameter(Mandatory = true, ParameterSetName = NewAssetRobotValue.CredentialSet)]
         public PSCredential Credential { get; set; }
 
-        [ValidateEnum(typeof(AssetDtoValueType))]
-        [Parameter(Mandatory = true, ParameterSetName = "RobotValues")]
-        public string ValueType { get; set; }
-
-        [Parameter(Mandatory = true, ParameterSetName = "RobotValues")]
-        public Hashtable RobotValues { get; set; }
+        [Parameter(Mandatory = true, ParameterSetName = RobotValuesSet)]
+        public AssetRobotValue[] RobotValues { get; set; }
 
         protected override void ProcessRecord()
         {
@@ -63,100 +71,59 @@ namespace UiPath.PowerShell.Cmdlets
                 Name = Name,
                 ValueScope = AssetDtoValueScope.Global
             };
-            if (TextValue != null)
+            switch (ParameterSetName)
             {
-                asset.ValueType = AssetDtoValueType.Text;
-                asset.StringValue = TextValue;
-            }
-            else if (IntValue.HasValue)
-            {
-                asset.ValueType = AssetDtoValueType.Integer;
-                asset.IntValue = IntValue;
-            }
-            else if (BoolValue.HasValue)
-            {
-                asset.ValueType = AssetDtoValueType.Bool;
-                asset.BoolValue = BoolValue;
-            }
-            else if (DBConnectionString != null)
-            {
-                asset.ValueType = AssetDtoValueType.DBConnectionString;
-                asset.StringValue = DBConnectionString;
-            }
-            else if (HttpConnectionString != null)
-            {
-                asset.ValueType = AssetDtoValueType.HttpConnectionString;
-                asset.StringValue = HttpConnectionString;
-            }
-            else if (KeyValueList != null)
-            {
-                asset.ValueType = AssetDtoValueType.KeyValueList;
-                asset.KeyValueList = HashtableToKeyList(KeyValueList);
-            }
-            else if (WindowsCredential != null)
-            {
-                asset.ValueType = AssetDtoValueType.WindowsCredential;
-                asset.CredentialUsername = WindowsCredential.UserName;
-                asset.CredentialPassword = ExtractSecureString(WindowsCredential.Password);
+                case NewAssetRobotValue.TextValueSet:
 
-            }
-            else if (Credential != null)
-            {
-                asset.ValueType = AssetDtoValueType.Credential;
-                asset.CredentialUsername = Credential.UserName;
-                asset.CredentialPassword = ExtractSecureString(Credential.Password);
+                    asset.ValueType = AssetDtoValueType.Text;
+                    asset.StringValue = TextValue;
+                    break;
+                case NewAssetRobotValue.IntValueSet:
 
-            }
-            else if (RobotValues != null)
-            {
-                asset.ValueType = (AssetDtoValueType)Enum.Parse(typeof(AssetDtoValueType), ValueType);
-                asset.ValueScope = AssetDtoValueScope.PerRobot;
-                asset.RobotValues = RobotValues.Cast<DictionaryEntry>().Select(rv =>
-                {
-                    var robotAssetValue = new AssetRobotValueDto
+                    asset.ValueType = AssetDtoValueType.Integer;
+                    asset.IntValue = IntValue;
+                    break;
+                case NewAssetRobotValue.BoolValueSet:
+                    asset.ValueType = AssetDtoValueType.Bool;
+                    asset.BoolValue = BoolValue;
+                    break;
+                case NewAssetRobotValue.DBConnectionStringSet:
+                    asset.ValueType = AssetDtoValueType.DBConnectionString;
+                    asset.StringValue = DBConnectionString;
+                    break;
+                case NewAssetRobotValue.HttpConnectionStringSet:
+
+                    asset.ValueType = AssetDtoValueType.HttpConnectionString;
+                    asset.StringValue = HttpConnectionString;
+                    break;
+                case NewAssetRobotValue.KeyValueListSet:
+                    asset.ValueType = AssetDtoValueType.KeyValueList;
+                    asset.KeyValueList = HashtableToKeyList(KeyValueList);
+                    break;
+                case NewAssetRobotValue.WindowsCredentialSet:
+                    asset.ValueType = AssetDtoValueType.WindowsCredential;
+                    asset.CredentialUsername = WindowsCredential.UserName;
+                    asset.CredentialPassword = WindowsCredential.ExtractPassword();
+
+                    break;
+                case NewAssetRobotValue.CredentialSet:
+                    asset.ValueType = AssetDtoValueType.Credential;
+                    asset.CredentialUsername = Credential.UserName;
+                    asset.CredentialPassword = Credential.ExtractPassword();
+
+                    break;
+                case RobotValuesSet:
+                    asset.ValueScope = AssetDtoValueScope.PerRobot;
+                    if (RobotValues.Any())
                     {
-                        RobotId = Int64.Parse(rv.Key.ToString()),
-                        ValueType = (AssetRobotValueDtoValueType)Enum.Parse(typeof(AssetRobotValueDtoValueType), ValueType)
-                    };
-                    switch (asset.ValueType)
-                    {
-                        case AssetDtoValueType.Text:
-                        case AssetDtoValueType.DBConnectionString:
-                        case AssetDtoValueType.HttpConnectionString:
-                            robotAssetValue.StringValue = rv.Value.ToString();
-                            break;
-                        case AssetDtoValueType.Bool:
-                            robotAssetValue.BoolValue = Boolean.Parse(rv.Value.ToString());
-                            break;
-                        case AssetDtoValueType.Integer:
-                            robotAssetValue.IntValue = Int32.Parse(rv.Value.ToString());
-                            break;
-                        case AssetDtoValueType.KeyValueList:
-                            robotAssetValue.KeyValueList = HashtableToKeyList((Hashtable)rv.Value);
-                            break;
-                        case AssetDtoValueType.WindowsCredential:
-                            {
-                                PSCredential ps = (PSCredential)rv.Value;
-                                robotAssetValue.CredentialUsername = ps.UserName;
-                                robotAssetValue.CredentialPassword = ExtractSecureString(ps.Password);
-                            }
-                            break;
+                        asset.ValueType = (AssetDtoValueType)Enum.Parse(typeof(AssetDtoValueType), RobotValues.First().ValueType.ToString());
+                        asset.RobotValues = RobotValues.Select(rv => rv.ToDto()).ToList();
                     }
-
-                    return robotAssetValue;
-                }).ToList();
+                    break;
             }
 
             var dto = HandleHttpOperationException(() => Api.Assets.Post(asset));
             WriteObject(Asset.FromDto(dto));
-        }
-
-        internal static string ExtractSecureString(SecureString ss)
-        {
-            // Extract the string from SecureString
-            // One way is System.Runtime.InteropServices.Marshal.SecureStringToBSTR
-            // The cheat way is NetworkCredential
-            return new NetworkCredential("", ss).Password;
         }
 
         internal static SecureString MakeSecureString(string s)
