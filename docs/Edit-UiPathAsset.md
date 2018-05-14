@@ -1,48 +1,42 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathAsset
+    Edit-UiPathAsset
     
 SYNOPSIS
-    Adds an Asset into Orchestrator
     
     
 SYNTAX
-    Add-UiPathAsset [-Name] <string> -TextValue <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -TextValue <string> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -IntValue <int> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -IntValue <int> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -DBConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -DBConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -HttpConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -HttpConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -BoolValue <bool> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -BoolValue <bool> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -Credential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -Credential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -RobotValues <AssetRobotValue[]> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> [-AddRobotValues <AssetRobotValue[]>] [-AuthToken <AuthToken>] 
+    [-RemoveRobotIdValues <long[]>] [<CommonParameters>]
     
     
 DESCRIPTION
-    This cmdlet can add global asset value or per-robot asset values.
-    
-    The asset type is deduced from the parameter set used.
-    
-    To create per robot values, use New-UiPathAssetRobotValue
     
 
 PARAMETERS
-    -Name <string>
-        The asset name.
+    -Asset <Asset>
         
         Required?                    true
         Position?                    0
         Default value                
-        Accept pipeline input?       false
+        Accept pipeline input?       true (ByValue)
         Accept wildcard characters?  false
         
     -TextValue <string>
@@ -109,9 +103,17 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -RobotValues <AssetRobotValue[]>
+    -AddRobotValues <AssetRobotValue[]>
         
-        Required?                    true
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RemoveRobotIdValues <long[]>
+        
+        Required?                    false
         Position?                    named
         Default value                
         Accept pipeline input?       false
@@ -132,20 +134,12 @@ PARAMETERS
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
 INPUTS
+        UiPath.PowerShell.Models.AssetAn UiPath Orchestrator asset
+    
+    
     
 OUTPUTS
     
-    ----------  EXAMPLE 1  ----------
-    
-    Add-UiPathAsset AGlobalTextAsset -TextValue SomeText
-    
-    Creates a global asset of type text with the value SomeText.
-    ----------  EXAMPLE 2  ----------
-    
-    $creds = Get-Credential
-                Add-UiPathAsset AGlobalWindowsCredentialAsset -WindowsCredential $creds
-    
-    Creates a global asset of type text with the value SomeText.
     
 RELATED LINKS
 

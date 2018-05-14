@@ -1,59 +1,45 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathAsset
+    New-UiPathAssetRobotValue
     
 SYNOPSIS
-    Adds an Asset into Orchestrator
+    Used to create a robot asset value
     
     
 SYNTAX
-    Add-UiPathAsset [-Name] <string> -TextValue <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -RobotId <long> -TextValue <string> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -IntValue <int> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -DBConnectionString <string> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -DBConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -HttpConnectionString <string> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -HttpConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -IntValue <int> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -BoolValue <bool> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -BoolValue <bool> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -KeyValueList <Hashtable> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -Credential <PSCredential> -RobotId <long> [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -Credential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
-    
-    Add-UiPathAsset [-Name] <string> -RobotValues <AssetRobotValue[]> [-AuthToken <AuthToken>] [<CommonParameters>]
+    New-UiPathAssetRobotValue -RobotId <long> -WindowsCredential <PSCredential> [<CommonParameters>]
     
     
 DESCRIPTION
-    This cmdlet can add global asset value or per-robot asset values.
-    
-    The asset type is deduced from the parameter set used.
-    
-    To create per robot values, use New-UiPathAssetRobotValue
+    This cmdlet produces no effect on the Orchestrator. Use the returned Robot Asset Value object with the 
+    Add-UiPathAsset -RobotValues to actually create the robot asset value.
     
 
 PARAMETERS
-    -Name <string>
-        The asset name.
+    -RobotId <long>
         
         Required?                    true
-        Position?                    0
-        Default value                
+        Position?                    named
+        Default value                0
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
     -TextValue <string>
-        
-        Required?                    true
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -IntValue <int>
         
         Required?                    true
         Position?                    named
@@ -77,6 +63,14 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
+    -IntValue <int>
+        
+        Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -BoolValue <bool>
         
         Required?                    true
@@ -93,14 +87,6 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -WindowsCredential <PSCredential>
-        
-        Required?                    true
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
     -Credential <PSCredential>
         
         Required?                    true
@@ -109,17 +95,9 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -RobotValues <AssetRobotValue[]>
+    -WindowsCredential <PSCredential>
         
         Required?                    true
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -AuthToken <AuthToken>
-        
-        Required?                    false
         Position?                    named
         Default value                
         Accept pipeline input?       false
@@ -137,15 +115,13 @@ OUTPUTS
     
     ----------  EXAMPLE 1  ----------
     
-    Add-UiPathAsset AGlobalTextAsset -TextValue SomeText
+    $robotId2Value = New-UiPathAssetRobotValue -RobotId 2 -TextValue SomeValue
+                $robotId4Value = New-UiPathAssetRobotValue -RobotId 4 -TextValue AnotherValue
+                Add-UiPath MyAsset -RobotValues $robotId2Value,$robotId4Value
     
-    Creates a global asset of type text with the value SomeText.
-    ----------  EXAMPLE 2  ----------
+    Creates two robot asset values and creates an asset with these two values.
     
-    $creds = Get-Credential
-                Add-UiPathAsset AGlobalWindowsCredentialAsset -WindowsCredential $creds
-    
-    Creates a global asset of type text with the value SomeText.
+    Note that all robot values for an asset must have the same type.
     
 RELATED LINKS
 

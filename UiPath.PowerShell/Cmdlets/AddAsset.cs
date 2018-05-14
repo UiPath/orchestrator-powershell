@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net;
@@ -98,7 +97,7 @@ namespace UiPath.PowerShell.Cmdlets
                     break;
                 case NewAssetRobotValue.KeyValueListSet:
                     asset.ValueType = AssetDtoValueType.KeyValueList;
-                    asset.KeyValueList = HashtableToKeyList(KeyValueList);
+                    asset.KeyValueList = KeyValueList.ToKeyList();
                     break;
                 case NewAssetRobotValue.WindowsCredentialSet:
                     asset.ValueType = AssetDtoValueType.WindowsCredential;
@@ -131,15 +130,6 @@ namespace UiPath.PowerShell.Cmdlets
             // One way is SecureString.AppendChar
             // Or cheat with NetworkCredential...
             return new NetworkCredential("", s).SecurePassword;
-        }
-
-        public static List<CustomKeyValuePair> HashtableToKeyList(Hashtable ht)
-        {
-            return ht.Cast<DictionaryEntry>().Select(de => new CustomKeyValuePair
-            {
-                Key = de.Key.ToString(),
-                Value = de.Value.ToString()
-            }).ToList();
         }
     }
 }

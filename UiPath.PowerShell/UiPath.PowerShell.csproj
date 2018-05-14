@@ -74,6 +74,7 @@
     <Compile Include="Cmdlets\AddRobot.cs" />
     <Compile Include="Cmdlets\AddRole.cs" />
     <Compile Include="Cmdlets\ClearAuthToken.cs" />
+    <Compile Include="Cmdlets\EditAsset.cs" />
     <Compile Include="Cmdlets\EditRoleUser.cs" />
     <Compile Include="Cmdlets\AddTenant.cs" />
     <Compile Include="Cmdlets\AddUser.cs" />
@@ -123,10 +124,12 @@
     <Compile Include="Models\ProcessSchedule.cs" />
     <Compile Include="Models\Timezone.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
+    <Compile Include="Util\EnumerableExtenssions.cs" />
     <Compile Include="Util\FilterAttribute.cs" />
     <Compile Include="Util\FilteredBaseCmdlet.cs" />
     <Compile Include="Util\FilteredIdCmdlet.cs" />
     <Compile Include="Util\EditCmdlet.cs" />
+    <Compile Include="Util\HashtableExtenssions.cs" />
     <Compile Include="Util\NetworkAuthenticationCredentials.cs" />
     <Compile Include="Util\PSCredentialExtenssions.cs" />
     <Compile Include="Util\SetParameterAttribute.cs" />

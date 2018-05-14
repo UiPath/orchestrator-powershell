@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Cmdlets\AssetTests.cs" />
     <Compile Include="Cmdlets\EnvironmentTests.cs" />
+    <Compile Include="Cmdlets\MergeAddRemoveTests.cs" />
     <Compile Include="Cmdlets\QueueDefinitionsTests.cs" />
     <Compile Include="Cmdlets\RobotTests.cs" />
     <Compile Include="Cmdlets\RoleTests.cs" />
