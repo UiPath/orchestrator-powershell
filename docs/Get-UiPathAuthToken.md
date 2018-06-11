@@ -8,14 +8,14 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-Session <SwitchParameter>] 
-    [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] [-Session 
+    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-Session <SwitchParameter>] 
-    [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-OrganizationUnit <string>] [-Session 
+    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-Session <SwitchParameter>] [-TenantName 
-    <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-OrganizationUnit <string>] [-Session 
+    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -71,6 +71,14 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
+    -OrganizationUnit <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -Session <SwitchParameter>
         
         Required?                    false
@@ -106,6 +114,13 @@ OUTPUTS
     
     Connect to a private Orchestrator with Windows enabled, using current Windows credentials and save the token for 
     current session.
+    ----------  EXAMPLE 4  ----------
+    
+    Get-UiPathAuthToken -URL https://uipath.corpnet -Username <myuser> -Password <mypassword> -OrganizationUnit 
+    <MyOrganization> -Session
+    
+    Connect to a private Orchestrator using user name and password and selects a current Organization Unit, saves the 
+    token for current session.
     
 RELATED LINKS
 

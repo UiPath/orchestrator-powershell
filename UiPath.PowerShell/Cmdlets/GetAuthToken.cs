@@ -25,6 +25,10 @@ namespace UiPath.PowerShell.Cmdlets
     ///     <code>Get-UiPathAuthToken -URL https://uipath.corpnet -WindowsCredentials -Session</code>
     ///     <para>Connect to a private Orchestrator with Windows enabled, using current Windows credentials and save the token for current session.</para>
     /// </example>
+    /// <example>
+    ///     <code>Get-UiPathAuthToken -URL https://uipath.corpnet -Username &lt;myuser&gt; -Password &lt;mypassword&gt; -OrganizationUnit &lt;MyOrganization&gt; -Session</code>
+    ///     <para>Connect to a private Orchestrator using user name and password and selects a current Organization Unit, saves the token for current session.</para>
+    /// </example>
     /// </summary>
     [Cmdlet(VerbsCommon.Get, Nouns.AuthToken)]
     public class GetAuthToken: UiPathCmdlet
@@ -51,6 +55,13 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = UnauthenticatedSet)]
         public SwitchParameter Unauthenticated { get; set; }
 
+        /// <summary>
+        /// Sets the current Organization Unit for the authentication token.
+        /// This parameter is only valid for ORchestrator deployments with Organization Units feature enabled.
+        /// </summary>
+        [Parameter]
+        public string OrganizationUnit { get; set; }
+
         [Parameter]
         public SwitchParameter Session { get; set; }
 
@@ -74,6 +85,11 @@ namespace UiPath.PowerShell.Cmdlets
 
                 GetServerVersion(authToken);
 
+                if (!String.IsNullOrWhiteSpace(OrganizationUnit))
+                {
+                    SetOrganizationUnit(authToken, OrganizationUnit);
+                }
+
                 if (Session.IsPresent)
                 {
                     AuthenticatedCmdlet.SetAuthToken(authToken);
@@ -84,6 +100,16 @@ namespace UiPath.PowerShell.Cmdlets
             catch(Exception e)
             {
                 WriteVerbose(e.ToString());
+            }
+        }
+
+        private void SetOrganizationUnit(AuthToken authToken, string organizationUnit)
+        {
+            using (var api = AuthenticatedCmdlet.MakeApi(authToken))
+            {
+                var unit = HandleHttpOperationException(() => api.OrganizationUnits.GetOrganizationUnits(filter: $"DisplayName eq '{organizationUnit}'").Value.First(ou => ou.DisplayName == organizationUnit));
+                authToken.OrganizationUnit = unit.DisplayName;
+                authToken.OrganizationUnitId = unit.Id.Value;
             }
         }
 

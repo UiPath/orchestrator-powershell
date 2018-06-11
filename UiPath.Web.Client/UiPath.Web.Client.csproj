@@ -11,8 +11,6 @@
     <AssemblyName>UiPath.Web.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <UiPathSwaggerUrl>https://platform.uipath.com/swagger/docs/V2</UiPathSwaggerUrl>
-    <UiPathSwaggerIntermediateLocation>obj\$(Configuration)\Swagger\</UiPathSwaggerIntermediateLocation>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,18 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <UsingTask TaskName="DownloadFile" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
-    <ParameterGroup>
-      <Address ParameterType="System.String" Required="true" />
-      <FileName ParameterType="System.String" Required="true" />
-    </ParameterGroup>
-    <Task>
-      <Reference Include="System" />
-      <Code Type="Fragment" Language="cs"><![CDATA[
-            new System.Net.WebClient().DownloadFile(Address, FileName);
-        ]]></Code>
-    </Task>
-  </UsingTask>
   <ItemGroup>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.11\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
@@ -76,18 +62,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Swagger\UiPath.swagger" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="DownloadSwagger" BeforeTargets="GenerateUiPathSwaggerClient" Inputs="Swagger\UiPath.swagger" Outputs="$(UiPathSwaggerIntermediateLocation)UiPath.swagger">
-    <Message Text="DownloadFile $(UiPathSwaggerUrl) -&gt; $(UiPathSwaggerIntermediateLocation)UiPath.swagger" />
-    <MakeDir Directories="$(UiPathSwaggerIntermediateLocation)" />
-    <DownloadFile Address="$(UiPathSwaggerUrl)" FileName="$(UiPathSwaggerIntermediateLocation)UiPath.swagger" />
-    <Exec Command="fc $(UiPathSwaggerIntermediateLocation)UiPath.swagger Swagger\UiPath.swagger" IgnoreExitCode="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-    </Exec>
-    <Copy SourceFiles="$(UiPathSwaggerIntermediateLocation)\UiPath.swagger" DestinationFolder="Swagger\" Condition="$(ErrorCode)!=0" />
-  </Target>
-  <Target Name="GenerateUiPathSwaggerClient" DependsOnTargets="DownloadSwagger" BeforeTargets="CoreCompile" Inputs="Swagger\UiPath.swagger" Outputs="generated\UiPathWebApi.cs">
+  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" Inputs="Swagger\UiPath.swagger" Outputs="generated\UiPathWebApi.cs">
     <Exec Command="autorest --input-file=Swagger\UiPath.swagger --csharp --csharp.namespace=UiPath.Web.Client --add-credentials" />
     <ItemGroup>
       <AutoRestGenerated Include="generated\*.cs;generated\Models\*.cs" />

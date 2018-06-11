@@ -68,6 +68,10 @@ namespace UiPath.PowerShell.Util
             };
             api.SetRetryPolicy(null);
             api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
+            if (authToken.OrganizationUnitId.HasValue)
+            {
+                api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-OrganizationUnitId", authToken.OrganizationUnitId.Value.ToString());
+            }
             return api;
         }
 

@@ -4,6 +4,7 @@ NAME
     Edit-UiPathAsset
     
 SYNOPSIS
+    Modifies an existing asset
     
     
 SYNTAX
@@ -28,6 +29,8 @@ SYNTAX
     
     
 DESCRIPTION
+    You cannot change the asset name, type or scope. Use New-UiPathAssetRobotValue to build robot values for 
+    -AddRobotValues
     
 
 PARAMETERS
@@ -140,6 +143,11 @@ INPUTS
     
 OUTPUTS
     
+    ----------  EXAMPLE 1  ----------
+    
+    Get-UiPathAsset -Name <myasset> -TextValue <newvalue>
+    
+    Modifies a Text type asset value
     
 RELATED LINKS
 

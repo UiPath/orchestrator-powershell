@@ -12,5 +12,9 @@
         public bool WindowsCredentials { get; internal set; }
         public bool Authenticated { get; internal set; }
         public string ApiVersion { get; internal set; }
+
+        public string OrganizationUnit { get; internal set; }
+
+        internal long? OrganizationUnitId { get; set; }
     }
 }
