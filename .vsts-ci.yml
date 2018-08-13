@@ -34,15 +34,6 @@ steps:
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
 
-- task: VSTest@2
-  displayName: "Run unit tests"
-  inputs:
-    testAssemblyVer2: |
-          **\$(BuildConfiguration)\*test*.dll
-          !**\obj\**
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-
 - task: NuGetCommand@2
   displayName: NuGet pack
   inputs:
