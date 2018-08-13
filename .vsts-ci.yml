@@ -1,0 +1,57 @@
+queue:
+  name: Hosted VS2017
+  condition: succeeded()
+  demands: 
+  - npm
+  - msbuild
+  - visualstudio
+  - vstest
+
+variables:
+  Solution: "UiPath.Orchestrator.Powershell.sln"
+  BuildConfiguration: "Release"
+  BuildPlatform: "Any CPU"
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Use NuGet 4.3.0
+
+- task: Npm@1
+  displayName: NPM install autorest
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'install -g autorest'
+
+- task: NuGetCommand@2
+  displayName: NuGet restore
+  inputs:
+    restoreSolution: "$(Solution)"
+    
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: "$(Solution)"
+
+- task: VSTest@2
+  displayName: "Run unit tests"
+  inputs:
+    testAssemblyVer2: |
+          **\$(BuildConfiguration)\*test*.dll
+          !**\obj\**
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: NuGet pack
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj;!**\*.Tests.csproj'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact 'orchestrator-powershell'
+  inputs:
+    PathtoPublish: '$(ArtifactsOutputPath)'
+    ArtifactName: 'orchestrator-powershell'
+
+
