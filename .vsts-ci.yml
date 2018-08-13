@@ -30,7 +30,9 @@ steps:
 - task: VSBuild@1
   displayName: Build solution
   inputs:
-    solution: "$(Solution)"
+    solution: '$(Solution)'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
 
 - task: VSTest@2
   displayName: "Run unit tests"
