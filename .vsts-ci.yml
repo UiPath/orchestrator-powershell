@@ -31,8 +31,17 @@ steps:
   displayName: Build solution
   inputs:
     solution: '$(Solution)'
+    msbuildArgs: '/Revision=$(Build.BuildId)'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
+
+- task: PowerShell@1
+  displayName: "Update Build Number"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: |
+      $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\UiPath.PowerShell.dll").ProductVersion
+      Write-Host "##vso[build.updatebuildnumber]$buildNumber"
 
 - task: NuGetCommand@2
   displayName: NuGet pack
