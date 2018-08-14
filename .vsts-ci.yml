@@ -47,7 +47,7 @@ steps:
   displayName: NuGet pack
   inputs:
     command: pack
-    packagesToPack: '**\Output\$(BuildConfiguration)\*;!**\Output\$(BuildConfiguration)\.Tests.'
+    packagesToPack: '**/*.csproj;!**\*.Tests.csproj'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifact 'orchestrator-powershell'
