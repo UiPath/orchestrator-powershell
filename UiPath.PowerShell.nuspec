@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>UiPath.PowerShell</id>
+    <version>$version$</version>
+    <title>UiPath.PowerShell</title>
+    <authors>UiPath</authors>
+    <owners>UiPath</owners>
+    <licenseUrl>https://github.com/UiPath/orchestrator-powershell/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/uipath/orchestrator-powershell</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>false</developmentDependency>
+    <description>An easy to use PowerShell API client for UiPath Orchestrator</description>
+    <copyright>UiPath</copyright>
+    <tags>UiPath Orchestrator PowerShell API client </tags>
+  </metadata>
+  <files>
+    <file src="Output\Release\*.*" target="lib\net452" exclude="Output\Release\*.pdb" />
+  </files>
+</package>

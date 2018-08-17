@@ -47,12 +47,13 @@ steps:
   displayName: NuGet pack
   inputs:
     command: pack
-    packagesToPack: '**/*.csproj;!**\*.Tests.csproj'
+    versioningScheme: byBuildNumber
+    packagesToPack: "$(Build.SourcesDirectory)\\UiPath.PowerShell.nuspec"
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish Artifact 'orchestrator-powershell'
+  displayName: Publish Artifact Setup
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'orchestrator-powershell'
+    PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+    ArtifactName: "Setup"
 
 
