@@ -1,0 +1,59 @@
+queue:
+  name: Hosted VS2017
+  demands: 
+  - npm
+  - msbuild
+  - visualstudio
+  - vstest
+
+variables:
+  Solution: "UiPath.Orchestrator.Powershell.sln"
+  BuildConfiguration: "Release"
+  BuildPlatform: "Any CPU"
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Use NuGet 4.3.0
+
+- task: Npm@1
+  displayName: NPM install autorest
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'install -g autorest'
+
+- task: NuGetCommand@2
+  displayName: NuGet restore
+  inputs:
+    restoreSolution: "$(Solution)"
+    
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: '$(Solution)'
+    msbuildArgs: '/p:Revision=$(Build.BuildId)'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: PowerShell@1
+  displayName: "Update Build Number"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: |
+      $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\UiPath.PowerShell.dll").ProductVersion
+      Write-Host "##vso[build.updatebuildnumber]$buildNumber"
+
+- task: NuGetCommand@2
+  displayName: NuGet pack
+  inputs:
+    command: pack
+    versioningScheme: byBuildNumber
+    packagesToPack: "$(Build.SourcesDirectory)\\UiPath.PowerShell.nuspec"
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact Setup
+  inputs:
+    PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+    ArtifactName: "Setup"
+
+
