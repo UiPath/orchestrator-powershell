@@ -43,7 +43,7 @@ namespace UiPath.PowerShell.Models
                 TimeZoneId = dto.TimeZoneId,
                 StopStrategy = dto.StopStrategy.ToString(),
                 ExecutorRobots = dto.ExecutorRobots?.Select(re => Robot.FromDto(re)).ToList(),
-                ExternalJobKey = dto.ExternalJobKey,
+                ExternalJobKey = dto.ExternalJobKey
             };
         }
     }
