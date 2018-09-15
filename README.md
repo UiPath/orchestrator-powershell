@@ -27,6 +27,12 @@ To start using the library, you need to connect first to a running Orchestrator 
 PS C:\>Get-UiPathAuthToken -URL <orchestratorurl> -Username <OrchestratorUser> -Password <password> -Session
 ```
 
+To connect to an Orchestrator instance using integrated AD and SSO, use the `-WindowsCredentials` argument to obtain the token. The library will authenticate to Orchestrator as the Windows user running the PowerShell session:
+```PowerShell
+PS C:\>Get-UiPathAuthToken -URL <orchestratorurl> -WindowsCredentials -Session
+```
+
+
 The `-Session` flag makes the authentication persist on the PowerShell session for up to 30 minutes. After this you will not have to authenticate again each cmdlet. Some examples:
 
 ```PowerShell
