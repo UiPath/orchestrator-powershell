@@ -80,6 +80,7 @@
     <Compile Include="Cmdlets\ClearAuthToken.cs" />
     <Compile Include="Cmdlets\EditAsset.cs" />
     <Compile Include="Cmdlets\EditOrganizationUnitUser.cs" />
+    <Compile Include="Cmdlets\EditProcessSchedule.cs" />
     <Compile Include="Cmdlets\EditRoleUser.cs" />
     <Compile Include="Cmdlets\AddTenant.cs" />
     <Compile Include="Cmdlets\AddUser.cs" />
@@ -162,7 +163,9 @@
     <Compile Include="Util\ValidateEnumAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
