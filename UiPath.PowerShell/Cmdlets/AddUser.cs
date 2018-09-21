@@ -48,7 +48,12 @@ namespace UiPath.PowerShell.Cmdlets
                 Surname = Surname,
                 EmailAddress = EmailAddress,
                 RolesList = RolesList,
-                OrganizationUnits = OrganizationUnitIds?.Select(id => new OrganizationUnitDto { Id = id }).ToList()
+                OrganizationUnits = OrganizationUnitIds?.Select(
+                    id => new OrganizationUnitDto
+                    {
+                        Id = id ,
+                        DisplayName = id.ToString() // The DisplayName cannot be null or empty string, but the actual value is irelevant
+                    }).ToList()
             };
             UserDtoType type;
             if (Enum.TryParse<UserDtoType>(Type, out type))
