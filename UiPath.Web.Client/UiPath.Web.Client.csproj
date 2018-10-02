@@ -82,12 +82,12 @@
   <Target Name="GenerateUiPathSwaggerClient20183" BeforeTargets="GenerateUiPathSwaggerClient" Inputs="Swagger\UiPath2018.3.0-CE.2.swagger" Outputs="generated\UiPathWebApi20183.cs">
     <Exec Command="autorest --input-file=Swagger\UiPath2018.3.0-CE.2.swagger --output-folder=generated20183 --csharp --csharp.namespace=UiPath.Web.Client20183 --add-credentials" />
     <ItemGroup>
-      <AutoRestGenerated Include="generated20183\*.cs;generated20183\Models\*.cs" />
-      <Compile Include="@(AutoRestGenerated)">
+      <AutoRestGenerated20183 Include="generated20183\*.cs;generated20183\Models\*.cs" />
+      <Compile Include="@(AutoRestGenerated20183)">
         <AutoGen>True</AutoGen>
         <Visible>False</Visible>
       </Compile>
-      <FileWrites Include="@(AutoRestGenerated)" />
+      <FileWrites Include="@(AutoRestGenerated20183)" />
     </ItemGroup>
   </Target>  
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
