@@ -1,5 +1,4 @@
-﻿using System;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
@@ -7,7 +6,7 @@ using UiPath.Web.Client;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, Nouns.Package)]
-    public class GetPackage: FilteredIdCmdlet
+    public class GetPackage: FilteredBaseCmdlet
     {
         [Filter]
         [Parameter(ParameterSetName = "Filter")]
@@ -33,11 +32,14 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Version { get; private set; }
 
+        [Filter]
+        [Parameter(ParameterSetName ="Filter")]
+        public string Id { get; private set; }
+
         protected override void ProcessRecord()
         {
             ProcessImpl(
                 filter => Api.Processes.GetProcesses(filter: filter).Value,
-                id => throw new Exception("Packages do not implement GetById"),
                 dto => Package.FromDto(dto));
         }
     }
