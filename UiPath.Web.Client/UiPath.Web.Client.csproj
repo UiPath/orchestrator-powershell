@@ -73,7 +73,7 @@
       <AutoRestGenerated Include="generated\*.cs;generated\Models\*.cs" />
       <Compile Include="@(AutoRestGenerated)">
         <AutoGen>True</AutoGen>
-        <Visible>False</Visible>
+        <Visible>True</Visible>
       </Compile>
       <FileWrites Include="@(AutoRestGenerated)" />
     </ItemGroup>
