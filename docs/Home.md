@@ -15,6 +15,7 @@
 - [Clear-UiPathAuthToken](Clear-UiPathAuthToken.md)
 - [Edit-UiPathAsset](Edit-UiPathAsset.md)
 - [Edit-UiPathOrganizationUnitUser](Edit-UiPathOrganizationUnitUser.md)
+- [Edit-UiPathProcessSchedule](Edit-UiPathProcessSchedule.md)
 - [Edit-UiPathQueueDefinition](Edit-UiPathQueueDefinition.md)
 - [Edit-UiPathRobot](Edit-UiPathRobot.md)
 - [Edit-UiPathRoleUser](Edit-UiPathRoleUser.md)
