@@ -14,6 +14,7 @@
         internal const string OrganizationUnit = UiPath + "OrganizationUnit";
         internal const string OrganizationUnitUser = UiPath + "OrganizationUnitUser";
         internal const string Package = UiPath + "Package";
+        internal const string PackageVersion = UiPath + "PackageVersion";        
         internal const string Permission = UiPath + "Permission";
         internal const string Process = UiPath + "Process";
         internal const string ProcessSchedule = UiPath + "ProcessSchedule";

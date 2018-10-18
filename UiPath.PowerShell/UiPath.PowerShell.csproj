@@ -89,6 +89,7 @@
     <Compile Include="Cmdlets\EditUserPassword.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnit.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnitUser.cs" />
+    <Compile Include="Cmdlets\GetPackageVersion.cs" />
     <Compile Include="Cmdlets\GetPermission.cs" />
     <Compile Include="Cmdlets\GetRole.cs" />
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Cmdlets\SetAuthToken.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />
     <Compile Include="Cmdlets\StopJob.cs" />
+    <Compile Include="Cmdlets\UpdateProcess.cs" />
     <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\OrganizationUnit.cs" />
