@@ -27,6 +27,7 @@
 - [Get-UiPathOrganizationUnit](Get-UiPathOrganizationUnit.md)
 - [Get-UiPathOrganizationUnitUser](Get-UiPathOrganizationUnitUser.md)
 - [Get-UiPathPackage](Get-UiPathPackage.md)
+- [Get-UiPathPackageVersion](Get-UiPathPackageVersion.md)
 - [Get-UiPathPermission](Get-UiPathPermission.md)
 - [Get-UiPathProcess](Get-UiPathProcess.md)
 - [Get-UiPathProcessSchedule](Get-UiPathProcessSchedule.md)
@@ -56,3 +57,4 @@
 - [Set-UiPathAuthToken](Set-UiPathAuthToken.md)
 - [Start-UiPathJob](Start-UiPathJob.md)
 - [Stop-UiPathJob](Stop-UiPathJob.md)
+- [Update-UiPathProcess](Update-UiPathProcess.md)
