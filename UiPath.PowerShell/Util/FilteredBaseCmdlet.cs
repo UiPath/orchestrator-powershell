@@ -24,6 +24,7 @@ namespace UiPath.PowerShell.Util
             string and = null;
             foreach (var p in this.GetType()
                 .GetProperties()
+                .Where(pi => MyInvocation.BoundParameters.ContainsKey(pi.Name))
                 .Where(pi => pi.GetCustomAttributes(true)
                     .Where(o => o is FilterAttribute)
                     .Any()))
@@ -51,6 +52,10 @@ namespace UiPath.PowerShell.Util
                     {
                         eqToken = value.ToString(); // "1" or "42"
                     }
+                    else if (type.IsAssignableFrom(typeof(Guid)))
+                    {
+                        eqToken = $"'{value.ToString()}'";
+                    }
                     else
                     {
                         eqToken = $"'{HttpUtility.UrlEncode(value.ToString().Replace("'", "''"))}'";
@@ -59,6 +64,7 @@ namespace UiPath.PowerShell.Util
                     and = " and ";
                 }
             }
+            WriteVerbose($"filter: {sb}");
             return sb.Length > 0 ? sb.ToString() : null;
         }
     }

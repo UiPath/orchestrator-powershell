@@ -115,12 +115,17 @@ namespace UiPath.PowerShell.Cmdlets
 
         private void GetServerVersion(AuthToken authToken)
         {
+            authToken.ApiVersion = OrchestratorProtocolVersion.V18_1;
+
             using (var api = AuthenticatedCmdlet.MakeApi(authToken))
             {
                 api.MakeHttpRequest(HttpMethod.Get, "/odata/$metadata", null, out var response, out var headers);
                 if (headers.TryGetValues("api-supported-versions", out var values))
                 {
-                    authToken.ApiVersion = values.First();
+                    if (Version.TryParse(values.First(), out var version))
+                    {
+                        authToken.ApiVersion = version;
+                    }
                 }
             }
         }
