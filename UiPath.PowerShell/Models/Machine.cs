@@ -1,4 +1,7 @@
-﻿using UiPath.Web.Client20183.Models;
+﻿using System;
+using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
+using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
 
 namespace UiPath.PowerShell.Models
 {
@@ -11,7 +14,7 @@ namespace UiPath.PowerShell.Models
         public MachineDtoType? Type { get; private set; }
         public int? UnattendedSlots { get; private set; }
 
-        internal static object FromDto(MachineDto dto)
+        internal static object FromDto(MachineDto20182 dto)
         {
             return new Machine
             {
@@ -19,14 +22,25 @@ namespace UiPath.PowerShell.Models
                 LicenseKey = dto.LicenseKey,
                 Name = dto.Name,
                 NonProductionSlots = dto.NonProductionSlots,
-                Type = dto.Type,
                 UnattendedSlots = dto.UnattendedSlots
             };
         }
 
-        internal MachineDto ToDto(Machine machine)
+        internal MachineDto20182 ToDto20182(Machine machine)
         {
-            return new MachineDto
+            return new MachineDto20182
+            {
+                Id = Id,
+                LicenseKey = LicenseKey,
+                Name = Name,
+                NonProductionSlots = NonProductionSlots,
+                UnattendedSlots = UnattendedSlots
+            };
+        }
+
+        internal MachineDto20183 ToDto20183(Machine machine)
+        {
+            return new MachineDto20183
             {
                 Id = Id,
                 LicenseKey = LicenseKey,
@@ -34,6 +48,20 @@ namespace UiPath.PowerShell.Models
                 NonProductionSlots = NonProductionSlots,
                 Type = Type,
                 UnattendedSlots = UnattendedSlots
+            };
+        }
+
+
+        internal static object FromDto(MachineDto20183 dto)
+        {
+            return new Machine
+            {
+                Id = dto.Id,
+                LicenseKey = dto.LicenseKey,
+                Name = dto.Name,
+                NonProductionSlots = dto.NonProductionSlots,
+                UnattendedSlots = dto.UnattendedSlots,
+                Type = dto.Type
             };
         }
     }

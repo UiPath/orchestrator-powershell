@@ -2,6 +2,7 @@
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client;
+using UiPath.Web.Client20183;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -24,12 +25,28 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Username { get; set; }
 
+        [ValidateEnum(typeof(Web.Client20183.Models.RobotDtoHostingType))]
+        [Filter]
+        [Parameter(ParameterSetName = "Filter")]
+        public string HostingType { get; set; }
+
         protected override void ProcessRecord()
         {
-            ProcessImpl(
-                filter => Api.Robots.GetRobots(filter: filter).Value, 
-                id => Api.Robots.GetById(id), 
-                dto => Robot.FromDto(dto));
+            if (Supports(OrchestratorProtocolVersion.V18_3) || 
+                MyInvocation.BoundParameters.ContainsKey(nameof(HostingType)))
+            {
+                ProcessImpl(
+                    filter => Api_18_3.Robots.GetRobots(filter: filter).Value,
+                    id => Api_18_3.Robots.GetById(id),
+                    dto => Robot.FromDto(dto));
+            }
+            else
+            {
+                ProcessImpl(
+                    filter => Api.Robots.GetRobots(filter: filter).Value,
+                    id => Api.Robots.GetById(id),
+                    dto => Robot.FromDto(dto));
+            }
         }
     }
 }

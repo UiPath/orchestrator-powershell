@@ -16,6 +16,8 @@ namespace UiPath.PowerShell.Models
 
         public Version ApiVersion { get; internal set; }
 
+        public String BuildVersion { get; internal set; }
+
         public string OrganizationUnit { get; internal set; }
 
         internal long? OrganizationUnitId { get; set; }

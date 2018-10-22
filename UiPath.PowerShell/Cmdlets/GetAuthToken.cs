@@ -1,5 +1,6 @@
 ﻿using Microsoft.Rest;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net.Http;
@@ -126,6 +127,29 @@ namespace UiPath.PowerShell.Cmdlets
                     {
                         authToken.ApiVersion = version;
                     }
+                }
+                try
+                {
+                    var settingsRaw = api.Settings.GetAuthenticationSettings();
+                    WriteVerbose($"s: {settingsRaw} {settingsRaw?.GetType().Name}");
+                    var settings = settingsRaw?.Value;
+
+
+                    foreach(var kvp in settings)
+                    {
+                        WriteVerbose($"{kvp.Key}: {kvp.Value}");
+                    }
+
+                    var val = settings?.Where(kvp => kvp.Key == "Build.Version").FirstOrDefault();
+
+                    if (null != val)
+                    {
+                        authToken.BuildVersion = val.Value;
+                    }
+                }
+                catch (Exception e)
+                {
+                    WriteVerbose($"Error retrieving build version: {e.GetType().Name}: {e.Message}");
                 }
             }
         }

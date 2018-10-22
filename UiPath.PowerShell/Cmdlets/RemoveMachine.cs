@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20182;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -18,7 +18,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            HandleHttpOperationException(() => Api_18_3.Machines.DeleteById(Machine?.Id ?? Id.Value));
+            HandleHttpOperationException(() => Api_18_2.Machines.DeleteById(Machine?.Id ?? Id.Value));
         }
     }
 }

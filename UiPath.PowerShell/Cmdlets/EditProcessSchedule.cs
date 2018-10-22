@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsData.Edit, Nouns.ProcessSchedule)]
-    public class EditProcessSchedule : EditCmdlet<ProcessScheduleDto>
+    public class EditProcessSchedule : EditCmdlet
     {                    
         [ValidateNotNull]
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "Id")]

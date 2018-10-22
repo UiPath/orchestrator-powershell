@@ -65,13 +65,16 @@
     </None>
     <None Include="packages.config" />
     <None Include="Swagger\UiPath.swagger" />
-    <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
+      <None Include="Swagger\UiPath2018.2.6.swagger" />
+      <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" Inputs="Swagger\UiPath.swagger" Outputs="generated\UiPathWebApi.cs">
-    <Exec Command="autorest --input-file=Swagger\UiPath.swagger --csharp --csharp.namespace=UiPath.Web.Client --add-credentials" />
-    <ItemGroup>
-      <AutoRestGenerated Include="generated\*.cs;generated\Models\*.cs" />
+  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" Inputs="Swagger\*.swagger" Outputs="generated\UiPathWebApi.cs;generated20182\UiPathWebApi.cs;generated20183\UiPathWebApi.cs">
+      <Exec Command="autorest --input-file=Swagger\UiPath.swagger --csharp --csharp.namespace=UiPath.Web.Client --add-credentials" />
+      <Exec Command="autorest --input-file=Swagger\UiPath2018.2.6.swagger --output-folder=generated20182 --csharp --csharp.namespace=UiPath.Web.Client20182 --add-credentials" />
+      <Exec Command="autorest --input-file=Swagger\UiPath2018.3.0-CE.2.swagger --output-folder=generated20183 --csharp --csharp.namespace=UiPath.Web.Client20183 --add-credentials" />
+      <ItemGroup>
+      <AutoRestGenerated Include="generated\*.cs;generated\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs" />
       <Compile Include="@(AutoRestGenerated)">
         <AutoGen>True</AutoGen>
         <Visible>True</Visible>
@@ -79,17 +82,6 @@
       <FileWrites Include="@(AutoRestGenerated)" />
     </ItemGroup>
   </Target>
-  <Target Name="GenerateUiPathSwaggerClient20183" BeforeTargets="GenerateUiPathSwaggerClient" Inputs="Swagger\UiPath2018.3.0-CE.2.swagger" Outputs="generated\UiPathWebApi20183.cs">
-    <Exec Command="autorest --input-file=Swagger\UiPath2018.3.0-CE.2.swagger --output-folder=generated20183 --csharp --csharp.namespace=UiPath.Web.Client20183 --add-credentials" />
-    <ItemGroup>
-      <AutoRestGenerated20183 Include="generated20183\*.cs;generated20183\Models\*.cs" />
-      <Compile Include="@(AutoRestGenerated20183)">
-        <AutoGen>True</AutoGen>
-        <Visible>True</Visible>
-      </Compile>
-      <FileWrites Include="@(AutoRestGenerated20183)" />
-    </ItemGroup>
-  </Target>  
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

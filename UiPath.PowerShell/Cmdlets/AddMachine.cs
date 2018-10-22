@@ -2,8 +2,12 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
+using UiPath.Web.Client20182;
 using UiPath.Web.Client20183;
-using UiPath.Web.Client20183.Models;
+using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
+using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
+
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -28,7 +32,19 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            var machine = new MachineDto
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
+            {
+                AddMachine20183();
+            }
+            else
+            {
+                AddMachine20182();
+            }
+        }
+
+        private void AddMachine20183()
+        { 
+            var machine = new MachineDto20183
             {
                 Name = Name,
                 NonProductionSlots = NonProductionSlots,
@@ -40,6 +56,22 @@ namespace UiPath.PowerShell.Cmdlets
                 machine.LicenseKey = LicenseKey.ToString();
             }
             var response = HandleHttpOperationException(() => Api_18_3.Machines.Post(machine));
+            WriteObject(Machine.FromDto(response));
+        }
+
+        private void AddMachine20182()
+        {
+            var machine = new MachineDto20182
+            {
+                Name = Name,
+                NonProductionSlots = NonProductionSlots,
+                UnattendedSlots = UnattendedSlots,
+            };
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(LicenseKey)))
+            {
+                machine.LicenseKey = LicenseKey.ToString();
+            }
+            var response = HandleHttpOperationException(() => Api_18_2.Machines.Post(machine));
             WriteObject(Machine.FromDto(response));
         }
     }

@@ -4,7 +4,7 @@ using System.Management.Automation;
 
 namespace UiPath.PowerShell.Util
 {
-    public abstract class EditCmdlet<DtoType>: AuthenticatedCmdlet 
+    public abstract class EditCmdlet: AuthenticatedCmdlet 
     {
         protected string MapParameterToProperty(string parameter)
         {
@@ -12,7 +12,7 @@ namespace UiPath.PowerShell.Util
         }
 
 
-        protected void ProcessImpl(
+        protected void ProcessImpl<DtoType>(
             Func<DtoType> getItem,
             Action<DtoType> updateItem)
         {
