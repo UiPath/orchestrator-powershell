@@ -19,10 +19,10 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true)]
         public string Name { get; private set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter()]
         public string MachineName { get; private set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter()]
         public string LicenseKey { get; private set; }
 
         [Parameter(Mandatory = true)]

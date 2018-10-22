@@ -1,16 +1,16 @@
 ﻿```PowerShell
 
 NAME
-    Get-UiPathRobot
+    Get-UiPathMachine
     
 SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathRobot [-AuthToken <AuthToken>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName <string>] 
-    [-Name <string>] [-Type <string>] [-Username <string>] [<CommonParameters>]
+    Get-UiPathMachine [-AuthToken <AuthToken>] [-LicenseKey <Guid>] [-Name <string>] [-Type <string>] 
+    [<CommonParameters>]
     
-    Get-UiPathRobot -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Get-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -18,30 +18,6 @@ DESCRIPTION
 
 PARAMETERS
     -Name <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -MachineName <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -LicenseKey <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Username <string>
         
         Required?                    false
         Position?                    named
@@ -57,11 +33,11 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -HostingType <string>
+    -LicenseKey <Guid>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                00000000-0000-0000-0000-000000000000
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

@@ -120,36 +120,32 @@ namespace UiPath.PowerShell.Cmdlets
 
             using (var api = AuthenticatedCmdlet.MakeApi(authToken))
             {
-                api.MakeHttpRequest(HttpMethod.Get, "/odata/$metadata", null, out var response, out var headers);
-                if (headers.TryGetValues("api-supported-versions", out var values))
-                {
-                    if (Version.TryParse(values.First(), out var version))
-                    {
-                        authToken.ApiVersion = version;
-                    }
-                }
                 try
-                {
-                    var settingsRaw = api.Settings.GetAuthenticationSettings();
-                    WriteVerbose($"s: {settingsRaw} {settingsRaw?.GetType().Name}");
-                    var settings = settingsRaw?.Value;
-
-
-                    foreach(var kvp in settings)
+                { 
+                    api.MakeHttpRequest(HttpMethod.Get, "odata/Settings/UiPath.Server.Configuration.OData.GetAuthenticationSettings", null, out var response, out var headers);
+                    if (headers.TryGetValues("api-supported-versions", out var values))
                     {
-                        WriteVerbose($"{kvp.Key}: {kvp.Value}");
+                        if (Version.TryParse(values.First(), out var version))
+                        {
+                            authToken.ApiVersion = version;
+                        }
                     }
-
-                    var val = settings?.Where(kvp => kvp.Key == "Build.Version").FirstOrDefault();
-
-                    if (null != val)
+                    // v18.1 client type system cannot parse the response
+                    //
+                    var dict = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<Web.Client20182.Models.ResponseDictionaryDto>(response);
+                    for(int i=0; i< dict.Keys.Count; ++i)
                     {
-                        authToken.BuildVersion = val.Value;
+                        if (0 != String.Compare(dict.Keys[i], "Build.Version", true))
+                        {
+                            continue;
+                        }
+                        authToken.BuildVersion = dict.Values[i];
+                        break;
                     }
                 }
                 catch (Exception e)
                 {
-                    WriteVerbose($"Error retrieving build version: {e.GetType().Name}: {e.Message}");
+                    WriteVerbose($"Error retrieving API version: {e.GetType().Name}: {e.Message}");
                 }
             }
         }

@@ -1,22 +1,39 @@
 ﻿```PowerShell
 
 NAME
-    Get-UiPathRobot
+    Edit-UiPathMachine
     
 SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathRobot [-AuthToken <AuthToken>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName <string>] 
-    [-Name <string>] [-Type <string>] [-Username <string>] [<CommonParameters>]
+    Edit-UiPathMachine [-Machine] <Machine> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] 
+    [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
     
-    Get-UiPathRobot -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] [-Type 
+    {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
+    -Machine <Machine>
+        
+        Required?                    true
+        Position?                    0
+        Default value                
+        Accept pipeline input?       true (ByValue)
+        Accept wildcard characters?  false
+        
+    -Id <long>
+        
+        Required?                    true
+        Position?                    named
+        Default value                0
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -Name <string>
         
         Required?                    false
@@ -25,51 +42,28 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -MachineName <string>
+    -NonProductionSlots <int>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                0
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -LicenseKey <string>
+    -Type <MachineDtoType>
+        Possible values: Standard, Template
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                Standard
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Username <string>
+    -UnattendedSlots <int>
         
         Required?                    false
         Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Type <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -HostingType <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Id <long>
-        
-        Required?                    true
-        Position?                    named
-        Default value                
+        Default value                0
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
@@ -88,6 +82,8 @@ PARAMETERS
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
 INPUTS
+    UiPath.PowerShell.Models.Machine
+    
     
 OUTPUTS
     

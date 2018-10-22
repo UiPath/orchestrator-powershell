@@ -25,6 +25,11 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Username { get; set; }
 
+        [ValidateEnum(typeof(Web.Client.Models.RobotDtoType))]
+        [Filter]
+        [Parameter(ParameterSetName="Filter")]
+        public string Type { get; private set; }
+
         [ValidateEnum(typeof(Web.Client20183.Models.RobotDtoHostingType))]
         [Filter]
         [Parameter(ParameterSetName = "Filter")]

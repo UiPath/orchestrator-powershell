@@ -1,16 +1,14 @@
 ﻿```PowerShell
 
 NAME
-    Get-UiPathRobot
+    Add-UiPathMachine
     
 SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathRobot [-AuthToken <AuthToken>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName <string>] 
-    [-Name <string>] [-Type <string>] [-Username <string>] [<CommonParameters>]
-    
-    Get-UiPathRobot -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathMachine -Name <string> [-AuthToken <AuthToken>] [-LicenseKey <Guid>] [-NonProductionSlots <int>] [-Type 
+    <string>] [-UnattendedSlots <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -19,31 +17,7 @@ DESCRIPTION
 PARAMETERS
     -Name <string>
         
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -MachineName <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -LicenseKey <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Username <string>
-        
-        Required?                    false
+        Required?                    true
         Position?                    named
         Default value                
         Accept pipeline input?       false
@@ -57,7 +31,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -HostingType <string>
+    -NonProductionSlots <int>
         
         Required?                    false
         Position?                    named
@@ -65,11 +39,19 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Id <long>
+    -UnattendedSlots <int>
         
-        Required?                    true
+        Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -LicenseKey <Guid>
+        
+        Required?                    false
+        Position?                    named
+        Default value                00000000-0000-0000-0000-000000000000
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
