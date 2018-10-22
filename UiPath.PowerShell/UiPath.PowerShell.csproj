@@ -144,6 +144,7 @@
     <Compile Include="Util\HashtableExtenssions.cs" />
     <Compile Include="Util\NetworkAuthenticationCredentials.cs" />
     <Compile Include="Util\PSCredentialExtenssions.cs" />
+    <Compile Include="Util\RestVerboseTracer.cs" />
     <Compile Include="Util\SetParameterAttribute.cs" />
     <Compile Include="Util\UiPathCmdlet.cs" />
     <Compile Include="Models\Asset.cs" />
