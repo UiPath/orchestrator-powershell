@@ -4,7 +4,7 @@ using System.Management.Automation;
 using System.Net;
 using UiPath.PowerShell.Cmdlets;
 using UiPath.PowerShell.Models;
-using UiPath.Web.Client;
+using UiPath.Web.Client20181;
 using UiPathWebApi_18_2 = UiPath.Web.Client20182.UiPathWebApi;
 using UiPathWebApi_18_3 = UiPath.Web.Client20183.UiPathWebApi;
 

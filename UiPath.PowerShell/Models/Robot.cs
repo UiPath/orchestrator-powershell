@@ -1,9 +1,9 @@
 ﻿using System;
-using RobotExecutorDto = UiPath.Web.Client.Models.RobotExecutorDto;
-using RobotDtoType20181 = UiPath.Web.Client.Models.RobotDtoType;
+using RobotExecutorDto = UiPath.Web.Client20181.Models.RobotExecutorDto;
+using RobotDtoType20181 = UiPath.Web.Client20181.Models.RobotDtoType;
 using RobotDtoType20183 = UiPath.Web.Client20183.Models.RobotDtoType;
 using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingType;
-using RobotDto20181 = UiPath.Web.Client.Models.RobotDto;
+using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
 using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
 
 namespace UiPath.PowerShell.Models

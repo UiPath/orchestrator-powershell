@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UiPath.PowerShell.Models;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181.Models;
 using Environment = UiPath.PowerShell.Models.Environment;
 
 namespace UiPath.PowerShell.Tests.Util

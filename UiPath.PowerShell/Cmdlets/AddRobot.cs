@@ -2,14 +2,13 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
-using UiPath.Web.Client.Models;
-using RobotDtoType20181 = UiPath.Web.Client.Models.RobotDtoType;
+using UiPath.Web.Client20181;
+using UiPath.Web.Client20183;
+using RobotDtoType20181 = UiPath.Web.Client20181.Models.RobotDtoType;
 using RobotDtoType20183 = UiPath.Web.Client20183.Models.RobotDtoType;
 using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingType;
-using RobotDto20181 = UiPath.Web.Client.Models.RobotDto;
+using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
 using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
-using UiPath.Web.Client20183;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -35,7 +34,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter()]
         public string Description { get; private set; }
 
-        [ValidateEnum(typeof(Web.Client.Models.RobotDtoType))]
+        [ValidateEnum(typeof(Web.Client20181.Models.RobotDtoType))]
         [Parameter()]
         public string Type { get; set; }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {

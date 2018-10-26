@@ -22,11 +22,6 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Type { get; set; }
 
-        [Filter]
-        [ValidateNotNull]
-        [Parameter(ParameterSetName = "Filter")]
-        public Guid LicenseKey { get; set; }
-
         protected override void ProcessRecord()
         {
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))

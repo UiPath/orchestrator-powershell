@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
+using UiPath.Web.Client20181;
 using UiPath.Web.Client20183;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -25,7 +25,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Username { get; set; }
 
-        [ValidateEnum(typeof(Web.Client.Models.RobotDtoType))]
+        [ValidateEnum(typeof(Web.Client20181.Models.RobotDtoType))]
         [Filter]
         [Parameter(ParameterSetName="Filter")]
         public string Type { get; private set; }
