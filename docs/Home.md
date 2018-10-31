@@ -26,6 +26,7 @@
 - [Get-UiPathAuthToken](Get-UiPathAuthToken.md)
 - [Get-UiPathEnvironment](Get-UiPathEnvironment.md)
 - [Get-UiPathJob](Get-UiPathJob.md)
+- [Get-UiPathLicense](Get-UiPathLicense.md)
 - [Get-UiPathMachine](Get-UiPathMachine.md)
 - [Get-UiPathOrganizationUnit](Get-UiPathOrganizationUnit.md)
 - [Get-UiPathOrganizationUnitUser](Get-UiPathOrganizationUnitUser.md)

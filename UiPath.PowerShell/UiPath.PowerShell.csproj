@@ -89,6 +89,7 @@
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
     <Compile Include="Cmdlets\EditUserPassword.cs" />
+    <Compile Include="Cmdlets\GetLicense.cs" />
     <Compile Include="Cmdlets\GetMachine.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnit.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnitUser.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Cmdlets\UpdateProcess.cs" />
     <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\License.cs" />
     <Compile Include="Models\Machine.cs" />
     <Compile Include="Models\OrganizationUnit.cs" />
     <Compile Include="Models\Permission.cs" />

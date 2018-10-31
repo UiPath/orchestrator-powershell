@@ -7,8 +7,7 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathMachine [-AuthToken <AuthToken>] [-LicenseKey <Guid>] [-Name <string>] [-Type <string>] 
-    [<CommonParameters>]
+    Get-UiPathMachine [-AuthToken <AuthToken>] [-Name <string>] [-Type <string>] [<CommonParameters>]
     
     Get-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
     
@@ -30,14 +29,6 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -LicenseKey <Guid>
-        
-        Required?                    false
-        Position?                    named
-        Default value                00000000-0000-0000-0000-000000000000
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
