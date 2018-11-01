@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {

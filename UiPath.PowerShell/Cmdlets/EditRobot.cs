@@ -1,13 +1,13 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsData.Edit, Nouns.Robot)]
-    public class EditRobot : EditCmdlet<RobotDto>
+    public class EditRobot : EditCmdlet
     {
 
         private const string RobotParameterSet = "Robot";
@@ -54,7 +54,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                () => (ParameterSetName == RobotParameterSet) ? Robot.ToDto(Robot) : HandleHttpOperationException(() => Api.Robots.GetById(Id)),
+                () => (ParameterSetName == RobotParameterSet) ? Robot.ToDto20181(Robot) : HandleHttpOperationException(() => Api.Robots.GetById(Id)),
                 (robotDto) => HandleHttpOperationException(() => Api.Robots.PutById(robotDto.Id.Value, robotDto)));
         }
     }

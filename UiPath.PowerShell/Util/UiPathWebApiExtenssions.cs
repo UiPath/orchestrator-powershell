@@ -3,7 +3,7 @@ using Microsoft.Rest.Serialization;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using UiPath.Web.Client;
+using UiPath.Web.Client20181;
 
 namespace UiPath.PowerShell.Util
 {

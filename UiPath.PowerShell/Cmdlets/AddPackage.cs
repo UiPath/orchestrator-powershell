@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
+using UiPath.Web.Client20181;
 
 namespace UiPath.PowerShell.Cmdlets
 {

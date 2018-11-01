@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Tests.Util;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Tests
 {

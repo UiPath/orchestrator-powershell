@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181;
+using UiPath.Web.Client20181.Models;
 using Environment = UiPath.PowerShell.Models.Environment;
 
 namespace UiPath.PowerShell.Cmdlets

@@ -70,6 +70,7 @@
     <Compile Include="Cmdlets\AddAsset.cs" />
     <Compile Include="Cmdlets\AddEnvironment.cs" />
     <Compile Include="Cmdlets\AddEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\AddMachine.cs" />
     <Compile Include="Cmdlets\AddOrganizationUnit.cs" />
     <Compile Include="Cmdlets\AddPackage.cs" />
     <Compile Include="Cmdlets\AddProcessSchedule.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Cmdlets\AddRole.cs" />
     <Compile Include="Cmdlets\ClearAuthToken.cs" />
     <Compile Include="Cmdlets\EditAsset.cs" />
+    <Compile Include="Cmdlets\EditMachine.cs" />
     <Compile Include="Cmdlets\EditOrganizationUnitUser.cs" />
     <Compile Include="Cmdlets\EditProcessSchedule.cs" />
     <Compile Include="Cmdlets\EditRoleUser.cs" />
@@ -87,6 +89,8 @@
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
     <Compile Include="Cmdlets\EditUserPassword.cs" />
+    <Compile Include="Cmdlets\GetLicense.cs" />
+    <Compile Include="Cmdlets\GetMachine.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnit.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnitUser.cs" />
     <Compile Include="Cmdlets\GetPackageVersion.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Cmdlets\RegisterLicense.cs" />
     <Compile Include="Cmdlets\RemoveEnvironment.cs" />
     <Compile Include="Cmdlets\RemoveEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\RemoveMachine.cs" />
     <Compile Include="Cmdlets\RemoveOrganizationUnit.cs" />
     <Compile Include="Cmdlets\RemovePackage.cs" />
     <Compile Include="Cmdlets\RemoveProcess.cs" />
@@ -128,6 +133,8 @@
     <Compile Include="Cmdlets\UpdateProcess.cs" />
     <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\License.cs" />
+    <Compile Include="Models\Machine.cs" />
     <Compile Include="Models\OrganizationUnit.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\AssetRobotValue.cs" />
@@ -143,6 +150,7 @@
     <Compile Include="Util\EditCmdlet.cs" />
     <Compile Include="Util\HashtableExtenssions.cs" />
     <Compile Include="Util\NetworkAuthenticationCredentials.cs" />
+    <Compile Include="Util\OrchestratorProtocolVersion.cs" />
     <Compile Include="Util\PSCredentialExtenssions.cs" />
     <Compile Include="Util\RestVerboseTracer.cs" />
     <Compile Include="Util\SetParameterAttribute.cs" />

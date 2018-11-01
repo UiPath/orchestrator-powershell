@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
