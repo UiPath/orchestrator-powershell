@@ -1,4 +1,6 @@
-﻿namespace UiPath.PowerShell.Models
+﻿using System;
+
+namespace UiPath.PowerShell.Models
 {
     /// <summary>
     /// The Token needed to authenticate UiPath cmdlets
@@ -11,7 +13,10 @@
 
         public bool WindowsCredentials { get; internal set; }
         public bool Authenticated { get; internal set; }
-        public string ApiVersion { get; internal set; }
+
+        public Version ApiVersion { get; internal set; }
+
+        public String BuildVersion { get; internal set; }
 
         public string OrganizationUnit { get; internal set; }
 

@@ -5,10 +5,74 @@ using System.Management.Automation;
 
 namespace UiPath.PowerShell.Util
 {
-    public abstract class UiPathCmdlet: PSCmdlet
+    public abstract class UiPathCmdlet : PSCmdlet
     {
         private bool Ignored = BindingResolver.Ignored;
 
+        private static RestVerboseTracer VerboseTracer { get; set; }
+
+        static UiPathCmdlet()
+        {
+            VerboseTracer = new RestVerboseTracer();
+            ServiceClientTracing.AddTracingInterceptor(VerboseTracer);
+            ServiceClientTracing.IsEnabled = true;
+        }
+
+        internal bool VerboseEnabled
+        {
+            get
+            {
+                var verbosePreference = GetVariableValue("global:VerbosePreference") as ActionPreference?;
+                if (verbosePreference.HasValue && verbosePreference.Value != ActionPreference.SilentlyContinue)
+                    return true;
+                if (MyInvocation.BoundParameters.TryGetValue("Verbose", out var value))
+                {
+                    return  value is bool && (bool) value;
+                }
+                return false;
+            }
+        }
+
+        internal bool DebugEnabled
+        {
+            get
+            {
+                var debugPreference = GetVariableValue("global:DebugPreference") as ActionPreference?;
+                if (debugPreference.HasValue && debugPreference.Value != ActionPreference.SilentlyContinue)
+                    return true;
+                if (MyInvocation.BoundParameters.TryGetValue("Debug", out var value))
+                {
+                    return value is bool && (bool)value;
+                }
+                return false;
+            }
+        }
+
+        protected override void BeginProcessing()
+        {
+            RestVerboseTracer.ETraceFlags traceFlags = 0;
+
+            if (VerboseEnabled)
+            {
+                traceFlags |= RestVerboseTracer.ETraceFlags.Enabled;
+            }
+
+            if (DebugEnabled)
+            {
+                traceFlags |= RestVerboseTracer.ETraceFlags.Headers;
+                traceFlags |= RestVerboseTracer.ETraceFlags.Content;
+            }
+
+            VerboseTracer.StartTracing(traceFlags);
+            base.BeginProcessing();
+        }
+
+        protected override void EndProcessing()
+        {
+            base.EndProcessing();
+            VerboseTracer.Flush(this);
+            VerboseTracer.StopTracing();
+        }
 
         protected T HandleHttpOperationException<T>(Func<T> action)
         {
@@ -16,13 +80,17 @@ namespace UiPath.PowerShell.Util
             {
                 return action();
             }
-            catch(HttpOperationException ex)
+            catch (HttpOperationException ex)
             {
                 if (TryExtractErrorMessage(ex.Response?.Content, out var message, out var error))
                 {
                     WriteError(error, message);
                 }
                 throw;
+            }
+            finally
+            {
+                VerboseTracer.Flush(this);
             }
         }
 

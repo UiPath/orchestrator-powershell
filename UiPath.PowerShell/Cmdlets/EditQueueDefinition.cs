@@ -1,13 +1,13 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
     [Cmdlet(VerbsData.Edit, Nouns.QueueDefinition)]
-    public class EditQueueDefinition: EditCmdlet<QueueDefinitionDto>
+    public class EditQueueDefinition: EditCmdlet
     {
         private const string QueueDefinitionParameterSet = "QueueDefinition";
         private const string IdParameterSet = "Id";

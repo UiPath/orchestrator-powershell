@@ -2,8 +2,13 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client;
-using UiPath.Web.Client.Models;
+using UiPath.Web.Client20181;
+using UiPath.Web.Client20183;
+using RobotDtoType20181 = UiPath.Web.Client20181.Models.RobotDtoType;
+using RobotDtoType20183 = UiPath.Web.Client20183.Models.RobotDtoType;
+using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingType;
+using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
+using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -13,10 +18,10 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true)]
         public string Name { get; private set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter()]
         public string MachineName { get; private set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter()]
         public string LicenseKey { get; private set; }
 
         [Parameter(Mandatory = true)]
@@ -29,13 +34,29 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter()]
         public string Description { get; private set; }
 
-        [ValidateEnum(typeof(RobotDtoType))]
+        [ValidateEnum(typeof(Web.Client20181.Models.RobotDtoType))]
         [Parameter()]
         public string Type { get; set; }
 
+        [ValidateEnum(typeof(RobotDtoHostingType20183))]
+        [Parameter]
+        public string HostingType { get; set; }
+
         protected override void ProcessRecord()
         {
-            var robot = new RobotDto
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(HostingType)))
+            {
+                AddRobot20183();
+            }
+            else
+            {
+                AddRobot20181();
+            }
+        }
+
+        private void AddRobot20181()
+        { 
+            var robot = new RobotDto20181
             {
                 Name = Name,
                 MachineName = MachineName,
@@ -45,13 +66,36 @@ namespace UiPath.PowerShell.Cmdlets
                 Description = Description,
             };
 
-            RobotDtoType type;
-            if (Enum.TryParse<RobotDtoType>(Type, out type))
+            RobotDtoType20181 type;
+            if (Enum.TryParse<RobotDtoType20181>(Type, out type))
             {
                 robot.Type = type;
             }
 
             var dto = HandleHttpOperationException(() => Api.Robots.Post(robot));
+            WriteObject(Robot.FromDto(dto));
+        }
+
+        private void AddRobot20183()
+        {
+            var robot = new RobotDto20183
+            {
+                Name = Name,
+                MachineName = MachineName,
+                LicenseKey = LicenseKey,
+                Username = Username,
+                Password = Password,
+                Description = Description,
+                HostingType = (RobotDtoHostingType20183)Enum.Parse(typeof(RobotDtoHostingType20183), HostingType)
+            };
+
+            RobotDtoType20183 type;
+            if (Enum.TryParse<RobotDtoType20183>(Type, out type))
+            {
+                robot.Type = type;
+            }
+
+            var dto = HandleHttpOperationException(() => Api_18_3.Robots.Post(robot));
             WriteObject(Robot.FromDto(dto));
         }
     }
