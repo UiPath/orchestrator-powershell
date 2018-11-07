@@ -4,7 +4,8 @@ using System.Management.Automation;
 using System.Net;
 using UiPath.PowerShell.Cmdlets;
 using UiPath.PowerShell.Models;
-using UiPath.Web.Client20181;
+using UiPath.Web.Client.Generic;
+using UiPathWebApi_18_1 = UiPath.Web.Client20181.UiPathWebApi;
 using UiPathWebApi_18_2 = UiPath.Web.Client20182.UiPathWebApi;
 using UiPathWebApi_18_3 = UiPath.Web.Client20183.UiPathWebApi;
 
@@ -15,7 +16,7 @@ namespace UiPath.PowerShell.Util
         [Parameter()]
         public AuthToken AuthToken { get; set; }
 
-        private UiPathWebApi _api;
+        private UiPathWebApi_18_1 _api;
         private UiPathWebApi_18_2 _api_18_2;
         private UiPathWebApi_18_3 _api_18_3;
 
@@ -44,14 +45,14 @@ namespace UiPath.PowerShell.Util
             return authToken.ApiVersion >= minVersion; 
         }
 
-        protected UiPathWebApi Api
+        protected UiPathWebApi_18_1 Api
         {
             get
             {
                 if (_api == null)
                 {
                     var authToken = InternalAuthToken;
-                    _api = MakeApi(authToken);
+                    _api = MakeApi<UiPathWebApi_18_1>(authToken, (creds,uri) => new UiPathWebApi_18_1(creds) { BaseUri = uri });
                 }
                 return _api;
             }
@@ -64,7 +65,7 @@ namespace UiPath.PowerShell.Util
                 if (_api_18_2 == null)
                 {
                     var authToken = InternalAuthToken;
-                    _api_18_2 = MakeApi_18_2(authToken);
+                    _api_18_2 = MakeApi<UiPathWebApi_18_2>(authToken, (creds, uri) => new UiPathWebApi_18_2(creds) { BaseUri = uri });
                 }
                 return _api_18_2;
             }
@@ -77,13 +78,18 @@ namespace UiPath.PowerShell.Util
                 if (_api_18_3 == null)
                 {
                     var authToken = InternalAuthToken;
-                    _api_18_3 = MakeApi_18_3(authToken);
+                    _api_18_3 = MakeApi<UiPathWebApi_18_3>(authToken, (creds, uri) => new UiPathWebApi_18_3(creds) { BaseUri = uri });
                 }
                 return _api_18_3;
             }
         }
 
-        internal static UiPathWebApi MakeApi(AuthToken authToken)
+        public static UiPathWebApi_18_1 MakeApi(AuthToken authToken)
+        {
+            return MakeApi<UiPathWebApi_18_1>(authToken, (creds, uri) => new UiPathWebApi_18_1(creds) { BaseUri = uri });
+        }
+
+        internal static T MakeApi<T>(AuthToken authToken, Func<ServiceClientCredentials, Uri, T> ctor) where T:ServiceClient<T>, IUiPathWebApi
         {
             ServiceClientCredentials creds = null;
             if (authToken.Authenticated == false)
@@ -102,10 +108,7 @@ namespace UiPath.PowerShell.Util
                 creds = new TokenCredentials(authToken.Token);
             }
 
-            var api = new UiPathWebApi(creds)
-            {
-                BaseUri = new Uri(authToken.URL)
-            };
+            var api = ctor(creds, new Uri(authToken.URL));
             api.SetRetryPolicy(null);
             api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
             if (authToken.OrganizationUnitId.HasValue)
@@ -114,79 +117,6 @@ namespace UiPath.PowerShell.Util
             }
             return api;
         }
-
-        internal static UiPathWebApi_18_2 MakeApi_18_2(AuthToken authToken)
-        {
-            if (!Supports(OrchestratorProtocolVersion.V18_2, authToken))
-            {
-                throw new ApplicationException($"The required Orchestrator API version is: {OrchestratorProtocolVersion.V18_2}. The supported version is: {authToken.ApiVersion}.");
-            }
-            ServiceClientCredentials creds = null;
-            if (authToken.Authenticated == false)
-            {
-                creds = new BasicAuthenticationCredentials();
-            }
-            else if (authToken.WindowsCredentials)
-            {
-                creds = new NetworkAuthenticationCredentials
-                {
-                    Credentials = CredentialCache.DefaultNetworkCredentials
-                };
-            }
-            else
-            {
-                creds = new TokenCredentials(authToken.Token);
-            }
-
-            var api = new UiPathWebApi_18_2(creds)
-            {
-                BaseUri = new Uri(authToken.URL)
-            };
-            api.SetRetryPolicy(null);
-            api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
-            if (authToken.OrganizationUnitId.HasValue)
-            {
-                api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-OrganizationUnitId", authToken.OrganizationUnitId.Value.ToString());
-            }
-            return api;
-        }
-
-        internal static UiPathWebApi_18_3 MakeApi_18_3(AuthToken authToken)
-        {
-            if (!Supports(OrchestratorProtocolVersion.V18_3, authToken))
-            {
-                throw new ApplicationException($"The required Orchestrator API version is: {OrchestratorProtocolVersion.V18_3}. The supported version is: {authToken.ApiVersion}.");
-            }
-            ServiceClientCredentials creds = null;
-            if (authToken.Authenticated == false)
-            {
-                creds = new BasicAuthenticationCredentials();
-            }
-            else if (authToken.WindowsCredentials)
-            {
-                creds = new NetworkAuthenticationCredentials
-                {
-                    Credentials = CredentialCache.DefaultNetworkCredentials
-                };
-            }
-            else
-            {
-                creds = new TokenCredentials(authToken.Token);
-            }
-
-            var api = new UiPathWebApi_18_3(creds)
-            {
-                BaseUri = new Uri(authToken.URL)
-            };
-            api.SetRetryPolicy(null);
-            api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
-            if (authToken.OrganizationUnitId.HasValue)
-            {
-                api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-OrganizationUnitId", authToken.OrganizationUnitId.Value.ToString());
-            }
-            return api;
-        }
-
 
         internal static void SetAuthToken(AuthToken authToken)
         {
