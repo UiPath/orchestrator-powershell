@@ -178,6 +178,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="UiPath.PowerShell.psd1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Web.Client\UiPath.Web.Client.csproj">

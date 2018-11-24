@@ -15,6 +15,7 @@
     <tags>UiPath Orchestrator PowerShell API client </tags>
   </metadata>
   <files>
-    <file src="Output\Release\*.*" target="lib\net452" exclude="Output\Release\*.pdb" />
+    <file src="Output\Release\*.*" target="lib\net452" exclude="**\*.pdb;**\*Test*;**\*.psd1" />
+    <file src="Output\Release\UiPath.PowerShell.psd1" target="" exclude="" />
   </files>
 </package>
