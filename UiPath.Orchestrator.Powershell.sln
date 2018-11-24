@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Generate-CmdletDocs.ps1 = Generate-CmdletDocs.ps1
 		LICENSE.md = LICENSE.md
 		README.md = README.md
+		UiPath.PowerShell.nuspec = UiPath.PowerShell.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C28CC0D0-21DE-4A3F-8AAF-D765688809E6}"

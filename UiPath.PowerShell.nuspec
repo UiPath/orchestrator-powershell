@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>UiPath.PowerShell</id>
-    <version>$version$</version>
+    <version>18.3.2.60001</version>
     <title>UiPath.PowerShell</title>
     <authors>UiPath</authors>
     <owners>UiPath</owners>
