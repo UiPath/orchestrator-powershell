@@ -36,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\Output\Release\UiPath.PowerShell.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -199,6 +200,28 @@
   </Target>
   <Target Name="BeforeBuild" Condition="'$(Revision)' != '' ">
     <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
+  </Target>
+  <UsingTask TaskName="GetFileVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <AssemblyPath ParameterType="System.String" Required="true" />
+      <Version ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.Diagnostics" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+      Log.LogMessage("Getting version details of assembly at: " + this.AssemblyPath, MessageImportance.High);
+
+      this.Version = FileVersionInfo.GetVersionInfo(this.AssemblyPath).FileVersion;  
+    ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="UpdatePowerShellManifest" AfterTargets="CopyFilesToOutputDirectory">
+    <GetFileVersion AssemblyPath="$(OutputPath)UiPath.PowerShell.dll">
+      <Output TaskParameter="Version" PropertyName="UiPathFileVersion" />
+    </GetFileVersion>
+    <Message Text="File version is $(UiPathFileVersion)" />
+    <!-- ModuleVersion = '18.3.2.60001' -->
+    <FileUpdate Files="$(OutputPath)UiPath.PowerShell.psd1" Regex="(?&lt;=ModuleVersion\s=\s)\'.*'" ReplacementText="'$(UiPathFileVersion)'" />
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
 </Project>

@@ -12,7 +12,7 @@
 RootModule = 'lib\net452\UiPath.PowerShell.dll'
 
 # Version number of this module.
-ModuleVersion = '18.3.2.60001'
+ModuleVersion = '$(UiPathFileVersion)'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
