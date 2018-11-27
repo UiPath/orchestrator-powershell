@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using UiPath.PowerShell.Models;
 using UiPath.Web.Client20181.Models;
@@ -11,6 +12,33 @@ namespace UiPath.PowerShell.Tests.Util
 {
     internal static class Validators
     {
+        public static void ValidateLibraryResponse(ICollection<Library> libraries, params PackageSpec[] expectedSpecs)
+        {
+            Assert.IsNotNull(libraries);
+            Assert.AreEqual(expectedSpecs.Length, libraries.Count);
+
+            int idx = 0;
+            foreach (var l in libraries)
+            {
+                ValidateLibraryResponse(l, expectedSpecs[idx]);
+                ++idx;
+            }
+        }
+
+        public static void ValidateLibraryResponse(Library library, PackageSpec expectedSpec)
+        {
+            Assert.AreEqual(expectedSpec.Id, library.Id);
+            Assert.AreEqual(expectedSpec.Version.ToString(), library.Version);
+            Assert.AreEqual(expectedSpec.Authors, library.Authors);
+            Assert.AreEqual(expectedSpec.Title, library.Title);
+            Assert.AreEqual(expectedSpec.Description, library.Description);
+
+            // CRLF is mangled in the nuspec
+            var cmp = CompareInfo.GetCompareInfo("en-US");
+            Assert.AreEqual(0, cmp.Compare(expectedSpec.ReleaseNotes, library.ReleaseNotes, CompareOptions.IgnoreSymbols),
+                $"Release notes (ignoring symbols) don't match: {expectedSpec.ReleaseNotes} vs: {library.ReleaseNotes}");
+        }
+
         public static void ValidateAssetResponse(ICollection<Asset> assets, long? expectedId, string expectedName, AssetDtoValueType expectedType, string expectedValue)
         {
             Assert.IsNotNull(assets);

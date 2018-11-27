@@ -10,6 +10,8 @@
         internal const string Environment = UiPath + "Environment";
         internal const string EnvironmentRobot = UiPath + "EnvironmentRobot";
         internal const string Job = UiPath + "Job";
+        internal const string Library = UiPath + "Library";
+        internal const string LibraryVersion = UiPath + "LibraryVersion";
         internal const string License = UiPath + "License";
         internal const string Machine = UiPath + "Machine";
         internal const string OrganizationUnit = UiPath + "OrganizationUnit";

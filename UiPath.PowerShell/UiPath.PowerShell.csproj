@@ -71,6 +71,7 @@
     <Compile Include="Cmdlets\AddAsset.cs" />
     <Compile Include="Cmdlets\AddEnvironment.cs" />
     <Compile Include="Cmdlets\AddEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\AddLibrary.cs" />
     <Compile Include="Cmdlets\AddMachine.cs" />
     <Compile Include="Cmdlets\AddOrganizationUnit.cs" />
     <Compile Include="Cmdlets\AddPackage.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
     <Compile Include="Cmdlets\EditUserPassword.cs" />
+    <Compile Include="Cmdlets\GetLibrary.cs" />
+    <Compile Include="Cmdlets\GetLibraryVersion.cs" />
     <Compile Include="Cmdlets\GetLicense.cs" />
     <Compile Include="Cmdlets\GetMachine.cs" />
     <Compile Include="Cmdlets\GetOrganizationUnit.cs" />
@@ -117,6 +120,7 @@
     <Compile Include="Cmdlets\RegisterLicense.cs" />
     <Compile Include="Cmdlets\RemoveEnvironment.cs" />
     <Compile Include="Cmdlets\RemoveEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\RemoveLibrary.cs" />
     <Compile Include="Cmdlets\RemoveMachine.cs" />
     <Compile Include="Cmdlets\RemoveOrganizationUnit.cs" />
     <Compile Include="Cmdlets\RemovePackage.cs" />
@@ -134,6 +138,7 @@
     <Compile Include="Cmdlets\UpdateProcess.cs" />
     <Compile Include="Models\ChangePasswordAccountDto.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Library.cs" />
     <Compile Include="Models\License.cs" />
     <Compile Include="Models\Machine.cs" />
     <Compile Include="Models\OrganizationUnit.cs" />
