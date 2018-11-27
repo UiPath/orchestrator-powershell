@@ -34,6 +34,11 @@
         public const string IsStatic = "IsStatic";
         public const string Permissions = "Permissions";
 
+        public const string Title = "Title";
+        public const string Authors = "Authors";
+        public const string ReleaseNotes = "ReleaseNotes";
+        public const string Version = "Version";
+
         public const string Asset = "Asset";
         public const string QueueDefinition = "QueueDefinition";
 
@@ -52,6 +57,12 @@
         public const string GetUiPathEnvironment = "Get-UiPathEnvironment";
         public const string EditUiPathEnvironment = "Edit-UiPathEnvironment";
         public const string RemoveUiPathEnvironment = "Remove-UiPathEnvironment";
+
+        public const string AddUiPathLibrary = "Add-UiPathLibrary";
+        public const string GetUiPathLibrary = "Get-UiPathLibrary";
+        public const string GetUiPathLibraryVersion = "Get-UiPathLibraryVersion";
+        public const string EditUiPathLibrary = "Edit-UiPathLibrary";
+        public const string RemoveUiPathLibrary = "Remove-UiPathLibrary";
 
         public const string AddUiPathRobot = "Add-UiPathRobot";
         public const string GetUiPathRobot = "Get-UiPathRobot";

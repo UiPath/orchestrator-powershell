@@ -13,19 +13,6 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Authors { get; private set; }
 
-
-        [Filter]
-        [Parameter(ParameterSetName = "Filter")]
-        public bool? IsLatestVersion { get; private set; }
-
-        [Filter]
-        [Parameter(ParameterSetName = "Filter")]
-        public string Key { get; private set; }
-
-        [Filter]
-        [Parameter(ParameterSetName = "Filter")]
-        public string OldVersion { get; private set; }
-
         [Filter]
         [Parameter(ParameterSetName = "Filter")]
         public string Title { get; private set; }

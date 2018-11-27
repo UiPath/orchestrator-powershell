@@ -65,5 +65,24 @@ namespace UiPath.PowerShell.Tests.Util
             return runspace;
         }
 
+        public static Runspace CreateHostAuthenticatedSession(TestContext testContext)
+        {
+            var testSettings = TestSettings.FromTestContext(testContext);
+            var iss = CreateSessionState();
+            var runspace = CreateRunspace(iss);
+
+            try
+            {
+                runspace.Open();
+                AuthenticateSession(runspace, testSettings.URL, "Host", "admin", testSettings.HostPassword, testContext);
+            }
+            catch
+            {
+                runspace.Dispose();
+                throw;
+            }
+            return runspace;
+        }
+
     }
 }
