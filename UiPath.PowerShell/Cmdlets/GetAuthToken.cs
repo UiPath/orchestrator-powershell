@@ -91,6 +91,8 @@ namespace UiPath.PowerShell.Cmdlets
                     SetOrganizationUnit(authToken, OrganizationUnit);
                 }
 
+                GetCurrentUser(authToken);
+
                 if (Session.IsPresent)
                 {
                     AuthenticatedCmdlet.SetAuthToken(authToken);
@@ -101,6 +103,18 @@ namespace UiPath.PowerShell.Cmdlets
             catch(Exception e)
             {
                 WriteVerbose(e.ToString());
+            }
+        }
+
+        private void GetCurrentUser(AuthToken authToken)
+        {
+            using (var api = AuthenticatedCmdlet.MakeApi(authToken))
+            {
+                var user = api.Users.GetCurrentUser();
+                authToken.UserName = user.UserName;
+
+                var permissions = api.Users.GetCurrentPermissions().Permissions;
+                authToken.Permissions = permissions.ToArray();
             }
         }
 

@@ -20,6 +20,10 @@ namespace UiPath.PowerShell.Models
 
         public string OrganizationUnit { get; internal set; }
 
+        public string UserName { get; internal set; }
+
+        public string[] Permissions { get; internal set; }
+
         internal long? OrganizationUnitId { get; set; }
     }
 }
