@@ -8,6 +8,7 @@ using UiPath.Web.Client.Generic;
 using UiPathWebApi_18_1 = UiPath.Web.Client20181.UiPathWebApi;
 using UiPathWebApi_18_2 = UiPath.Web.Client20182.UiPathWebApi;
 using UiPathWebApi_18_3 = UiPath.Web.Client20183.UiPathWebApi;
+using UiPathWebApi_18_4 = UiPath.Web.Client20184.UiPathWebApi;
 
 namespace UiPath.PowerShell.Util
 {
@@ -19,6 +20,7 @@ namespace UiPath.PowerShell.Util
         private UiPathWebApi_18_1 _api;
         private UiPathWebApi_18_2 _api_18_2;
         private UiPathWebApi_18_3 _api_18_3;
+        private UiPathWebApi_18_4 _api_18_4;
 
         private static AuthToken SessionAuthToken { get; set; }
 
@@ -81,6 +83,19 @@ namespace UiPath.PowerShell.Util
                     _api_18_3 = MakeApi<UiPathWebApi_18_3>(authToken, (creds, uri) => new UiPathWebApi_18_3(creds) { BaseUri = uri });
                 }
                 return _api_18_3;
+            }
+        }
+
+        protected UiPathWebApi_18_4 Api_18_4
+        {
+            get
+            {
+                if (_api_18_4 == null)
+                {
+                    var authToken = InternalAuthToken;
+                    _api_18_4 = MakeApi<UiPathWebApi_18_4>(authToken, (creds, uri) => new UiPathWebApi_18_4(creds) { BaseUri = uri });
+                }
+                return _api_18_4;
             }
         }
 
