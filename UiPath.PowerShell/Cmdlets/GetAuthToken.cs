@@ -68,53 +68,46 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            try
+            AuthToken authToken = null;
+            if (ParameterSetName == UserPasswordSet)
             {
-                AuthToken authToken = null;
-                if (ParameterSetName == UserPasswordSet)
-                {
-                    authToken = GetUserToken();
-                }
-                else if (ParameterSetName == WindowsCredentialsSet)
-                {
-                    authToken = GetWindowsToken();
-                }
-                else if (ParameterSetName == UnauthenticatedSet)
-                {
-                    authToken = GetUnauthenticatedToken();
-                }
-
-                GetServerVersion(authToken);
-
-                if (!String.IsNullOrWhiteSpace(OrganizationUnit))
-                {
-                    SetOrganizationUnit(authToken, OrganizationUnit);
-                }
-
-                GetCurrentUser(authToken);
-
-                if (Session.IsPresent)
-                {
-                    AuthenticatedCmdlet.SetAuthToken(authToken);
-                }
-
-                WriteObject(authToken);
+                authToken = GetUserToken();
             }
-            catch(Exception e)
+            else if (ParameterSetName == WindowsCredentialsSet)
             {
-                WriteVerbose(e.ToString());
+                authToken = GetWindowsToken();
             }
+            else if (ParameterSetName == UnauthenticatedSet)
+            {
+                authToken = GetUnauthenticatedToken();
+            }
+
+            GetServerVersion(authToken);
+
+            if (!String.IsNullOrWhiteSpace(OrganizationUnit))
+            {
+                SetOrganizationUnit(authToken, OrganizationUnit);
+            }
+
+            GetCurrentUser(authToken);
+
+            if (Session.IsPresent)
+            {
+                AuthenticatedCmdlet.SetAuthToken(authToken);
+            }
+
+            WriteObject(authToken);
         }
 
         private void GetCurrentUser(AuthToken authToken)
         {
             using (var api = AuthenticatedCmdlet.MakeApi(authToken))
             {
+                var permissions = api.Users.GetCurrentPermissions()?.Permissions;
+                authToken.Permissions = permissions?.ToArray();
+
                 var user = api.Users.GetCurrentUser();
                 authToken.UserName = user.UserName;
-
-                var permissions = api.Users.GetCurrentPermissions().Permissions;
-                authToken.Permissions = permissions.ToArray();
             }
         }
 
@@ -180,7 +173,8 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 URL = URL,
                 WindowsCredentials = true,
-                Authenticated = true
+                Authenticated = true,
+                Token = "Windows authentication does not use bearer token"
             };
         }
 
