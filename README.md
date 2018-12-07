@@ -53,7 +53,7 @@ The UiPath.PowerShell module can be installed as a NuGet package. You will need 
 
 ```PowerShell
 PS C:\>Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
-PS C:\>Register-PSRepository -Name UiPath -SourceLocation https://gallery.uipath.com/api/v2
+PS C:\>Register-PSRepository -Name UiPath -SourceLocation https://www.myget.org/F/uipath-dev/api/v2
 ```
 
 Note that in the example above the use of `-Scope CurrentUser` means that the NuGet package provider is registered only for the current user. This does not require administrative privilegs, but the registration is transient. You may opt instead to run from an elevated prompt and remove the `-Scope CurrentUser` for a permanent registration.
@@ -72,7 +72,7 @@ PS C:>Get-PSRepository
 Name                      InstallationPolicy   SourceLocation
 ----                      ------------------   --------------
 PSGallery                 Untrusted            https://www.powershellgallery.com/api/v2
-UiPath                    Untrusted            https://gallery.uipath.com/api/v2
+UiPath                    Untrusted            https://www.myget.org/F/uipath-dev/api/v2
 ````
 
 ### Install the UiPath.PowerShell module using the UiPath repository
