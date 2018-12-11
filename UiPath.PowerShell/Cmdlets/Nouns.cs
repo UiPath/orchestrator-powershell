@@ -31,5 +31,6 @@
         internal const string TimeZones = UiPath + "TimeZones";
         internal const string User = UiPath + "User";
         internal const string UserPassword = UiPath + "UserPassword";
+        internal const string Webhook = UiPath + "Webhook";
     }
 }
