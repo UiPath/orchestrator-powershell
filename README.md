@@ -106,6 +106,14 @@ Binary     18.3.2.... UiPath.PowerShell                   {Add-UiPathAsset, Add-
 
 ```
 
+### Manual Install
+
+Download the package from https://www.myget.org/feed/uipath-dev/package/nuget/UiPath.PowerShell, extract the content, and then run:
+
+```PowerShell
+PS c:\>Import-Module UiPath.PowerShell.dll
+```
+
 # License
 
 This project is copyright [UiPath INC](https://uipath.com) and licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
