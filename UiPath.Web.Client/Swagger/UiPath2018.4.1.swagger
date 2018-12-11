@@ -8891,6 +8891,372 @@
         },
         "deprecated": false
       }
+    },
+    "/odata/Webhooks": {
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "List webhooks",
+        "description": "Required permissions: Webhooks.View.",
+        "operationId": "Webhooks_GetWebhooks",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expands related entities inline.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filters the results, based on a Boolean condition.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Selects which properties to include in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Sorts the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "Returns only the first n results.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "Skips the first n results.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "description": "Includes a count of the matching results in the response.",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ODataResponse[List[WebhookDto]]"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Create a new webhook subscription",
+        "description": "Required permissions: Webhooks.Create.",
+        "operationId": "Webhooks_Post",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "WebhookDto",
+            "in": "body",
+            "description": "The entity to post",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Webhook created",
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Webhooks({Id})": {
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Gets a single webhook",
+        "description": "Required permissions: Webhooks.View.",
+        "operationId": "Webhooks_GetById",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expands related entities inline.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Selects which properties to include in the response.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Update an existing webhook subscription",
+        "description": "Required permissions: Webhooks.Edit.",
+        "operationId": "Webhooks_PutById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "WebhookDto",
+            "in": "body",
+            "description": "The entity to put",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Delete a webhook subscription",
+        "description": "Required permissions: Webhooks.Delete.",
+        "operationId": "Webhooks_DeleteById",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "If-Match header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Update entity in EntitySet Webhooks",
+        "description": "Required permissions: Webhooks.Edit.",
+        "operationId": "Webhooks_PatchById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "WebhookDto",
+            "in": "body",
+            "description": "The entity to patch",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WebhookDto"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Webhooks({Id})/UiPath.Server.Configuration.OData.Ping": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Sends a Ping request to webhook endpoint. \r\nUsed for testing connectivity and availability of target URL",
+        "description": "Required permissions: Webhooks.View.",
+        "operationId": "Webhooks_PingById",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PingEventDto"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes()": {
+      "get": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Gets the list of event types a webhook can subscribe to",
+        "description": "Required permissions: Webhooks.View.",
+        "operationId": "Webhooks_GetEventTypes",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ODataResponse[List[WebhookEventTypeDto]]"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Webhooks/UiPath.Server.Configuration.OData.TriggerCustom": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Triggers an event of type \"custom\"",
+        "description": "Required permissions: Webhooks.View.",
+        "operationId": "Webhooks_TriggerCustom",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventData",
+            "in": "body",
+            "description": "Any custom event data payload",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AnyObjectDto"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomEventDto"
+            }
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
@@ -9344,6 +9710,1860 @@
         "connectionError": {
           "description": "An error code that further describes the type of connection error.\r\nDoes not include TLS/SSL errors",
           "type": "string"
+        }
+      }
+    },
+    "PingEventDto": {
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "ping"
+    },
+    "JobCompletedEventDto": {
+      "description": "This event is raised whenever a job has completed successfully",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Job": {
+          "$ref": "#/definitions/WebhookSimpleJobDto"
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "job.completed"
+    },
+    "WebhookSimpleJobDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Key": {
+          "format": "uuid",
+          "type": "string",
+          "readOnly": true
+        },
+        "State": {
+          "enum": [
+            "Pending",
+            "Running",
+            "Stopping",
+            "Terminating",
+            "Faulted",
+            "Successful",
+            "Stopped"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookSimpleJobDtoState",
+            "modelAsString": false
+          }
+        },
+        "StartTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "EndTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "Info": {
+          "type": "string",
+          "readOnly": true
+        },
+        "OutputArguments": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Robot": {
+          "$ref": "#/definitions/WebhookSimpleRobotDto",
+          "readOnly": true
+        },
+        "Release": {
+          "$ref": "#/definitions/WebhookSimpleReleaseDto",
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookSimpleRobotDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "MachineName": {
+          "type": "string"
+        }
+      }
+    },
+    "WebhookSimpleReleaseDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "description": "The Id of the process",
+          "type": "integer"
+        },
+        "Key": {
+          "description": "The unique key of the process",
+          "type": "string"
+        },
+        "ProcessKey": {
+          "description": "The name of the process",
+          "type": "string"
+        }
+      }
+    },
+    "JobFaultedEventDto": {
+      "description": "This event is raised whenever a job has failed to finish execution",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Job": {
+          "$ref": "#/definitions/WebhookSimpleJobDto"
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "job.faulted"
+    },
+    "JobsStoppedEventDto": {
+      "description": "This event is raised whenever jobs were stopped",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookSimpleJobDto"
+          }
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "job.stopped"
+    },
+    "JobStartedEventDto": {
+      "description": "This event is raised whenever a job has started execution on a robot",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Job": {
+          "$ref": "#/definitions/WebhookSimpleJobDto"
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "job.started"
+    },
+    "QueueCreatedEventDto": {
+      "description": "This event is raised whenever queue definitions were created",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Queues": {
+          "description": "The queue that triggered the event",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookQueueDefinitionDto"
+          }
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queue.created"
+    },
+    "WebhookQueueDefinitionDto": {
+      "description": "The definition of a work queue. A work queue contains work items that are processed by robots.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Name": {
+          "description": "A custom name for the queue.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Description": {
+          "description": "Used to add additional information about a queue in order to better identify it.",
+          "type": "string",
+          "readOnly": true
+        },
+        "MaxNumberOfRetries": {
+          "format": "int32",
+          "description": "An integer value representing the number of times an item of this queue can be retried if its processing fails with application exception and auto retry is on.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "AcceptAutomaticallyRetry": {
+          "description": "States whether a robot should retry to process an item if, after processing, it failed with application exception.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "EnforceUniqueReference": {
+          "description": "States whether Item Reference field should be unique per Queue. Deleted and retried items are not checked against this rule.",
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "QueueDeletedEventDto": {
+      "description": "This event is raised whenever queue definitions were deleted",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Queues": {
+          "description": "The queue that triggered the event",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookQueueDefinitionDto"
+          }
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queue.deleted"
+    },
+    "QueueItemAddedEventDto": {
+      "description": "This event is raised whenever new queue items were added",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Queue": {
+          "$ref": "#/definitions/WebhookQueueDefinitionDto",
+          "readOnly": true
+        },
+        "QueueItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookQueueItemDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queueItem.added"
+    },
+    "WebhookQueueItemDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Key": {
+          "format": "uuid",
+          "description": "The unique identifier of a queue item.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Reference": {
+          "description": "An optional, user-specified value for queue item identification.",
+          "type": "string",
+          "readOnly": true
+        },
+        "QueueDefinitionId": {
+          "format": "int64",
+          "description": "The Id of the parent queue.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Status": {
+          "description": "The processing state of the item.",
+          "enum": [
+            "New",
+            "InProgress",
+            "Failed",
+            "Successful",
+            "Abandoned",
+            "Retried",
+            "Deleted"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookQueueItemDtoStatus",
+            "modelAsString": false
+          }
+        },
+        "ReviewStatus": {
+          "description": "The review state of the item - applicable only for failed items.",
+          "enum": [
+            "None",
+            "InReview",
+            "Verified",
+            "Retried"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookQueueItemDtoReviewStatus",
+            "modelAsString": false
+          }
+        },
+        "ProcessingException": {
+          "$ref": "#/definitions/WebhookProcessingExceptionDto",
+          "description": "Stores the actual processing exception, if any.",
+          "readOnly": true
+        },
+        "DueDate": {
+          "format": "date-time",
+          "description": "The latest date and time at which the item should be processed. If empty the item can be processed at any given time.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Priority": {
+          "description": "Sets the processing importance for a given item.",
+          "enum": [
+            "High",
+            "Normal",
+            "Low"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookQueueItemDtoPriority",
+            "modelAsString": false
+          }
+        },
+        "CreationTime": {
+          "format": "date-time",
+          "description": "The date and time when the item was created.",
+          "type": "string",
+          "readOnly": true
+        },
+        "DeferDate": {
+          "format": "date-time",
+          "description": "The earliest date and time at which the item is available for processing. If empty the item can be processed as soon as possible.",
+          "type": "string",
+          "readOnly": true
+        },
+        "StartProcessing": {
+          "format": "date-time",
+          "description": "The date and time at which the item processing started. This is null if the item was not processed.",
+          "type": "string",
+          "readOnly": true
+        },
+        "EndProcessing": {
+          "format": "date-time",
+          "description": "The date and time at which the item processing ended. This is null if the item was not processed.",
+          "type": "string",
+          "readOnly": true
+        },
+        "SecondsInPreviousAttempts": {
+          "format": "int32",
+          "description": "The number of seconds that the last failed processing lasted.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "AncestorId": {
+          "format": "int64",
+          "description": "The Id of an ancestor item connected to the current item.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "RetryNumber": {
+          "format": "int32",
+          "description": "The number of times this work item has been processed.\r\n<para />This can be higher than 0 only if MaxRetried number is set and the item processing failed at least once with ApplicationException.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Progress": {
+          "description": "String field which is used to keep track of the business flow progress.",
+          "type": "string",
+          "readOnly": true
+        },
+        "ReviewerUserId": {
+          "format": "int64",
+          "description": "The UserId of the Reviewer, if any.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Robot": {
+          "$ref": "#/definitions/WebhookRobotDto",
+          "description": "The robot that has processed the item, if any.",
+          "readOnly": true
+        },
+        "ReviewerUser": {
+          "$ref": "#/definitions/WebhookSimpleUserDto",
+          "description": "Stores the actual reviewer user, if any.",
+          "readOnly": true
+        },
+        "SpecificContent": {
+          "description": "A collection of key value pairs containing custom data configured in the Add Queue Item activity, in UiPath Studio.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "readOnly": true
+        },
+        "Output": {
+          "description": "A collection of key value pairs containing custom data resulted after successful processing.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookProcessingExceptionDto": {
+      "type": "object",
+      "properties": {
+        "Reason": {
+          "description": "The reason the processing failed.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Details": {
+          "description": "Stores additional details about the exception.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "description": "The processing exception type, if any.",
+          "enum": [
+            "ApplicationException",
+            "BusinessException"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookProcessingExceptionDtoType",
+            "modelAsString": false
+          }
+        },
+        "AssociatedImageFilePath": {
+          "description": "A path on the robot running computer to an image file that stores relevant information about the exception - e.g. a system print screen.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookRobotDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "MachineId": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "MachineName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Description": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Version": {
+          "type": "string",
+          "readOnly": true
+        },
+        "UserName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "enum": [
+            "NonProduction",
+            "Attended",
+            "Unattended",
+            "Development"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookRobotDtoType",
+            "modelAsString": false
+          }
+        },
+        "HostingType": {
+          "enum": [
+            "Standard",
+            "Floating"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookRobotDtoHostingType",
+            "modelAsString": false
+          }
+        },
+        "Environments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookEnvironmentDto"
+          },
+          "readOnly": true
+        },
+        "ExecutionSettings": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookSimpleUserDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "UserName": {
+          "description": "The name used to login to Orchestrator.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Domain": {
+          "description": "The domain from which the user is imported",
+          "type": "string",
+          "readOnly": true
+        },
+        "FullName": {
+          "description": "The full name of the person constructed with the format Name Surname.",
+          "type": "string",
+          "readOnly": true
+        },
+        "EmailAddress": {
+          "description": "The e-mail address associated with the user.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "description": "The user type.",
+          "enum": [
+            "User",
+            "Robot"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookSimpleUserDtoType",
+            "modelAsString": false
+          }
+        },
+        "IsActive": {
+          "description": "States if the user is active or not. An inactive user cannot login to Orchestrator.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "LastLoginTime": {
+          "format": "date-time",
+          "description": "The date and time when the user last logged in, or null if the user never logged in.",
+          "type": "string",
+          "readOnly": true
+        },
+        "CreationTime": {
+          "format": "date-time",
+          "description": "The date and time when the user was created.",
+          "type": "string",
+          "readOnly": true
+        },
+        "AuthenticationSource": {
+          "description": "The source which authenticated this user.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookEnvironmentDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Description": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "QueueItemCompletedEventDto": {
+      "description": "This event is raised whenever a queue item transaction has completed successfully",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "QueueItem": {
+          "$ref": "#/definitions/WebhookQueueItemDto",
+          "readOnly": true
+        },
+        "Queue": {
+          "$ref": "#/definitions/WebhookQueueDefinitionDto",
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queueItem.transactionCompleted"
+    },
+    "QueueItemFailedEventDto": {
+      "description": "This event is raised whenever a queue item transaction has failed",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "QueueItem": {
+          "$ref": "#/definitions/WebhookQueueItemDto",
+          "readOnly": true
+        },
+        "Queue": {
+          "$ref": "#/definitions/WebhookQueueDefinitionDto",
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queueItem.transactionFailed"
+    },
+    "QueueItemsAbandonedEventDto": {
+      "description": "This event is raised whenever queue item transactions have expired and were abandoned",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Queue": {
+          "$ref": "#/definitions/WebhookQueueDefinitionDto",
+          "readOnly": true
+        },
+        "QueueItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookQueueItemDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queueItem.transactionAbandoned"
+    },
+    "QueueItemStartedEventDto": {
+      "description": "This event is raised whenever a new queue item transaction is started",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "QueueItem": {
+          "$ref": "#/definitions/WebhookQueueItemDto",
+          "readOnly": true
+        },
+        "Queue": {
+          "$ref": "#/definitions/WebhookQueueDefinitionDto",
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queueItem.transactionStarted"
+    },
+    "QueueUpdatedEventDto": {
+      "description": "This event is raised whenever queue definitions were updated",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Queues": {
+          "description": "The queue that triggered the event",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookQueueDefinitionDto"
+          }
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "queue.updated"
+    },
+    "ReleaseCreatedEventDto": {
+      "description": "This event is raised whenever a new release has been created",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Releases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookReleaseDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "process.created"
+    },
+    "WebhookReleaseDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Key": {
+          "type": "string",
+          "readOnly": true
+        },
+        "ProcessKey": {
+          "type": "string",
+          "readOnly": true
+        },
+        "ProcessVersion": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Description": {
+          "type": "string",
+          "readOnly": true
+        },
+        "IsLatestVersion": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "Environment": {
+          "$ref": "#/definitions/WebhookEnvironmentDto",
+          "readOnly": true
+        },
+        "InputArguments": {
+          "type": "object",
+          "readOnly": true
+        }
+      }
+    },
+    "ReleaseDeletedEventDto": {
+      "description": "This event is raised whenever a release has been deleted",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Releases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookReleaseDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "process.deleted"
+    },
+    "ReleaseUpdatedEventDto": {
+      "description": "This event is raised whenever a release has been updated",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Releases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookReleaseDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "process.updated"
+    },
+    "RobotCreatedEventDto": {
+      "description": "This event is raised whenever robots were created",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Robots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookRobotDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "robot.created"
+    },
+    "RobotDeletedEventDto": {
+      "description": "This event is raised whenever robots were deleted",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Robots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookRobotDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "robot.deleted"
+    },
+    "RobotUpdatedEventDto": {
+      "description": "This event is raised whenever robots were updated",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Robots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookRobotDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "robot.updated"
+    },
+    "CustomEventDto": {
+      "description": "An event triggered by a robot Orchestrator activity",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "EventData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "CustomEventDto"
+    },
+    "AnyObjectDto": {
+      "type": "object",
+      "properties": {}
+    },
+    "ProcessScheduleFailedEventDto": {
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "ProcessSchedule": {
+          "$ref": "#/definitions/WebhookProcessScheduleDto",
+          "readOnly": true
+        },
+        "Reason": {
+          "type": "string",
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "schedule.failed"
+    },
+    "WebhookProcessScheduleDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Name": {
+          "description": "The name of the schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Enabled": {
+          "description": "Specifies if the schedule is active or not.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "EnvironmentId": {
+          "description": "The Id of the environment associated with the schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "EnvironmentName": {
+          "description": "The name of the environment associated with the schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "StartProcessCron": {
+          "description": "The start cron expression of the schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "StartStrategy": {
+          "description": "States which robots from the environment are being run by the schedule.",
+          "enum": [
+            "All",
+            "Specific",
+            "RobotCount",
+            "JobsCount"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookProcessScheduleDtoStartStrategy",
+            "modelAsString": false
+          }
+        },
+        "StopStrategy": {
+          "description": "The way a running process is stopped.",
+          "enum": [
+            "SoftStop",
+            "Kill"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookProcessScheduleDtoStopStrategy",
+            "modelAsString": false
+          }
+        },
+        "ExternalJobKey": {
+          "description": "The unique identifier of the external job associated with the jobs generated by this schedule. A key is generated for each group of jobs triggered by this schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "TimeZoneId": {
+          "description": "The timezone under which the schedule will run.",
+          "type": "string",
+          "readOnly": true
+        },
+        "TimeZoneIana": {
+          "description": "The timezone under which the schedule will run in Iana Standard.",
+          "type": "string",
+          "readOnly": true
+        },
+        "UseCalendar": {
+          "description": "Specify whether the schedule uses the bank holiday calendar",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "Release": {
+          "$ref": "#/definitions/WebhookSimpleReleaseDto",
+          "description": "Process details associated with the schedule",
+          "readOnly": true
+        },
+        "ExecutorRobots": {
+          "description": "The collection of specific robots selected to be targeted by the current schedule. This collection must be empty if the start strategy is not 0 (specific robots).",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookSimpleRobotDto"
+          },
+          "readOnly": true
+        },
+        "InputArguments": {
+          "description": "Input parameters that will be passed to each job created by this schedule.",
+          "type": "object",
+          "readOnly": true
+        }
+      }
+    },
+    "SessionEventDto": {
+      "description": "This event is raised whenever robot's session has changed",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "Sessions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookSessionDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "robot.status"
+    },
+    "WebhookSessionDto": {
+      "type": "object",
+      "properties": {
+        "SessionId": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "RobotId": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "HostMachineName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "State": {
+          "enum": [
+            "Available",
+            "Busy",
+            "Disconnected",
+            "Unknown"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookSessionDtoState",
+            "modelAsString": false
+          }
+        },
+        "ReportingTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "IsUnresponsive": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "LicenseErrorCode": {
+          "enum": [
+            "NoLicense",
+            "LicenseExpired",
+            "LicenseUnregistered",
+            "NoAvailableLicenses",
+            "NotEnoughAvailableSlots",
+            "NotEnoughRuntimeLicenses",
+            "LicenseIsAlreadyInUse",
+            "InvalidRequest",
+            "SlotsExceedLicenseLimit",
+            "RuntimeDisabled"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookSessionDtoLicenseErrorCode",
+            "modelAsString": false
+          }
+        }
+      }
+    },
+    "JobsCreatedEventDto": {
+      "description": "This event is raised whenever jobs were created and queued for execution",
+      "required": [
+        "Type",
+        "EventId",
+        "Timestamp"
+      ],
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string"
+        },
+        "EventId": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "StartInfo": {
+          "$ref": "#/definitions/WebhookStartProcessDto",
+          "description": "List of arguments used to create the jobs"
+        },
+        "Jobs": {
+          "description": "List of jobs that were created and are in pending state",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookJobDto"
+          },
+          "readOnly": true
+        },
+        "TenantId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "OrganizationUnitId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "x-webhook-event": "job.created"
+    },
+    "WebhookStartProcessDto": {
+      "type": "object",
+      "properties": {
+        "ReleaseKey": {
+          "format": "uuid",
+          "description": "The unique key of the release associated with the process.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Strategy": {
+          "description": "States which robots from the environment are being run by the process.",
+          "enum": [
+            "All",
+            "Specific",
+            "RobotCount",
+            "JobsCount"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookStartProcessDtoStrategy",
+            "modelAsString": false
+          }
+        },
+        "RobotIds": {
+          "description": "The collection of ids of specific robots selected to be run by the current process. This collection must be empty only if the start strategy is not Specific.",
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "readOnly": true
+        },
+        "JobsCount": {
+          "format": "int32",
+          "description": "Number of pending jobs to be created in the environment, for the current process. This number must be greater than 0 only if the start strategy is JobsCount.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Source": {
+          "description": "The Source of the job starting the current process.",
+          "enum": [
+            "Manual",
+            "Schedule"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookStartProcessDtoSource",
+            "modelAsString": false
+          }
+        }
+      }
+    },
+    "WebhookJobDto": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Key": {
+          "format": "uuid",
+          "description": "The unique job identifier.",
+          "type": "string",
+          "readOnly": true
+        },
+        "StartTime": {
+          "format": "date-time",
+          "description": "The date and time when the job execution started or null if the job hasn't started yet.",
+          "type": "string",
+          "readOnly": true
+        },
+        "EndTime": {
+          "format": "date-time",
+          "description": "The date and time when the job execution ended or null if the job hasn't ended yet.",
+          "type": "string",
+          "readOnly": true
+        },
+        "State": {
+          "description": "The state in which the job is.",
+          "enum": [
+            "Pending",
+            "Running",
+            "Stopping",
+            "Terminating",
+            "Faulted",
+            "Successful",
+            "Stopped"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookJobDtoState",
+            "modelAsString": false
+          }
+        },
+        "Source": {
+          "description": "The Source name of the job.",
+          "type": "string",
+          "readOnly": true
+        },
+        "SourceType": {
+          "description": "The Source type of the job.",
+          "enum": [
+            "Manual",
+            "Schedule",
+            "Agent"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookJobDtoSourceType",
+            "modelAsString": false
+          }
+        },
+        "BatchExecutionKey": {
+          "format": "uuid",
+          "description": "The unique identifier grouping multiple jobs. It is usually generated when the job is created by a schedule.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Info": {
+          "description": "Additional information about the current job.",
+          "type": "string",
+          "readOnly": true
+        },
+        "StartingScheduleId": {
+          "format": "int64",
+          "description": "The Id of the schedule that started the job, or null if the job was started by the user.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "ReleaseName": {
+          "description": "The name of the release associated with the current name.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "description": "The type of the job, Attended if started via the robot, Unattended otherwise",
+          "enum": [
+            "Unattended",
+            "Attended"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "WebhookJobDtoType",
+            "modelAsString": false
+          }
+        },
+        "HostMachineName": {
+          "description": "The name of the machine where the Robot run the job.",
+          "type": "string",
+          "readOnly": true
+        },
+        "Robot": {
+          "$ref": "#/definitions/WebhookRobotDto",
+          "description": "The robot associated with the current job.",
+          "readOnly": true
+        },
+        "Release": {
+          "$ref": "#/definitions/WebhookReleaseDto",
+          "description": "The release associated with the current job.",
+          "readOnly": true
+        },
+        "InputArguments": {
+          "description": "Input parameters in JSON format to be passed to job execution",
+          "type": "object",
+          "readOnly": true
+        },
+        "OutputArguments": {
+          "description": "Output parameters in JSON format resulted from job execution",
+          "type": "object",
+          "readOnly": true
         }
       }
     },
@@ -15982,6 +18202,157 @@
         },
         "NewPassword": {
           "description": "The new user password",
+          "type": "string"
+        }
+      }
+    },
+    "ODataQueryOptions[WebhookDto]": {
+      "type": "object",
+      "properties": {
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        }
+      }
+    },
+    "ODataResponse[List[WebhookDto]]": {
+      "type": "object",
+      "properties": {
+        "@odata.context": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookDto"
+          }
+        }
+      }
+    },
+    "WebhookDto": {
+      "required": [
+        "Url",
+        "Enabled",
+        "SubscribeToAllEvents",
+        "AllowInsecureSsl"
+      ],
+      "type": "object",
+      "properties": {
+        "Url": {
+          "maxLength": 2000,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Secret": {
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "SubscribeToAllEvents": {
+          "type": "boolean"
+        },
+        "AllowInsecureSsl": {
+          "type": "boolean"
+        },
+        "Events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookEventDto"
+          }
+        },
+        "Id": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "WebhookEventDto": {
+      "required": [
+        "EventType"
+      ],
+      "type": "object",
+      "properties": {
+        "EventType": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "ODataResponse[List[WebhookEventTypeDto]]": {
+      "type": "object",
+      "properties": {
+        "@odata.context": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WebhookEventTypeDto"
+          }
+        }
+      }
+    },
+    "WebhookEventTypeDto": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Event type key",
+          "type": "string"
+        },
+        "Group": {
+          "description": "Group",
           "type": "string"
         }
       }

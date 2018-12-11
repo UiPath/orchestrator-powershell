@@ -80,6 +80,7 @@
     <Compile Include="Cmdlets\AddProcess.cs" />
     <Compile Include="Cmdlets\AddRobot.cs" />
     <Compile Include="Cmdlets\AddRole.cs" />
+    <Compile Include="Cmdlets\AddWebhook.cs" />
     <Compile Include="Cmdlets\ClearAuthToken.cs" />
     <Compile Include="Cmdlets\EditAsset.cs" />
     <Compile Include="Cmdlets\EditMachine.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Cmdlets\EditQueueDefinition.cs" />
     <Compile Include="Cmdlets\EditRobot.cs" />
     <Compile Include="Cmdlets\EditUserPassword.cs" />
+    <Compile Include="Cmdlets\EditWebhook.cs" />
     <Compile Include="Cmdlets\GetLibrary.cs" />
     <Compile Include="Cmdlets\GetLibraryVersion.cs" />
     <Compile Include="Cmdlets\GetLicense.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Cmdlets\GetRole.cs" />
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
     <Compile Include="Cmdlets\GetTimeZones.cs" />
+    <Compile Include="Cmdlets\GetWebhook.cs" />
     <Compile Include="Cmdlets\GrantRolePermission.cs" />
     <Compile Include="Cmdlets\NewAssetRobotValue.cs" />
     <Compile Include="Cmdlets\RemoveAsset.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Cmdlets\RemoveRole.cs" />
     <Compile Include="Cmdlets\RemoveTenant.cs" />
     <Compile Include="Cmdlets\RemoveUser.cs" />
+    <Compile Include="Cmdlets\RemoveWebhook.cs" />
     <Compile Include="Cmdlets\SetAuthToken.cs" />
     <Compile Include="Cmdlets\StartJob.cs" />
     <Compile Include="Cmdlets\StopJob.cs" />
@@ -148,6 +152,7 @@
     <Compile Include="Cmdlets\RevokeRolePermission.cs" />
     <Compile Include="Models\ProcessSchedule.cs" />
     <Compile Include="Models\Timezone.cs" />
+    <Compile Include="Models\Webhook.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
     <Compile Include="Util\EnumerableExtenssions.cs" />
     <Compile Include="Util\FilterAttribute.cs" />

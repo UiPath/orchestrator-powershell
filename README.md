@@ -2,6 +2,15 @@
 
 A PowerShell library for interacting with [UiPath Orchestrator](https://orchestrator.uipath.com/).
 
+```PowerShell
+PS C:\>Install-PackageProvider -Name NuGet -Force
+PS C:\>Register-PSRepository -Name UiPath -SourceLocation https://www.myget.org/F/uipath-dev/api/v2
+PS C:\>Install-Module -Repository UiPath -Name UiPath.Powershell -Force
+PS C:\>Import-Module UiPath.PowerShell
+PS C:\>Get-UiPathAuthToken -URL <orchestratorurl> -Username <OrchestratorUser> -Password <password> -Session
+PS C:\>Get-UiPathRobot
+```
+
 # Using the UiPath.PowerShell module
 
 The full documentation is in [docs](docs/Home.md)
@@ -29,6 +38,9 @@ PS C:\>Get-UiPathAuthToken -URL <orchestratorurl> -WindowsCredentials -Session
 ```
 
 The `-Session` flag makes the authentication persist on the PowerShell session for up to 30 minutes. After this you will not have to authenticate again each cmdlet. Some examples:
+
+Use `Get-UiPathAuthToken ... -TenantName <tenantName>` for multi-tenant Orchetsrator deployments.
+Use `Get-UiPathAuthToken ... -OrganizationUnit <OUName>` for Orchetsrator deployments with OrganizationUnits enabled.
 
 ```PowerShell
 PS C:\> Get-UiPathRobot | Format-Table
@@ -92,14 +104,6 @@ ModuleType Version    Name                                ExportedCommands
 ---------- -------    ----                                ----------------
 Binary     18.3.2.... UiPath.PowerShell                   {Add-UiPathAsset, Add-UiPathEnvironment, Add-UiPathEnviron...
 
-```
-
-## Manual install
-
-Download the desired version module from the [UiPath Gallery](https://gallery.uipath.com/packages/UiPath.PowerShell/). Import the module in PowerShell:
-
-```PowerShell
-PS C:\>Import-Module UiPath.PowerShell.dll
 ```
 
 # License
