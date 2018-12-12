@@ -103,6 +103,7 @@
     <Compile Include="Cmdlets\GetPermission.cs" />
     <Compile Include="Cmdlets\GetRole.cs" />
     <Compile Include="Cmdlets\GetProcessSchedule.cs" />
+    <Compile Include="Cmdlets\GetSettings.cs" />
     <Compile Include="Cmdlets\GetTimeZones.cs" />
     <Compile Include="Cmdlets\GetWebhook.cs" />
     <Compile Include="Cmdlets\GrantRolePermission.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Cmdlets\RevokeRolePermission.cs" />
     <Compile Include="Models\ProcessSchedule.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\Timezone.cs" />
     <Compile Include="Models\Webhook.cs" />
     <Compile Include="Util\AuthenticatedCmdlet.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Util\FilteredIdCmdlet.cs" />
     <Compile Include="Util\EditCmdlet.cs" />
     <Compile Include="Util\HashtableExtenssions.cs" />
+    <Compile Include="Util\KeyValuePairConverter.cs" />
     <Compile Include="Util\NetworkAuthenticationCredentials.cs" />
     <Compile Include="Util\OrchestratorProtocolVersion.cs" />
     <Compile Include="Util\PSCredentialExtenssions.cs" />

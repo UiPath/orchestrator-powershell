@@ -38,11 +38,15 @@ namespace UiPath.PowerShell.Cmdlets
         private const string WindowsCredentialsSet = "WindowsCredentials";
         private const string UnauthenticatedSet = "Unauthenticated";
 
-        [Parameter(Mandatory = true, Position = 0)]
-        public string URL { get; set; }
+        private const string CurrentSessionSet = "CurrentSession";
 
-        [Parameter(Mandatory = false)]
-        public string TenantName { get; set; }
+        [Parameter(Mandatory = true, ParameterSetName =CurrentSessionSet)]
+        public SwitchParameter CurrentSession { get; set; }
+
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = UnauthenticatedSet)]
+        public string URL { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = UserPasswordSet)]
         public string Username { get; set; }
@@ -56,19 +60,32 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = UnauthenticatedSet)]
         public SwitchParameter Unauthenticated { get; set; }
 
+        [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
+        public string TenantName { get; set; }
+
         /// <summary>
         /// Sets the current Organization Unit for the authentication token.
         /// This parameter is only valid for ORchestrator deployments with Organization Units feature enabled.
         /// </summary>
-        [Parameter]
+        [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         public string OrganizationUnit { get; set; }
 
-        [Parameter]
+        [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         public SwitchParameter Session { get; set; }
 
         protected override void ProcessRecord()
         {
-            try
+            if (ParameterSetName == CurrentSessionSet)
+            {
+                WriteObject(AuthenticatedCmdlet.SessionAuthToken);
+            }
+            else
             {
                 AuthToken authToken = null;
                 if (ParameterSetName == UserPasswordSet)
@@ -91,16 +108,14 @@ namespace UiPath.PowerShell.Cmdlets
                     SetOrganizationUnit(authToken, OrganizationUnit);
                 }
 
+                authToken.TenantName = TenantName ?? "Default";
+
                 if (Session.IsPresent)
                 {
                     AuthenticatedCmdlet.SetAuthToken(authToken);
                 }
 
                 WriteObject(authToken);
-            }
-            catch(Exception e)
-            {
-                WriteVerbose(e.ToString());
             }
         }
 

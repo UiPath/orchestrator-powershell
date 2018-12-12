@@ -22,7 +22,7 @@ namespace UiPath.PowerShell.Util
         private UiPathWebApi_18_3 _api_18_3;
         private UiPathWebApi_18_4 _api_18_4;
 
-        private static AuthToken SessionAuthToken { get; set; }
+        internal static AuthToken SessionAuthToken { get; set; }
 
         protected AuthToken InternalAuthToken
         {
@@ -126,6 +126,7 @@ namespace UiPath.PowerShell.Util
             var api = ctor(creds, new Uri(authToken.URL));
             api.SetRetryPolicy(null);
             api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
+            api.DeserializationSettings.Converters.Add(new KeyValuePairConverter());
             if (authToken.OrganizationUnitId.HasValue)
             {
                 api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-OrganizationUnitId", authToken.OrganizationUnitId.Value.ToString());

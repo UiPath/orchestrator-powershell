@@ -27,6 +27,7 @@
         internal const string RolePermission = UiPath + "RolePermission";
         internal const string QueueDefinition = UiPath + "QueueDefinition";
         internal const string QueueItem = UiPath + "QueuItem";
+        internal const string Setting = UiPath + "Setting";
         internal const string Tenant = UiPath + "Tenant";
         internal const string TimeZones = UiPath + "TimeZones";
         internal const string User = UiPath + "User";
