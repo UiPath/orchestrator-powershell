@@ -8,6 +8,8 @@ SYNOPSIS
     
     
 SYNTAX
+    Get-UiPathAuthToken -CurrentSession <SwitchParameter> [<CommonParameters>]
+    
     Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] [-Session 
     <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
@@ -23,18 +25,18 @@ DESCRIPTION
     
 
 PARAMETERS
+    -CurrentSession <SwitchParameter>
+        
+        Required?                    true
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -URL <string>
         
         Required?                    true
         Position?                    0
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -TenantName <string>
-        
-        Required?                    false
-        Position?                    named
         Default value                
         Accept pipeline input?       false
         Accept wildcard characters?  false
@@ -68,6 +70,14 @@ PARAMETERS
         Required?                    true
         Position?                    named
         Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -TenantName <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

@@ -12,6 +12,7 @@ namespace UiPath.PowerShell.Models
         public string Token { get; internal set; }
 
         public bool WindowsCredentials { get; internal set; }
+
         public bool Authenticated { get; internal set; }
 
         public Version ApiVersion { get; internal set; }
@@ -19,6 +20,8 @@ namespace UiPath.PowerShell.Models
         public String BuildVersion { get; internal set; }
 
         public string OrganizationUnit { get; internal set; }
+
+        public string TenantName { get; internal set; }
 
         internal long? OrganizationUnitId { get; set; }
     }
