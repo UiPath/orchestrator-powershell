@@ -43,6 +43,7 @@
 - [Get-UiPathQueueDefinition](Get-UiPathQueueDefinition.md)
 - [Get-UiPathRobot](Get-UiPathRobot.md)
 - [Get-UiPathRole](Get-UiPathRole.md)
+- [Get-UiPathSetting](Get-UiPathSetting.md)
 - [Get-UiPathTenant](Get-UiPathTenant.md)
 - [Get-UiPathTimeZones](Get-UiPathTimeZones.md)
 - [Get-UiPathUser](Get-UiPathUser.md)
