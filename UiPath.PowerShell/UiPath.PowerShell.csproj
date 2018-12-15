@@ -14,6 +14,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+      <Deterministic>False</Deterministic>
   </PropertyGroup>
   <!--<PropertyGroup>
     <BaseOutputPath Condition="$(SolutionDir) != ''">$(SolutionDir)Output</BaseOutputPath>  
@@ -210,9 +211,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XmlDoc2CmdletDoc.0.2.9\build\XmlDoc2CmdletDoc.targets'))" />
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
-  </Target>
-  <Target Name="BeforeBuild" Condition="'$(Revision)' != '' ">
-    <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
   </Target>
   <UsingTask TaskName="GetFileVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
     <ParameterGroup>

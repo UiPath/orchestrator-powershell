@@ -31,7 +31,7 @@ steps:
   displayName: Build solution
   inputs:
     solution: '$(Solution)'
-    msbuildArgs: '/p:Revision=$(Build.BuildId)'
+    msbuildArgs: '/p:Revision=$(Build.BuildId) /p:UseSharedCompilation=False'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
 

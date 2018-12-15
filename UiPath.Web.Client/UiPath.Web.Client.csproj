@@ -14,6 +14,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+      <Deterministic>False</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,8 +57,10 @@
   <ItemGroup>
     <Compile Include="IUiPathWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\Properties\GlobalAssemblyInfo.cs">
+    <Compile Include="$(SolutionDir)Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
+      <AutoGen>True</AutoGen>
+      <Visible>True</Visible>
     </Compile>
     <Compile Include="UiPathWebApi.cs" />
   </ItemGroup>
@@ -95,14 +98,21 @@
     </ItemGroup>
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  <Target Name="EnsureNuGetPackageBuildImports">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
   </Target>
-  <Target Name="BeforeBuild" Condition="'$(Revision)' != '' ">
-    <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
+  <Target Name="ApplyRevision"
+          BeforeTargets="PrepareForBuild"
+          Condition="'$(Revision)' != '' " 
+          Outputs="$(SolutionDir)\properties\GlobalAssemblyInfo.cs">
+    <!-- This is only needed once per VSTS solution build, and Web.Client is the first built project (because of dependency graph) -->
+    <Error Condition="$(Revision) &gt; 65535" Text="The Revision number $(Revision) cannot exceed 65535"/>
+    <Message Text="Replace GlobalAssemblyInfo.cs AssemblyVersion revision with: $(Revision)"/>
+    <FileUpdate Files="$(SolutionDir)\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
+    <Exec Command="type $(SolutionDir)properties\GlobalAssemblyInfo.cs"/>
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
 </Project>
