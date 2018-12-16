@@ -97,8 +97,10 @@
       <FileWrites Include="@(AutoRestGenerated)" />
     </ItemGroup>
   </Target>
-  <Target Name="BeforeBuild" Condition="'$(Revision)' != '' ">
+  <Target Name="UpdateRevision" Condition="'$(Revision)' != ''" BeforeTargets="PrepareForBuild">
+    <Error Condition="$(Revision) &gt; 65535" Text="The revision number $(Revision) cannot be greater than 65535"/>
     <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
+    <Exec Command="type ..\properties\GlobalAssemblyInfo.cs"/>
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
 </Project>
