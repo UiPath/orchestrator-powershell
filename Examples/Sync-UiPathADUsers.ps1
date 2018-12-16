@@ -1,62 +1,166 @@
 ﻿<#
     .SYNOPSIS
-        Synchronises Orchestrator users with Windows Active Directory, based on AD group membership mapped to Orchestrator Roles.
+        Synchronises Orchestrator users with Windows or Azure Active Directory, based on AD group membership mapped to Orchestrator Roles.
     .DESCRIPTION
-        You provide the AD domain name and a mapping from relevand AD groups to Orchestrator Roles.
         New users in AD are added to Orchestrator and existing users added moved to the correct Role.
+        Azure AD users are matched by comparing the Azure AD user principal name with the user Email in Orchestrator.
         The script also handles removing Orchestrator users from roles when they were removed from the corresponding AD group.
         AD users that were removed from all relevant AD groups (eg. an employee that changed role) or were removed from AD (eg. a former employee that left the company) become 'orphaned users'. They are still defined in Orchestrator but do not have any Role. The script supports the -OrphanedUsersAction parameter allowing to optionally List or Remove these users.
         The script is idempotent, repeated invocations should not modify the Orchestrator users unless something changed in AD.
         You should first import the UiPath.PowerShell module and authenticate yourself with your Orchestrator using Get-UiPathAuthToken before running this script.
+        The script does not modify the Admin user roles membership, even if the Email matches the AzureAD domains. This is a common scenario and can result in accidentally locking Admin user out of Administrators group.
+        The script adds new Orchestrator users using the Azure AD DisplayName as Name and leaves Surname empty. It does not try to split the DisplayName and figure out the Surname.
     .PARAMETER DomainName
-        The domain to sync users with. It does not necessarily has to be your current user or machine domain, but there must be some trust relationship so your Windows session can discover and interogate this domain AD.
+        The Windows domain to sync users with. It does not necessarily has to be your current user or machine domain, but there must be some trust relationship so your Windows session can discover and interogate this domain AD.
+    .PARAMETER AzureAD
+        Use currently connected Azure AD for sync. You must first connect the PowerShell session to Azure AD using Connect-AzureAD
     .PARAMETER RolesMapping
         A Hashtable mapping AD groups to Orchestrator roles. Make sure you type the names correctly.
     .PARAMETER OrphanedUsersAction
         Optional action to handle orphaned users. You can List or Remove these users.
+    .PARAMETER AllowUsernameTruncate
+        Optional switch to allow truncation of imported usernames to 32 characters, the Orchestrator username length limit.
     .EXAMPLE
-        Sync-UiPathADUsers MyDomain @{'RPA Admins' = 'Administrator'; 'RPA Users' = 'User'}
-        Import AD users from MyDomain and maps the members of the 'RPA Admins' AD group to the 'Administrator' Orchestrator role and members of the 'RPA Users' AD group to the 'User' Orchestrator role.
+        Sync-UiPathADUsers MyDomain @{'RPA Admins' = 'Administrator'; 'RPA Users' = 'Users'}
+        Import AD users from MyDomain and maps the members of the 'RPA Admins' AD group to the 'Administrator' Orchestrator role and members of the 'RPA Users' AD group to the 'Users' Orchestrator role.
+    .EXAMPLE
+        Sync-UiPathADUsers -AzureAD @{'RPA Admins' = 'Administrator'; 'RPA Users' = 'Users'}
+        Import AD users from Azure Active Directory and maps the members of the 'RPA Admins' Azure AD group to the 'Administrator' Orchestrator role and members of the 'RPA Users' Azure AD group to the 'Users' Orchestrator role.
     .EXAMPLE
         Sync-UiPathADUsers MyDomain @{} -OrphanedUsersAction Remove
         Import AD users from MyDomain but since there is no mapping, the effect is to orphan all exiting Orchestrator MyDomain users and then remove them because of the -OrphanedUsersAction Remove parameter. In effect this invocation removes all MyDomain users from Orchestrator.
+    .EXAMPLE
+        Sync-UiPathADUsers -AzureAD @{} -OrphanedUsersAction Remove
+        Deletes all Azure Active Directory managed users from Orchestrator.
+        Important notice: this will remove any user in Orchestrator that has an Email domain matching the Azure AD domain, even if it was not imported from Azure AD. 
 #>
 param(
-    [Parameter(Mandatory=$true, Position=0)] 
+    [Parameter(Mandatory=$true, Position=0, ParameterSetName="Windows")] 
     [string] $DomainName,
+    [Parameter(Mandatory=$true, Position=0, ParameterSetName="Azure")] 
+    [switch] $AzureAD,
     [Parameter(Mandatory=$true, Position=1)] 
     [HashTable] $RolesMapping,
     [Parameter(Mandatory=$false)]
     [ValidateSet('Remove', 'List', 'Ignore')]
-    [string] $OrphanedUsersAction = 'Ignore'
-)
+    [string] $OrphanedUsersAction = 'Ignore',
+    [Parameter()]
+    [switch] $AllowUsernameTruncate)
 
 $ErrorActionPreference = "Stop"
 
-function Get-ADGroupUser {
+$isAzureAD = $PSCmdlet.ParameterSetName -eq "Azure"
+$isWindows = $PSCmdlet.ParameterSetName -eq "Windows"
+
+function Get-IsAzureAD {
+    return $isAzureAD
+}
+
+function Get-IsWindows {
+    return $isWindows
+}
+
+function Format-UiPathUserName {
     param(
-    [Parameter(Mandatory=$true, Position=0)] $dc,
-    [Parameter(Mandatory=$true, Position=1)] $adGroup
+        [Parameter(Position=0, Mandatory=$True)] $userName
     )
 
-    Write-Verbose "Get-ADGroupUser $adGroup"
+    if (-not [string]::IsNullOrWhiteSpace($domainName)) {
+        $userName = $domainName + '\' + $userName
+    }
 
-    $users = @()
-    $members = Get-ADGroupMember -Server $dc.PDCEmulator -Identity $adGroup
-
-    foreach($member in $members)
-    {
-        if ($member.objectClass -eq 'user')
-        {
-            $users += @($member.SamAccountName)
-        }
-        elseif ($member.objectClass -eq 'group')
-        {
-            $childUsers = Get-ADGroupUser $dc $member.SamAccountName
-            $users += $childUsers
+    if ($userName.Length -gt 32) {
+        if ($AllowUsernameTruncate) {
+            Write-Warning "AD Username $username exceeds the 32 character limit."
+            $userName = $userName.Substring(0,32)
+        } 
+        else {
+            throw "AD Username $username exceeds the 32 character limit. Run the script with -AllowUsernameTruncate to force user with a truncated name creation."
         }
     }
+    return $userName
+}
+
+function Get-ADGroupUser {
+    param(
+    [Parameter(Position=0)] $dc,
+    [Parameter(Position=1)] $adGroup
+    )
+
+    $users = @()
+    Write-Verbose "Get-ADGroupUser $adGroup"
+
+    if (Get-IsWindows) {
+
+
+        Write-Progress -Id 1 `
+            -Activity "Retrieve group members: $adGroup" `
+
+        Write-Verbose "Get-ADGroupMember -Server $($dc.PDCEmulator) -Identity $adGroup"
+        $members = @(Get-ADGroupMember -Server $dc.PDCEmulator -Identity $adGroup)
+
+        foreach($member in $members)
+        {
+
+
+            if ($member.objectClass -eq 'user')
+            {
+                $userInfo = @{
+                    SamAccountName = $member.SamAccountName;
+                    Username = Format-UiPathUserName $member.SamAccountName
+                }
+
+                $users += $userInfo
+            }
+            elseif ($member.objectClass -eq 'group')
+            {
+                $childUsers = Get-ADGroupUser $dc $member.SamAccountName
+                $users += $childUsers
+            }
+        }
+    }
+
+    if (Get-IsAzureAD) {
+        $adGroupObject = Get-AzureADGroup -SearchString $adGroup | where {$_.DisplayName -eq $adGroup}
+        Write-Verbose "Get-AzureADGroupMember $($adGroupObject.ObjectId)"
+        $members = Get-AzureADGroupMember -ObjectId $adGroupObject.ObjectId
+
+        $users += $members | foreach {@{
+            UPN = $_.UserPrincipalName;
+            Username = Format-UiPathUserName $_.UserPrincipalName;
+            Name=$_.DisplayName; 
+        }}
+    }
+
+    $users | foreach {Write-Verbose "$adGroup AD group user for sync: $($_.UPN) Username:$($_.Username) Name:$($_.Name)"}
+
     $users
+}
+
+function Get-UiPathADUsers {
+    param(
+    [Parameter(Position=0)] $domain)
+
+    Write-Verbose "Get-UiPathUser -Type User "
+    $allUsers = Get-UiPathUser -Type User | where {$_.Username -ne "Admin"}
+    $OrchestratorADUsers = @()
+
+    if (Get-IsWindows) {
+         $OrchestratorADUsers += $allUsers | Select UserName, Id, RolesList, EmailAddress | where {$_.UserName.StartsWith($domain + '\', [System.StringComparison]::OrdinalIgnoreCase)}
+    }
+
+    if (Get-IsAzureAD) {
+        # Orchestrator maps user to Azure AD identities based on Orchestrator user Email address
+        Write-Verbose "Get-AzureADDomain"
+        $domains = Get-AzureADDomain | foreach {$_.Name}
+        $domains | foreach { Write-Verbose "AzureAD Email domain: $_"}
+
+        $OrchestratorADUsers += $allUsers | Select UserName, Id, RolesList, EmailAddress | where {$domains -contains $_.EmailAddress.Split('@')[1]}
+    }
+
+    $OrchestratorADUsers | foreach {Write-Verbose "Orchestrator user for sync: $($_.Id) $($_.Username) $($_.EmailAddress)"}
+
+    return $OrchestratorADUsers
 }
 
 try
@@ -91,8 +195,12 @@ try
         Write-Verbose "Role ok: $roleName $($role.Name)"
     }
 
-    Write-Verbose "Get-ADDomain $DomainName"
-    $dc = Get-ADDomain -Identity $DomainName
+    $dc = $null
+
+    if (Get-IsWindows) {
+        Write-Verbose "Get-ADDomain $DomainName"
+        $dc = Get-ADDomain -Identity $DomainName
+    }
 
     $idxOperationStep += 1
     Write-Progress -Activity "Sync Orchestrator AD Users" `
@@ -112,18 +220,17 @@ try
 
         $mappedRole = $RolesMapping[$adGoupName]
 
-        $adGroupMembers = Get-ADGroupUser $dc $adGoupName | sort -Unique
+        $adGroupMembers = Get-ADGroupUser $dc $adGoupName | Sort-Object {$_.Username} -Unique
 
         foreach($adGroupMember in $adGroupMembers)
         {
-            $userName = $DomainName + '\' + $adGroupMember
+            $userName = $adGroupMember.Username 
             $adUser = $allADUsers[$userName]
             if ($adUser -eq $null)
             {
-                $adUser = @{ roles = @(); name = $adGroupMember.Name }
+                $adUser = @{ roles = @(); userInfo = $adGroupMember}
                 $null = $allADUsers.Add($userName, $adUser)
             }
-            Write-Verbose "Discovered AD user $userName with role $mappedRole"
             $adUser.roles += @($mappedRole)
         }
     }
@@ -132,7 +239,7 @@ try
     Write-Progress -Activity "Sync Orchestrator AD Users" `
         -CurrentOperation $operationSteps[$idxOperationStep] `
         -PercentComplete ($idxOperationStep/$operationSteps.Count*100)
-    $orchestratorUsers = Get-UiPathUser -Type User | Select UserName, Id, RolesList | where {$_.UserName.StartsWith($DomainName + '\', [System.StringComparison]::OrdinalIgnoreCase)}
+    $orchestratorUsers = Get-UiPathADUsers $DomainName
 
     $idxOperationStep += 1
     Write-Progress -Activity "Sync Orchestrator AD Users" `
@@ -173,9 +280,10 @@ try
     foreach($adUserName in $operations.Keys)
     {
         $op = $operations[$adUserName]
+
         if ($op.isNew -eq $true)
         {
-            $newUsers += @{userName = $adUserName; name = $op.adUser.name; roles = $op.adUser.roles}
+            $newUsers += @{userName = $adUserName; userInfo = $op.adUser.userInfo; roles = $op.adUser.roles; }
         }
         else
         {
@@ -275,9 +383,54 @@ try
             -Activity $operationSteps[$idxOperationStep] `
             -CurrentOperation $newUser.userName `
             -PercentComplete ($i/$newUsers.Count * 100)
+
+        if (Get-IsWindows) {
+            # We postponed getting the details until actually needed to reduce AD chit-chat
+            Write-Verbose "Get-ADUser -Server $($dc.PDCEmulator) -Identity $($newUser.userInfo.SamAccountName) -Properties EmailAddress"
+            $adUserInfo = Get-ADUser -Server $dc.PDCEmulator -Identity $newUser.userInfo.SamAccountName -Properties EmailAddress
+
+            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.EmailAddress)) {
+                $newUser.userInfo.EmailAddress = $adUserInfo.EmailAddress
+            }
+            elseif (-not [string]::IsNullOrWhiteSpace($adUserInfo.UserPrincipalName)) {
+                $newUser.userInfo.EmailAddress = $adUserInfo.UserPrincipalName
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.GivenName)) {
+                $newUser.userInfo.Name = $adUserInfo.GivenName
+            }
+            elseif (-not [string]::IsNullOrWhiteSpace($adUserInfo.Name)) {
+                $newUser.userInfo.Name = $adUserInfo.Name
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.Surname)) {
+                $newUser.userInfo.Surname =$adUserInfo.Surname
+            } 
+        }
+
+        $cmdMsg = "Add-UiPathUser -Username $($newUser.userName) -RolesList ..."
+        $cmd = 'Add-UiPathUser -Username $newUser.userName -RolesList $newUser.roles'
+
+        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.name)) {
+            $cmdMsg += " -Name $($newUser.userInfo.name)"
+            $cmd += ' -Name $newUser.userInfo.name'
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.Surname)) {
+            $cmdMsg += " -Surname $($newUser.userInfo.Surname)"
+            $cmd += ' -Surname $newUser.userInfo.Surname'
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.EmailAddress)) {
+            $cmdMsg += " -EmailAddress $($newUser.userInfo.EmailAddress)"
+            $cmd += ' -EmailAddress $newUser.userInfo.EmailAddress'
+        } elseif (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.UPN)) {
+            $cmdMsg += " -EmailAddress $($newUser.userInfo.UPN)"
+            $cmd += ' -EmailAddress $newUser.userInfo.UPN'
+        }
         
-        Write-Verbose "Add-UiPathUser -Username $newUser.userName -Name $($newUser.name) -RolesList $($newUser.roles)"
-        $null = Add-UiPathUser -Username $newUser.userName -Name $newUser.name -RolesList $newUser.roles
+        Write-Verbose $cmdMsg
+        $null = Invoke-Expression $cmd
     }
 
     $idxOperationStep += 1
@@ -328,7 +481,10 @@ try
         {
             foreach($orphanedUser in $orphanedUsers)
             {
-                Write-Host $orphanedUser.userName
+                New-Object PSObject | 
+                    Add-Member Username $orphanedUser.userName -PassThru |
+                    Add-Member Id $orphanedUser.Id -PassThru |
+                    Write-Output
             }
         }
         'Ignore' 
@@ -342,10 +498,9 @@ catch
     $e = $_.Exception
     $klass = $e.GetType().Name
     $line = $_.InvocationInfo.ScriptLineNumber
-    $script = $_.InvocationInfo.ScriptName
     $msg = $e.Message 
 
-    Write-Error "$klass $msg ($script $line)"
+    Write-Error "$($line): $($klass): $msg"
 }
 
 
