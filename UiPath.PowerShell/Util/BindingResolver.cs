@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace UiPath.PowerShell
+namespace UiPath.PowerShell.Util
 {
     internal static class BindingResolver
     {

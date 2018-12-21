@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingResolver.cs" />
+    <Compile Include="Util\BindingResolver.cs" />
     <Compile Include="Cmdlets\AddAsset.cs" />
     <Compile Include="Cmdlets\AddEnvironment.cs" />
     <Compile Include="Cmdlets\AddEnvironmentRobot.cs" />
@@ -151,6 +151,7 @@
     <Compile Include="Util\OrchestratorProtocolVersion.cs" />
     <Compile Include="Util\PSCredentialExtenssions.cs" />
     <Compile Include="Util\RestVerboseTracer.cs" />
+    <Compile Include="Util\SecurityProtocolFix.cs" />
     <Compile Include="Util\SetParameterAttribute.cs" />
     <Compile Include="Util\UiPathCmdlet.cs" />
     <Compile Include="Models\Asset.cs" />
