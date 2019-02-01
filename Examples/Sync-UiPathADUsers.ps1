@@ -373,6 +373,13 @@ try
     Write-Progress -Activity "Sync Orchestrator AD Users" `
         -CurrentOperation $operationSteps[$idxOperationStep] `
         -PercentComplete ($idxOperationStep/$operationSteps.Count*100)
+    
+    $ouId = $null
+    $token = Get-UiPathAuthToken -CurrentSession
+    if (-not [string]::IsNullOrWhiteSpace($token.OrganizationUnit)) {
+      Write-Verbose "Get-UiPathOrganizationUnit - DisplayName $($token.OrganizationUnit)"
+      $ouId = (Get-UiPathOrganizationUnit -DisplayName $token.OrganizationUnit).Id
+    }
 
     $i = 0
     foreach($newUser in $newUsers)
@@ -410,6 +417,11 @@ try
 
         $cmdMsg = "Add-UiPathUser -Username $($newUser.userName) -RolesList ..."
         $cmd = 'Add-UiPathUser -Username $newUser.userName -RolesList $newUser.roles'
+        
+        if (Get-IsWindows) {
+          $cmdMsg += " -Domain $($dc.NetBIOSName)"
+          $cmd += ' -Domain $dc.NetBIOSName'
+        }
 
         if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.name)) {
             $cmdMsg += " -Name $($newUser.userInfo.name)"
@@ -427,6 +439,11 @@ try
         } elseif (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.UPN)) {
             $cmdMsg += " -EmailAddress $($newUser.userInfo.UPN)"
             $cmd += ' -EmailAddress $newUser.userInfo.UPN'
+        }
+        
+        if ($ouId -ne $null) {
+          $cmdMsg += " -OrganizationUnitIds @($ouId)"
+          $cmd += ' -OrganizationUnitIds @($ouId)'
         }
         
         Write-Verbose $cmdMsg

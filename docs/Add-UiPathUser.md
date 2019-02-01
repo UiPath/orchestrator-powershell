@@ -7,9 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathUser -Username <string> [-AuthToken <AuthToken>] [-EmailAddress <string>] [-Name <string>] 
-    [-OrganizationUnitIds <List`1>] [-Password <string>] [-RolesList <List`1>] [-Surname <string>] [-Type <string>] 
-    [<CommonParameters>]
+    Add-UiPathUser [-Username] <string> -Password <string> [-AuthToken <AuthToken>] [-EmailAddress <string>] [-Name 
+    <string>] [-OrganizationUnitIds <List`1>] [-RolesList <List`1>] [-Surname <string>] [<CommonParameters>]
+    
+    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-Domain <string>] [-EmailAddress <string>] 
+    [-OrganizationUnitIds <List`1>] [-RolesList <List`1>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -19,14 +21,14 @@ PARAMETERS
     -Username <string>
         
         Required?                    true
-        Position?                    named
+        Position?                    0
         Default value                
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
     -Password <string>
         
-        Required?                    false
+        Required?                    true
         Position?                    named
         Default value                
         Accept pipeline input?       false
@@ -72,7 +74,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Type <string>
+    -Domain <string>
         
         Required?                    false
         Position?                    named
