@@ -114,6 +114,8 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     AuthenticatedCmdlet.SetAuthToken(authToken);
                 }
+
+                WriteObject(authToken);
             }
         }
 

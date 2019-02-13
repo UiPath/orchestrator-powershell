@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management.Automation;
 
 namespace UiPath.PowerShell.Models
 {
@@ -9,6 +10,7 @@ namespace UiPath.PowerShell.Models
     {
         public string URL { get; internal set; }
 
+        [Hidden]
         public string Token { get; internal set; }
 
         public bool WindowsCredentials { get; internal set; }
