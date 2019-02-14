@@ -148,5 +148,13 @@ namespace UiPath.PowerShell.Util
         {
             WriteError($"The operation returned an error: {errorCode}: {errorMessage}");
         }
+
+        internal static void ApplyEnumMember<TEnum>(string stringValue, Action<TEnum> action) where TEnum : struct
+        {
+            if (Enum.TryParse<TEnum>(stringValue, out var enumValue))
+            {
+                action(enumValue);
+            }
+        }
     }
 }
