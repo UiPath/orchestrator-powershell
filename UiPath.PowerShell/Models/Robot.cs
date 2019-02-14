@@ -5,6 +5,7 @@ using RobotDtoType20183 = UiPath.Web.Client20183.Models.RobotDtoType;
 using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingType;
 using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
 using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
+using RobotDto20184 = UiPath.Web.Client20184.Models.RobotDto;
 
 namespace UiPath.PowerShell.Models
 {
@@ -18,6 +19,7 @@ namespace UiPath.PowerShell.Models
         public string Username { get; private set; }
         public string Type { get; private set; }
         public string HostingType { get; private set; }
+        public string CredentialType { get; private set; }
 
         internal static Robot FromDto(RobotDto20181 dto)
         {
@@ -85,6 +87,22 @@ namespace UiPath.PowerShell.Models
                 Username = dto.Username,
                 Type = dto.Type.ToString(),
                 HostingType = dto.HostingType.ToString(),
+            };
+        }
+
+        internal static object FromDto(RobotDto20184 dto)
+        {
+            return new Robot
+            {
+                Id = dto.Id.Value,
+                LicenseKey = dto.LicenseKey,
+                MachineName = dto.MachineName,
+                Name = dto.Name,
+                Description = dto.Description,
+                Username = dto.Username,
+                Type = dto.Type.ToString(),
+                HostingType = dto.HostingType.ToString(),
+                CredentialType = dto.CredentialType.ToString()
             };
         }
     }
