@@ -25,6 +25,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{BBCF7871-E3BE-491E-B522-8616CFACB4E8}"
 	ProjectSection(SolutionItems) = preProject
 		Examples\Get-UiPathPackageDependencies.ps1 = Examples\Get-UiPathPackageDependencies.ps1
+		Examples\Lock-UiPathInactiveUsers.ps1 = Examples\Lock-UiPathInactiveUsers.ps1
 		Examples\Sync-UiPathADUsers.ps1 = Examples\Sync-UiPathADUsers.ps1
 		Examples\Update-UiPathADRobotPasswords.ps1 = Examples\Update-UiPathADRobotPasswords.ps1
 	EndProjectSection

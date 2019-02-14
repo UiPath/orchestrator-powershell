@@ -49,6 +49,7 @@
 - [Get-UiPathUser](Get-UiPathUser.md)
 - [Get-UiPathWebhook](Get-UiPathWebhook.md)
 - [Grant-UiPathRolePermission](Grant-UiPathRolePermission.md)
+- [Lock-UiPathUser](Lock-UiPathUser.md)
 - [New-UiPathAssetRobotValue](New-UiPathAssetRobotValue.md)
 - [Register-UiPathLicense](Register-UiPathLicense.md)
 - [Remove-UiPathAsset](Remove-UiPathAsset.md)
@@ -71,4 +72,5 @@
 - [Set-UiPathAuthToken](Set-UiPathAuthToken.md)
 - [Start-UiPathJob](Start-UiPathJob.md)
 - [Stop-UiPathJob](Stop-UiPathJob.md)
+- [Unlock-UiPathUser](Unlock-UiPathUser.md)
 - [Update-UiPathProcess](Update-UiPathProcess.md)
