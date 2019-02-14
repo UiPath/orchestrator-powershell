@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Util
@@ -11,7 +10,7 @@ namespace UiPath.PowerShell.Util
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType.IsAssignableFrom(typeof(ODataResponseListKeyValuePairStringString));
+            return typeof(ODataResponseListKeyValuePairStringString).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
