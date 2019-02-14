@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\UnlockUser.cs" />
+    <Compile Include="Cmdlets\LockUser.cs" />
+    <Compile Include="Util\UserCmdlet.cs" />
     <Compile Include="Util\BindingResolver.cs" />
     <Compile Include="Cmdlets\AddAsset.cs" />
     <Compile Include="Cmdlets\AddEnvironment.cs" />
