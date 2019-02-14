@@ -54,7 +54,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                () => (ParameterSetName == RobotParameterSet) ? Robot.ToDto20181(Robot) : HandleHttpOperationException(() => Api.Robots.GetById(Id)),
+                () => (HandleHttpOperationException(() => Api.Robots.GetById(Robot?.Id ?? Id))),
                 (robotDto) => HandleHttpOperationException(() => Api.Robots.PutById(robotDto.Id.Value, robotDto)));
         }
     }
