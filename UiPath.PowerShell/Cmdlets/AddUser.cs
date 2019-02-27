@@ -54,11 +54,6 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     Domain = parts[0];
                 }
-
-                if (0 != string.Compare(Domain, parts[0], true))
-                {
-                    throw new Exception($"The NT username {Username} must match the domain {Domain}.");
-                }
             }
 
             var user = new UserDto

@@ -45,7 +45,10 @@ param(
     [ValidateSet('Remove', 'List', 'Ignore')]
     [string] $OrphanedUsersAction = 'Ignore',
     [Parameter()]
-    [switch] $AllowUsernameTruncate)
+    [switch] $AllowUsernameTruncate,
+    [Parameter()]
+    [string[]] $AllowedDomainNames = @()
+    )
 
 $ErrorActionPreference = "Stop"
 
@@ -60,15 +63,27 @@ function Get-IsWindows {
     return $isWindows
 }
 
+function Get-DomainName{
+    param(
+        [Parameter(Position=0, Mandatory=$True)] $distinguishedName
+    )
+    
+    $dcs = $distinguishedName -split ','| Select-String -Pattern "DC=" | ForEach-Object{ $_ -replace 'DC=', ''}
+    $extractedDomainName = $dcs -join '.'
+    Write-Verbose "extracted domain: $extractedDomainName  from distinguishedName: $distinguishedName extracted as $extractedDomainName"
+    return $dcs -join '.'
+}
+
 function Format-UiPathUserName {
     param(
-        [Parameter(Position=0, Mandatory=$True)] $userName
+        [Parameter(Position=0, Mandatory=$True)] $userName,
+        [Parameter(Position=1, Mandatory=$False)] $adNetBiosName = $null
     )
 
-    if (-not [string]::IsNullOrWhiteSpace($domainName)) {
-        $userName = $domainName + '\' + $userName
+    if (-not [string]::IsNullOrWhiteSpace($adNetBiosName)) {
+        $userName = $adNetBiosName + '\' + $userName
     }
-
+  
     if ($userName.Length -gt 32) {
         if ($AllowUsernameTruncate) {
             Write-Warning "AD Username $username exceeds the 32 character limit."
@@ -83,7 +98,7 @@ function Format-UiPathUserName {
 
 function Get-ADGroupUser {
     param(
-    [Parameter(Position=0)] $dc,
+    [Parameter(Position=0)] $groupDomainName,
     [Parameter(Position=1)] $adGroup
     )
 
@@ -94,45 +109,52 @@ function Get-ADGroupUser {
 
 
         Write-Progress -Id 1 `
-            -Activity "Retrieve group members: $adGroup" `
+            -Activity "Retrieve group members: $groupDomainName" `
 
-        Write-Verbose "Get-ADGroupMember -Server $($dc.PDCEmulator) -Identity $adGroup"
-        $members = @(Get-ADGroupMember -Server $dc.PDCEmulator -Identity $adGroup)
+        Write-Verbose "Get-ADGroupMember -Server $($groupDomainName) -Identity $adGroup"
+        $members = @(Get-ADGroupMember -Server $groupDomainName -Identity $adGroup)
 
         foreach($member in $members)
         {
+            $currentDomainName = Get-DomainName $member.DistinguishedName
 
+            if(-not $knownDomains.ContainsKey($currentDomainName)){
+                continue
+            }
+
+            $dc = $knownDomains[$currentDomainName]
 
             if ($member.objectClass -eq 'user')
             {
                 $userInfo = @{
                     SamAccountName = $member.SamAccountName;
-                    Username = Format-UiPathUserName $member.SamAccountName
+                    Username = Format-UiPathUserName $member.SamAccountName $dc.NetBIOSName;
+                    DNSRoot = $currentDomainName
                 }
 
                 $users += $userInfo
             }
             elseif ($member.objectClass -eq 'group')
             {
-                $childUsers = Get-ADGroupUser $dc $member.SamAccountName
+                $childUsers = Get-ADGroupUser $currentDomainName $member.SamAccountName
                 $users += $childUsers
             }
         }
     }
 
     if (Get-IsAzureAD) {
-        $adGroupObject = Get-AzureADGroup -SearchString $adGroup | where {$_.DisplayName -eq $adGroup}
+        $adGroupObject = Get-AzureADGroup -SearchString $adGroup | Where-Object {$_.DisplayName -eq $adGroup}
         Write-Verbose "Get-AzureADGroupMember $($adGroupObject.ObjectId)"
         $members = Get-AzureADGroupMember -ObjectId $adGroupObject.ObjectId
 
-        $users += $members | foreach {@{
+        $users += $members | ForEach-Object {@{
             UPN = $_.UserPrincipalName;
             Username = Format-UiPathUserName $_.UserPrincipalName;
             Name=$_.DisplayName; 
         }}
     }
 
-    $users | foreach {Write-Verbose "$adGroup AD group user for sync: $($_.UPN) Username:$($_.Username) Name:$($_.Name)"}
+    $users | ForEach-Object {Write-Verbose "$adGroup AD group user for sync: $($_.UPN) Username:$($_.Username) Name:$($_.Name)"}
 
     $users
 }
@@ -142,23 +164,23 @@ function Get-UiPathADUsers {
     [Parameter(Position=0)] $domain)
 
     Write-Verbose "Get-UiPathUser -Type User "
-    $allUsers = Get-UiPathUser -Type User | where {$_.Username -ne "Admin"}
+    $allUsers = Get-UiPathUser -Type User | Where-Object {$_.Username -ne "Admin"}
     $OrchestratorADUsers = @()
-
+    $conditions = $null
     if (Get-IsWindows) {
-         $OrchestratorADUsers += $allUsers | Select UserName, Id, RolesList, EmailAddress | where {$_.UserName.StartsWith($domain + '\', [System.StringComparison]::OrdinalIgnoreCase)}
+        $dcNetBiosNames =  $knownDomains.Values | ForEach-Object {$_.NetBIOSName}
+        $conditions = {$dcNetBiosNames -contains $_.UserName.Split('\')[0]}
     }
 
     if (Get-IsAzureAD) {
         # Orchestrator maps user to Azure AD identities based on Orchestrator user Email address
         Write-Verbose "Get-AzureADDomain"
-        $domains = Get-AzureADDomain | foreach {$_.Name}
-        $domains | foreach { Write-Verbose "AzureAD Email domain: $_"}
-
-        $OrchestratorADUsers += $allUsers | Select UserName, Id, RolesList, EmailAddress | where {$domains -contains $_.EmailAddress.Split('@')[1]}
+        $domains = Get-AzureADDomain | ForEach-Object {$_.Name}
+        $domains | ForEach-Object { Write-Verbose "AzureAD Email domain: $_"}
+        $conditions = {$domains -contains $_.EmailAddress.Split('@')[1]}
     }
-
-    $OrchestratorADUsers | foreach {Write-Verbose "Orchestrator user for sync: $($_.Id) $($_.Username) $($_.EmailAddress)"}
+    $OrchestratorADUsers += $allUsers | Where-Object $conditions | Select-Object UserName, Id, RolesList, EmailAddress
+    $OrchestratorADUsers | ForEach-Object {Write-Verbose "Orchestrator user for sync: $($_.Id) $($_.Username) $($_.EmailAddress)"}
 
     return $OrchestratorADUsers
 }
@@ -188,18 +210,26 @@ try
             -PercentComplete ($i/$RolesMapping.Values.Count*100)
         $i += 1
         $role = Get-UiPathRole -Name $roleName
-        if ($role -eq $null)
+        if ($null -eq $role)
         {
             throw "Could not find the Orchestrator role name: $roleName"
         }
         Write-Verbose "Role ok: $roleName $($role.Name)"
     }
 
-    $dc = $null
+    $knownDomains = @{}
+    $mainDc = $null
 
     if (Get-IsWindows) {
         Write-Verbose "Get-ADDomain $DomainName"
         $dc = Get-ADDomain -Identity $DomainName
+        $knownDomains.Add($dc.DNSRoot,$dc)
+        $mainDc = $dc;
+        foreach($dn in $AllowedDomainNames){
+            Write-Verbose "Get-ADDomain $dn"
+            $dc = Get-ADDomain -Identity $dn
+            $knownDomains.Add($dc.DNSRoot,$dc)
+        }
     }
 
     $idxOperationStep += 1
@@ -220,13 +250,13 @@ try
 
         $mappedRole = $RolesMapping[$adGoupName]
 
-        $adGroupMembers = Get-ADGroupUser $dc $adGoupName | Sort-Object {$_.Username} -Unique
+        $adGroupMembers = Get-ADGroupUser $DomainName $adGoupName | Sort-Object {$_.Username} -Unique
 
         foreach($adGroupMember in $adGroupMembers)
         {
             $userName = $adGroupMember.Username 
             $adUser = $allADUsers[$userName]
-            if ($adUser -eq $null)
+            if ($null -eq $adUser)
             {
                 $adUser = @{ roles = @(); userInfo = $adGroupMember}
                 $null = $allADUsers.Add($userName, $adUser)
@@ -260,7 +290,7 @@ try
     {
         $op =  $operations[$adUserName]
         $adUser = $allADUsers[$adUserName]
-        if ($op -eq $null)
+        if ($null -eq $op)
         {
             $op = @{isNew = $true; adUser = $adUser}
             $operations.Add($adUserName, $op)
@@ -290,8 +320,8 @@ try
             $idxExisting = 0
             $idxNew = 0
 
-            $existingRoles = $op.existingRoles | sort -Unique
-            $newRoles = $op.newRoles | sort -Unique
+            $existingRoles = $op.existingRoles | Sort-Object -Unique
+            $newRoles = $op.newRoles | Sort-Object -Unique
 
             # Oh, Powershell....
             if ($existingRoles -isnot [array])
@@ -331,7 +361,7 @@ try
                     $idxNew += 1
                     continue
                 }
-                elseif ($newRole -eq $null -or (($existingRole -ne $null) -and ($existingRole -lt $newRole)))
+                elseif ($null -eq $newRole -or (($null -ne $existingRole) -and ($existingRole -lt $newRole)))
                 {
                     # user must be removed from this existing role
                     $roleName = $existingRole
@@ -346,7 +376,7 @@ try
                     $addOrRemove = 'add'
                 }
                 $changedRole = $changedRoles[$roleName]
-                if ($changedRole -eq $null)
+                if ($null -eq $changedRole)
                 {
                     $changedRole = @{addedUsers=@();removedUsers=@()}
                     $changedRoles.Add($roleName, $changedRole)
@@ -390,64 +420,63 @@ try
             -Activity $operationSteps[$idxOperationStep] `
             -CurrentOperation $newUser.userName `
             -PercentComplete ($i/$newUsers.Count * 100)
-
-        if (Get-IsWindows) {
-            # We postponed getting the details until actually needed to reduce AD chit-chat
-            Write-Verbose "Get-ADUser -Server $($dc.PDCEmulator) -Identity $($newUser.userInfo.SamAccountName) -Properties EmailAddress"
-            $adUserInfo = Get-ADUser -Server $dc.PDCEmulator -Identity $newUser.userInfo.SamAccountName -Properties EmailAddress
-
-            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.EmailAddress)) {
-                $newUser.userInfo.EmailAddress = $adUserInfo.EmailAddress
+        try {
+            $userDomainName = $DomainName
+            if (Get-IsWindows) {
+                $userDomainName = $mainDc.DNSRoot
+                # We postponed getting the details until actually needed to reduce AD chit-chat
+                Write-Verbose "Get-ADUser -Server $($newUser.userInfo.DNSRoot) -Identity $($newUser.userInfo.SamAccountName) -Properties EmailAddress"
+                $adUserInfo = Get-ADUser -Server $newUser.userInfo.DNSRoot -Identity $newUser.userInfo.SamAccountName -Properties EmailAddress
+    
+                if (-not [string]::IsNullOrWhiteSpace($adUserInfo.EmailAddress)) {
+                    $newUser.userInfo.EmailAddress = $adUserInfo.EmailAddress
+                }
+                elseif (-not [string]::IsNullOrWhiteSpace($adUserInfo.UserPrincipalName)) {
+                    $newUser.userInfo.EmailAddress = $adUserInfo.UserPrincipalName
+                }
             }
-            elseif (-not [string]::IsNullOrWhiteSpace($adUserInfo.UserPrincipalName)) {
-                $newUser.userInfo.EmailAddress = $adUserInfo.UserPrincipalName
-            }
-
-            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.GivenName)) {
-                $newUser.userInfo.Name = $adUserInfo.GivenName
-            }
-            elseif (-not [string]::IsNullOrWhiteSpace($adUserInfo.Name)) {
-                $newUser.userInfo.Name = $adUserInfo.Name
-            }
-
-            if (-not [string]::IsNullOrWhiteSpace($adUserInfo.Surname)) {
-                $newUser.userInfo.Surname =$adUserInfo.Surname
-            } 
-        }
-
-        $cmdMsg = "Add-UiPathUser -Username $($newUser.userName) -RolesList ..."
-        $cmd = 'Add-UiPathUser -Username $newUser.userName -RolesList $newUser.roles'
+    
+            $cmdMsg = "Add-UiPathUser -Username $($newUser.userName) -RolesList ..."
+            $cmd = 'Add-UiPathUser -Username $newUser.userName -RolesList $newUser.roles'
+            
+            if (Get-IsWindows) {
+              $cmdMsg += " -Domain $($userDomainName)"
+              $cmd += ' -Domain $userDomainName'
+            }else{
+                if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.name)) {
+                    $cmdMsg += " -Name $($newUser.userInfo.name)"
+                    $cmd += ' -Name $newUser.userInfo.name'
+                }
         
-        if (Get-IsWindows) {
-          $cmdMsg += " -Domain $($dc.NetBIOSName)"
-          $cmd += ' -Domain $dc.NetBIOSName'
+                if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.Surname)) {
+                    $cmdMsg += " -Surname $($newUser.userInfo.Surname)"
+                    $cmd += ' -Surname $newUser.userInfo.Surname'
+                }
+            }
+    
+            if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.EmailAddress)) {
+                $cmdMsg += " -EmailAddress $($newUser.userInfo.EmailAddress)"
+                $cmd += ' -EmailAddress $newUser.userInfo.EmailAddress'
+            } elseif (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.UPN)) {
+                $cmdMsg += " -EmailAddress $($newUser.userInfo.UPN)"
+                $cmd += ' -EmailAddress $newUser.userInfo.UPN'
+            }
+            
+            if ($null -ne $ouId) {
+              $cmdMsg += " -OrganizationUnitIds @($ouId)"
+              $cmd += ' -OrganizationUnitIds @($ouId)'
+            }
+            
+            Write-Verbose $cmdMsg
+            $null = Invoke-Expression $cmd
         }
+        catch {
+            $e = $_.Exception
+            $line = $_.InvocationInfo.ScriptLineNumber
+            $msg = $e.Message 
 
-        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.name)) {
-            $cmdMsg += " -Name $($newUser.userInfo.name)"
-            $cmd += ' -Name $newUser.userInfo.name'
+            Write-Warning "$($line): $msg"
         }
-
-        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.Surname)) {
-            $cmdMsg += " -Surname $($newUser.userInfo.Surname)"
-            $cmd += ' -Surname $newUser.userInfo.Surname'
-        }
-
-        if (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.EmailAddress)) {
-            $cmdMsg += " -EmailAddress $($newUser.userInfo.EmailAddress)"
-            $cmd += ' -EmailAddress $newUser.userInfo.EmailAddress'
-        } elseif (-not [string]::IsNullOrWhiteSpace($newUser.userInfo.UPN)) {
-            $cmdMsg += " -EmailAddress $($newUser.userInfo.UPN)"
-            $cmd += ' -EmailAddress $newUser.userInfo.UPN'
-        }
-        
-        if ($ouId -ne $null) {
-          $cmdMsg += " -OrganizationUnitIds @($ouId)"
-          $cmd += ' -OrganizationUnitIds @($ouId)'
-        }
-        
-        Write-Verbose $cmdMsg
-        $null = Invoke-Expression $cmd
     }
 
     $idxOperationStep += 1
