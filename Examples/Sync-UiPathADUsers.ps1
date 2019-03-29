@@ -20,6 +20,10 @@
         Optional action to handle orphaned users. You can List or Remove these users.
     .PARAMETER AllowUsernameTruncate
         Optional switch to allow truncation of imported usernames to 32 characters, the Orchestrator username length limit.
+    .PARAMETER AllowedDomainNames
+        Optional string array with all allowed sub domains.
+    .PARAMETER AllowAllDomainNames
+        Optional switch to allow all users or groups from sub domains.        
     .EXAMPLE
         Sync-UiPathADUsers MyDomain @{'RPA Admins' = 'Administrator'; 'RPA Users' = 'Users'}
         Import AD users from MyDomain and maps the members of the 'RPA Admins' AD group to the 'Administrator' Orchestrator role and members of the 'RPA Users' AD group to the 'Users' Orchestrator role.
@@ -35,25 +39,35 @@
         Important notice: this will remove any user in Orchestrator that has an Email domain matching the Azure AD domain, even if it was not imported from Azure AD. 
 #>
 param(
-    [Parameter(Mandatory=$true, Position=0, ParameterSetName="Windows")] 
+    [Parameter(Mandatory=$true, Position=0, ParameterSetName="Windows")]
+    [Parameter(Mandatory=$true, Position=0, ParameterSetName="SpecificDomains")] 
+    [Parameter(Mandatory=$true, Position=0, ParameterSetName="AllDomains")]  
     [string] $DomainName,
+
     [Parameter(Mandatory=$true, Position=0, ParameterSetName="Azure")] 
     [switch] $AzureAD,
+
     [Parameter(Mandatory=$true, Position=1)] 
     [HashTable] $RolesMapping,
+
     [Parameter(Mandatory=$false)]
-    [ValidateSet('Remove', 'List', 'Ignore')]
+    [ValidateSet('Remove', 'List', 'Ignore', 'Lock')]
     [string] $OrphanedUsersAction = 'Ignore',
-    [Parameter()]
+
+    [Parameter(Mandatory=$false)]
     [switch] $AllowUsernameTruncate,
-    [Parameter()]
-    [string[]] $AllowedDomainNames = @()
+
+    [Parameter(Mandatory=$false, ParameterSetName="SpecificDomains")]
+    [string[]] $AllowedDomainNames = @(),
+
+    [Parameter(Mandatory=$false, ParameterSetName="AllDomains")]
+    [switch] $AllowAllDomainNames
     )
 
 $ErrorActionPreference = "Stop"
 
 $isAzureAD = $PSCmdlet.ParameterSetName -eq "Azure"
-$isWindows = $PSCmdlet.ParameterSetName -eq "Windows"
+$isWindows = @("Windows","SpecificDomains","AllDomains") -contains $PSCmdlet.ParameterSetName
 
 function Get-IsAzureAD {
     return $isAzureAD
@@ -72,6 +86,16 @@ function Get-DomainName{
     $extractedDomainName = $dcs -join '.'
     Write-Verbose "extracted domain: $extractedDomainName  from distinguishedName: $distinguishedName extracted as $extractedDomainName"
     return $dcs -join '.'
+}
+
+function Add-KnownDomain{
+    param(
+        [Parameter(Position=0, Mandatory=$True)] $domainName
+    )
+    Write-Verbose "Get-ADDomain $domainName"
+    $dc = Get-ADDomain -Identity $domainName
+    $knownDomains.Add($dc.DNSRoot,$dc) 
+    return $dc
 }
 
 function Format-UiPathUserName {
@@ -119,7 +143,11 @@ function Get-ADGroupUser {
             $currentDomainName = Get-DomainName $member.DistinguishedName
 
             if(-not $knownDomains.ContainsKey($currentDomainName)){
-                continue
+                if($AllowAllDomainNames){
+                    Add-KnownDomain -domainName $currentDomainName
+                }else{
+                    continue
+                }                
             }
 
             $dc = $knownDomains[$currentDomainName]
@@ -218,17 +246,11 @@ try
     }
 
     $knownDomains = @{}
-    $mainDc = $null
-
+    
     if (Get-IsWindows) {
-        Write-Verbose "Get-ADDomain $DomainName"
-        $dc = Get-ADDomain -Identity $DomainName
-        $knownDomains.Add($dc.DNSRoot,$dc)
-        $mainDc = $dc;
+        Add-KnownDomain -domainName $DomainName;
         foreach($dn in $AllowedDomainNames){
-            Write-Verbose "Get-ADDomain $dn"
-            $dc = Get-ADDomain -Identity $dn
-            $knownDomains.Add($dc.DNSRoot,$dc)
+            Add-KnownDomain -domainName $dn;
         }
     }
 
@@ -254,14 +276,22 @@ try
 
         foreach($adGroupMember in $adGroupMembers)
         {
-            $userName = $adGroupMember.Username 
-            $adUser = $allADUsers[$userName]
-            if ($null -eq $adUser)
-            {
-                $adUser = @{ roles = @(); userInfo = $adGroupMember}
-                $null = $allADUsers.Add($userName, $adUser)
+            try {
+                $userName = $adGroupMember.Username 
+                $adUser = $allADUsers[$userName]
+                if ($null -eq $adUser) {
+                    $adUser = @{ roles = @(); userInfo = $adGroupMember}
+                    $null = $allADUsers.Add($userName, $adUser)
+                }
+                $adUser.roles += @($mappedRole)
             }
-            $adUser.roles += @($mappedRole)
+            catch {
+                $e = $_.Exception
+                $line = $_.InvocationInfo.ScriptLineNumber
+                $msg = $e.Message 
+    
+                Write-Warning "$($line): $msg"
+            }
         }
     }
 
@@ -288,16 +318,24 @@ try
     # Apply all AD users
     foreach($adUserName in $allADUsers.Keys)
     {
-        $op =  $operations[$adUserName]
-        $adUser = $allADUsers[$adUserName]
-        if ($null -eq $op)
-        {
-            $op = @{isNew = $true; adUser = $adUser}
-            $operations.Add($adUserName, $op)
-        }
-        else
-        {
-            $op.newRoles +=  $adUser.roles
+        try{
+            $op =  $operations[$adUserName]
+            $adUser = $allADUsers[$adUserName]
+            if ($null -eq $op)
+            {
+                $op = @{isNew = $true; adUser = $adUser}
+                $operations.Add($adUserName, $op)
+            }
+            else
+            {
+                $op.newRoles +=  $adUser.roles
+            }
+        }catch{
+            $e = $_.Exception
+            $line = $_.InvocationInfo.ScriptLineNumber
+            $msg = $e.Message 
+
+            Write-Warning "$($line): $msg"
         }
     }
 
@@ -309,94 +347,102 @@ try
     $changedRoles = @{}
     foreach($adUserName in $operations.Keys)
     {
+        try {
+            if ($op.isNew -eq $true)
+            {
+                $newUsers += @{userName = $adUserName; userInfo = $op.adUser.userInfo; roles = $op.adUser.roles; }
+            }
+            else
+            {
+                $idxExisting = 0
+                $idxNew = 0
+    
+                $existingRoles = $op.existingRoles | Sort-Object -Unique
+                $newRoles = $op.newRoles | Sort-Object -Unique
+    
+                # Oh, Powershell....
+                if ($existingRoles -isnot [array])
+                {
+                    $existingRoles = @($existingRoles)
+                }
+    
+                if ($newRoles -isnot [array])
+                {
+                    $newRoles = @($newRoles)
+                }
+    
+                # because we sorted the two arrays we can use a merge algorithm
+    
+                while($idxExisting -lt $existingRoles.Count -or $idxNew -lt $newRoles.Count)
+                {
+                    $existingRole = $null
+                    $newRole = $null
+                    $changedRole = $null
+                    $addOrRemove = $null
+                    $roleName = $null
+    
+                    if ($idxExisting -lt $existingRoles.Count)
+                    {
+                        $existingRole = $existingRoles[$idxExisting]
+                    }
+    
+                    if ($idxNew -lt $newRoles.Count)
+                    {
+                        $newRole = $newRoles[$idxNew]
+                    }
+    
+                    if ($existingRole -eq $newRole)
+                    {
+                        # unchanged role, nothing to see here, move along
+                        $idxExisting += 1
+                        $idxNew += 1
+                        continue
+                    }
+                    elseif ($null -eq $newRole -or (($null -ne $existingRole) -and ($existingRole -lt $newRole)))
+                    {
+                        # user must be removed from this existing role
+                        $roleName = $existingRole
+                        $idxExisting += 1
+                        $addOrRemove = 'remove'
+                    }
+                    else
+                    {
+                        # user must be added to this new role
+                        $roleName = $newRole
+                        $idxNew += 1
+                        $addOrRemove = 'add'
+                    }
+                    $changedRole = $changedRoles[$roleName]
+                    if ($null -eq $changedRole)
+                    {
+                        $changedRole = @{addedUsers=@();removedUsers=@()}
+                        $changedRoles.Add($roleName, $changedRole)
+                    }
+                    if ($addOrRemove -eq 'add')
+                    {
+                        $changedRole.addedUsers += @($op.Id)
+                    }
+                    else
+                    {
+                        $changedRole.removedUsers += @($op.Id)
+                    }
+                }
+    
+                if ($newRoles.Count -eq 0)
+                {
+                    Write-Verbose "Is orphaned: $adUserName"
+                    $orphanedUsers += @{userName = $adUserName; id = $op.Id}
+                }
+            }
+        }
+        catch {
+            $e = $_.Exception
+            $line = $_.InvocationInfo.ScriptLineNumber
+            $msg = $e.Message 
+
+            Write-Warning "$($line): $msg"
+        }
         $op = $operations[$adUserName]
-
-        if ($op.isNew -eq $true)
-        {
-            $newUsers += @{userName = $adUserName; userInfo = $op.adUser.userInfo; roles = $op.adUser.roles; }
-        }
-        else
-        {
-            $idxExisting = 0
-            $idxNew = 0
-
-            $existingRoles = $op.existingRoles | Sort-Object -Unique
-            $newRoles = $op.newRoles | Sort-Object -Unique
-
-            # Oh, Powershell....
-            if ($existingRoles -isnot [array])
-            {
-                $existingRoles = @($existingRoles)
-            }
-
-            if ($newRoles -isnot [array])
-            {
-                $newRoles = @($newRoles)
-            }
-
-            # because we sorted the two arrays we can use a merge algorithm
-
-            while($idxExisting -lt $existingRoles.Count -or $idxNew -lt $newRoles.Count)
-            {
-                $existingRole = $null
-                $newRole = $null
-                $changedRole = $null
-                $addOrRemove = $null
-                $roleName = $null
-
-                if ($idxExisting -lt $existingRoles.Count)
-                {
-                    $existingRole = $existingRoles[$idxExisting]
-                }
-
-                if ($idxNew -lt $newRoles.Count)
-                {
-                    $newRole = $newRoles[$idxNew]
-                }
-
-                if ($existingRole -eq $newRole)
-                {
-                    # unchanged role, nothing to see here, move along
-                    $idxExisting += 1
-                    $idxNew += 1
-                    continue
-                }
-                elseif ($null -eq $newRole -or (($null -ne $existingRole) -and ($existingRole -lt $newRole)))
-                {
-                    # user must be removed from this existing role
-                    $roleName = $existingRole
-                    $idxExisting += 1
-                    $addOrRemove = 'remove'
-                }
-                else
-                {
-                    # user must be added to this new role
-                    $roleName = $newRole
-                    $idxNew += 1
-                    $addOrRemove = 'add'
-                }
-                $changedRole = $changedRoles[$roleName]
-                if ($null -eq $changedRole)
-                {
-                    $changedRole = @{addedUsers=@();removedUsers=@()}
-                    $changedRoles.Add($roleName, $changedRole)
-                }
-                if ($addOrRemove -eq 'add')
-                {
-                    $changedRole.addedUsers += @($op.Id)
-                }
-                else
-                {
-                    $changedRole.removedUsers += @($op.Id)
-                }
-            }
-
-            if ($newRoles.Count -eq 0)
-            {
-                Write-Verbose "Is orphaned: $adUserName"
-                $orphanedUsers += @{userName = $adUserName; id = $op.Id}
-            }
-        }
     }
 
     $idxOperationStep += 1
@@ -423,11 +469,10 @@ try
         try {
             $userDomainName = $DomainName
             if (Get-IsWindows) {
-                $userDomainName = $mainDc.DNSRoot
                 # We postponed getting the details until actually needed to reduce AD chit-chat
                 Write-Verbose "Get-ADUser -Server $($newUser.userInfo.DNSRoot) -Identity $($newUser.userInfo.SamAccountName) -Properties EmailAddress"
                 $adUserInfo = Get-ADUser -Server $newUser.userInfo.DNSRoot -Identity $newUser.userInfo.SamAccountName -Properties EmailAddress
-    
+                $userDomainName = $newUser.userInfo.DNSRoot
                 if (-not [string]::IsNullOrWhiteSpace($adUserInfo.EmailAddress)) {
                     $newUser.userInfo.EmailAddress = $adUserInfo.EmailAddress
                 }
@@ -521,6 +566,20 @@ try
                 $i += 1
                 Write-Verbose "Remove-UiPathUser -Id $($orphanedUser.id)"
                 Remove-UiPathUser -Id $orphanedUser.id
+            }
+        }
+        'Lock' 
+        {
+            $i = 1
+            foreach($orphanedUser in $orphanedUsers)
+            {
+                Write-Progress -Id 1 `
+                    -Activity "Lock orphaned users" `
+                    -CurrentOperation $orphanedUser.userName `
+                    -PercentComplete ($i/$orphanedUsers.Count * 100)
+                $i += 1
+                Write-Verbose "Lock-UiPathUser -Id $($orphanedUser.id)"
+                Lock-UiPathUser -Id $orphanedUser.id
             }
         }
         'List' 
