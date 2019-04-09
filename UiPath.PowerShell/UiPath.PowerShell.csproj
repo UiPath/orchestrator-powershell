@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\GetEnvironmentRobot.cs" />
     <Compile Include="Cmdlets\UnlockUser.cs" />
     <Compile Include="Cmdlets\LockUser.cs" />
     <Compile Include="Util\UserCmdlet.cs" />

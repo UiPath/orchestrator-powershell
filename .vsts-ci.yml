@@ -12,7 +12,7 @@ variables:
   BuildPlatform: "Any CPU"
   # TODO: reset counter on each GlobalAssemblyProperties version bump
   # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=vsts&tabs=yaml%2Cbatch#counters
-  patch: $[counter('patch_counter_19_1', 1)]
+  patch: $[counter('patch_counter_19_4', 1)]
 
 steps:
 - task: NuGetToolInstaller@0
