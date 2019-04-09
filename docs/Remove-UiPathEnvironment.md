@@ -7,9 +7,10 @@ SYNOPSIS
     
     
 SYNTAX
-    Remove-UiPathEnvironment [-Id] <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Remove-UiPathEnvironment [-Id] <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Remove-UiPathEnvironment [-Environment] <Environment> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Remove-UiPathEnvironment [-Environment] <Environment> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -37,6 +38,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

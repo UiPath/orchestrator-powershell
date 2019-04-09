@@ -8,18 +8,20 @@ SYNOPSIS
     
 SYNTAX
     Edit-UiPathWebhook [-Id] <long> [-Webhook] <Webhook> [-AllEvents <SwitchParameter>] [-AllowInsecureSsl 
-    <SwitchParameter>] [-AuthToken <AuthToken>] [-Enabled <bool>] [-Secret <string>] [-Url <string>] 
-    [<CommonParameters>]
+    <SwitchParameter>] [-AuthToken <AuthToken>] [-Enabled <bool>] [-RequestTimeout <int>] [-Secret <string>] [-Url 
+    <string>] [<CommonParameters>]
     
     Edit-UiPathWebhook [-Id] <long> [-Webhook] <Webhook> [-AllowInsecureSsl <SwitchParameter>] [-AuthToken 
-    <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-Secret <string>] [-Url <string>] [<CommonParameters>]
+    <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-RequestTimeout <int>] [-Secret <string>] [-Url <string>] 
+    [<CommonParameters>]
     
     Edit-UiPathWebhook [-Id] <long> [-AllEvents <SwitchParameter>] [-AllowInsecureSsl <SwitchParameter>] [-AuthToken 
-    <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-Secret <string>] [-Url <string>] [<CommonParameters>]
+    <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-RequestTimeout <int>] [-Secret <string>] [-Url <string>] 
+    [<CommonParameters>]
     
     Edit-UiPathWebhook [-Webhook] <Webhook> [-AllEvents <SwitchParameter>] [-AllowInsecureSsl <SwitchParameter>] 
-    [-AuthToken <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-Secret <string>] [-Url <string>] 
-    [<CommonParameters>]
+    [-AuthToken <AuthToken>] [-Enabled <bool>] [-Events <string[]>] [-RequestTimeout <int>] [-Secret <string>] [-Url 
+    <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -95,6 +97,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

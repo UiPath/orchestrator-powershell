@@ -8,16 +8,16 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathAuthToken -CurrentSession <SwitchParameter> [<CommonParameters>]
+    Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] [-Session 
-    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] 
+    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-OrganizationUnit <string>] [-Session 
-    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-OrganizationUnit <string>] 
+    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-OrganizationUnit <string>] [-Session 
-    <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-OrganizationUnit <string>] 
+    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -94,6 +94,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

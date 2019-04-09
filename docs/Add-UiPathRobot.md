@@ -9,7 +9,7 @@ SYNOPSIS
 SYNTAX
     Add-UiPathRobot -Name <string> -Username <string> [-AuthToken <AuthToken>] [-CredentialType <string>] 
     [-Description <string>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName <string>] [-Password 
-    <string>] [-Type <string>] [<CommonParameters>]
+    <string>] [-RequestTimeout <int>] [-Type <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -93,6 +93,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

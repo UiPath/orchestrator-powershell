@@ -8,12 +8,12 @@ SYNOPSIS
     
 SYNTAX
     Edit-UiPathRobot [-Robot] <Robot> [-AuthToken <AuthToken>] [-Description <string>] [-LicenseKey <string>] 
-    [-MachineName <string>] [-Name <string>] [-Password <string>] [-Type <string>] [-Username <string>] 
-    [<CommonParameters>]
+    [-MachineName <string>] [-Name <string>] [-Password <string>] [-RequestTimeout <int>] [-Type <string>] [-Username 
+    <string>] [<CommonParameters>]
     
     Edit-UiPathRobot [-Id] <long> [-AuthToken <AuthToken>] [-Description <string>] [-LicenseKey <string>] 
-    [-MachineName <string>] [-Name <string>] [-Password <string>] [-Type <string>] [-Username <string>] 
-    [<CommonParameters>]
+    [-MachineName <string>] [-Name <string>] [-Password <string>] [-RequestTimeout <int>] [-Type <string>] [-Username 
+    <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -97,6 +97,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

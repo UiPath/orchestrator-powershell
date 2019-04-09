@@ -8,23 +8,32 @@ SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathAsset [-Name] <string> -TextValue <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -TextValue <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -IntValue <int> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -IntValue <int> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -DBConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -DBConnectionString <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -HttpConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -HttpConnectionString <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -BoolValue <bool> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -BoolValue <bool> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -Credential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -Credential <PSCredential> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Add-UiPathAsset [-Name] <string> -RobotValues <AssetRobotValue[]> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Add-UiPathAsset [-Name] <string> -RobotValues <AssetRobotValue[]> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -122,6 +131,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

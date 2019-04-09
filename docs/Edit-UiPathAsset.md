@@ -8,24 +8,32 @@ SYNOPSIS
     
     
 SYNTAX
-    Edit-UiPathAsset [-Asset] <Asset> -TextValue <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -TextValue <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -IntValue <int> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -IntValue <int> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -DBConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -DBConnectionString <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -HttpConnectionString <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -HttpConnectionString <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -BoolValue <bool> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -BoolValue <bool> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -KeyValueList <Hashtable> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -WindowsCredential <PSCredential> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
-    Edit-UiPathAsset [-Asset] <Asset> -Credential <PSCredential> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Edit-UiPathAsset [-Asset] <Asset> -Credential <PSCredential> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     Edit-UiPathAsset [-Asset] <Asset> [-AddRobotValues <AssetRobotValue[]>] [-AuthToken <AuthToken>] 
-    [-RemoveRobotIdValues <long[]>] [<CommonParameters>]
+    [-RemoveRobotIdValues <long[]>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -127,6 +135,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

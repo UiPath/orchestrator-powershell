@@ -7,9 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Edit-UiPathRoleUser [-Id] <int> [-Add <long[]>] [-AuthToken <AuthToken>] [-Remove <long[]>] [<CommonParameters>]
+    Edit-UiPathRoleUser [-Id] <int> [-Add <long[]>] [-AuthToken <AuthToken>] [-Remove <long[]>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
-    Edit-UiPathRoleUser [-Role] <Role> [-Add <long[]>] [-AuthToken <AuthToken>] [-Remove <long[]>] [<CommonParameters>]
+    Edit-UiPathRoleUser [-Role] <Role> [-Add <long[]>] [-AuthToken <AuthToken>] [-Remove <long[]>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -53,6 +55,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

@@ -8,10 +8,10 @@ SYNOPSIS
     
 SYNTAX
     Edit-UiPathMachine [-Machine] <Machine> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] 
-    [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
+    [-RequestTimeout <int>] [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
     
-    Edit-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] [-Type 
-    {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
+    Edit-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] 
+    [-RequestTimeout <int>] [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -72,6 +72,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

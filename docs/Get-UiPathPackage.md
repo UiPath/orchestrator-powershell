@@ -8,7 +8,7 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathPackage [-AuthToken <AuthToken>] [-Id <string>] [-IsActive <bool>] [-IsLatestVersion <bool>] [-Key 
-    <string>] [-OldVersion <string>] [-Title <string>] [-Version <string>] [<CommonParameters>]
+    <string>] [-OldVersion <string>] [-RequestTimeout <int>] [-Title <string>] [-Version <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -76,6 +76,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

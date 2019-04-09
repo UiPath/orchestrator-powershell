@@ -7,21 +7,29 @@ SYNOPSIS
     
     
 SYNTAX
-    Update-UiPathProcess -Id <long> -PackageVersion <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess -Id <long> -PackageVersion <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Update-UiPathProcess -Id <long> -Package <Package> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess -Id <long> -Package <Package> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Update-UiPathProcess -Id <long> -Latest <SwitchParameter> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess -Id <long> -Latest <SwitchParameter> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Update-UiPathProcess -Id <long> -Rollback <SwitchParameter> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess -Id <long> -Rollback <SwitchParameter> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Update-UiPathProcess [-Process] <Process> -PackageVersion <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess [-Process] <Process> -PackageVersion <string> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
-    Update-UiPathProcess [-Process] <Process> -Package <Package> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess [-Process] <Process> -Package <Package> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Update-UiPathProcess [-Process] <Process> -Latest <SwitchParameter> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess [-Process] <Process> -Latest <SwitchParameter> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
-    Update-UiPathProcess [-Process] <Process> -Rollback <SwitchParameter> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Update-UiPathProcess [-Process] <Process> -Rollback <SwitchParameter> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -81,6 +89,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

@@ -8,10 +8,10 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathUser [-AuthToken <AuthToken>] [-EmailAddress <string>] [-FullName <string>] [-IsActive <bool>] 
-    [-IsEmailConfirmed <bool>] [-Name <string>] [-Surname <string>] [-TenancyName <string>] [-Type <string>] 
-    [-UserName <string>] [<CommonParameters>]
+    [-IsEmailConfirmed <bool>] [-Name <string>] [-RequestTimeout <int>] [-Surname <string>] [-TenancyName <string>] 
+    [-Type <string>] [-UserName <string>] [<CommonParameters>]
     
-    Get-UiPathUser -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Get-UiPathUser -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -103,6 +103,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

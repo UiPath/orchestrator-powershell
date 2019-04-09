@@ -7,11 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Remove-UiPathEnvironmentRobot [-EnvironmentId] <long> [-RobotId] <long> [-AuthToken <AuthToken>] 
-    [<CommonParameters>]
+    Remove-UiPathEnvironmentRobot [-EnvironmentId] <long> [-RobotId] <long> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     Remove-UiPathEnvironmentRobot [-Environment] <Environment> [-Robot] <Robot> [-AuthToken <AuthToken>] 
-    [<CommonParameters>]
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -55,6 +55,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

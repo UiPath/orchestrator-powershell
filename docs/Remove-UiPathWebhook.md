@@ -7,9 +7,9 @@ SYNOPSIS
     
     
 SYNTAX
-    Remove-UiPathWebhook [-Id] <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Remove-UiPathWebhook [-Id] <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Remove-UiPathWebhook [-Webhook] <Webhook> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Remove-UiPathWebhook [-Webhook] <Webhook> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -37,6 +37,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

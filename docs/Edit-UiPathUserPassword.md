@@ -8,10 +8,10 @@ SYNOPSIS
     
 SYNTAX
     Edit-UiPathUserPassword -CurrentPassword <string> -Id <long> -NewPassword <string> [-AuthToken <AuthToken>] 
-    [<CommonParameters>]
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     Edit-UiPathUserPassword [-User] <User> -CurrentPassword <string> -NewPassword <string> [-AuthToken <AuthToken>] 
-    [<CommonParameters>]
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -55,6 +55,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

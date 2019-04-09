@@ -7,8 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathEnvironment -Name <string> [-AuthToken <AuthToken>] [-Description <string>] [-Type <string>] 
-    [<CommonParameters>]
+    Add-UiPathEnvironment -Name <string> [-AuthToken <AuthToken>] [-Description <string>] [-RequestTimeout <int>] 
+    [-Type <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -44,6 +44,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

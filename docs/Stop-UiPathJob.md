@@ -7,9 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Stop-UiPathJob [-Job] <Job> [-Strategy] <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Stop-UiPathJob [-Job] <Job> [-Strategy] <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
-    Stop-UiPathJob [-JobId] <long> [-Strategy] <string> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Stop-UiPathJob [-JobId] <long> [-Strategy] <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -45,6 +47,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

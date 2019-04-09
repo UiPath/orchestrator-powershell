@@ -8,7 +8,7 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathTenant -AdminEmailAddress <string> -AdminName <string> -AdminPassword <string> -Name <string> 
-    [-AdminSurname <string>] [-AuthToken <AuthToken>] [<CommonParameters>]
+    [-AdminSurname <string>] [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -60,6 +60,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

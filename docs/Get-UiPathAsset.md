@@ -7,7 +7,7 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathAsset [-AuthToken <AuthToken>] [-Name <string>] [<CommonParameters>]
+    Get-UiPathAsset [-AuthToken <AuthToken>] [-Name <string>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -27,6 +27,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

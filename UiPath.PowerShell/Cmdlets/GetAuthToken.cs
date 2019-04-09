@@ -79,6 +79,14 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         public SwitchParameter Session { get; set; }
 
+        /// <summary>
+        /// The Orchestrator request timeout (in seconds)
+        /// </summary>
+        [Parameter()]
+        public int RequestTimeout { get; set; } = 100;
+
+        private TimeSpan Timeout => TimeSpan.FromSeconds(RequestTimeout);
+
         protected override void ProcessRecord()
         {
             if (ParameterSetName == CurrentSessionSet)
@@ -115,13 +123,18 @@ namespace UiPath.PowerShell.Cmdlets
                     AuthenticatedCmdlet.SetAuthToken(authToken);
                 }
 
+                if (MyInvocation.BoundParameters.ContainsKey(nameof(RequestTimeout)))
+                {
+                    authToken.RequestTimeout = RequestTimeout;
+                }
+
                 WriteObject(authToken);
             }
         }
 
         private void SetOrganizationUnit(AuthToken authToken, string organizationUnit)
         {
-            using (var api = AuthenticatedCmdlet.MakeApi(authToken))
+            using (var api = AuthenticatedCmdlet.MakeApi(authToken, Timeout))
             {
                 var unit = HandleHttpOperationException(() => api.OrganizationUnits.GetOrganizationUnits(filter: $"DisplayName eq '{organizationUnit}'").Value.First(ou => ou.DisplayName == organizationUnit));
                 authToken.OrganizationUnit = unit.DisplayName;
@@ -133,7 +146,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             authToken.ApiVersion = OrchestratorProtocolVersion.V18_1;
 
-            using (var api = AuthenticatedCmdlet.MakeApi(authToken))
+            using (var api = AuthenticatedCmdlet.MakeApi(authToken, Timeout))
             {
                 try
                 { 
