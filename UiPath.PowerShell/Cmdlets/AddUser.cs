@@ -19,7 +19,7 @@ namespace UiPath.PowerShell.Cmdlets
         public string Username { get; private set; }
 
         //[Credential]
-        [Parameter(Mandatory = true, ParameterSetName =UserPwdSet)]
+        [Parameter(ParameterSetName =UserPwdSet)]
         public string Password { get; private set; }
 
         [Parameter(ParameterSetName =UserPwdSet)]
