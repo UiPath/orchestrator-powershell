@@ -6,9 +6,12 @@ using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingTy
 using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
 using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
 using RobotDto20184 = UiPath.Web.Client20184.Models.RobotDto;
+using UiPath.PowerShell.Util;
+using System.ComponentModel;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Robot
     {
         public long Id { get; private set; }

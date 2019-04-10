@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class QueueItem
     {
         public long Id { get; internal set; }

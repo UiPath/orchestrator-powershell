@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
+using UiPath.PowerShell.Util;
 using License20181Dto = UiPath.Web.Client20181.Models.LicenseDto;
 using License20183Dto = UiPath.Web.Client20183.Models.LicenseDto;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class License
     {
         public long? Id { get; private set; }

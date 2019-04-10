@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UiPath.PowerShell.Util;
 using UiPath.Web.Client20184.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Webhook
     {
         public string Url { get; internal set; }

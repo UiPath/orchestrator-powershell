@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Role
     {
         public string Name { get; private set; }

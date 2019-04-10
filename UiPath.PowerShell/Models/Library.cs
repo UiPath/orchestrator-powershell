@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using UiPath.PowerShell.Util;
 using UiPath.Web.Client20183.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Library
     {
         public string Id { get; private set; }
