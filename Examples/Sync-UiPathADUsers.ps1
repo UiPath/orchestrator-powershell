@@ -348,6 +348,7 @@ try
     foreach($adUserName in $operations.Keys)
     {
         try {
+            $op =  $operations[$adUserName]
             if ($op.isNew -eq $true)
             {
                 $newUsers += @{userName = $adUserName; userInfo = $op.adUser.userInfo; roles = $op.adUser.roles; }
