@@ -28,6 +28,7 @@
 - [Get-UiPathAsset](Get-UiPathAsset.md)
 - [Get-UiPathAuthToken](Get-UiPathAuthToken.md)
 - [Get-UiPathEnvironment](Get-UiPathEnvironment.md)
+- [Get-UiPathEnvironmentRobot](Get-UiPathEnvironmentRobot.md)
 - [Get-UiPathJob](Get-UiPathJob.md)
 - [Get-UiPathLibrary](Get-UiPathLibrary.md)
 - [Get-UiPathLibraryVersion](Get-UiPathLibraryVersion.md)
