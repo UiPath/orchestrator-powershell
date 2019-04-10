@@ -95,7 +95,7 @@ namespace UiPath.PowerShell.Cmdlets
                 Description = Description
             };
 
-            ApplyEnumMember<RobotDtoHostingType20183>(Type, hostingType => robot.HostingType = hostingType);
+            ApplyEnumMember<RobotDtoHostingType20183>(HostingType, hostingType => robot.HostingType = hostingType);
             ApplyEnumMember<RobotDtoType20183>(Type, type => robot.Type = type);
 
             var dto = HandleHttpOperationException(() => Api_18_3.Robots.Post(robot));
