@@ -1,11 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Management.Automation;
+using UiPath.PowerShell.Util;
 
 namespace UiPath.PowerShell.Models
 {
     /// <summary>
     /// The Token needed to authenticate UiPath cmdlets
     /// </summary>
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class AuthToken
     {
         public string URL { get; internal set; }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using System.ComponentModel;
+using UiPath.PowerShell.Util;
 using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
 using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
 using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Machine
     {
         public long? Id { get; private set; }

@@ -54,6 +54,7 @@
     <Compile Include="Cmdlets\GetEnvironmentRobot.cs" />
     <Compile Include="Cmdlets\UnlockUser.cs" />
     <Compile Include="Cmdlets\LockUser.cs" />
+    <Compile Include="Util\UiPathTypeConverter.cs" />
     <Compile Include="Util\UserCmdlet.cs" />
     <Compile Include="Util\BindingResolver.cs" />
     <Compile Include="Cmdlets\AddAsset.cs" />

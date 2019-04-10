@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class AssetRobotValue
     {
         public long RobotId { get; internal set; }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Management.Automation;
+using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
@@ -8,6 +10,7 @@ namespace UiPath.PowerShell.Models
     /// <summary>
     /// <para type="description">An UiPath Orchestrator asset</para>
     /// </summary>
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class Asset
     {
         public long Id { get; private set; }

@@ -1,7 +1,10 @@
-﻿using UiPath.Web.Client20181.Models;
+﻿using System.ComponentModel;
+using UiPath.PowerShell.Util;
+using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
+    [TypeConverter(typeof(UiPathTypeConverter))]
     public class OrganizationUnit
     {
         public long Id { get; set; }
