@@ -7,9 +7,9 @@ SYNOPSIS
     
     
 SYNTAX
-    Lock-UiPathUser [-Id] <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Lock-UiPathUser [-Id] <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Lock-UiPathUser [-User] <User> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Lock-UiPathUser [-User] <User> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -37,6 +37,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

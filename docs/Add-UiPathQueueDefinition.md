@@ -8,8 +8,8 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathQueueDefinition -Name <string> [-AcceptAutomaticallyRetry <SwitchParameter>] [-AuthToken <AuthToken>] 
-    [-Description <string>] [-EnforceUniqueReference <SwitchParameter>] [-MaxNumberOfRetries <int>] 
-    [<CommonParameters>]
+    [-Description <string>] [-EnforceUniqueReference <SwitchParameter>] [-MaxNumberOfRetries <int>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -61,6 +61,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

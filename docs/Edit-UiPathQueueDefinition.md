@@ -8,9 +8,10 @@ SYNOPSIS
     
 SYNTAX
     Edit-UiPathQueueDefinition [-QueueDefinition] <QueueDefinition> [-AuthToken <AuthToken>] [-Description <string>] 
-    [<CommonParameters>]
+    [-RequestTimeout <int>] [<CommonParameters>]
     
-    Edit-UiPathQueueDefinition [-Id] <long> [-AuthToken <AuthToken>] [-Description <string>] [<CommonParameters>]
+    Edit-UiPathQueueDefinition [-Id] <long> [-AuthToken <AuthToken>] [-Description <string>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -46,6 +47,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

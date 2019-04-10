@@ -8,7 +8,8 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathQueuItem -QueueName <string> [-AuthToken <AuthToken>] [-DeferDate <DateTime>] [-DueDate <DateTime>] 
-    [-Priority <string>] [-Reference <string>] [-SpecificContent <Hashtable>] [<CommonParameters>]
+    [-Priority <string>] [-Reference <string>] [-RequestTimeout <int>] [-SpecificContent <Hashtable>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -68,6 +69,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

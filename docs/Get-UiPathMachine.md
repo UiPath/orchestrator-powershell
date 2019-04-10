@@ -7,9 +7,10 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathMachine [-AuthToken <AuthToken>] [-Name <string>] [-Type <string>] [<CommonParameters>]
+    Get-UiPathMachine [-AuthToken <AuthToken>] [-Name <string>] [-RequestTimeout <int>] [-Type <string>] 
+    [<CommonParameters>]
     
-    Get-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Get-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -45,6 +46,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

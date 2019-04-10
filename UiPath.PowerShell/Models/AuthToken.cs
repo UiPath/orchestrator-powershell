@@ -25,6 +25,8 @@ namespace UiPath.PowerShell.Models
 
         public string TenantName { get; internal set; }
 
+        public int? RequestTimeout { get; set; }
+
         internal long? OrganizationUnitId { get; set; }
     }
 }

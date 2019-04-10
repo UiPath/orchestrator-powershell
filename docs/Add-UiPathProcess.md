@@ -8,7 +8,8 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathProcess -Name <string> [-AuthToken <AuthToken>] [-Description <string>] [-Environment <Environment>] 
-    [-EnvironmentId <long>] [-Package <Package>] [-PackageId <string>] [-PackageVersion <string>] [<CommonParameters>]
+    [-EnvironmentId <long>] [-Package <Package>] [-PackageId <string>] [-PackageVersion <string>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -76,6 +77,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

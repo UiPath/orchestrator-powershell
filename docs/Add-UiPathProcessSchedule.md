@@ -9,16 +9,16 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathProcessSchedule [-Name] <string> -AllRobots <SwitchParameter> -Process <Process> -StartProcessCron 
-    <string> [-AuthToken <AuthToken>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId <string>] 
-    [<CommonParameters>]
+    <string> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-StopAfterMinutes <int>] [-StopStrategy <string>] 
+    [-TimeZoneId <string>] [<CommonParameters>]
     
     Add-UiPathProcessSchedule [-Name] <string> -Process <Process> -RobotCount <int> -StartProcessCron <string> 
-    [-AuthToken <AuthToken>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId <string>] 
-    [<CommonParameters>]
+    [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId 
+    <string>] [<CommonParameters>]
     
     Add-UiPathProcessSchedule [-Name] <string> -Process <Process> -Robots <List`1> -StartProcessCron <string> 
-    [-AuthToken <AuthToken>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId <string>] 
-    [<CommonParameters>]
+    [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId 
+    <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -102,6 +102,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

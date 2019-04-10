@@ -7,7 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathOrganizationUnitUser [-OrganizationUnit] <OrganizationUnit> [-AuthToken <AuthToken>] [<CommonParameters>]
+    Get-UiPathOrganizationUnitUser [-OrganizationUnit] <OrganizationUnit> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -27,6 +28,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

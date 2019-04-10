@@ -8,10 +8,10 @@ SYNOPSIS
     
 SYNTAX
     Add-UiPathWebhook -Url <string> [-AllEvents <SwitchParameter>] [-AllowInsecureSsl <SwitchParameter>] [-AuthToken 
-    <AuthToken>] [-Enabled <bool>] [-Secret <string>] [<CommonParameters>]
+    <AuthToken>] [-Enabled <bool>] [-RequestTimeout <int>] [-Secret <string>] [<CommonParameters>]
     
     Add-UiPathWebhook -Url <string> [-AllowInsecureSsl <SwitchParameter>] [-AuthToken <AuthToken>] [-Enabled <bool>] 
-    [-Events <string[]>] [-Secret <string>] [<CommonParameters>]
+    [-Events <string[]>] [-RequestTimeout <int>] [-Secret <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -71,6 +71,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
