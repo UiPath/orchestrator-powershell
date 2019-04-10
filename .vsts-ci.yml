@@ -51,6 +51,7 @@ steps:
   inputs:
     command: pack
     versioningScheme: byBuildNumber
+    includeSymbols: true
     packagesToPack: "$(Build.SourcesDirectory)\\UiPath.PowerShell.nuspec"
 
 - task: PublishBuildArtifacts@1
