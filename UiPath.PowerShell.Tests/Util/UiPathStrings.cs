@@ -69,7 +69,10 @@
         public const string EditUiPathRobot = "Edit-UiPathRobot";
         public const string RemoveUiPathRobot = "Remove-UiPathRobot";
 
-
+        public const string GetUiPathRobotSettings = "Get-UiPathRobotSettings";
+        public const string EditUiPathRobotSettings = "Edit-UiPathRobotSettings";
+        public const string ClearUiPathRobotSettings = "Clear-UiPathRobotSettings";
+        
         public const string AddUiPathQueueDefinition = "Add-UiPathQueueDefinition";
         public const string GetUiPathQueueDefinition = "Get-UiPathQueueDefinition";
         public const string EditUiPathQueueDefinition = "Edit-UiPathQueueDefinition";
@@ -101,5 +104,6 @@
         public const string EditUiPathProcessSchedule = "Edit-UiPathProcessSchedule";
         public const string RemoveUiPathProcessSchedule = "Remove-UiPathProcessSchedule";
 
+        public const string GetUiPathLicense = "Get-UiPathLicense";
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="Cmdlets\LibraryTests.cs" />
     <Compile Include="Cmdlets\MergeAddRemoveTests.cs" />
     <Compile Include="Cmdlets\QueueDefinitionsTests.cs" />
+    <Compile Include="Cmdlets\RobotSettingsTests.cs" />
     <Compile Include="Cmdlets\RobotTests.cs" />
     <Compile Include="Cmdlets\RoleTests.cs" />
     <Compile Include="Cmdlets\ScheduleTests.cs" />
@@ -63,6 +64,7 @@
     </Compile>
     <Compile Include="Util\ApiHelper.cs" />
     <Compile Include="Util\PackageSpec.cs" />
+    <Compile Include="Util\TestContextExtensions.cs" />
     <Compile Include="Util\TestFileFixture.cs" />
     <Compile Include="Util\PowershellFactory.cs" />
     <Compile Include="Util\TestClassBase.cs" />
