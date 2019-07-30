@@ -14,19 +14,19 @@ namespace UiPath.PowerShell.Tests.Util
 
         public static TestSettings FromTestContext(TestContext testContext)
         {
-            var url = testContext.Properties["url"];
-            var tenantName = testContext.Properties["tenantName"];
-            var userName = testContext.Properties["userName"];
-            var password = testContext.Properties["password"];
-            var hostPassword = testContext.Properties["hostPassword"];
+            var url = testContext.GetTestParameter("url");
+            var tenantName = testContext.GetTestParameter("tenantName");
+            var userName = testContext.GetTestParameter("userName");
+            var password = testContext.GetTestParameter("password");
+            var hostPassword = testContext.GetTestParameter("hostPassword");
 
             return new TestSettings
             {
-                URL = url?.ToString(),
-                TenantName = tenantName?.ToString(),
-                UserName = userName?.ToString(),
-                Password = password?.ToString(),
-                HostPassword = hostPassword?.ToString()
+                URL = url,
+                TenantName = tenantName,
+                UserName = userName,
+                Password = password,
+                HostPassword = hostPassword
 
             };
         }

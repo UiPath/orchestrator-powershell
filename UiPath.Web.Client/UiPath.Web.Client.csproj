@@ -58,6 +58,7 @@
     <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
     <None Include="Swagger\UiPath2018.4.1.swagger" />
     <None Include="Swagger\UiPath2019.1.swagger" />
+	<None Include="Swagger\UiPath2019.4.3.swagger" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Rest.ClientRuntime">
@@ -91,9 +92,12 @@
   <Target Name="Client20191" Inputs="Swagger\UiPath2019.1.swagger" Outputs="generated20191\UiPathWebApi.cs">
     <Exec Outputs="generated20191\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.1.swagger --output-folder=generated20191 --csharp --csharp.namespace=UiPath.Web.Client20191 --add-credentials" />
   </Target>
-  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" DependsOnTargets="Client20181;Client20182;Client20183;Client20184;Client20191">
+  <Target Name="Client20194" Inputs="Swagger\UiPath2019.4.swagger" Outputs="generated20194\UiPathWebApi.cs">
+    <Exec Outputs="generated20194\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.4.swagger --output-folder=generated20194 --csharp --csharp.namespace=UiPath.Web.Client20194 --add-credentials" />
+  </Target>
+  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" DependsOnTargets="Client20181;Client20182;Client20183;Client20184;Client20191;Client20194">
     <ItemGroup>
-      <AutoRestGenerated Include="generated20181\*.cs;generated20181\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs;generated20184\*.cs;generated20184\Models\*.cs;generated20191\*.cs;generated20191\Models\*.cs" />
+      <AutoRestGenerated Include="generated20181\*.cs;generated20181\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs;generated20184\*.cs;generated20184\Models\*.cs;generated20191\*.cs;generated20191\Models\*.cs;generated20194\*.cs;generated20194\Models\*.cs" />
       <Compile Include="@(AutoRestGenerated)">
         <AutoGen>True</AutoGen>
         <Visible>True</Visible>

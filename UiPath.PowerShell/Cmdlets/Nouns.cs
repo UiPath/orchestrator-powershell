@@ -22,6 +22,7 @@
         internal const string Process = UiPath + "Process";
         internal const string ProcessSchedule = UiPath + "ProcessSchedule";
         internal const string Robot = UiPath + "Robot";
+        internal const string RobotSettings = UiPath + "RobotSettings";
         internal const string Role = UiPath + "Role";
         internal const string RoleUser = UiPath + "RoleUser";
         internal const string RolePermission = UiPath + "RolePermission";
@@ -35,3 +36,4 @@
         internal const string Webhook = UiPath + "Webhook";
     }
 }
+

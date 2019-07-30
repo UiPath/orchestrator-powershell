@@ -7,7 +7,7 @@ namespace UiPath.PowerShell.Cmdlets
     /// <para name="synopsis">Clears the Orchestrator authentication token from the Powershell session.</para>
     /// </summary>
     [Cmdlet(VerbsCommon.Clear, Nouns.AuthToken)]
-    public class ClearAuthToken: UiPathCmdlet
+    public class ClearAuthToken: AuthenticatedCmdlet
     {
         protected override void ProcessRecord()
         {
