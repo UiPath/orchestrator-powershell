@@ -105,5 +105,10 @@
         public const string RemoveUiPathProcessSchedule = "Remove-UiPathProcessSchedule";
 
         public const string GetUiPathLicense = "Get-UiPathLicense";
+        
+        public const string StartMaintenanceMode = "Start-UiPathMaintenance";
+        public const string StopMaintenanceMode = "Stop-UiPathMaintenance";
+        public const string GetMaintenanceMode = "Get-UiPathMaintenance";
+
     }
 }
