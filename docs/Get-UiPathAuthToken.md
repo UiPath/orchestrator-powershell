@@ -8,6 +8,15 @@ SYNOPSIS
     
     
 SYNTAX
+    Get-UiPathAuthToken [-AccountName <string>] [-AccountUrl <string>] [-ApplicationId <string>] [-AuthorizationUrl 
+    <string>] [-CloudDeployment <string>] [-OrganizationUnit <string>] [-Private <SwitchParameter>] [-RequestTimeout 
+    <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    
+    Get-UiPathAuthToken -AuthorizationCode <string> -AuthorizationVerifier <string> [-AccountName <string>] 
+    [-AccountUrl <string>] [-ApplicationId <string>] [-AuthorizationUrl <string>] [-CloudDeployment <string>] 
+    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
+    [<CommonParameters>]
+    
     Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
     Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] 
@@ -25,6 +34,62 @@ DESCRIPTION
     
 
 PARAMETERS
+    -CloudDeployment <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Private <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -AuthorizationUrl <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -AccountUrl <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ApplicationId <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -AuthorizationCode <string>
+        
+        Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -AuthorizationVerifier <string>
+        
+        Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -CurrentSession <SwitchParameter>
         
         Required?                    true
@@ -74,6 +139,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -TenantName <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -AccountName <string>
         
         Required?                    false
         Position?                    named

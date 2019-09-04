@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 using UiPath.PowerShell.Models;
+using UiPath.PowerShell.OAuth;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181;
 using UiPath.Web.Client20181.Models;
@@ -37,8 +41,36 @@ namespace UiPath.PowerShell.Cmdlets
         private const string UserPasswordSet = "UserPassword";
         private const string WindowsCredentialsSet = "WindowsCredentials";
         private const string UnauthenticatedSet = "Unauthenticated";
+        private const string CloudInteractiveSet = "CloudInteractiveSet";
+        private const string CloudCodeSet = "CloudCodeSet";
 
         private const string CurrentSessionSet = "CurrentSession";
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [ValidateEnum(typeof(CloudDeployments))]
+        public string CloudDeployment { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        public SwitchParameter Private { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        public string AuthorizationUrl { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        public string AccountUrl { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        public string ApplicationId { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = CloudCodeSet)]
+        public string AuthorizationCode { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = CloudCodeSet)]
+        public string AuthorizationVerifier { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName =CurrentSessionSet)]
         public SwitchParameter CurrentSession { get; set; }
@@ -63,7 +95,13 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
         public string TenantName { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        public string AccountName { get; set; }
 
         /// <summary>
         /// Sets the current Organization Unit for the authentication token.
@@ -72,11 +110,15 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
         public string OrganizationUnit { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
         public SwitchParameter Session { get; set; }
 
         /// <summary>
@@ -108,6 +150,35 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     authToken = GetUnauthenticatedToken();
                 }
+                else if (ParameterSetName == CloudInteractiveSet || ParameterSetName == CloudCodeSet)
+                {
+                    AuthToken token = null;
+                    if (Session.IsPresent)
+                    {
+                        token = AuthenticatedCmdlet.SessionAuthToken;
+                    }
+                    token = token ?? new AuthToken();
+                    token.AuthorizationCode = AuthorizationCode;
+                    token.AuthorizationVerifier = AuthorizationVerifier;
+                    token.TenantName = TenantName;
+                    token.AccountName = AccountName;
+                    token.Token = null;
+                    token.AuthorizationRefreshToken = null;
+                    token.AuthorizationTokenId = null;
+                    token.AuthorizationUrl = AuthorizationUrl;
+                    token.AccountUrl = AccountUrl;
+                    token.ApplicationId = ApplicationId;
+
+                    token.CloudDeployment = string.IsNullOrWhiteSpace(CloudDeployment) ?
+                        CloudDeployments.Production
+                        : (CloudDeployments)Enum.Parse(typeof(CloudDeployments), CloudDeployment);
+
+                    if (ParameterSetName == CloudInteractiveSet)
+                    {
+                        token = GetInteractiveToken(token);
+                    }
+                    authToken = token;
+                }
 
                 GetServerVersion(authToken);
 
@@ -116,7 +187,7 @@ namespace UiPath.PowerShell.Cmdlets
                     SetOrganizationUnit(authToken, OrganizationUnit);
                 }
 
-                authToken.TenantName = TenantName ?? "Default";
+                authToken.TenantName = authToken.TenantName ?? TenantName ?? "Default";
 
                 if (Session.IsPresent)
                 {
@@ -176,6 +247,32 @@ namespace UiPath.PowerShell.Cmdlets
                     WriteVerbose($"Error retrieving API version: {e.GetType().Name}: {e.Message}");
                 }
             }
+        }
+
+        private AuthToken GetInteractiveToken(AuthToken existingToken)
+        {
+            // see https://orchestrator.uipath.com/v2019/reference#consuming-cloud-api
+
+            var loginForm = new LoginForm();
+
+            loginForm.AuthToken = existingToken;
+
+            loginForm.webBrowser.Navigated += WebBrowser_Navigated;
+            loginForm.webBrowser.Navigating += WebBrowser_Navigating;
+
+            loginForm.LoginUser(Private.IsPresent);
+
+            return loginForm.AuthToken;
+        }
+
+        private void WebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            WriteVerbose($"Navigating: {e.Url}");
+        }
+
+        private void WebBrowser_Navigated(object sender, System.Windows.Forms.WebBrowserNavigatedEventArgs e)
+        {
+            WriteVerbose($"Navigated: {e.Url}");
         }
 
         private AuthToken GetUnauthenticatedToken()

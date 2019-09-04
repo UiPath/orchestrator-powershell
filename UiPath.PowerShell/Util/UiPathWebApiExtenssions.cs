@@ -3,6 +3,7 @@ using Microsoft.Rest.Serialization;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using UiPath.Web.Client20181;
 
 namespace UiPath.PowerShell.Util
@@ -26,8 +27,24 @@ namespace UiPath.PowerShell.Util
                     httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
                 }
 
+                var shouldTrace = ServiceClientTracing.IsEnabled;
+                string invocationId = null;
+
+                if (shouldTrace)
+                {
+                    invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                    ServiceClientTracing.SendRequest(invocationId, httpRequest);
+                }
+
+                api.Credentials?.ProcessHttpRequestAsync(httpRequest, CancellationToken.None).Wait();
+
                 using (var httpResponse = api.HttpClient.SendAsync(httpRequest).Result)
                 {
+                    if (shouldTrace)
+                    {
+                        ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
+                    }
+
                     if (httpResponse.Content != null)
                     {
                         responseContent = httpResponse.Content.ReadAsStringAsync().Result;

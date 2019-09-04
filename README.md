@@ -42,6 +42,8 @@ The `-Session` flag makes the authentication persist on the PowerShell session f
 Use `Get-UiPathAuthToken ... -TenantName <tenantName>` for multi-tenant Orchetsrator deployments.
 Use `Get-UiPathAuthToken ... -OrganizationUnit <OUName>` for Orchetsrator deployments with OrganizationUnits enabled.
 
+If you don't specify any argument, the authentication will be an interactive authentication with the UiPath Cloud service.
+
 ```PowerShell
 PS C:\> Get-UiPathRobot | Format-Table
 
