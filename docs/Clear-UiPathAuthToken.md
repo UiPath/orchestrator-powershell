@@ -7,13 +7,29 @@ SYNOPSIS
     
     
 SYNTAX
-    Clear-UiPathAuthToken [<CommonParameters>]
+    Clear-UiPathAuthToken [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
+    -AuthToken <AuthToken>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
         ErrorAction, ErrorVariable, WarningAction, WarningVariable,

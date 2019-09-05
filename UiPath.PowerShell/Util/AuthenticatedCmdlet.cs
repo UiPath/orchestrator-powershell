@@ -1,7 +1,10 @@
 ﻿using Microsoft.Rest;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Management.Automation;
 using System.Net;
+using System.Net.Http;
 using UiPath.PowerShell.Cmdlets;
 using UiPath.PowerShell.Models;
 using UiPath.Web.Client.Generic;
@@ -159,12 +162,145 @@ namespace UiPath.PowerShell.Util
             return MakeApi<UiPathWebApi_18_1>(authToken, (creds, uri) => new UiPathWebApi_18_1(creds) { BaseUri = uri }, timeout);
         }
 
+        internal static void RefreshAuthToken(AuthToken authToken)
+        {
+            // https://docs.uipath.com/orchestrator/v2019/reference#section-getting-authorization-code
+
+            // TODO: handle token expiration
+            if (!string.IsNullOrWhiteSpace(authToken.Token))
+            {
+                return;
+            }
+
+            var api = new UiPathWebApi_18_1(
+                new BasicAuthenticationCredentials())
+            {
+                BaseUri = new Uri(authToken.AuthorizationUrl)
+            };
+
+            JObject req = string.IsNullOrWhiteSpace(authToken.AuthorizationRefreshToken) ?
+                new JObject(
+                    new JProperty("grant_type", "authorization_code"),
+                    new JProperty("code", authToken.AuthorizationCode),
+                    new JProperty("redirect_uri", $"{authToken.AuthorizationUrl}/mobile"),
+                    new JProperty("code_verifier", authToken.AuthorizationVerifier),
+                    new JProperty("client_id", authToken.ApplicationId))
+                : new JObject(
+                    new JProperty("grant_type", "refresh_token"),
+                    new JProperty("refresh_token", authToken.AuthorizationRefreshToken),
+                    new JProperty("client_id", authToken.ApplicationId));
+
+            api.MakeHttpRequest(
+                HttpMethod.Post,
+                "oauth/token",
+                req,
+                out var response,
+                out var headers);
+
+            var jr = JToken.Parse(response);
+            var accessToken = jr.Value<string>("access_token");
+            var refreshToken = authToken.AuthorizationRefreshToken ?? jr.Value<string>("refresh_token");
+            var idToken = authToken.AuthorizationTokenId ?? jr.Value<string>("id_token");
+
+            if (string.IsNullOrWhiteSpace(accessToken)
+                || string.IsNullOrWhiteSpace(refreshToken)
+                || string.IsNullOrWhiteSpace(idToken))
+            {
+                throw new ApplicationException("The authorization response is missing the required tokens");
+            }
+
+            api = new UiPathWebApi_18_1(
+                new TokenCredentials(idToken))
+            {
+                BaseUri = new Uri(authToken.AccountUrl)
+            };
+
+            api.MakeHttpRequest(
+                HttpMethod.Get,
+                "cloudrpa/api/getAccountsForUser",
+                null,
+                out response,
+                out headers);
+            var ja = JObject.Parse(response);
+
+            string accountLogicalName;
+            var jt = ja.Value<JArray>("accounts");
+            if (!string.IsNullOrWhiteSpace(authToken.AccountName))
+            {
+                var account = jt.FirstOrDefault(acc =>
+                    0 == string.Compare(acc.Value<string>("accountLogicalName"), authToken.AccountName, true));
+                if (account == null)
+                {
+                    throw new ApplicationException($"The requested account {authToken.AccountName} was not found");
+                }
+                accountLogicalName = account.Value<string>("accountLogicalName");
+            }
+            else
+            {
+                if (jt.Count == 0)
+                {
+                    throw new ApplicationException($"There is no active account for this user");
+                }
+
+                if (jt.Count > 1)
+                {
+                    throw new ApplicationException($"There are multiple accounts for this user. Specify the desired account using -AccountName");
+                }
+
+                accountLogicalName = jt[0].Value<string>("accountLogicalName");
+            }
+
+            api.MakeHttpRequest(
+                HttpMethod.Get,
+                $"cloudrpa/api/account/{accountLogicalName}/getAllServiceInstances",
+                null,
+                out response,
+                out headers);
+
+            string tenantLogicalName;
+            string serviceUrl;
+
+            jt = JArray.Parse(response);
+            if (!string.IsNullOrEmpty(authToken.TenantName))
+            {
+                var tenant = jt.FirstOrDefault(t => 0 == string.Compare(t.Value<string>("serviceInstanceLogicalName"), authToken.TenantName, true));
+                if (tenant == null)
+                {
+                    throw new ApplicationException($"The requested tenant {authToken.TenantName} was not found");
+                }
+                tenantLogicalName = tenant.Value<string>("serviceInstanceLogicalName");
+                serviceUrl = tenant.Value<string>("serviceUrl");
+            }
+            else
+            {
+                if (jt.Count == 0)
+                {
+                    throw new ApplicationException($"There are no tenants for this account");
+                }
+                else if (jt.Count > 1)
+                {
+                    throw new ApplicationException($"There are multiple tenants for this account. Specify the desired tenant using -TenantName");
+                }
+
+                tenantLogicalName = jt[0].Value<string>("serviceInstanceLogicalName");
+                serviceUrl = jt[0].Value<string>("serviceUrl");
+            }
+
+            authToken.Token = accessToken;
+            authToken.AuthorizationRefreshToken = refreshToken;
+            authToken.AuthorizationTokenId = idToken;
+            authToken.URL = serviceUrl ?? $"{authToken.AccountUrl}/{accountLogicalName}/{tenantLogicalName}";
+            authToken.TenantName = tenantLogicalName;
+            authToken.AccountName = accountLogicalName;
+        }
+
         internal static T MakeApi<T>(AuthToken authToken, Func<ServiceClientCredentials, Uri, T> ctor, TimeSpan timeout) where T:ServiceClient<T>, IUiPathWebApi
         {
             ServiceClientCredentials creds = null;
-            if (authToken.Authenticated == false)
+            if (!string.IsNullOrWhiteSpace(authToken.AuthorizationCode))
             {
-                creds = new BasicAuthenticationCredentials();
+                RefreshAuthToken(authToken);
+                creds = new TokenCredentials(authToken.Token);
             }
             else if (authToken.WindowsCredentials)
             {
@@ -172,6 +308,10 @@ namespace UiPath.PowerShell.Util
                 {
                     Credentials = CredentialCache.DefaultNetworkCredentials
                 };
+            }
+            else if (authToken.Authenticated == false)
+            {
+                creds = new BasicAuthenticationCredentials();
             }
             else
             {
@@ -186,6 +326,10 @@ namespace UiPath.PowerShell.Util
             if (authToken.OrganizationUnitId.HasValue)
             {
                 api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-OrganizationUnitId", authToken.OrganizationUnitId.Value.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(authToken.TenantName))
+            {
+                api.HttpClient.DefaultRequestHeaders.Add("X-UIPATH-TenantName", authToken.TenantName);
             }
             return api;
         }

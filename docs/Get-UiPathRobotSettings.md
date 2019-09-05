@@ -1,40 +1,22 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathUser
+    Get-UiPathRobotSettings
     
 SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-EmailAddress <string>] [-Name <string>] 
-    [-OrganizationUnitIds <List`1>] [-Password <string>] [-RequestTimeout <int>] [-RolesList <List`1>] [-Surname 
-    <string>] [<CommonParameters>]
+    Get-UiPathRobotSettings [-AuthToken <AuthToken>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName 
+    <string>] [-Name <string>] [-RequestTimeout <int>] [-Type <string>] [-Username <string>] [<CommonParameters>]
     
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-Domain <string>] [-EmailAddress <string>] 
-    [-OrganizationUnitIds <List`1>] [-RequestTimeout <int>] [-RolesList <List`1>] [<CommonParameters>]
+    Get-UiPathRobotSettings -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
-    -Username <string>
-        
-        Required?                    true
-        Position?                    0
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Password <string>
-        
-        Required?                    false
-        Position?                    named
-        Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
     -Name <string>
         
         Required?                    false
@@ -43,7 +25,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Surname <string>
+    -MachineName <string>
         
         Required?                    false
         Position?                    named
@@ -51,7 +33,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -EmailAddress <string>
+    -LicenseKey <string>
         
         Required?                    false
         Position?                    named
@@ -59,7 +41,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -RolesList <List`1>
+    -Username <string>
         
         Required?                    false
         Position?                    named
@@ -67,7 +49,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -OrganizationUnitIds <List`1>
+    -Type <string>
         
         Required?                    false
         Position?                    named
@@ -75,9 +57,17 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Domain <string>
+    -HostingType <string>
         
         Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Id <long>
+        
+        Required?                    true
         Position?                    named
         Default value                
         Accept pipeline input?       false

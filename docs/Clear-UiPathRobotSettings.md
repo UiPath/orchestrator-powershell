@@ -1,85 +1,82 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathUser
+    Clear-UiPathRobotSettings
     
 SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-EmailAddress <string>] [-Name <string>] 
-    [-OrganizationUnitIds <List`1>] [-Password <string>] [-RequestTimeout <int>] [-RolesList <List`1>] [-Surname 
-    <string>] [<CommonParameters>]
-    
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-Domain <string>] [-EmailAddress <string>] 
-    [-OrganizationUnitIds <List`1>] [-RequestTimeout <int>] [-RolesList <List`1>] [<CommonParameters>]
+    Clear-UiPathRobotSettings [-Id] <long> [-AuthToken <AuthToken>] [-FontSmoothing <bool>] [-LoginToConsole <bool>] 
+    [-RequestTimeout <int>] [-ResolutionDepth <bool>] [-ResolutionHeight <bool>] [-ResolutionWidth <bool>] 
+    [-StudioNotifyServer <bool>] [-TracingLevel <bool>] [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
-    -Username <string>
+    -Id <long>
         
         Required?                    true
         Position?                    0
-        Default value                
+        Default value                0
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Password <string>
+    -TracingLevel <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Name <string>
+    -LoginToConsole <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Surname <string>
+    -ResolutionWidth <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -EmailAddress <string>
+    -ResolutionHeight <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -RolesList <List`1>
+    -ResolutionDepth <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -OrganizationUnitIds <List`1>
+    -FontSmoothing <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Domain <string>
+    -StudioNotifyServer <bool>
         
         Required?                    false
         Position?                    named
-        Default value                
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

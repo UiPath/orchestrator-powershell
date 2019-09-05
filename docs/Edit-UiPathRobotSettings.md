@@ -1,33 +1,42 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathUser
+    Edit-UiPathRobotSettings
     
 SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-EmailAddress <string>] [-Name <string>] 
-    [-OrganizationUnitIds <List`1>] [-Password <string>] [-RequestTimeout <int>] [-RolesList <List`1>] [-Surname 
-    <string>] [<CommonParameters>]
+    Edit-UiPathRobotSettings [-RobotSettings] <RobotExecutionSettings> [-AuthToken <AuthToken>] [-FontSmoothing 
+    <bool>] [-LoginToConsole <bool>] [-RequestTimeout <int>] [-ResolutionDepth <long>] [-ResolutionHeight <long>] 
+    [-ResolutionWidth <long>] [-StudioNotifyServer <bool>] [-TracingLevel <string>] [<CommonParameters>]
     
-    Add-UiPathUser [-Username] <string> [-AuthToken <AuthToken>] [-Domain <string>] [-EmailAddress <string>] 
-    [-OrganizationUnitIds <List`1>] [-RequestTimeout <int>] [-RolesList <List`1>] [<CommonParameters>]
+    Edit-UiPathRobotSettings [-Id] <long> [-AuthToken <AuthToken>] [-FontSmoothing <bool>] [-LoginToConsole <bool>] 
+    [-RequestTimeout <int>] [-ResolutionDepth <long>] [-ResolutionHeight <long>] [-ResolutionWidth <long>] 
+    [-StudioNotifyServer <bool>] [-TracingLevel <string>] [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
-    -Username <string>
+    -RobotSettings <RobotExecutionSettings>
         
         Required?                    true
         Position?                    0
         Default value                
+        Accept pipeline input?       true (ByValue)
+        Accept wildcard characters?  false
+        
+    -Id <long>
+        
+        Required?                    true
+        Position?                    0
+        Default value                0
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Password <string>
+    -TracingLevel <string>
         
         Required?                    false
         Position?                    named
@@ -35,7 +44,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Name <string>
+    -LoginToConsole <bool>
         
         Required?                    false
         Position?                    named
@@ -43,7 +52,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Surname <string>
+    -ResolutionWidth <long>
         
         Required?                    false
         Position?                    named
@@ -51,7 +60,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -EmailAddress <string>
+    -ResolutionHeight <long>
         
         Required?                    false
         Position?                    named
@@ -59,7 +68,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -RolesList <List`1>
+    -ResolutionDepth <long>
         
         Required?                    false
         Position?                    named
@@ -67,7 +76,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -OrganizationUnitIds <List`1>
+    -FontSmoothing <bool>
         
         Required?                    false
         Position?                    named
@@ -75,7 +84,7 @@ PARAMETERS
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
-    -Domain <string>
+    -StudioNotifyServer <bool>
         
         Required?                    false
         Position?                    named
@@ -106,6 +115,8 @@ PARAMETERS
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
 INPUTS
+    UiPath.PowerShell.Models.RobotExecutionSettings
+    
     
 OUTPUTS
     
