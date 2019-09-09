@@ -1,13 +1,13 @@
 ﻿```PowerShell
 
 NAME
-    Add-UiPathQueuItem
+    Add-UiPathQueueItem
     
 SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathQueuItem -QueueName <string> [-AuthToken <AuthToken>] [-DeferDate <DateTime>] [-DueDate <DateTime>] 
+    Add-UiPathQueueItem -QueueName <string> [-AuthToken <AuthToken>] [-DeferDate <DateTime>] [-DueDate <DateTime>] 
     [-Priority <string>] [-Reference <string>] [-RequestTimeout <int>] [-SpecificContent <Hashtable>] 
     [<CommonParameters>]
     
