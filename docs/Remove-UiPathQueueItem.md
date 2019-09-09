@@ -1,15 +1,15 @@
 ﻿```PowerShell
 
 NAME
-    Remove-UiPathQueuItem
+    Remove-UiPathQueueItem
     
 SYNOPSIS
     
     
 SYNTAX
-    Remove-UiPathQueuItem [-Id] <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
+    Remove-UiPathQueueItem [-Id] <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Remove-UiPathQueuItem [-QueueItem] <QueueItem> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
+    Remove-UiPathQueueItem [-QueueItem] <QueueItem> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
     [<CommonParameters>]
     
     
