@@ -3,9 +3,8 @@ $RolesPermissions = @{
                 Processes.View, 
                 Assets.View, 
                 Queues.View, 
-                Transactions.View, 
-                Transactions.Create, 
-                Transactions.Edit, 
+                Transactions.View, Transactions.Create, Transactions.Edit, 
+                Logs.Create, 
                 ExecutionMedia.Create, 
                 Tasks.View, Tasks.Create"; 
     EnableProcessExecute = "License.View, 
