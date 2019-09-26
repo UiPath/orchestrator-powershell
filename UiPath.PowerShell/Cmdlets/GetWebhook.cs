@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api_18_4.Webhooks.GetWebhooks(filter: filter).Value,
+                (filter, top, skip) => Api_18_4.Webhooks.GetWebhooks(filter: filter, top: top, skip: skip, count: false),
                 id => Api_18_4.Webhooks.GetById(id),
                 dto => Webhook.FromDto(dto));
         }

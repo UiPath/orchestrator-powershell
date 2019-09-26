@@ -28,7 +28,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api_18_3.Libraries.GetVersionsByPackageid(Library?.Id ?? Id, filter: filter).Value,
+                (filter, top, skip) => Api_18_3.Libraries.GetVersionsByPackageid(Library?.Id ?? Id, filter: filter, top: top, skip: skip, count: false),
                 dto => Library.FromDto(dto));
         }
     }

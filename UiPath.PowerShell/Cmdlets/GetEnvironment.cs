@@ -21,7 +21,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Environments.GetEnvironments(filter: filter).Value,
+                (filter, top, skip) => Api.Environments.GetEnvironments(filter: filter, top: top, skip: skip, count: false),
                 id => Api.Environments.GetById(id),
                 dto => Environment.FromDto(dto));
         }

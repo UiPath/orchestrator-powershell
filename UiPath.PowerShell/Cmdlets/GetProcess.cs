@@ -44,7 +44,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Releases.GetReleases(filter: filter).Value,
+                (filter, top, skip) => Api.Releases.GetReleases(filter: filter, top: top, skip: skip, count: false),
                 id => Api.Releases.GetById(id),
                 dto => Process.FromDto(dto));
         }

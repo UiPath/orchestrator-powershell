@@ -4,18 +4,40 @@ using System.Linq;
 using System.Management.Automation;
 using System.Text;
 using System.Web;
+using UiPath.Web.Client.Extensions;
 
 namespace UiPath.PowerShell.Util
 {
     public class FilteredBaseCmdlet : AuthenticatedCmdlet
     {
-        protected void ProcessImpl<TDto>(Func<string, IList<TDto>> getCollection, Func<TDto, object> writer)
+        protected void ProcessImpl<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
         {
-            var dtos = HandleHttpOperationException(() => getCollection(BuildFilter()));
-            foreach (var dto in dtos)
+            HandlePaging(getCollection, writer);
+        }
+
+        protected void ProcessImpl<TDto>(Func<string, IEnumerable<TDto>> getCollection, Func<TDto, object> writer)
+        {
+            var response = HandleHttpOperationException(() => getCollection(BuildFilter()));
+            foreach (var dto in response)
             {
                 WriteObject(writer(dto));
             }
+        }
+
+        protected void HandlePaging<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
+        {
+            int top = 1000, skip = 0, last = 0;
+            do
+            {
+                last = 0;
+                var response = HandleHttpOperationException(() => getCollection(BuildFilter(), top, skip));
+                foreach (var dto in response.Value)
+                {
+                    WriteObject(writer(dto));
+                    ++last;
+                }
+                skip += last;
+            } while (last == top);
         }
 
         protected string BuildFilter()

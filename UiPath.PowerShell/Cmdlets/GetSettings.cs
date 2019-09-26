@@ -30,7 +30,7 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 case SettingsType.General:
                     ProcessImpl(
-                        filter => Api.Settings.GetSettings(filter: filter).Value,
+                        (filter, top, skip) => Api.Settings.GetSettings(filter: filter, top: top, skip: skip, count: false),
                         dto => Setting.FromDto(dto));
                     break;
                 case SettingsType.Authentication:

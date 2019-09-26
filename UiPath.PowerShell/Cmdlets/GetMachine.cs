@@ -27,14 +27,14 @@ namespace UiPath.PowerShell.Cmdlets
             if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
             {
                 ProcessImpl(
-                    (filter) => Api_18_3.Machines.GetMachines(filter: filter).Value,
+                    (filter, top, skip) => Api_18_3.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
                     id => Api_18_3.Machines.GetById(id),
                     dto => Machine.FromDto(dto));
             }
             else
             {
                 ProcessImpl(
-                    (filter) => Api_18_2.Machines.GetMachines(filter: filter).Value,
+                    (filter, top, skip) => Api_18_2.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
                     id => Api_18_2.Machines.GetById(id),
                     dto => Machine.FromDto(dto));
             }

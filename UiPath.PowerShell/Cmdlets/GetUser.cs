@@ -49,7 +49,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Users.GetUsers(filter: filter).Value,
+                (filter, top, skip) => Api.Users.GetUsers(filter: filter, top: top, skip: skip, count: false),
                 id => Api.Users.GetById(id),
                 dto => User.FromDto(dto));
         }

@@ -39,7 +39,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Processes.GetProcesses(filter: filter).Value,
+                (filter, top, skip) => Api.Processes.GetProcesses(filter: filter, top: top, skip: skip, count: false),
                 dto => Package.FromDto(dto));
         }
     }

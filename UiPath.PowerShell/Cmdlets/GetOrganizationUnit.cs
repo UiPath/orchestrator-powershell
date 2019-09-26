@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.OrganizationUnits.GetOrganizationUnits(filter: filter).Value,
+                (filter, top, skip) => Api.OrganizationUnits.GetOrganizationUnits(filter: filter, top: top, skip: skip, count: false),
                 id  => Api.OrganizationUnits.GetById(id),
                 dto => OrganizationUnit.FromDto(dto));
         }

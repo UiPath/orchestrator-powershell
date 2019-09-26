@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.ProcessSchedules.GetProcessSchedules(filter: filter).Value,
+                (filter, top, skip) => Api.ProcessSchedules.GetProcessSchedules(filter: filter, top: top, skip: skip, count: false),
                 id => Api.ProcessSchedules.GetById(id),
                 dto => ProcessSchedule.FromDto(dto));
         }
