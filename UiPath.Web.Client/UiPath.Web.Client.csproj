@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ODataExtensions.cs" />
     <Compile Include="IUiPathWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\Properties\GlobalAssemblyInfo.cs">
@@ -58,7 +59,7 @@
     <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
     <None Include="Swagger\UiPath2018.4.1.swagger" />
     <None Include="Swagger\UiPath2019.1.swagger" />
-	<None Include="Swagger\UiPath2019.4.3.swagger" />
+    <None Include="Swagger\UiPath2019.4.3.swagger" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Rest.ClientRuntime">
@@ -106,9 +107,9 @@
     </ItemGroup>
   </Target>
   <Target Name="UpdateRevision" Condition="'$(Revision)' != ''" BeforeTargets="PrepareForBuild">
-    <Error Condition="$(Revision) &gt; 65535" Text="The revision number $(Revision) cannot be greater than 65535"/>
+    <Error Condition="$(Revision) &gt; 65535" Text="The revision number $(Revision) cannot be greater than 65535" />
     <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
-    <Exec Command="type ..\properties\GlobalAssemblyInfo.cs"/>
+    <Exec Command="type ..\properties\GlobalAssemblyInfo.cs" />
   </Target>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
 </Project>

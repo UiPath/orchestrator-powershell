@@ -41,14 +41,14 @@ namespace UiPath.PowerShell.Cmdlets
                 MyInvocation.BoundParameters.ContainsKey(nameof(HostingType)))
             {
                 ProcessImpl(
-                    filter => Api_18_3.Robots.GetRobots(filter: filter).Value,
+                    (filter, top, skip) => Api_18_3.Robots.GetRobots(filter: filter, top: top, skip: skip, count: false),
                     id => Api_18_3.Robots.GetById(id),
                     dto => Robot.FromDto(dto));
             }
             else
             {
                 ProcessImpl(
-                    filter => Api.Robots.GetRobots(filter: filter).Value,
+                    (filter, top, skip) => Api.Robots.GetRobots(filter: filter, top: top, skip: skip, count: false),
                     id => Api.Robots.GetById(id),
                     dto => Robot.FromDto(dto));
             }

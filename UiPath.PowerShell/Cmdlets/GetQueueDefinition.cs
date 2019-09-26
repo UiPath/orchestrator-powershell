@@ -32,7 +32,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.QueueDefinitions.GetQueueDefinitions(filter: filter).Value,
+                (filter, top, skip) => Api.QueueDefinitions.GetQueueDefinitions(filter: filter, top: top, skip: skip, count: false),
                 id => Api.QueueDefinitions.GetById(id),
                 dto => QueueDefinition.FromDto(dto));
         }

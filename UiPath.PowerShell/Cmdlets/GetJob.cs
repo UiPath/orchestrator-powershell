@@ -10,7 +10,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Jobs.GetJobs(filter: filter).Value,
+                (filter, top, skip) => Api.Jobs.GetJobs(filter: filter, top: top, skip: skip, count: false),
                 id => Api.Jobs.GetById(id),
                 dto => Models.Job.FromDto(dto));
         }

@@ -27,7 +27,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                filter => Api.Tenants.GetTenants(filter: filter).Value,
+                (filter, top, skip) => Api.Tenants.GetTenants(filter: filter, top: top, skip: skip, count: false),
                 id => Api.Tenants.GetById((int)id),
                 dto => Tenant.ForDto(dto));
         }

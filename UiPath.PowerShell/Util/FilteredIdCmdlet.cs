@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management.Automation;
+using UiPath.Web.Client.Extensions;
 
 namespace UiPath.PowerShell.Util
 {
@@ -33,6 +34,19 @@ namespace UiPath.PowerShell.Util
                 {
                     WriteObject(writer(dto));
                 }
+            }
+        }
+
+        protected void ProcessImpl<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<long, TDto> getItem, Func<TDto, object> writer)
+        {
+            if (Id.HasValue)
+            {
+                var dto = HandleHttpOperationException(() => getItem(Id.Value));
+                WriteObject(writer(dto));
+            }
+            else
+            {
+                HandlePaging(getCollection, writer);
             }
         }
     }
