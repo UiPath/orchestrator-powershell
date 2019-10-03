@@ -7,11 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathLibraryVersion [-Id] <string> [-AuthToken <AuthToken>] [-IsLatestVersion <bool>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Get-UiPathLibraryVersion [-Id] <string> [-AuthToken <AuthToken>] [-IsLatestVersion <bool>] [-Paging 
+    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathLibraryVersion [-Library] <Library> [-AuthToken <AuthToken>] [-IsLatestVersion <bool>] [-RequestTimeout 
-    <int>] [<CommonParameters>]
+    Get-UiPathLibraryVersion [-Library] <Library> [-AuthToken <AuthToken>] [-IsLatestVersion <bool>] [-Paging 
+    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -35,6 +35,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -IsLatestVersion <bool>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
         
         Required?                    false
         Position?                    named

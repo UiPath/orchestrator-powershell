@@ -7,13 +7,22 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathPermission [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathPermission [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
     
 
 PARAMETERS
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -AuthToken <AuthToken>
         
         Required?                    false

@@ -8,10 +8,11 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathQueueDefinition [-AcceptAutomaticallyRetry <bool>] [-AuthToken <AuthToken>] [-Description <string>] 
-    [-EnforceUniqueReference <bool>] [-MaxNumberOfRetries <int>] [-Name <string>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    [-EnforceUniqueReference <bool>] [-MaxNumberOfRetries <int>] [-Name <string>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathQueueDefinition -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathQueueDefinition -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -63,6 +64,14 @@ PARAMETERS
         Required?                    true
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         
