@@ -8,9 +8,11 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathRobot [-AuthToken <AuthToken>] [-HostingType <string>] [-LicenseKey <string>] [-MachineName <string>] 
-    [-Name <string>] [-RequestTimeout <int>] [-Type <string>] [-Username <string>] [<CommonParameters>]
+    [-Name <string>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [-Type <string>] [-Username <string>] 
+    [<CommonParameters>]
     
-    Get-UiPathRobot -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathRobot -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -70,6 +72,14 @@ PARAMETERS
         Required?                    true
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

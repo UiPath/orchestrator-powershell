@@ -7,7 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathSetting [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-Type <string>] [<CommonParameters>]
+    Get-UiPathSetting [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [-Type <string>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -19,6 +20,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

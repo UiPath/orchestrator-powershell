@@ -7,8 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathLibrary [-Authors <string>] [-AuthToken <AuthToken>] [-Id <string>] [-RequestTimeout <int>] [-Title 
-    <string>] [-Version <string>] [<CommonParameters>]
+    Get-UiPathLibrary [-Authors <string>] [-AuthToken <AuthToken>] [-Id <string>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [-Title <string>] [-Version <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -44,6 +44,14 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

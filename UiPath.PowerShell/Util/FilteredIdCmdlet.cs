@@ -37,7 +37,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected void ProcessImpl<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<long, TDto> getItem, Func<TDto, object> writer)
+        protected void ProcessImpl<TDto>(Func<string, int?, int?, IODataValues<TDto>> getCollection, Func<long, TDto> getItem, Func<TDto, object> writer)
         {
             if (Id.HasValue)
             {

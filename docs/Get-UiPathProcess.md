@@ -8,10 +8,11 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathProcess [-AuthToken <AuthToken>] [-Description <string>] [-EnvironmentId <long>] [-IsLatestVersion 
-    <bool>] [-IsProcessDeleted <bool>] [-Key <string>] [-Name <string>] [-ProcessId <string>] [-ProcessVersion 
-    <string>] [-RequestTimeout <int>] [<CommonParameters>]
+    <bool>] [-IsProcessDeleted <bool>] [-Key <string>] [-Name <string>] [-Paging <SwitchParameter>] [-ProcessId 
+    <string>] [-ProcessVersion <string>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathProcess -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathProcess -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
 DESCRIPTION
@@ -87,6 +88,14 @@ PARAMETERS
         Required?                    true
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

@@ -10,7 +10,13 @@ namespace UiPath.PowerShell.Util
 {
     public class FilteredBaseCmdlet : AuthenticatedCmdlet
     {
-        protected void ProcessImpl<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
+        /// <summary>
+        /// Use paging (Skip, Take) for handling large Orchestrator responses
+        /// </summary>
+        [Parameter]
+        public SwitchParameter Paging { get; set; }
+
+        protected void ProcessImpl<TDto>(Func<string, int?, int?, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
         {
             HandlePaging(getCollection, writer);
         }
@@ -24,9 +30,9 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected void HandlePaging<TDto>(Func<string, int, int, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
+        protected void HandlePaging<TDto>(Func<string, int?, int?, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
         {
-            int top = 1000, skip = 0, last = 0;
+            int? top = Paging.IsPresent ? 1000 : default(int?), skip = Paging.IsPresent ? 0 : default(int?), last = 0;
             do
             {
                 last = 0;
@@ -36,8 +42,8 @@ namespace UiPath.PowerShell.Util
                     WriteObject(writer(dto));
                     ++last;
                 }
-                skip += last;
-            } while (last == top);
+                skip = skip ?? 0 + last;
+            } while (Paging.IsPresent && last == top);
         }
 
         protected string BuildFilter()
