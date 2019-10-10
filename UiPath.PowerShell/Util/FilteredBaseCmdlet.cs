@@ -42,7 +42,7 @@ namespace UiPath.PowerShell.Util
                     WriteObject(writer(dto));
                     ++last;
                 }
-                skip = skip ?? 0 + last;
+                skip = (skip ?? 0) + last;
             } while (Paging.IsPresent && last == top);
         }
 
