@@ -1,11 +1,8 @@
 ﻿using Microsoft.Rest;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.OAuth;
@@ -40,6 +37,7 @@ namespace UiPath.PowerShell.Cmdlets
     {
         private const string UserPasswordSet = "UserPassword";
         private const string WindowsCredentialsSet = "WindowsCredentials";
+        private const string DomainCredentialsSet = "DomainCredentials";
         private const string UnauthenticatedSet = "Unauthenticated";
         private const string CloudInteractiveSet = "CloudInteractiveSet";
         private const string CloudCodeSet = "CloudCodeSet";
@@ -78,6 +76,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = DomainCredentialsSet)]
         public string URL { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = UserPasswordSet)]
@@ -85,6 +84,15 @@ namespace UiPath.PowerShell.Cmdlets
 
         [Parameter(Mandatory = true, ParameterSetName = UserPasswordSet)]
         public string Password { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = DomainCredentialsSet)]
+        public string DomainUsername { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = DomainCredentialsSet)]
+        public string DomainPassword { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = DomainCredentialsSet)]
+        public string Domain { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = WindowsCredentialsSet)]
         public SwitchParameter WindowsCredentials { get; set; }
@@ -94,6 +102,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = DomainCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
@@ -109,6 +118,7 @@ namespace UiPath.PowerShell.Cmdlets
         /// </summary>
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = DomainCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
@@ -116,6 +126,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = DomainCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
@@ -145,6 +156,10 @@ namespace UiPath.PowerShell.Cmdlets
                 else if (ParameterSetName == WindowsCredentialsSet)
                 {
                     authToken = GetWindowsToken();
+                }
+                else if (ParameterSetName == DomainCredentialsSet)
+                {
+                    authToken = GetDomainToken();
                 }
                 else if (ParameterSetName == UnauthenticatedSet)
                 {
@@ -291,6 +306,18 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 URL = URL,
                 WindowsCredentials = true,
+                Authenticated = true
+            };
+        }
+        
+        private AuthToken GetDomainToken()
+        {
+            return new AuthToken
+            {
+                URL = URL,
+                Domain = Domain,
+                DomainUsername = DomainUsername,
+                DomainPassword = DomainPassword,
                 Authenticated = true
             };
         }

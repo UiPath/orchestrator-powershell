@@ -18,6 +18,12 @@ namespace UiPath.PowerShell.Models
 
         public bool WindowsCredentials { get; internal set; }
 
+        public string Domain { get; internal set; }
+
+        public string DomainUsername { get; internal set; }
+
+        public string DomainPassword { get; internal set; }
+
         public bool Authenticated { get; internal set; }
 
         public Version ApiVersion { get; internal set; }

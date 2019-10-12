@@ -309,6 +309,13 @@ namespace UiPath.PowerShell.Util
                     Credentials = CredentialCache.DefaultNetworkCredentials
                 };
             }
+            else if (!string.IsNullOrWhiteSpace(authToken.Domain))
+            {
+                creds = new NetworkAuthenticationCredentials
+                {
+                    Credentials = new NetworkCredential(authToken.DomainUsername, authToken.DomainPassword, authToken.Domain)
+                };
+            }
             else if (authToken.Authenticated == false)
             {
                 creds = new BasicAuthenticationCredentials();
