@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
-using System.Management.Automation;
+﻿using System.Management.Automation;
+using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client201910;
 
@@ -22,7 +21,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             var result = HandleHttpOperationException(() => Api_19_10.Maintenance.Get());
-            WriteObject(result.ToDynamic());
+            WriteObject(MaintenanceSetting.FromDto(result));
         }
     }
 }

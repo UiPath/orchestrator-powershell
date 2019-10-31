@@ -64,6 +64,8 @@
     <Compile Include="Cmdlets\UnlockUser.cs" />
     <Compile Include="Cmdlets\LockUser.cs" />
     <Compile Include="Models\CloudDeployments.cs" />
+    <Compile Include="Models\MaintenanceLog.cs" />
+    <Compile Include="Models\MaintenanceSetting.cs" />
     <Compile Include="Models\RobotExecutionSettings.cs" />
     <Compile Include="OAuth\LoginForm.cs">
       <SubType>Form</SubType>
@@ -77,7 +79,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Util\MaintenanceSettingConverter.cs" />
     <Compile Include="Util\UiPathTypeConverter.cs" />
     <Compile Include="Util\UserCmdlet.cs" />
     <Compile Include="Util\BindingResolver.cs" />

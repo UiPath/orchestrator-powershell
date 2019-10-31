@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Management.Automation;
+﻿using System.Management.Automation;
+using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Resources;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client201910;
@@ -14,7 +14,7 @@ namespace UiPath.PowerShell.Cmdlets
     /// <para>Stops the current Maintenance Mode session and puts the service back in Online mode.</para>
     /// </example>
     /// </summary>
-    [Cmdlet("Stop", Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [Cmdlet(VerbsLifecycle.Stop, Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     public class StopMaintenance : AuthenticatedCmdlet
     {
          protected override void ProcessRecord()
@@ -26,7 +26,7 @@ namespace UiPath.PowerShell.Cmdlets
 
             HandleHttpOperationException(() => Api_19_10.Maintenance.End());
 
-            WriteObject(Api_19_10.Maintenance.Get().ToDynamic());
+            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get()));
         }
     }
 }

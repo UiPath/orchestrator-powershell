@@ -75,6 +75,7 @@ OUTPUTS
     Start-UiPathMaintenance -Phase Draining
     
     Starts a Maintenance Mode session and puts the service in Draining mode.
+
     ----------  EXAMPLE 2  ----------
     
     Start-UiPathMaintenance -Phase Suspended -KillJobs

@@ -1,9 +1,8 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client201910.Models;
 using UiPath.Web.Client201910;
 using UiPath.PowerShell.Resources;
-using Newtonsoft.Json;
+using UiPath.PowerShell.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -19,14 +18,14 @@ namespace UiPath.PowerShell.Cmdlets
     /// <para>Sets a current Maintenance Mode session to Suspended phase, forcing remaining jobs termination</para>
     /// </example>
     /// </summary>
-    [Cmdlet("Start", Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [Cmdlet(VerbsLifecycle.Start, Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     public class StartMaintenance : AuthenticatedCmdlet
     {
         /// <summary>
         /// <para type="description">
         /// Indicates the Maintenance Mode phase.
-        ///     Draining = Most user and robots API calls will continue to work. A set of API calls whichi would generate additional Robos workloads will generate a '405 - Method not allowed' response.
-        ///     Suspended = All user and robots API calls will generate a '503 - Service Unavailable' response.
+        ///     Draining = Most user and robots API calls will continue to work. A set of API calls which would generate additional Robos workloads will return a '405 - Method not allowed' response.
+        ///     Suspended = All user and robots API calls will return a '503 - Service Unavailable' response.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, Position = 0)]
@@ -51,17 +50,17 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            if (!ShouldProcess(Resource.Maintenance_Description, Resource.Start_Maintenance_Warning, string.Format(Resource.Start_Maintenance_Caption, Phase.ToString())))
+            if (!ShouldProcess(Resource.Maintenance_Description, Resource.Start_Maintenance_Warning, string.Format(Resource.Start_Maintenance_Caption, Phase)))
             {
                 return;
             }
 
             var shouldKillJobs = KillJobs.IsPresent;
-            var force = Force.IsPresent;
+            var force = Force.IsPresent; ;
 
-            HandleHttpOperationException(() => Api_19_10.Maintenance.Start(Phase.ToString(), force, shouldKillJobs));
+            HandleHttpOperationException(() => Api_19_10.Maintenance.Start(Phase, force, shouldKillJobs));
 
-            WriteObject(Api_19_10.Maintenance.Get().ToDynamic());
+            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get()));
         }
     }
 }
