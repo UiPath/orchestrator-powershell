@@ -14,6 +14,7 @@
         internal const string LibraryVersion = UiPath + "LibraryVersion";
         internal const string License = UiPath + "License";
         internal const string Machine = UiPath + "Machine";
+        internal const string Maintenance = UiPath + "Maintenance";
         internal const string OrganizationUnit = UiPath + "OrganizationUnit";
         internal const string OrganizationUnitUser = UiPath + "OrganizationUnitUser";
         internal const string Package = UiPath + "Package";

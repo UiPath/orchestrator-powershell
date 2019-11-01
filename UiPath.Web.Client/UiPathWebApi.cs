@@ -40,4 +40,11 @@ namespace UiPath.Web.Client20194
     }
 }
 
+namespace UiPath.Web.Client201910
+{
+    public partial class UiPathWebApi : Client.Generic.IUiPathWebApi
+    {
+    }
+}
+
 

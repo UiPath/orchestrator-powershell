@@ -59,7 +59,8 @@
     <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
     <None Include="Swagger\UiPath2018.4.1.swagger" />
     <None Include="Swagger\UiPath2019.1.swagger" />
-    <None Include="Swagger\UiPath2019.4.3.swagger" />
+    <None Include="Swagger\UiPath2019.4.swagger" />
+    <None Include="Swagger\UiPath2019.10.swagger" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Rest.ClientRuntime">
@@ -96,9 +97,12 @@
   <Target Name="Client20194" Inputs="Swagger\UiPath2019.4.swagger" Outputs="generated20194\UiPathWebApi.cs">
     <Exec Outputs="generated20194\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.4.swagger --output-folder=generated20194 --csharp --csharp.namespace=UiPath.Web.Client20194 --add-credentials" />
   </Target>
-  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" DependsOnTargets="Client20181;Client20182;Client20183;Client20184;Client20191;Client20194">
+  <Target Name="Client201910" Inputs="Swagger\UiPath2019.10.swagger" Outputs="generated201910\UiPathWebApi.cs">
+    <Exec Outputs="generated201910\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.10.swagger --output-folder=generated201910 --csharp --csharp.namespace=UiPath.Web.Client201910 --add-credentials" />
+  </Target>
+  <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" DependsOnTargets="Client20181;Client20182;Client20183;Client20184;Client20191;Client20194;Client201910">
     <ItemGroup>
-      <AutoRestGenerated Include="generated20181\*.cs;generated20181\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs;generated20184\*.cs;generated20184\Models\*.cs;generated20191\*.cs;generated20191\Models\*.cs;generated20194\*.cs;generated20194\Models\*.cs" />
+      <AutoRestGenerated Include="generated20181\*.cs;generated20181\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs;generated20184\*.cs;generated20184\Models\*.cs;generated20191\*.cs;generated20191\Models\*.cs;generated20194\*.cs;generated20194\Models\*.cs;generated201910\*.cs;generated201910\Models\*.cs" />
       <Compile Include="@(AutoRestGenerated)">
         <AutoGen>True</AutoGen>
         <Visible>True</Visible>

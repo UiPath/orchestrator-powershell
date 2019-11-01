@@ -27,6 +27,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\Output\Debug\UiPath.PowerShell.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591;1573</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,9 +58,14 @@
     <Compile Include="Cmdlets\GetRobotSettings.cs" />
     <Compile Include="Cmdlets\EditRobotSettings.cs" />
     <Compile Include="Cmdlets\GetEnvironmentRobot.cs" />
+    <Compile Include="Cmdlets\GetMaintenance.cs" />
+    <Compile Include="Cmdlets\StartMaintenance.cs" />
+    <Compile Include="Cmdlets\StopMaintenance.cs" />
     <Compile Include="Cmdlets\UnlockUser.cs" />
     <Compile Include="Cmdlets\LockUser.cs" />
     <Compile Include="Models\CloudDeployments.cs" />
+    <Compile Include="Models\MaintenanceLog.cs" />
+    <Compile Include="Models\MaintenanceSetting.cs" />
     <Compile Include="Models\RobotExecutionSettings.cs" />
     <Compile Include="OAuth\LoginForm.cs">
       <SubType>Form</SubType>
@@ -68,6 +74,11 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OAuth\WinInetHelper.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Util\UiPathTypeConverter.cs" />
     <Compile Include="Util\UserCmdlet.cs" />
     <Compile Include="Util\BindingResolver.cs" />
@@ -235,6 +246,10 @@
   <ItemGroup>
     <EmbeddedResource Include="OAuth\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
