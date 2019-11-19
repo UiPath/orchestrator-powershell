@@ -45,6 +45,12 @@
             "schema": {
               "$ref": "#/definitions/AjaxResponse"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -72,6 +78,12 @@
                 "$ref": "#/definitions/ExtendedFolderDto"
               }
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -117,6 +129,12 @@
             "schema": {
               "$ref": "#/definitions/PageResultDto[FolderDto]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -163,6 +181,12 @@
             "schema": {
               "$ref": "#/definitions/FolderNavigationContextDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -202,6 +226,15 @@
           },
           "408": {
             "description": "Too many pending logging requests or timeout"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -249,6 +282,15 @@
           },
           "408": {
             "description": "Too many pending logging requests or timeout"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -266,12 +308,33 @@
           "application/json",
           "text/json"
         ],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/MaintenanceSetting"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -312,11 +375,33 @@
             "description": "Whether to force-kill running jobs when transitioning to {UiPath.Orchestrator.Core.Enums.MaintenanceState.Suspended}",
             "required": false,
             "type": "boolean"
+          },
+          {
+            "name": "tenantId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -331,9 +416,33 @@
         "operationId": "Maintenance_End",
         "consumes": [],
         "produces": [],
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -376,6 +485,9 @@
           },
           "400": {
             "description": "hbts is null or empty or an Exception is thrown during insert"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -410,6 +522,15 @@
         "responses": {
           "200": {
             "description": "Job state was updated successfully. No object returned so 200 instead of 201"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -454,6 +575,9 @@
           },
           "400": {
             "description": "robotKey is null or empty or an Exception is thrown during retrieval"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -494,6 +618,9 @@
           },
           "400": {
             "description": "No Robots meet the criteria or an Exception is thrown during retrieval"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -527,6 +654,9 @@
           },
           "400": {
             "description": "Exception is thrown"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -573,6 +703,9 @@
           },
           "409": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -610,6 +743,9 @@
           },
           "409": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -653,6 +789,9 @@
           },
           "401": {
             "description": "Calling machine is not part of the same AD"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -691,6 +830,15 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Invalid arguments"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -727,17 +875,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/RobotCommand"
-              }
-            }
-          },
           "400": {
-            "description": "hbts is null or empty or an Exception is thrown during insert"
+            "description": ""
+          },
+          "410": {
+            "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": true
@@ -766,17 +911,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Returns the processes collection.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PublishedProcess"
-              }
-            }
-          },
           "400": {
-            "description": "robotKey is null or empty or an Exception is thrown during retrieval"
+            "description": ""
+          },
+          "410": {
+            "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": true
@@ -812,17 +954,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/RobotDetailsDto"
-              }
-            }
-          },
           "400": {
-            "description": "No Robots meet the criteria or an Exception is thrown during retrieval"
+            "description": ""
+          },
+          "410": {
+            "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": true
@@ -853,11 +992,14 @@
           }
         ],
         "responses": {
-          "204": {
+          "400": {
             "description": ""
           },
-          "409": {
-            "description": "No available licenses"
+          "410": {
+            "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": true
@@ -888,8 +1030,14 @@
           }
         ],
         "responses": {
-          "204": {
+          "400": {
             "description": ""
+          },
+          "410": {
+            "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": true
@@ -918,6 +1066,12 @@
                 "$ref": "#/definitions/CountStats"
               }
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -944,6 +1098,15 @@
                 "$ref": "#/definitions/CountStats"
               }
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -970,6 +1133,15 @@
                 "$ref": "#/definitions/CountStats"
               }
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1014,6 +1186,18 @@
                 "$ref": "#/definitions/LicenseStatsModel"
               }
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1031,6 +1215,9 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1061,6 +1248,12 @@
             "schema": {
               "$ref": "#/definitions/HostAvailabilityDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1103,11 +1296,29 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Ok.",
+            "schema": {
+              "$ref": "#/definitions/TaskDataDto"
+            }
+          },
           "201": {
             "description": "Created response.",
             "schema": {
               "$ref": "#/definitions/TaskDataDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1152,6 +1363,15 @@
           },
           "404": {
             "description": "Not found result."
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1196,6 +1416,15 @@
           },
           "404": {
             "description": "Not found result."
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1234,8 +1463,26 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": ""
+          },
           "204": {
             "description": "Ok."
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -1245,6 +1492,7 @@
         "tags": [
           "Token"
         ],
+        "summary": "Gets access token",
         "operationId": "Token_Post",
         "consumes": [
           "application/x-www-form-urlencoded",
@@ -1258,6 +1506,7 @@
           {
             "name": "accessTokenRequest",
             "in": "body",
+            "description": "",
             "required": false,
             "schema": {
               "$ref": "#/definitions/AccessTokenRequest"
@@ -1290,10 +1539,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/AccessToken"
             }
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1328,6 +1580,12 @@
                 "type": "string"
               }
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1404,6 +1662,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[AlertDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1427,6 +1697,15 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1475,6 +1754,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1511,6 +1802,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1521,7 +1824,7 @@
         "tags": [
           "Assets"
         ],
-        "summary": "Returns the EntitySet Assets",
+        "summary": "Get Assets",
         "description": "Required permissions: Assets.View.",
         "operationId": "Assets_GetAssets",
         "consumes": [],
@@ -1591,10 +1894,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[AssetDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1637,6 +1952,21 @@
             "schema": {
               "$ref": "#/definitions/AssetDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1692,6 +2022,21 @@
             "schema": {
               "$ref": "#/definitions/AssetDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1737,6 +2082,21 @@
         "responses": {
           "200": {
             "description": "Successfully updated"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1778,6 +2138,21 @@
         "responses": {
           "204": {
             "description": "Successfully deleted the asset"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1836,6 +2211,15 @@
           },
           "404": {
             "description": "Asset or Robot do not exist or the Asset is not available for the specified robot."
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1890,6 +2274,18 @@
           },
           "404": {
             "description": "Asset or Robot do not exist or the Asset is not available for the specified robot."
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -1943,6 +2339,15 @@
           },
           "404": {
             "description": "Asset or Robot do not exist or the Asset is not available for the specified robot."
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": true
@@ -2019,6 +2424,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[AuditLogDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2029,7 +2446,7 @@
         "tags": [
           "AuditLogs"
         ],
-        "summary": "Call operation  GetAuditLogDetails",
+        "summary": "Returns audit log details by audit log id",
         "description": "Required permissions: Audit.View.",
         "operationId": "AuditLogs_GetAuditLogDetailsByAuditlogid",
         "consumes": [],
@@ -2040,7 +2457,7 @@
           {
             "name": "auditLogId",
             "in": "path",
-            "description": "parameter: auditLogId",
+            "description": "",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -2048,10 +2465,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[AuditLogEntityDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2127,6 +2559,375 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Calendars": {
+      "get": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Gets calendars for current tenant.",
+        "description": "Requires authentication.",
+        "operationId": "Calendars_GetCalendars",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expands related entities inline.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filters the results, based on a Boolean condition.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Selects which properties to include in the response.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Sorts the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "Returns only the first n results.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "Skips the first n results.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "$count",
+            "in": "query",
+            "description": "Includes a count of the matching results in the response.",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ODataResponse[List[ExtendedCalendarDto]]"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Creates a new calendar.",
+        "description": "Required permissions: (Settings.Create).",
+        "operationId": "Calendars_Post",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ExtendedCalendarDto",
+            "in": "body",
+            "description": "The entity to post",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ExtendedCalendarDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ExtendedCalendarDto"
+            }
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Calendars({Id})": {
+      "get": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Gets calendar based on its id.",
+        "description": "Requires authentication.",
+        "operationId": "Calendars_GetById",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "description": "Expands related entities inline.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Selects which properties to include in the response.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ExtendedCalendarDto"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Edits a calendar.",
+        "description": "Required permissions: (Settings.Edit).",
+        "operationId": "Calendars_PutById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "ExtendedCalendarDto",
+            "in": "body",
+            "description": "The entity to put",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ExtendedCalendarDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ExtendedCalendarDto"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Deletes a calendar.",
+        "description": "Required permissions: (Settings.Delete).",
+        "operationId": "Calendars_DeleteById",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "key: Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "If-Match header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Calendars/UiPath.Server.Configuration.OData.CalendarExists": {
+      "post": {
+        "tags": [
+          "Calendars"
+        ],
+        "summary": "Validate calendar name, and check if it already exists.",
+        "description": "Required permissions: (Settings.Edit).",
+        "operationId": "Calendars_CalendarExists",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "calendarExistsParameters",
+            "in": "body",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "calendarName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ODataResponse[Boolean]"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2203,6 +3004,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[CredentialStoreDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2237,6 +3050,21 @@
             "schema": {
               "$ref": "#/definitions/CredentialStoreDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2284,6 +3112,21 @@
             "schema": {
               "$ref": "#/definitions/CredentialStoreDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2324,6 +3167,24 @@
             "schema": {
               "type": "object"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2379,6 +3240,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2415,6 +3291,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2438,6 +3326,15 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[String]]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2531,6 +3428,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[CredentialStoreResourceDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2582,6 +3491,24 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2666,6 +3593,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[EnvironmentDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2708,6 +3647,18 @@
             "schema": {
               "$ref": "#/definitions/EnvironmentDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2763,6 +3714,21 @@
             "schema": {
               "$ref": "#/definitions/EnvironmentDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2808,6 +3774,21 @@
         "responses": {
           "200": {
             "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2849,6 +3830,18 @@
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2939,6 +3932,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[RobotDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -2980,6 +3985,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[Int64]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3032,6 +4049,24 @@
         "responses": {
           "204": {
             "description": "Nothing returned"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3084,6 +4119,24 @@
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3151,6 +4204,24 @@
         "responses": {
           "204": {
             "description": "Nothing returned"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3235,6 +4306,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ExecutionMediaDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3245,7 +4328,7 @@
         "tags": [
           "ExecutionMedia"
         ],
-        "summary": "Returns the entity with the key from ExecutionMedia",
+        "summary": "Get by id",
         "description": "Required permissions: ExecutionMedia.View.",
         "operationId": "ExecutionMedia_GetById",
         "consumes": [],
@@ -3286,10 +4369,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/ExecutionMediaDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3300,7 +4398,7 @@
         "tags": [
           "ExecutionMedia"
         ],
-        "summary": "Call operation  DownloadMediaByJobId",
+        "summary": "Downloads execution media by job id",
         "description": "Required permissions: ExecutionMedia.View.",
         "operationId": "ExecutionMedia_DownloadMediaByJobId",
         "consumes": [],
@@ -3311,7 +4409,7 @@
           {
             "name": "jobId",
             "in": "path",
-            "description": "parameter: jobId",
+            "description": "",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -3326,15 +4424,27 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
           "200": {
             "description": "OK",
             "schema": {
               "format": "file",
               "type": "file"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3383,6 +4493,18 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3394,7 +4516,7 @@
           "Folders"
         ],
         "summary": "Gets folders.",
-        "description": "Required permissions: Units.View or SubFolders.View.",
+        "description": "Required permissions: (Units.View - Gets all folders) and (SubFolders.View - Gets only folders where user has SubFoldersView permission).",
         "operationId": "Folders_GetFolders",
         "consumes": [],
         "produces": [
@@ -3459,6 +4581,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[FolderDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3467,8 +4601,8 @@
         "tags": [
           "Folders"
         ],
-        "summary": "Creates a folder.",
-        "description": "Required permissions: Units.Create or SubFolders.Create.",
+        "summary": "Creates a new folder.",
+        "description": "Required permissions: (Units.Create - Creates root or subfolder) and (SubFolders.Create - Creates subfolder if user has SubFoldersCreate permission on parent).",
         "operationId": "Folders_Post",
         "consumes": [
           "application/json"
@@ -3478,9 +4612,9 @@
         ],
         "parameters": [
           {
-            "name": "FolderDto",
+            "name": "folderDto",
             "in": "body",
-            "description": "The entity to post",
+            "description": "",
             "required": true,
             "schema": {
               "$ref": "#/definitions/FolderDto"
@@ -3489,10 +4623,25 @@
         ],
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/FolderDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3504,7 +4653,7 @@
           "Folders"
         ],
         "summary": "Gets a single folder, based on its Id.",
-        "description": "Required permissions: Units.View or SubFolders.View.",
+        "description": "Required permissions: (Units.View - Gets any folder) and (SubFolders.View - Gets folder only if user has SubFoldersView permission on it).",
         "operationId": "Folders_GetById",
         "consumes": [],
         "produces": [
@@ -3536,10 +4685,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Ok",
             "schema": {
-              "$ref": "#/definitions/ExtendedFolderDto"
+              "$ref": "#/definitions/FolderDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3549,7 +4713,7 @@
           "Folders"
         ],
         "summary": "Edits a folder.",
-        "description": "Required permissions: Units.Edit or SubFolders.Edit.",
+        "description": "Required permissions: (Units.Edit - Edits any folder) and (SubFolders.Edit - Edits folder only if user has SubFoldersEdit permission on it).",
         "operationId": "Folders_PutById",
         "consumes": [
           "application/json"
@@ -3582,6 +4746,21 @@
             "schema": {
               "$ref": "#/definitions/FolderDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3591,7 +4770,7 @@
           "Folders"
         ],
         "summary": "Deletes a folder. Succeeds only if no entities or user associations\r\nexist in this folder or any of its descendants.",
-        "description": "Required permissions: Units.Delete or SubFolders.Delete.",
+        "description": "Required permissions: (Units.Delete - Deletes any folder) and (SubFolders.Delete - Deletes folder only if user has SubFoldersDelete permission on it).",
         "operationId": "Folders_DeleteById",
         "consumes": [],
         "produces": [],
@@ -3615,6 +4794,24 @@
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3650,7 +4847,22 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3736,10 +4948,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserRolesDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3787,7 +5014,85 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/odata/Folders/UiPath.Server.Configuration.OData.GetAllRolesForUser(username='{username}',skip={skip},take={take})": {
+      "get": {
+        "tags": [
+          "Folders"
+        ],
+        "summary": "Returns a page of the user-folder assignments for the input user, including the roles for each folder.\r\nThe response also includes the folders assigned to the directory groups of the user.\r\nThe distinction between the folders assigned directly to the user and the ones assigned to one of his groups\r\ncan be made via the User field of the response.",
+        "description": "Required permissions: (Units.View or SubFolders.View) and (Users.View and Roles.View).",
+        "operationId": "Folders_GetAllRolesForUserByUsernameAndSkipAndTake",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "skip",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "take",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserRoleAssignmentsDto"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3864,6 +5169,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[HostLicenseDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3914,6 +5231,18 @@
           },
           "404": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3950,6 +5279,18 @@
           },
           "404": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -3979,13 +5320,25 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "Success",
             "schema": {
               "$ref": "#/definitions/HostLicenseDto"
             }
           },
           "400": {
-            "description": ""
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4019,6 +5372,18 @@
             "schema": {
               "$ref": "#/definitions/LicenseDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4062,6 +5427,18 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4107,6 +5484,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4157,6 +5549,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4178,6 +5585,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4209,6 +5631,21 @@
           },
           "400": {
             "description": ""
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4249,6 +5686,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4294,6 +5746,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4333,6 +5800,18 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4417,6 +5896,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[JobDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4472,6 +5963,21 @@
             "schema": {
               "$ref": "#/definitions/JobDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4521,6 +6027,27 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[JobDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "405": {
+            "description": "Method not allowed"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4584,6 +6111,24 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4647,6 +6192,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4700,6 +6257,21 @@
             "schema": {
               "$ref": "#/definitions/JobDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4784,6 +6356,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[JobTriggerDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4860,6 +6444,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[LibraryDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4900,6 +6496,15 @@
           },
           "400": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -4981,6 +6586,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[LibraryDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5014,6 +6631,18 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5096,17 +6725,29 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ODataResponse[List[BulkItemDto[String]]]"
+            }
+          },
           "207": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[BulkItemDto[String]]]"
             }
           },
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/ODataResponse[List[BulkItemDto[String]]]"
-            }
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5196,6 +6837,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[LicenseNamedUserDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5285,6 +6938,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[LicenseRuntimeDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5350,8 +7015,20 @@
           "200": {
             "description": ""
           },
+          "400": {
+            "description": "Bad request"
+          },
           "409": {
-            "description": ""
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5428,6 +7105,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[MachineDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5462,6 +7151,21 @@
             "schema": {
               "$ref": "#/definitions/MachineDto"
             }
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5509,6 +7213,21 @@
             "schema": {
               "$ref": "#/definitions/MachineDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5551,6 +7270,24 @@
             "schema": {
               "$ref": "#/definitions/MachineDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5584,6 +7321,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "409": {
+            "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5621,6 +7373,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5667,6 +7434,18 @@
           },
           "400": {
             "description": "Empty machineIds collection in payload"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5743,6 +7522,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[MessageTemplateDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5789,6 +7580,18 @@
           },
           "400": {
             "description": "No message template was found with the given name."
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -5800,7 +7603,7 @@
           "OrganizationUnits"
         ],
         "summary": "Gets the organization units.",
-        "description": "Required permissions: Units.View.",
+        "description": "Required permissions: Units.View.\r\n\r\nDEPRECATED: Use /Folders/GetFolders instead.",
         "operationId": "OrganizationUnits_GetOrganizationUnits",
         "consumes": [],
         "produces": [
@@ -5865,16 +7668,28 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[OrganizationUnitDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       },
       "post": {
         "tags": [
           "OrganizationUnits"
         ],
         "summary": "Creates an organization unit.",
-        "description": "Required permissions: Units.Create.",
+        "description": "Required permissions: Units.Create.\r\n\r\nDEPRECATED: Use /Folders/Post instead.",
         "operationId": "OrganizationUnits_Post",
         "consumes": [
           "application/json"
@@ -5894,14 +7709,32 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrganizationUnitDto"
+            }
+          },
           "201": {
             "description": "Created",
             "schema": {
               "$ref": "#/definitions/OrganizationUnitDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       }
     },
     "/odata/OrganizationUnits({Id})": {
@@ -5910,7 +7743,7 @@
           "OrganizationUnits"
         ],
         "summary": "Gets an organization unit.",
-        "description": "Required permissions: Units.View.",
+        "description": "Required permissions: Units.View.\r\n\r\nDEPRECATED: Use /Folders/Get instead.",
         "operationId": "OrganizationUnits_GetById",
         "consumes": [],
         "produces": [
@@ -5946,16 +7779,31 @@
             "schema": {
               "$ref": "#/definitions/OrganizationUnitDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       },
       "put": {
         "tags": [
           "OrganizationUnits"
         ],
         "summary": "Edits an organization unit.",
-        "description": "Required permissions: Units.Edit.",
+        "description": "Required permissions: Units.Edit.\r\n\r\nDEPRECATED: Use /Folders/Put instead.",
         "operationId": "OrganizationUnits_PutById",
         "consumes": [
           "application/json"
@@ -5988,16 +7836,31 @@
             "schema": {
               "$ref": "#/definitions/OrganizationUnitDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       },
       "delete": {
         "tags": [
           "OrganizationUnits"
         ],
         "summary": "Deletes an organization unit.",
-        "description": "Required permissions: Units.Delete.",
+        "description": "Required permissions: Units.Delete.\r\n\r\nDEPRECATED: Use /Folders/Delete instead.",
         "operationId": "OrganizationUnits_DeleteById",
         "consumes": [],
         "produces": [],
@@ -6019,11 +7882,32 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": ""
+          },
           "204": {
             "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       }
     },
     "/odata/OrganizationUnits/UiPath.Server.Configuration.OData.GetUsersForUnit(key={key})": {
@@ -6032,7 +7916,7 @@
           "OrganizationUnits"
         ],
         "summary": "Returns a collection of all non robot users and, if no other sorting is provided, will place first those associated to an unit. Allows odata query options.",
-        "description": "Required permissions: Units.View and Users.View.",
+        "description": "Required permissions: Units.View and Users.View.\r\n\r\nDEPRECATED: Use /Folders/GetUsersForFolder instead.",
         "operationId": "OrganizationUnits_GetUsersForUnitByKey",
         "consumes": [],
         "produces": [
@@ -6103,9 +7987,24 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       }
     },
     "/odata/OrganizationUnits/UiPath.Server.Configuration.OData.GetUserIdsForUnit(key={key})": {
@@ -6114,7 +8013,7 @@
           "OrganizationUnits"
         ],
         "summary": "Returns a collection of all the ids of the users associated to an unit based on unit Id.",
-        "description": "Required permissions: Units.View and Users.View.",
+        "description": "Required permissions: Units.View and Users.View.\r\n\r\nDEPRECATED: Kept for backwards compatibility.",
         "operationId": "OrganizationUnits_GetUserIdsForUnitByKey",
         "consumes": [],
         "produces": [
@@ -6136,9 +8035,24 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[Int64]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       }
     },
     "/odata/OrganizationUnits({Id})/UiPath.Server.Configuration.OData.SetUsers": {
@@ -6147,7 +8061,7 @@
           "OrganizationUnits"
         ],
         "summary": "Associates a group of users with and dissociates another group of users from the given unit.",
-        "description": "Required permissions: Users.Edit.",
+        "description": "Required permissions: Users.Edit.\r\n\r\nDEPRECATED: Use /Folders/AssignUsers instead.",
         "operationId": "OrganizationUnits_SetUsersById",
         "consumes": [
           "application/json"
@@ -6193,11 +8107,29 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": ""
+          },
           "204": {
             "description": "Nothing returned"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
-        "deprecated": false
+        "deprecated": true
       }
     },
     "/odata/Permissions": {
@@ -6270,6 +8202,12 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[PermissionDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -6346,6 +8284,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ProcessDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6383,6 +8333,18 @@
           },
           "200": {
             "description": "Package deleted"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6464,6 +8426,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ProcessDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6497,6 +8471,18 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6590,6 +8576,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[BulkItemDto[String]]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6622,6 +8620,18 @@
             "schema": {
               "$ref": "#/definitions/ArgumentMetadata"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6661,6 +8671,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6745,6 +8770,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ProcessScheduleDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6787,6 +8824,24 @@
             "schema": {
               "$ref": "#/definitions/ProcessScheduleDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6842,6 +8897,21 @@
             "schema": {
               "$ref": "#/definitions/ProcessScheduleDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6898,6 +8968,21 @@
             "schema": {
               "$ref": "#/definitions/ProcessScheduleDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6939,6 +9024,21 @@
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -6999,6 +9099,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Boolean]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7040,6 +9152,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[Int64]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7082,6 +9206,18 @@
           },
           "409": {
             "description": "Process Schedule cannot be activated"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7166,6 +9302,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueDefinitionDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7208,6 +9356,21 @@
             "schema": {
               "$ref": "#/definitions/QueueDefinitionDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7263,6 +9426,21 @@
             "schema": {
               "$ref": "#/definitions/QueueDefinitionDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7314,8 +9492,23 @@
               "$ref": "#/definitions/QueueDefinitionDto"
             }
           },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
           "409": {
-            "description": ""
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7357,6 +9550,21 @@
         "responses": {
           "204": {
             "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7448,6 +9656,21 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7497,6 +9720,21 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7581,6 +9819,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemCommentDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7623,6 +9873,21 @@
             "schema": {
               "$ref": "#/definitions/QueueItemCommentDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7678,6 +9943,21 @@
             "schema": {
               "$ref": "#/definitions/QueueItemCommentDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7686,7 +9966,7 @@
         "tags": [
           "QueueItemComments"
         ],
-        "summary": "Replace entity in EntitySet QueueItemComments",
+        "summary": "Updates a QueueItemComment",
         "description": "Required permissions: Queues.View and Transactions.Edit.",
         "operationId": "QueueItemComments_PutById",
         "consumes": [
@@ -7705,7 +9985,7 @@
           {
             "name": "queueItemCommentDto",
             "in": "body",
-            "description": "The entity to put",
+            "description": "",
             "required": true,
             "schema": {
               "$ref": "#/definitions/QueueItemCommentDto"
@@ -7722,10 +10002,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "type": "object"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7767,6 +10062,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7857,6 +10167,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemCommentDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7941,6 +10266,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemEventDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -7996,6 +10333,21 @@
             "schema": {
               "$ref": "#/definitions/QueueItemEventDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8086,6 +10438,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemEventDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8170,6 +10537,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8225,6 +10604,21 @@
             "schema": {
               "$ref": "#/definitions/QueueItemDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8279,6 +10673,18 @@
           },
           "409": {
             "description": "Conflict with Queue Item being updated."
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8320,6 +10726,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8410,6 +10831,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueItemDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8503,6 +10939,18 @@
           },
           "404": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8558,6 +11006,18 @@
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8610,6 +11070,18 @@
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8662,6 +11134,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8721,6 +11208,21 @@
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8773,6 +11275,18 @@
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8855,6 +11369,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[SimpleUserDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8904,6 +11430,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueProcessingRecordDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -8986,6 +11527,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[QueueProcessingStatusDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9036,11 +11589,26 @@
               "$ref": "#/definitions/QueueItemDto"
             }
           },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
           "200": {
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/QueueItemDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9096,6 +11664,24 @@
             "schema": {
               "$ref": "#/definitions/QueueItemDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9106,7 +11692,7 @@
         "tags": [
           "Queues"
         ],
-        "summary": "Call operation  BulkAddQueueItems",
+        "summary": "Bulk adds queue items",
         "description": "Required permissions: Queues.View and Transactions.Create.",
         "operationId": "Queues_BulkAddQueueItems",
         "consumes": [
@@ -9119,7 +11705,7 @@
           {
             "name": "bulkAddQueueItemsParameters",
             "in": "body",
-            "description": "BulkAddQueueItems action parameters",
+            "description": "",
             "required": true,
             "schema": {
               "required": [
@@ -9162,10 +11748,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[FailedQueueItemDto]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9218,6 +11819,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9302,6 +11918,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ReleaseDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9347,6 +11975,15 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9402,6 +12039,21 @@
             "schema": {
               "$ref": "#/definitions/ReleaseDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9452,6 +12104,21 @@
             "schema": {
               "$ref": "#/definitions/ReleaseDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9493,6 +12160,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9538,6 +12220,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9595,6 +12292,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9636,6 +12348,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9692,6 +12419,18 @@
             "schema": {
               "$ref": "#/definitions/BulkOperationResponseDto[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9733,6 +12472,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9817,6 +12571,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[LogDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9899,6 +12665,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[Int64]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -9940,6 +12718,18 @@
               "format": "file",
               "type": "file"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10024,6 +12814,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[RobotDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10066,6 +12868,24 @@
             "schema": {
               "$ref": "#/definitions/RobotDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10121,6 +12941,21 @@
             "schema": {
               "$ref": "#/definitions/RobotDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10171,6 +13006,24 @@
             "schema": {
               "$ref": "#/definitions/RobotDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10212,6 +13065,24 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10257,6 +13128,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10290,6 +13176,15 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[KeyValuePair[String,String]]]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10372,6 +13267,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[String]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10461,6 +13368,21 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[RobotDto]]"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10515,6 +13437,18 @@
           },
           "400": {
             "description": "Empty robotIds collection in payload"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10567,8 +13501,20 @@
           "400": {
             "description": "Invalid arguments"
           },
+          "404": {
+            "description": "Not found"
+          },
           "409": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10645,6 +13591,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[RoleDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10679,6 +13637,18 @@
             "schema": {
               "$ref": "#/definitions/RoleDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10726,6 +13696,21 @@
             "schema": {
               "$ref": "#/definitions/RoleDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10768,6 +13753,21 @@
             "schema": {
               "$ref": "#/definitions/RoleDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10801,6 +13801,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10883,6 +13898,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10916,6 +13943,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[Int64]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -10975,6 +14014,21 @@
         "responses": {
           "204": {
             "description": "Nothing returned"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11059,6 +14113,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[SessionDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11133,6 +14199,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[SessionDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11207,6 +14285,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[String]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11283,6 +14373,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[SettingsDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11329,6 +14431,18 @@
             "schema": {
               "$ref": "#/definitions/SettingsDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11370,6 +14484,21 @@
             "schema": {
               "$ref": "#/definitions/SettingsDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11392,6 +14521,12 @@
             "schema": {
               "$ref": "#/definitions/ResponseDictionaryDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -11415,6 +14550,12 @@
             "schema": {
               "$ref": "#/definitions/ResponseDictionaryDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11437,6 +14578,9 @@
             "schema": {
               "$ref": "#/definitions/ResponseDictionaryDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -11470,6 +14614,18 @@
             "schema": {
               "$ref": "#/definitions/ExecutionSettingsConfiguration"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11502,6 +14658,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[ConfigurationEntry]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11525,6 +14693,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11548,6 +14725,12 @@
             "schema": {
               "$ref": "#/definitions/LicenseDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11576,6 +14759,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11594,6 +14792,15 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11616,6 +14823,9 @@
             "schema": {
               "$ref": "#/definitions/ListResultDto[NameValueDto]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -11660,6 +14870,21 @@
             "schema": {
               "$ref": "#/definitions/SettingsDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11682,6 +14907,9 @@
             "schema": {
               "$ref": "#/definitions/ListResultDto[LanguageInfo]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -11705,6 +14933,15 @@
             "schema": {
               "$ref": "#/definitions/CalendarDto"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": true
@@ -11736,6 +14973,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": true
@@ -11778,6 +15027,15 @@
           },
           "400": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11823,6 +15081,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11873,6 +15146,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11894,6 +15182,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11925,6 +15228,21 @@
           },
           "400": {
             "description": ""
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11946,6 +15264,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -11972,6 +15305,21 @@
           },
           "400": {
             "description": "Invalid parameters"
+          },
+          "412": {
+            "description": "Precondition failed"
+          },
+          "503": {
+            "description": "Service unavailable"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12004,6 +15352,18 @@
             "schema": {
               "$ref": "#/definitions/SettingsDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12088,6 +15448,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TaskCatalogDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12143,6 +15515,21 @@
             "schema": {
               "$ref": "#/definitions/TaskCatalogDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12182,11 +15569,32 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TaskCatalogDto"
+            }
+          },
           "201": {
             "description": "Created response.",
             "schema": {
               "$ref": "#/definitions/TaskCatalogDto"
             }
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12234,6 +15642,21 @@
         "responses": {
           "200": {
             "description": "Updated"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12318,6 +15741,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TaskDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12376,6 +15811,18 @@
           },
           "404": {
             "description": "Not found result."
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12428,6 +15875,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TaskAssignmentErrorResponse]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12480,6 +15939,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TaskAssignmentErrorResponse]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12536,6 +16007,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TaskAssignmentErrorResponse]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12626,6 +16109,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserLoginInfoDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12702,6 +16197,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[TenantDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12736,6 +16243,18 @@
             "schema": {
               "$ref": "#/definitions/TenantDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12783,6 +16302,18 @@
             "schema": {
               "$ref": "#/definitions/TenantDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12816,6 +16347,18 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12853,6 +16396,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -12900,6 +16455,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "403": {
+            "description": "Unauthorized"
+          },
+          "401": {
+            "description": "Forbidden"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -12947,6 +16514,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserLoginAttemptDto]]"
             }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -13023,6 +16602,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[UserDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13057,6 +16648,24 @@
             "schema": {
               "$ref": "#/definitions/UserDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13104,6 +16713,21 @@
             "schema": {
               "$ref": "#/definitions/UserDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13146,6 +16770,21 @@
             "schema": {
               "$ref": "#/definitions/UserDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13179,6 +16818,21 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13216,6 +16870,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13242,6 +16911,9 @@
           },
           "401": {
             "description": ""
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -13321,6 +16993,12 @@
             "schema": {
               "$ref": "#/definitions/UserDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -13371,6 +17049,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13426,6 +17119,18 @@
         "responses": {
           "201": {
             "description": ""
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13478,6 +17183,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13516,6 +17236,15 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -13563,6 +17292,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13599,6 +17343,18 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13643,6 +17399,21 @@
         "responses": {
           "200": {
             "description": ""
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13676,6 +17447,9 @@
           },
           "400": {
             "description": "Invalid authentication credentials."
+          },
+          "500": {
+            "description": "Internal server error"
           }
         },
         "deprecated": false
@@ -13752,6 +17526,18 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[WebhookDto]]"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13786,6 +17572,21 @@
             "schema": {
               "$ref": "#/definitions/WebhookDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13829,10 +17630,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/WebhookDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13871,10 +17687,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Ok",
             "schema": {
               "$ref": "#/definitions/WebhookDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13908,6 +17739,18 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13916,7 +17759,7 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Update entity in EntitySet Webhooks",
+        "summary": "Patches a webhook",
         "description": "Required permissions: Webhooks.Edit.",
         "operationId": "Webhooks_PatchById",
         "consumes": [
@@ -13946,10 +17789,25 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "",
             "schema": {
               "$ref": "#/definitions/WebhookDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -13960,7 +17818,7 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Sends a Ping request to webhook endpoint. \r\nUsed for testing connectivity and availability of target URL",
+        "summary": "Sends a Ping request to webhook endpoint.\r\nUsed for testing connectivity and availability of target URL",
         "description": "Required permissions: Webhooks.View.",
         "operationId": "Webhooks_PingById",
         "consumes": [],
@@ -13983,6 +17841,21 @@
             "schema": {
               "$ref": "#/definitions/PingEventDto"
             }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -14006,6 +17879,15 @@
             "schema": {
               "$ref": "#/definitions/ODataResponse[List[WebhookEventTypeDto]]"
             }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -14042,6 +17924,18 @@
             "schema": {
               "$ref": "#/definitions/CustomEventDto"
             }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "deprecated": false
@@ -14295,6 +18189,17 @@
         "IsSelectable": {
           "type": "boolean"
         },
+        "ProvisionType": {
+          "enum": [
+            "Manual",
+            "Automatic"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "FolderNavigationContextDtoProvisionType",
+            "modelAsString": false
+          }
+        },
         "Ancestors": {
           "type": "array",
           "items": {
@@ -14317,6 +18222,9 @@
       "type": "object",
       "properties": {
         "DisplayName": {
+          "type": "string"
+        },
+        "FullyQualifiedName": {
           "type": "string"
         },
         "Id": {
@@ -15957,6 +19865,18 @@
           "description": "States whether Item Reference field should be unique per Queue. Deleted and retried items are not checked against this rule.",
           "type": "boolean",
           "readOnly": true
+        },
+        "SlaInMinutes": {
+          "format": "int32",
+          "description": "An integer value representing the Queue SLA in minutes.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "RiskSlaInMinutes": {
+          "format": "int32",
+          "description": "An integer value representing the Queue RiskSla in minutes.",
+          "type": "integer",
+          "readOnly": true
         }
       }
     },
@@ -16888,7 +20808,8 @@
             "LicenseIsAlreadyInUse",
             "InvalidRequest",
             "SlotsExceedLicenseLimit",
-            "RuntimeDisabled"
+            "RuntimeDisabled",
+            "ExternalNotSupported"
           ],
           "type": "string",
           "readOnly": true,
@@ -16940,10 +20861,10 @@
           "type": "integer"
         }
       },
-      "x-webhook-event": "tasks.assignmentChanged"
+      "x-webhook-event": "task.assignmentChanged"
     },
     "WebhookTaskAssignmentChangedDto": {
-      "description": "This class defines DTO for Tasks Collection for webhook event Tasks.AssignmentChanged",
+      "description": "This class defines DTO for Tasks Collection for webhook event Task.AssignmentChanged",
       "type": "object",
       "properties": {
         "Title": {
@@ -17062,10 +20983,10 @@
           "type": "integer"
         }
       },
-      "x-webhook-event": "tasks.completed"
+      "x-webhook-event": "task.completed"
     },
     "WebhookTaskCompletedDto": {
-      "description": "This class defines DTO for Tasks Collection for webhook event Tasks.Completed",
+      "description": "This class defines DTO for Tasks Collection for webhook event Task.Completed",
       "type": "object",
       "properties": {
         "Title": {
@@ -17183,10 +21104,10 @@
           "type": "integer"
         }
       },
-      "x-webhook-event": "tasks.created"
+      "x-webhook-event": "task.created"
     },
     "WebhookTaskCreatedDto": {
-      "description": "This class defines DTO for Tasks Collection for webhook event Tasks.Created",
+      "description": "This class defines DTO for Tasks Collection for webhook event Task.Created",
       "type": "object",
       "properties": {
         "Title": {
@@ -19171,6 +23092,109 @@
         }
       }
     },
+    "ODataQueryOptions[ExtendedCalendarDto]": {
+      "type": "object",
+      "properties": {
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        }
+      }
+    },
+    "ODataResponse[List[ExtendedCalendarDto]]": {
+      "type": "object",
+      "properties": {
+        "@odata.context": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtendedCalendarDto"
+          }
+        }
+      }
+    },
+    "ExtendedCalendarDto": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "TimeZoneId": {
+          "type": "string"
+        },
+        "ExcludedDates": {
+          "type": "array",
+          "items": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "Id": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "ODataResponse[Boolean]": {
+      "type": "object",
+      "properties": {
+        "@odata.context": {
+          "type": "string"
+        },
+        "value": {
+          "type": "boolean"
+        }
+      }
+    },
     "ODataQueryOptions[CredentialStoreDto]": {
       "type": "object",
       "properties": {
@@ -19261,7 +23285,14 @@
         },
         "Details": {
           "$ref": "#/definitions/CredentialStoreDetailsDto",
-          "description": "details on credential store"
+          "description": "Details on credential store"
+        },
+        "DefaultCredentialStores": {
+          "description": "Default credential stores",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DefaultCredentialStoreDto"
+          }
         },
         "Id": {
           "format": "int64",
@@ -19276,6 +23307,29 @@
         "IsReadOnly": {
           "description": "Current store is read only",
           "type": "boolean"
+        }
+      }
+    },
+    "DefaultCredentialStoreDto": {
+      "required": [
+        "ResourceType"
+      ],
+      "type": "object",
+      "properties": {
+        "ResourceType": {
+          "enum": [
+            "AssetCredential",
+            "RobotCredential"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "DefaultCredentialStoreDtoResourceType",
+            "modelAsString": false
+          }
+        },
+        "Id": {
+          "format": "int64",
+          "type": "integer"
         }
       }
     },
@@ -20066,62 +24120,6 @@
         }
       }
     },
-    "ODataQueryOptions[ExtendedFolderDto]": {
-      "type": "object",
-      "properties": {
-        "IfMatch": {
-          "type": "object",
-          "readOnly": true
-        },
-        "IfNoneMatch": {
-          "type": "object",
-          "readOnly": true
-        },
-        "Context": {
-          "$ref": "#/definitions/ODataQueryContext",
-          "readOnly": true
-        },
-        "Request": {
-          "type": "object",
-          "readOnly": true
-        },
-        "RawValues": {
-          "$ref": "#/definitions/ODataRawQueryOptions",
-          "readOnly": true
-        },
-        "SelectExpand": {
-          "$ref": "#/definitions/SelectExpandQueryOption",
-          "readOnly": true
-        },
-        "Apply": {
-          "$ref": "#/definitions/ApplyQueryOption",
-          "readOnly": true
-        },
-        "Filter": {
-          "$ref": "#/definitions/FilterQueryOption",
-          "readOnly": true
-        },
-        "OrderBy": {
-          "$ref": "#/definitions/OrderByQueryOption",
-          "readOnly": true
-        },
-        "Skip": {
-          "$ref": "#/definitions/SkipQueryOption",
-          "readOnly": true
-        },
-        "Top": {
-          "$ref": "#/definitions/TopQueryOption",
-          "readOnly": true
-        },
-        "Count": {
-          "$ref": "#/definitions/CountQueryOption",
-          "readOnly": true
-        },
-        "Validator": {
-          "$ref": "#/definitions/ODataQueryValidator"
-        }
-      }
-    },
     "UserAssignmentsDto": {
       "type": "object",
       "properties": {
@@ -20294,6 +24292,63 @@
         }
       }
     },
+    "UserRoleAssignmentsDto": {
+      "type": "object",
+      "properties": {
+        "TenantRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleUsersDto"
+          }
+        },
+        "PageItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FolderAssignmentsDto"
+          }
+        },
+        "Count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Id": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "RoleUsersDto": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimpleUserEntityDto"
+          }
+        },
+        "Id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "FolderAssignmentsDto": {
+      "type": "object",
+      "properties": {
+        "Folder": {
+          "$ref": "#/definitions/SimpleFolderDto"
+        },
+        "Roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleUsersDto"
+          }
+        }
+      }
+    },
     "ODataQueryOptions[HostLicenseDto]": {
       "type": "object",
       "properties": {
@@ -20413,6 +24468,13 @@
           "description": "States whether the license is Studio Business Concurrent",
           "type": "boolean"
         },
+        "LicensedFeatures": {
+          "description": "What features are licensed (valid for individually-licensed features, like Analytics)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "IsRegistered": {
           "description": "True if the current tenant is registered with a license. False otherwise.",
           "type": "boolean"
@@ -20504,6 +24566,13 @@
         "StudioXConcurrent": {
           "description": "States whether the license is Studio Business Concurrent",
           "type": "boolean"
+        },
+        "LicensedFeatures": {
+          "description": "What features are licensed (valid for individually-licensed features, like Analytics)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "IsRegistered": {
           "description": "True if the current tenant is registered with a license. False otherwise.",
@@ -20774,6 +24843,10 @@
           "format": "int64",
           "type": "integer"
         },
+        "EntryPointPath": {
+          "description": "Path to the entry point workflow (XAML) that will be executed by the robot",
+          "type": "string"
+        },
         "Id": {
           "format": "int64",
           "type": "integer"
@@ -20851,6 +24924,9 @@
         },
         "ProcessSettings": {
           "$ref": "#/definitions/ProcessSettingsDto"
+        },
+        "AutoUpdate": {
+          "type": "boolean"
         },
         "Id": {
           "format": "int64",
@@ -21199,6 +25275,23 @@
         "Authors": {
           "description": "Package authors.",
           "type": "string"
+        },
+        "ProjectType": {
+          "description": "Package project type.",
+          "enum": [
+            "Undefined",
+            "Process",
+            "ProcessLibrary",
+            "BusinessProcess",
+            "BusinessProcessLibrary",
+            "TestAutomationProcess",
+            "TestAutomationProcessLibrary"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "LibraryDtoProjectType",
+            "modelAsString": false
+          }
         },
         "Id": {
           "type": "string"
@@ -22374,6 +26467,17 @@
           "$ref": "#/definitions/ArgumentMetadata",
           "description": "Input/Output arguments supported by the process"
         },
+        "SupportsMultipleEntryPoints": {
+          "description": "Specifies if the process has multiple entry points.",
+          "type": "boolean"
+        },
+        "EntryPoints": {
+          "description": "Entry points.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EntryPointDto"
+          }
+        },
         "Title": {
           "description": "The custom name of the package.",
           "type": "string"
@@ -22411,8 +26515,47 @@
           "description": "Package authors.",
           "type": "string"
         },
+        "ProjectType": {
+          "description": "Package project type.",
+          "enum": [
+            "Undefined",
+            "Process",
+            "ProcessLibrary",
+            "BusinessProcess",
+            "BusinessProcessLibrary",
+            "TestAutomationProcess",
+            "TestAutomationProcessLibrary"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProcessDtoProjectType",
+            "modelAsString": false
+          }
+        },
         "Id": {
           "type": "string"
+        }
+      }
+    },
+    "EntryPointDto": {
+      "type": "object",
+      "properties": {
+        "UniqueId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "InputArguments": {
+          "type": "string"
+        },
+        "OutputArguments": {
+          "type": "string"
+        },
+        "Id": {
+          "format": "int64",
+          "type": "integer"
         }
       }
     },
@@ -22661,17 +26804,6 @@
         "Id": {
           "format": "int64",
           "type": "integer"
-        }
-      }
-    },
-    "ODataResponse[Boolean]": {
-      "type": "object",
-      "properties": {
-        "@odata.context": {
-          "type": "string"
-        },
-        "value": {
-          "type": "boolean"
         }
       }
     },
@@ -24362,7 +28494,7 @@
             "IdentityServerTenantCreateError",
             "IdentityServerTenantDeleteError",
             "IdentityServerTenantUpdateError",
-            "IdentityServerDescoveryError",
+            "IdentityServerDiscoveryError",
             "IdentityServerMessageTemplateGetError",
             "IdentityServerMessageTemplateUpdateError",
             "IdentityServerUserGetError",
@@ -24370,6 +28502,10 @@
             "IdentityServerUserCreateError",
             "IdentityServerUserUpdateError",
             "IdentityServerUserChangePasswordError",
+            "IdentityServerRobotCreateError",
+            "IdentityServerRobotDeleteError",
+            "IdentityServerSettingsUpdateError",
+            "IdentityServerBulkUserDeleteError",
             "MandatoryPropertiesForRootFolderNotSpecified",
             "IncompatibleFolderProperties",
             "NoHierarchyAllowedForClassicFolders",
@@ -24383,7 +28519,15 @@
             "AssociationAlreadyExists",
             "UserDoesNotHaveAccessToFolder",
             "CannotChangeRobotUserFolderAssignments",
-            "MaintenanceActive"
+            "MaintenanceActive",
+            "AnalyticsNotAuthorized",
+            "AnalyticsTenantNotProvisioned",
+            "AnalyticsUserIsHostUser",
+            "AnalyticsUserHasNoEmail",
+            "AnalyticsUserNotFound",
+            "AnalyticsAdminEmailProhibited",
+            "PackageMetadataExtract",
+            "PackageMetadataValidation"
           ],
           "type": "string",
           "x-ms-enum": {
@@ -24580,6 +28724,9 @@
         },
         "ProcessSettings": {
           "$ref": "#/definitions/ProcessSettingsDto"
+        },
+        "AutoUpdate": {
+          "type": "boolean"
         },
         "Id": {
           "format": "int64",
@@ -24986,7 +29133,8 @@
             "LicenseIsAlreadyInUse",
             "InvalidRequest",
             "SlotsExceedLicenseLimit",
-            "RuntimeDisabled"
+            "RuntimeDisabled",
+            "ExternalNotSupported"
           ],
           "type": "string",
           "x-ms-enum": {
