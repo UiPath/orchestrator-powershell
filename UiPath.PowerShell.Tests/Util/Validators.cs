@@ -165,5 +165,23 @@ namespace UiPath.PowerShell.Tests.Util
             Assert.IsNotNull(response);
             Assert.IsFalse(response.Any());
         }
+
+        internal static void ValidateFolderResponse(ICollection<Folder> folders, long? expectedId, string expectedDisplayName, string expectedDescription, UiPath.Web.Client201910.Models.FolderDtoProvisionType provisionType, UiPath.Web.Client201910.Models.FolderDtoPermissionModel permissionModel)
+        {
+            Assert.IsNotNull(folders);
+            Assert.AreEqual(1, folders.Count);
+
+            var folder = folders.First();
+
+            Assert.AreNotEqual(0, folder.Id);
+            if (expectedId.HasValue)
+            {
+                Assert.AreEqual(expectedId.Value, folder.Id);
+            }
+            Assert.AreEqual(expectedDisplayName, folder.DisplayName);
+            Assert.AreEqual(expectedDescription, folder.Description);
+            Assert.AreEqual(provisionType, folder.ProvisionType);
+            Assert.AreEqual(permissionModel, folder.PermissionModel);
+        }
     }
 }

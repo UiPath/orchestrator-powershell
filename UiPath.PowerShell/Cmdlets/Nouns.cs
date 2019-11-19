@@ -9,6 +9,11 @@
         internal const string AuthToken = UiPath + "AuthToken";
         internal const string Environment = UiPath + "Environment";
         internal const string EnvironmentRobot = UiPath + "EnvironmentRobot";
+        internal const string Folder = UiPath + "Folder";
+        internal const string FolderUsers = UiPath + "FolderUsers";
+        internal const string FolderUser = UiPath + "FolderUser";
+        internal const string FolderUserRoles = UiPath + "FolderUserRoles";
+        internal const string FolderCurrentUser = UiPath + "CurrentUserFolders";
         internal const string Job = UiPath + "Job";
         internal const string Library = UiPath + "Library";
         internal const string LibraryVersion = UiPath + "LibraryVersion";

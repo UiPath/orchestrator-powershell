@@ -29,7 +29,7 @@ namespace UiPath.Web.Client20181.Models
     {
     }
 
-    public partial class ODataResponseListJobDto :IODataValues<JobDto>
+    public partial class ODataResponseListJobDto : IODataValues<JobDto>
     {
     }
 
@@ -97,5 +97,18 @@ namespace UiPath.Web.Client20184.Models
 {
     public partial class ODataResponseListWebhookDto : IODataValues<WebhookDto>
     {
+    }
+}
+
+namespace UiPath.Web.Client201910.Models
+{
+    public partial class ODataResponseListFolderDto : IODataValues<FolderDto>
+    {
+
+    }
+
+    public partial class ODataResponseListUserRolesDto: IODataValues<UserRolesDto>
+    {
+
     }
 }

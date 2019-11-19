@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Cmdlets\AssetTests.cs" />
     <Compile Include="Cmdlets\EnvironmentTests.cs" />
+    <Compile Include="Cmdlets\FolderTests.cs" />
     <Compile Include="Cmdlets\LibraryTests.cs" />
     <Compile Include="Cmdlets\MaintenanceModeTests.cs" />
     <Compile Include="Cmdlets\MergeAddRemoveTests.cs" />

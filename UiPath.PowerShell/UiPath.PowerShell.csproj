@@ -54,19 +54,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\AddFolder.cs" />
     <Compile Include="Cmdlets\ClearRobotSettings.cs" />
+    <Compile Include="Cmdlets\EditFolder.cs" />
+    <Compile Include="Cmdlets\AddFolderUserRoles.cs" />
+    <Compile Include="Cmdlets\RemoveFolderUser.cs" />
+    <Compile Include="Cmdlets\GetCurrentUserFolders.cs" />
+    <Compile Include="Cmdlets\GetFolder.cs" />
+    <Compile Include="Cmdlets\GetFolderUsers.cs" />
     <Compile Include="Cmdlets\GetRobotSettings.cs" />
     <Compile Include="Cmdlets\EditRobotSettings.cs" />
     <Compile Include="Cmdlets\GetEnvironmentRobot.cs" />
     <Compile Include="Cmdlets\GetMaintenance.cs" />
+    <Compile Include="Cmdlets\RemoveFolder.cs" />
     <Compile Include="Cmdlets\StartMaintenance.cs" />
     <Compile Include="Cmdlets\StopMaintenance.cs" />
     <Compile Include="Cmdlets\UnlockUser.cs" />
     <Compile Include="Cmdlets\LockUser.cs" />
     <Compile Include="Models\CloudDeployments.cs" />
+    <Compile Include="Models\ExtendedFolder.cs" />
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\MaintenanceLog.cs" />
     <Compile Include="Models\MaintenanceSetting.cs" />
     <Compile Include="Models\RobotExecutionSettings.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="OAuth\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
