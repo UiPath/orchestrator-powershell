@@ -48,6 +48,9 @@
         public const string RobotCount = "RobotCount";
         public const string TimeZoneId = "TimeZoneId";
 
+        public const string ProvisionType = "ProvisionType";
+        public const string PermissionModel = "PermissionModel";
+
         public const string AddUiPathAsset = "Add-UiPathAsset";
         public const string GetUiPathAsset = "Get-UiPathAsset";
         public const string EditUiPathAsset = "Edit-UiPathAsset";
@@ -110,5 +113,11 @@
         public const string StopMaintenanceMode = "Stop-UiPathMaintenance";
         public const string GetMaintenanceMode = "Get-UiPathMaintenance";
 
+        public const string AddFolder = "Add-UiPathFolder";
+        public const string GetFolder = "Get-UiPathFolder";
+        public const string RemoveFolder = "Remove-UiPathFolder";
+        public const string EditFolder = "Edit-UiPathFolder";
+        public const string GetCurrentUserFolders = "Get-UiPathCurrentUserFolders";
+        public const string GetFolderUsers = "Get-UiPathFolderUsers";
     }
 }
