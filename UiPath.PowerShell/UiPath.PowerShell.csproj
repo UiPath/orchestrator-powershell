@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\MaintenanceBaseCmdlet.cs" />
     <Compile Include="Util\UiPathTypeConverter.cs" />
     <Compile Include="Util\UserCmdlet.cs" />
     <Compile Include="Util\BindingResolver.cs" />

@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
+using UiPath.PowerShell.Models;
+using UiPath.PowerShell.Resources;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client201910;
-using UiPath.PowerShell.Resources;
-using UiPath.PowerShell.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -19,7 +19,7 @@ namespace UiPath.PowerShell.Cmdlets
     /// </example>
     /// </summary>
     [Cmdlet(VerbsLifecycle.Start, Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class StartMaintenance : AuthenticatedCmdlet
+    public class StartMaintenance : MaintenanceBaseCmdlet
     {
         /// <summary>
         /// <para type="description">
@@ -42,7 +42,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         /// <summary>
         /// <para type="description"> 
-        /// Bypasses all API validations and forces the UiPath Orchestrator service to enter the specifed Maintenance phase.
+        /// Bypasses all API validations and forces the UiPath Orchestrator service to enter the specified Maintenance phase.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -56,11 +56,11 @@ namespace UiPath.PowerShell.Cmdlets
             }
 
             var shouldKillJobs = KillJobs.IsPresent;
-            var force = Force.IsPresent; ;
+            var force = Force.IsPresent;
 
-            HandleHttpOperationException(() => Api_19_10.Maintenance.Start(Phase, force, shouldKillJobs));
+            HandleHttpOperationException(() => Api_19_10.Maintenance.Start(Phase, force, shouldKillJobs, TenantId));
 
-            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get()));
+            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get(TenantId)));
         }
     }
 }

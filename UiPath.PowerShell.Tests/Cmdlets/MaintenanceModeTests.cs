@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Tests.Util;
 
@@ -18,66 +19,69 @@ namespace UiPath.PowerShell.Tests.Cmdlets
         private const string onlinePhase = "None";
 
         [TestMethod]
-        public void MaintenanceMode_FullCycle_Works()
+        [DataRow(null, DisplayName = "Host")]
+        [DataRow(1, DisplayName = "Tenant")]
+        public void MaintenanceMode_FullCycle_Works(int? tenantId)
         {
+            System.Management.Automation.PowerShell CmdletFactory(Runspace r, string command, bool skipConfirm = true)
+            {
+                var cmdlet = PowershellFactory.CreateCmdlet(r);
+                cmdlet.AddCommand(command);
+                if (skipConfirm)
+                {
+                    cmdlet.AddParameter("Confirm", false);
+                }
+                if (tenantId.HasValue)
+                {
+                    cmdlet.AddParameter("TenantId", tenantId.Value);
+                }
+                return cmdlet;
+            }
+
             // Host admin op
             using (var hostRunspace = PowershellFactory.CreateHostAuthenticatedSession(TestContext))
             {
-                ICollection<PSObject> results;
                 try
                 {
-                    using (var cmdlet = PowershellFactory.CreateCmdlet(hostRunspace))
+                    using (var cmdlet = CmdletFactory(hostRunspace, UiPathStrings.StartMaintenanceMode))
                     {
-                        cmdlet.AddCommand(UiPathStrings.StartMaintenanceMode)
-                            .AddParameter("Phase", drainingPhase)
-                            .AddParameter("Confirm", false);
-                        results = Invoke(cmdlet);
+                        cmdlet.AddParameter("Phase", drainingPhase);
+
+                        // check results in Draining
+                        CheckLogs(Invoke(cmdlet), drainingPhase, 2);
                     }
 
-                    // check results in Draining
-                    CheckLogs(results, drainingPhase, 2);
-
-                    using (var cmdlet = PowershellFactory.CreateCmdlet(hostRunspace))
+                    using (var cmdlet = CmdletFactory(hostRunspace, UiPathStrings.StartMaintenanceMode))
                     {
-                        cmdlet.AddCommand(UiPathStrings.StartMaintenanceMode)
-                            .AddParameter("Phase", suspendedPhase)
-                            .AddParameter("Force", true)
-                            .AddParameter("Confirm", false);
-                        results = Invoke(cmdlet);
+                        cmdlet.AddParameter("Phase", suspendedPhase)
+                            .AddParameter("Force", true);
+
+                        // check results in Suspended
+                        CheckLogs(Invoke(cmdlet), suspendedPhase, 3);
+
                     }
 
-                    // check results in Suspended
-                    CheckLogs(results, suspendedPhase, 3);
-
-                    using (var cmdlet = PowershellFactory.CreateCmdlet(hostRunspace))
+                    using (var cmdlet = CmdletFactory(hostRunspace, UiPathStrings.StopMaintenanceMode))
                     {
-                        cmdlet.AddCommand(UiPathStrings.StopMaintenanceMode)
-                            .AddParameter("Confirm", false);
-                        results = Invoke(cmdlet);
+                        // check logs back online
+                        CheckLogs(Invoke(cmdlet), onlinePhase, 4);
                     }
-
-                    // check logs back online
-                    CheckLogs(results, onlinePhase, 4);
 
                     // check final results, check Get-Maintenance here as well
-                    using (var cmdlet = PowershellFactory.CreateCmdlet(hostRunspace))
+                    using (var cmdlet = CmdletFactory(hostRunspace, UiPathStrings.GetMaintenanceMode, false))
                     {
-                        cmdlet.AddCommand(UiPathStrings.GetMaintenanceMode);
-                        results = Invoke(cmdlet);
+                        // check logs are persisted after stopping
+                        CheckLogs(Invoke(cmdlet), onlinePhase, 4);
                     }
-
-                    // check logs are persisted after stopping
-                    CheckLogs(results, onlinePhase, 4);
+                    
                 }
                 finally
                 {
                     // exit maintenance mode
                     try
                     {
-                        using (var cmdlet = PowershellFactory.CreateCmdlet(hostRunspace))
+                        using (var cmdlet = CmdletFactory(hostRunspace, UiPathStrings.StopMaintenanceMode))
                         {
-                            cmdlet.AddCommand(UiPathStrings.StopMaintenanceMode)
-                                .AddParameter("Confirm", false); ;
                             Invoke(cmdlet);
                         }
                     }

@@ -15,7 +15,7 @@ namespace UiPath.PowerShell.Cmdlets
     /// </example>
     /// </summary>
     [Cmdlet(VerbsLifecycle.Stop, Nouns.Maintenance, ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class StopMaintenance : AuthenticatedCmdlet
+    public class StopMaintenance : MaintenanceBaseCmdlet
     {
          protected override void ProcessRecord()
         {
@@ -24,9 +24,9 @@ namespace UiPath.PowerShell.Cmdlets
                 return;
             }
 
-            HandleHttpOperationException(() => Api_19_10.Maintenance.End());
+            HandleHttpOperationException(() => Api_19_10.Maintenance.End(TenantId));
 
-            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get()));
+            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get(TenantId)));
         }
     }
 }

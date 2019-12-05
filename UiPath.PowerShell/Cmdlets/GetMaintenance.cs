@@ -16,12 +16,11 @@ namespace UiPath.PowerShell.Cmdlets
     /// <para type="description">SystemSchedulesFired   : 0</para>
     /// </summary>
     [Cmdlet(VerbsCommon.Get, Nouns.Maintenance)]
-    public class GetMaintenance : AuthenticatedCmdlet
-    {
+    public class GetMaintenance : MaintenanceBaseCmdlet
+    { 
         protected override void ProcessRecord()
         {
-            var result = HandleHttpOperationException(() => Api_19_10.Maintenance.Get());
-            WriteObject(MaintenanceSetting.FromDto(result));
+            WriteObject(MaintenanceSetting.FromDto(Api_19_10.Maintenance.Get(TenantId)));
         }
     }
 }
