@@ -2,6 +2,7 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20183;
+using UiPath.Web.Client201910;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -15,7 +16,14 @@ namespace UiPath.PowerShell.Cmdlets
         {
             using (var fileStream = File.OpenRead(LibraryPackage))
             {
-                HandleHttpOperationException(() => Api_18_3.Libraries.UploadPackage(fileStream));
+                if (Supports(OrchestratorProtocolVersion.V19_10))
+                {
+                    HandleHttpOperationException(() => Api_19_10.Libraries.UploadPackage(fileStream));
+                }
+                else
+                {
+                    HandleHttpOperationException(() => Api_18_3.Libraries.UploadPackage(fileStream));
+                }
             }
         }
     }
