@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'lib\net452\UiPath.PowerShell.dll'
+RootModule = 'lib\net461\UiPath.PowerShell.dll'
 
 # Version number of this module.
 ModuleVersion = '$(UiPathFileVersion)'
@@ -42,7 +42,7 @@ Description = 'An easy to use PowerShell API client for UiPath Orchestrator'
 # PowerShellHostVersion = ''
 
 # Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
-DotNetFrameworkVersion = '4.5'
+DotNetFrameworkVersion = '4.6'
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
 CLRVersion = '4.0'

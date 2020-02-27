@@ -289,8 +289,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-#Autorest generated files
-generated*/
-
 # Test runsettings values
 *.runsettings
