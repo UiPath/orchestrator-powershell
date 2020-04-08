@@ -8,7 +8,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Start-UiPathMaintenance [-Phase] <string> [-AuthToken <AuthToken>] [-Force <SwitchParameter>] [-KillJobs <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
+    Start-UiPathMaintenance [-Phase] <string> [-AuthToken <AuthToken>] [-Force <SwitchParameter>] [-KillJobs 
+    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -17,8 +18,9 @@ DESCRIPTION
 
 PARAMETERS
     -Phase <string>
-        Indicates the Maintenance Mode phase. Draining = Most user and robots API calls will continue to work. A set of API calls whichi would generate additional Robos workloads will generate a '405 - Method not allowed' response. Suspended = All 
-        user and robots API calls will generate a '503 - Service Unavailable' response.
+        Indicates the Maintenance Mode phase. Draining = Most user and robots API calls will continue to work. A set 
+        of API calls which would generate additional Robos workloads will return a '405 - Method not allowed' 
+        response. Suspended = All user and robots API calls will return a '503 - Service Unavailable' response.
         
         Required?                    true
         Position?                    0
@@ -27,7 +29,8 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -KillJobs <SwitchParameter>
-        Forces the remaining active robot Jobs to be terminated instead of gracefully stopped. This parameter is only valid when entering the Suspended phase of a Maintenance Session
+        Forces the remaining active robot Jobs to be terminated instead of gracefully stopped. This parameter is only 
+        valid when entering the Suspended phase of a Maintenance Session
         
         Required?                    false
         Position?                    named
@@ -36,7 +39,8 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Force <SwitchParameter>
-        Bypasses all API validations and forces the UiPath Orchestrator service to enter the specifed Maintenance phase.
+        Bypasses all API validations and forces the UiPath Orchestrator service to enter the specifed Maintenance 
+        phase.
         
         Required?                    false
         Position?                    named
@@ -75,7 +79,6 @@ OUTPUTS
     Start-UiPathMaintenance -Phase Draining
     
     Starts a Maintenance Mode session and puts the service in Draining mode.
-
     ----------  EXAMPLE 2  ----------
     
     Start-UiPathMaintenance -Phase Suspended -KillJobs

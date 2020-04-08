@@ -3,67 +3,68 @@
 NAME
     Get-UiPathFolder
     
+SYNOPSIS
+    
+    
 SYNTAX
-    Get-UiPathFolder [-DisplayName <string>] [-FullyQualifiedName <string>] [-Paging] [-AuthToken <AuthToken>] 
-    [-RequestTimeout <int>]  [<CommonParameters>]
+    Get-UiPathFolder [-AuthToken <AuthToken>] [-DisplayName <string>] [-FullyQualifiedName <string>] [-Paging 
+    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathFolder -Id <long> [-Paging] [-AuthToken <AuthToken>] [-RequestTimeout <int>]  [<CommonParameters>]
+    Get-UiPathFolder -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    [<CommonParameters>]
     
     
+DESCRIPTION
+    
+
 PARAMETERS
-    -AuthToken <AuthToken>
-        
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        
     -DisplayName <string>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           Filter
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -FullyQualifiedName <string>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           Filter
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -Id <long>
         
         Required?                    true
-        Position?                    Named
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           Id
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
-    -Paging
+    -Paging <SwitchParameter>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -AuthToken <AuthToken>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
         
     -RequestTimeout <int>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -71,20 +72,12 @@ PARAMETERS
         OutBuffer, PipelineVariable, and OutVariable. For more information, see 
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
-    
 INPUTS
-    None
-    
     
 OUTPUTS
-    System.Object
     
-ALIASES
-    None
     
-
-REMARKS
-    None
+RELATED LINKS
 
 
 

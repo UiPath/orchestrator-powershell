@@ -3,59 +3,60 @@
 NAME
     Remove-UiPathFolderUser
     
+SYNOPSIS
+    
+    
 SYNTAX
-    Remove-UiPathFolderUser -Id <long> [-UserId <long>] [-AuthToken <AuthToken>] [-RequestTimeout <int>]  
+    Remove-UiPathFolderUser -Id <long> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-UserId <long>] 
     [<CommonParameters>]
     
-    Remove-UiPathFolderUser [-Folder] <Folder> [-UserId <long>] [-AuthToken <AuthToken>] [-RequestTimeout <int>]  
+    Remove-UiPathFolderUser [-Folder] <Folder> [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-UserId <long>] 
     [<CommonParameters>]
     
     
+DESCRIPTION
+    
+
 PARAMETERS
-    -AuthToken <AuthToken>
+    -Id <long>
         
-        Required?                    false
-        Position?                    Named
+        Required?                    true
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -Folder <Folder>
         
         Required?                    true
         Position?                    0
+        Default value                
         Accept pipeline input?       true (ByValue)
-        Parameter set name           Folder
-        Aliases                      None
-        Dynamic?                     false
-        
-    -Id <long>
-        
-        Required?                    true
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           Id
-        Aliases                      None
-        Dynamic?                     false
-        
-    -RequestTimeout <int>
-        
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -UserId <long>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                0
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -AuthToken <AuthToken>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -RequestTimeout <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                100
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
         
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -63,20 +64,14 @@ PARAMETERS
         OutBuffer, PipelineVariable, and OutVariable. For more information, see 
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
-    
 INPUTS
     UiPath.PowerShell.Models.Folder
     
     
 OUTPUTS
-    System.Object
     
-ALIASES
-    None
     
-
-REMARKS
-    None
+RELATED LINKS
 
 
 

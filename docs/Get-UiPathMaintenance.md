@@ -4,7 +4,7 @@ NAME
     Get-UiPathMaintenance
     
 SYNOPSIS
-    Maintenance session summary log.
+    Returns a Maintenance session summary
     
     
 SYNTAX
@@ -16,13 +16,14 @@ DESCRIPTION
     
     State: None | Draining | Suspended
     
-    MaintenanceLogs : {{ State = None, TimeStamp = }, { State = Draining, TimeStamp = }, { State = Suspended, TimeStamp = }}
+    MaintenanceLogs : {{ State = None, TimeStamp = }, { State = Draining, TimeStamp = }, { State = Suspended, 
+    TimeStamp = }}
     
-    JobsStopped : 0
+    JobStopsAttempted : 0
     
-    JobsKilled : 0
+    JobKillsAttempted : 0
     
-    SchedulesFired : 0
+    TriggersSkipped : 0
     
     SystemSchedulesFired : 0
     
