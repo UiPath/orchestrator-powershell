@@ -24,7 +24,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
+            if (Supports(OrchestratorProtocolVersion.V18_3))
             {
                 ProcessImpl(
                     (filter, top, skip) => Api_18_3.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
