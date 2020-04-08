@@ -3,97 +3,96 @@
 NAME
     Edit-UiPathFolder
     
+SYNOPSIS
+    
+    
 SYNTAX
-    Edit-UiPathFolder [-Folder] <Folder> [-DisplayName] <string> [-Description <string>] [-ProvisionType {Manual | 
-    Automatic}] [-PermissionModel {InheritFromTenant | FineGrained}] [-ParentId <long>] [-AuthToken <AuthToken>] 
-    [-RequestTimeout <int>]  [<CommonParameters>]
+    Edit-UiPathFolder [-Folder] <Folder> [-DisplayName] <string> [-AuthToken <AuthToken>] [-Description <string>] 
+    [-ParentId <long>] [-PermissionModel {InheritFromTenant | FineGrained}] [-ProvisionType {Manual | Automatic}] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
-    Edit-UiPathFolder [-Id] <long> [-DisplayName] <string> [-Description <string>] [-ProvisionType {Manual | 
-    Automatic}] [-PermissionModel {InheritFromTenant | FineGrained}] [-ParentId <long>] [-AuthToken <AuthToken>] 
-    [-RequestTimeout <int>]  [<CommonParameters>]
+    Edit-UiPathFolder [-Id] <long> [-DisplayName] <string> [-AuthToken <AuthToken>] [-Description <string>] [-ParentId 
+    <long>] [-PermissionModel {InheritFromTenant | FineGrained}] [-ProvisionType {Manual | Automatic}] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
+DESCRIPTION
+    
+
 PARAMETERS
-    -AuthToken <AuthToken>
-        
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        
-    -Description <string>
-        
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        
-    -DisplayName <string>
-        
-        Required?                    true
-        Position?                    1
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        
     -Folder <Folder>
         
         Required?                    true
         Position?                    0
+        Default value                
         Accept pipeline input?       true (ByValue)
-        Parameter set name           Folder
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -Id <long>
         
         Required?                    true
         Position?                    0
+        Default value                0
         Accept pipeline input?       false
-        Parameter set name           Id
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
+        
+    -DisplayName <string>
+        
+        Required?                    true
+        Position?                    1
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Description <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ProvisionType <FolderDtoProvisionType>
+        Possible values: Manual, Automatic
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -PermissionModel <FolderDtoPermissionModel>
+        Possible values: InheritFromTenant, FineGrained
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
         
     -ParentId <long>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
-    -PermissionModel <FolderDtoPermissionModel>
+    -AuthToken <AuthToken>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
-        
-    -ProvisionType <FolderDtoProvisionType>
-        
-        Required?                    false
-        Position?                    Named
-        Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     -RequestTimeout <int>
         
         Required?                    false
-        Position?                    Named
+        Position?                    named
+        Default value                100
         Accept pipeline input?       false
-        Parameter set name           (All)
-        Aliases                      None
-        Dynamic?                     false
+        Accept wildcard characters?  false
         
     <CommonParameters>
         This cmdlet supports the common parameters: Verbose, Debug,
@@ -101,20 +100,14 @@ PARAMETERS
         OutBuffer, PipelineVariable, and OutVariable. For more information, see 
         about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216). 
     
-    
 INPUTS
     UiPath.PowerShell.Models.Folder
     
     
 OUTPUTS
-    System.Object
     
-ALIASES
-    None
     
-
-REMARKS
-    None
+RELATED LINKS
 
 
 

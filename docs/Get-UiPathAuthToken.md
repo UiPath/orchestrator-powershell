@@ -17,6 +17,9 @@ SYNTAX
     [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
     [<CommonParameters>]
     
+    Get-UiPathAuthToken -ClientId <string> -UserKey <string> [-AccountName <string>] [-CloudDeployment <string>] 
+    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    
     Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
     Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] 
@@ -37,6 +40,22 @@ PARAMETERS
     -CloudDeployment <string>
         
         Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -UserKey <string>
+        
+        Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ClientId <string>
+        
+        Required?                    true
         Position?                    named
         Default value                
         Accept pipeline input?       false

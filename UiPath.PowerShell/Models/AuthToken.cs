@@ -34,7 +34,6 @@ namespace UiPath.PowerShell.Models
 
         public CloudDeployments CloudDeployment { get; set; }
 
-
         [Hidden]
         public string AuthorizationUrl
         {

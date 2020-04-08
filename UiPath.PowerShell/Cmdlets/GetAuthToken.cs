@@ -43,13 +43,21 @@ namespace UiPath.PowerShell.Cmdlets
         private const string UnauthenticatedSet = "Unauthenticated";
         private const string CloudInteractiveSet = "CloudInteractiveSet";
         private const string CloudCodeSet = "CloudCodeSet";
+        private const string CloudAPISet = "CloudAPISet";
 
         private const string CurrentSessionSet = "CurrentSession";
 
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         [ValidateEnum(typeof(CloudDeployments))]
         public string CloudDeployment { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = CloudAPISet)]
+        public string UserKey { get; set; }
+
+        [Parameter(Mandatory = true, ParameterSetName = CloudAPISet)]
+        public string ClientId { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         public SwitchParameter Private { get; set; }
@@ -97,10 +105,12 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         public string TenantName { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         public string AccountName { get; set; }
 
         /// <summary>
@@ -119,6 +129,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         public SwitchParameter Session { get; set; }
 
         /// <summary>
@@ -150,7 +161,7 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     authToken = GetUnauthenticatedToken();
                 }
-                else if (ParameterSetName == CloudInteractiveSet || ParameterSetName == CloudCodeSet)
+                else if (ParameterSetName == CloudInteractiveSet || ParameterSetName == CloudCodeSet || ParameterSetName == CloudAPISet)
                 {
                     AuthToken token = null;
                     if (Session.IsPresent)
@@ -169,6 +180,12 @@ namespace UiPath.PowerShell.Cmdlets
                     token.AccountUrl = AccountUrl;
                     token.ApplicationId = ApplicationId;
 
+                    if (ParameterSetName == CloudAPISet)
+                    {
+                        token.AuthorizationRefreshToken = UserKey;
+                        token.ApplicationId = ClientId;
+                    }
+
                     token.CloudDeployment = string.IsNullOrWhiteSpace(CloudDeployment) ?
                         CloudDeployments.Production
                         : (CloudDeployments)Enum.Parse(typeof(CloudDeployments), CloudDeployment);
@@ -177,6 +194,7 @@ namespace UiPath.PowerShell.Cmdlets
                     {
                         token = GetInteractiveToken(token);
                     }
+
                     authToken = token;
                 }
 

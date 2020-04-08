@@ -312,7 +312,7 @@ namespace UiPath.PowerShell.Util
         internal static T MakeApi<T>(AuthToken authToken, Func<ServiceClientCredentials, Uri, T> ctor, TimeSpan timeout) where T:ServiceClient<T>, IUiPathWebApi
         {
             ServiceClientCredentials creds = null;
-            if (!string.IsNullOrWhiteSpace(authToken.AuthorizationCode))
+            if (!string.IsNullOrWhiteSpace(authToken.AuthorizationCode) || !string.IsNullOrWhiteSpace(authToken.AuthorizationRefreshToken))
             {
                 RefreshAuthToken(authToken);
                 creds = new TokenCredentials(authToken.Token);
