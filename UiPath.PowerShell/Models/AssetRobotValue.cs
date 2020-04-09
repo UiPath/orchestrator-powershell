@@ -28,6 +28,7 @@ namespace UiPath.PowerShell.Models
             return new AssetRobotValueDto
             {
                 RobotId = RobotId,
+                RobotName = "Ignore robot name require dby 19.10 bug",
                 StringValue = TextValue,
                 IntValue = IntValue,
                 BoolValue = BoolValue,
