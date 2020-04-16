@@ -122,6 +122,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         public string OrganizationUnit { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]

@@ -18,7 +18,8 @@ SYNTAX
     [<CommonParameters>]
     
     Get-UiPathAuthToken -ClientId <string> -UserKey <string> [-AccountName <string>] [-CloudDeployment <string>] 
-    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
+    [<CommonParameters>]
     
     Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
