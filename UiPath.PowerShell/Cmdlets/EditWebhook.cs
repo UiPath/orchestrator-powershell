@@ -56,7 +56,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = WebhookSet)]
         [Parameter(ParameterSetName = IdSet)]
         [Parameter(ParameterSetName = SpecificEventsSet)]
-        public string[] Events { get; set; }
+        public new string[] Events { get; set; }
 
         protected override void ProcessRecord()
         {

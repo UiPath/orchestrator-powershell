@@ -9,8 +9,6 @@ namespace UiPath.PowerShell.Models
     [TypeConverter(typeof(UiPathTypeConverter))]
     public class ProcessSchedule
     {
-        private string startProcessCronDetails;
-
         public string EnvironmentName { get; internal set; }
         public bool? Enabled { get; internal set; }
         public string Name { get; internal set; }
@@ -39,7 +37,6 @@ namespace UiPath.PowerShell.Models
                 ReleaseKey = dto.ReleaseKey,
                 ReleaseName = dto.ReleaseName,
                 StartProcessCron = dto.StartProcessCron,
-                startProcessCronDetails = dto.StartProcessCronDetails,
                 StartProcessCronSummary = dto.StartProcessCronSummary,
                 StopProcessCron = dto.StopProcessExpression,
                 TimeZoneIana = dto.TimeZoneIana,
