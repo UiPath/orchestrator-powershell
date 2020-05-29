@@ -101,7 +101,6 @@ namespace UiPath.PowerShell.Cmdlets
         public SwitchParameter Unauthenticated { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
-        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]

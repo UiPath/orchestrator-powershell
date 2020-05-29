@@ -27,7 +27,7 @@ SYNTAX
     [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
     Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-OrganizationUnit <string>] 
-    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    [-RequestTimeout <int>] [-Session <SwitchParameter>] [<CommonParameters>]
     
     Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-OrganizationUnit <string>] 
     [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
