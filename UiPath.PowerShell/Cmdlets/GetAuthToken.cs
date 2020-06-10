@@ -1,17 +1,15 @@
 ﻿using Microsoft.Rest;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.OAuth;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181;
 using UiPath.Web.Client20181.Models;
+
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -130,6 +128,14 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
+        public string FolderPath { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
+        [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
         public SwitchParameter Session { get; set; }
 
         /// <summary>
@@ -200,9 +206,22 @@ namespace UiPath.PowerShell.Cmdlets
 
                 GetServerVersion(authToken);
 
-                if (!String.IsNullOrWhiteSpace(OrganizationUnit))
+                if (!string.IsNullOrWhiteSpace(OrganizationUnit))
                 {
+                    if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
+                    {
+                        WriteWarning("The use of OrganizationUnit is deprecated and will be removed. Use FolderName instead.");
+                    }
                     SetOrganizationUnit(authToken, OrganizationUnit);
+                }
+
+                if (!string.IsNullOrWhiteSpace(FolderPath))
+                {
+                    if (authToken.ApiVersion < OrchestratorProtocolVersion.V19_10)
+                    {
+                        WriteError("Use of FolderName requires Orchestrator version 19.10 or newer.");
+                    }
+                    SetCurrentFolder(authToken, FolderPath, Timeout);
                 }
 
                 authToken.TenantName = authToken.TenantName ?? TenantName ?? "Default";
@@ -228,8 +247,10 @@ namespace UiPath.PowerShell.Cmdlets
                 var unit = HandleHttpOperationException(() => api.OrganizationUnits.GetOrganizationUnits(filter: $"DisplayName eq '{organizationUnit}'").Value.First(ou => ou.DisplayName == organizationUnit));
                 authToken.OrganizationUnit = unit.DisplayName;
                 authToken.OrganizationUnitId = unit.Id.Value;
+                authToken.CurrentFolder = default;
             }
         }
+
 
         private void GetServerVersion(AuthToken authToken)
         {

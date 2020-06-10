@@ -83,6 +83,7 @@
 - [Remove-UiPathWebhook](Remove-UiPathWebhook.md)
 - [Revoke-UiPathRolePermission](Revoke-UiPathRolePermission.md)
 - [Set-UiPathAuthToken](Set-UiPathAuthToken.md)
+- [Set-UiPathCurrentFolder](Set-UiPathCurrentFolder.md)
 - [Start-UiPathJob](Start-UiPathJob.md)
 - [Start-UiPathMaintenance](Start-UiPathMaintenance.md)
 - [Stop-UiPathJob](Stop-UiPathJob.md)
