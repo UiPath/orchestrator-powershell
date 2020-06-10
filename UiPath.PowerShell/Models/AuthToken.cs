@@ -26,6 +26,8 @@ namespace UiPath.PowerShell.Models
 
         public string OrganizationUnit { get; internal set; }
 
+        public Folder CurrentFolder { get; internal set; }
+
         public string TenantName { get; internal set; }
 
         public string AccountName { get; internal set; }

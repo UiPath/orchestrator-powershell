@@ -1,7 +1,10 @@
 ﻿using Microsoft.Rest;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Management.Automation;
+using System.Threading.Tasks;
+using UiPath.PowerShell.Models;
 
 namespace UiPath.PowerShell.Util
 {
@@ -75,6 +78,25 @@ namespace UiPath.PowerShell.Util
             VerboseTracer.StopTracing();
         }
 
+        /// <summary>
+        /// Handle the swagger generated idiocy
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        protected T HandleHttpResponseException<T>(Func<Task<HttpOperationResponse<T>>> action) => HandleHttpOperationException(() =>
+            {
+                var task = action();
+                var response = task.Result;
+                if (!response.Response.IsSuccessStatusCode)
+                {
+                    var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", response.Response.StatusCode));
+                    ex.Request = new HttpRequestMessageWrapper(response.Request, response.Request?.Content?.AsString() ?? string.Empty);
+                    ex.Response = new HttpResponseMessageWrapper(response.Response, response.Response?.Content?.AsString() ?? string.Empty);
+                    throw ex;
+                }
+                return response.Body;
+            });
         protected T HandleHttpOperationException<T>(Func<T> action)
         {
             try
@@ -154,6 +176,33 @@ namespace UiPath.PowerShell.Util
             if (Enum.TryParse<TEnum>(stringValue, out var enumValue))
             {
                 action(enumValue);
+            }
+        }
+
+        internal void SetCurrentFolder(AuthToken authToken, string folderPath, TimeSpan timeout)
+        {
+            var oldFolderId = authToken.OrganizationUnitId;
+            authToken.OrganizationUnitId = default;
+            try
+            {
+                using (var api = AuthenticatedCmdlet.MakeApi_19_10(authToken, timeout))
+                {
+                    var folders = HandleHttpResponseException(() => api.Folders.GetFoldersWithHttpMessagesAsync(filter: $"FullyQualifiedName eq '{Uri.EscapeDataString(folderPath)}'")).Value;
+                    if (folders.Count != 1)
+                    {
+                        throw new Exception($"The folder path '{folderPath}' does not select exactly one Folder");
+                    }
+
+                    var folder = folders.Single();
+                    authToken.CurrentFolder = Folder.FromDto(folder);
+                    authToken.OrganizationUnit = default;
+                    authToken.OrganizationUnitId = folder.Id;
+                }
+            }
+            catch
+            {
+                authToken.OrganizationUnitId = oldFolderId;
+                throw;
             }
         }
     }

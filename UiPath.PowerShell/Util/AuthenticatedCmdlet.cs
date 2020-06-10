@@ -309,6 +309,11 @@ namespace UiPath.PowerShell.Util
             authToken.AccountName = accountLogicalName;
         }
 
+        internal static UiPathWebApi_19_10 MakeApi_19_10(AuthToken authToken, TimeSpan timeout) => MakeApi<UiPathWebApi_19_10>(
+            authToken,
+            (creds, uri) => new UiPathWebApi_19_10(creds) { BaseUri = uri },
+            timeout);
+
         internal static T MakeApi<T>(AuthToken authToken, Func<ServiceClientCredentials, Uri, T> ctor, TimeSpan timeout) where T:ServiceClient<T>, IUiPathWebApi
         {
             ServiceClientCredentials creds = null;

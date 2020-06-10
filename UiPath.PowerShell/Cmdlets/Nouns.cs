@@ -14,6 +14,7 @@
         internal const string FolderUser = UiPath + "FolderUser";
         internal const string FolderUserRoles = UiPath + "FolderUserRoles";
         internal const string FolderCurrentUser = UiPath + "CurrentUserFolders";
+        internal const string FolderCurrent = UiPath + "CurrentFolder";
         internal const string Job = UiPath + "Job";
         internal const string Library = UiPath + "Library";
         internal const string LibraryVersion = UiPath + "LibraryVersion";

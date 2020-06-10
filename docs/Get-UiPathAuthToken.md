@@ -9,28 +9,29 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathAuthToken [-AccountName <string>] [-AccountUrl <string>] [-ApplicationId <string>] [-AuthorizationUrl 
-    <string>] [-CloudDeployment <string>] [-OrganizationUnit <string>] [-Private <SwitchParameter>] [-RequestTimeout 
-    <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    <string>] [-CloudDeployment <string>] [-FolderPath <string>] [-OrganizationUnit <string>] [-Private 
+    <SwitchParameter>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
     Get-UiPathAuthToken -AuthorizationCode <string> -AuthorizationVerifier <string> [-AccountName <string>] 
     [-AccountUrl <string>] [-ApplicationId <string>] [-AuthorizationUrl <string>] [-CloudDeployment <string>] 
-    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
-    [<CommonParameters>]
+    [-FolderPath <string>] [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] 
+    [-TenantName <string>] [<CommonParameters>]
     
     Get-UiPathAuthToken -ClientId <string> -UserKey <string> [-AccountName <string>] [-CloudDeployment <string>] 
-    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
-    [<CommonParameters>]
+    [-FolderPath <string>] [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] 
+    [-TenantName <string>] [<CommonParameters>]
     
     Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-OrganizationUnit <string>] 
-    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-FolderPath <string>] 
+    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] 
+    [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-OrganizationUnit <string>] 
-    [-RequestTimeout <int>] [-Session <SwitchParameter>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -WindowsCredentials <SwitchParameter> [-FolderPath <string>] 
+    [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [<CommonParameters>]
     
-    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-OrganizationUnit <string>] 
-    [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
+    Get-UiPathAuthToken [-URL] <string> -Unauthenticated <SwitchParameter> [-FolderPath <string>] [-OrganizationUnit 
+    <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] [-TenantName <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -175,6 +176,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -OrganizationUnit <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -FolderPath <string>
         
         Required?                    false
         Position?                    named
