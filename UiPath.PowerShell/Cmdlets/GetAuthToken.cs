@@ -214,14 +214,19 @@ namespace UiPath.PowerShell.Cmdlets
                     }
                     SetOrganizationUnit(authToken, OrganizationUnit);
                 }
-
-                if (!string.IsNullOrWhiteSpace(FolderPath))
+                else if (!string.IsNullOrWhiteSpace(FolderPath))
                 {
                     if (authToken.ApiVersion < OrchestratorProtocolVersion.V19_10)
                     {
                         WriteError("Use of FolderName requires Orchestrator version 19.10 or newer.");
                     }
                     SetCurrentFolder(authToken, FolderPath, Timeout);
+                }
+                else
+                {
+                    authToken.CurrentFolder = default;
+                    authToken.OrganizationUnit = default;
+                    authToken.OrganizationUnitId = default;
                 }
 
                 authToken.TenantName = authToken.TenantName ?? TenantName ?? "Default";
