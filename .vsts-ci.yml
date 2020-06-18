@@ -36,7 +36,7 @@ steps:
   inputs:
     scriptType: "inlineScript"
     inlineScript: |
-      $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\net461\UiPath.PowerShell.dll").ProductVersion
+      $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\net472\UiPath.PowerShell.dll").ProductVersion
       Write-Host "##vso[build.updatebuildnumber]$buildNumber"
 
 - task: NuGetCommand@2

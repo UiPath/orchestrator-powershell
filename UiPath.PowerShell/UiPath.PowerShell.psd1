@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'lib\net461\UiPath.PowerShell.dll'
+RootModule = 'lib\net472\UiPath.PowerShell.dll'
 
 # Version number of this module.
 ModuleVersion = '$(UiPathFileVersion)'
@@ -57,7 +57,7 @@ CLRVersion = '4.0'
 #RequiredAssemblies = @()
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-# ScriptsToProcess = @()
+ScriptsToProcess = @('.\tools\UiPath.BindingResolve.ps1')
 
 # Type files (.ps1xml) to be loaded when importing this module
 # TypesToProcess = @()

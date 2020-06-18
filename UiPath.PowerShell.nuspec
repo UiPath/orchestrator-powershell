@@ -12,10 +12,11 @@
     <developmentDependency>false</developmentDependency>
     <description>An easy to use PowerShell API client for UiPath Orchestrator</description>
     <copyright>UiPath</copyright>
-    <tags>UiPath Orchestrator PowerShell API client </tags>
+    <tags>PSModule</tags>
   </metadata>
   <files>
-    <file src="Output\Release\net461\*.*" target="lib\net461" exclude="**\*Test*;**\*.psd1" />
-    <file src="Output\Release\net461\UiPath.PowerShell.psd1" target="" exclude="" />
+    <file src="Output\Release\net472\*.*" target="lib\net472" exclude="**\*Test*;**\*.psd1;**\*.ps1" />
+    <file src="Output\Release\net472\UiPath.PowerShell.psd1" target="" exclude="" />
+    <file src="Output\Release\net472\UiPath.BindingResolve.ps1" target="tools" exclude="" />
   </files>
 </package>

@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net461</TargetFramework>
+        <TargetFramework>net472</TargetFramework>
         <OutputPath>$(SolutionDir)\Output\$(Configuration)</OutputPath>
         <Deterministic>False</Deterministic>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Properties\GlobalAssemblyInfo.cs">
