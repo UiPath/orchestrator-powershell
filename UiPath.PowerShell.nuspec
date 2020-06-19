@@ -17,6 +17,6 @@
   <files>
     <file src="Output\Release\net472\*.*" target="lib\net472" exclude="**\*Test*;**\*.psd1;**\*.ps1" />
     <file src="Output\Release\net472\UiPath.PowerShell.psd1" target="" exclude="" />
-    <file src="Output\Release\net472\UiPath.BindingResolve.ps1" target="tools" exclude="" />
+    <file src="Output\Release\net472\UiPath.BindingResolve.ps1" target="" exclude="" />
   </files>
 </package>
