@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <OutputPath>$(SolutionDir)\Output\$(Configuration)</OutputPath>
       <Deterministic>False</Deterministic>
       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DocumentationFile>$(OutDir)\UiPath.PowerShell\UiPath.PowerShell.xml</DocumentationFile>
       <NoWarn>1701;1702;CS1591;CS0618</NoWarn>
+      <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
       <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-06">
@@ -32,6 +33,9 @@
   <ItemGroup>
     <None Include="UiPath.PowerShell.psd1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="UiPath.BindingResolve.ps1">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
