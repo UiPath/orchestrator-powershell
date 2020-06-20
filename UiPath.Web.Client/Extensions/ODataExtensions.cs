@@ -111,4 +111,9 @@ namespace UiPath.Web.Client201910.Models
     {
 
     }
+
+    public partial class ODataResponseListCredentialStoreDto: IODataValues<CredentialStoreDto>
+    {
+
+    }
 }

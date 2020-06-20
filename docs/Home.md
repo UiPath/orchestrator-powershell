@@ -32,6 +32,7 @@
 - [Edit-UiPathWebhook](Edit-UiPathWebhook.md)
 - [Get-UiPathAsset](Get-UiPathAsset.md)
 - [Get-UiPathAuthToken](Get-UiPathAuthToken.md)
+- [Get-UiPathCredentialStore](Get-UiPathCredentialStore.md)
 - [Get-UiPathCurrentUserFolders](Get-UiPathCurrentUserFolders.md)
 - [Get-UiPathEnvironment](Get-UiPathEnvironment.md)
 - [Get-UiPathEnvironmentRobot](Get-UiPathEnvironmentRobot.md)
