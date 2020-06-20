@@ -7,6 +7,7 @@
         internal const string Asset = UiPath + "Asset";
         internal const string AssetRobotValue = UiPath + "AssetRobotValue";
         internal const string AuthToken = UiPath + "AuthToken";
+        internal const string CredentialStore = UiPath + "CredentialStore";
         internal const string Environment = UiPath + "Environment";
         internal const string EnvironmentRobot = UiPath + "EnvironmentRobot";
         internal const string Folder = UiPath + "Folder";
