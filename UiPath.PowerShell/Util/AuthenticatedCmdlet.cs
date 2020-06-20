@@ -15,6 +15,7 @@ using UiPathWebApi_18_4 = UiPath.Web.Client20184.UiPathWebApi;
 using UiPathWebApi_19_1 = UiPath.Web.Client20191.UiPathWebApi;
 using UiPathWebApi_19_4 = UiPath.Web.Client20194.UiPathWebApi;
 using UiPathWebApi_19_10 = UiPath.Web.Client201910.UiPathWebApi;
+using UiPathWebApi_20_4 = UiPath.Web.Client20204.UiPathWebApi;
 
 namespace UiPath.PowerShell.Util
 {
@@ -36,6 +37,7 @@ namespace UiPath.PowerShell.Util
         private UiPathWebApi_19_1 _api_19_1;
         private UiPathWebApi_19_4 _api_19_4;
         private UiPathWebApi_19_10 _api_19_10;
+        private UiPathWebApi_20_4 _api_20_4;
 
         private TimeSpan Timeout
         {
@@ -169,6 +171,19 @@ namespace UiPath.PowerShell.Util
                     _api_19_10 = MakeApi<UiPathWebApi_19_10>(authToken, (creds, uri) => new UiPathWebApi_19_10(creds) { BaseUri = uri }, Timeout);
                 }
                 return _api_19_10;
+            }
+        }
+
+        protected UiPathWebApi_20_4 Api_20_4
+        {
+            get
+            {
+                if (_api_20_4 == null)
+                {
+                    var authToken = InternalAuthToken;
+                    _api_20_4 = MakeApi<UiPathWebApi_20_4>(authToken, (creds, uri) => new UiPathWebApi_20_4(creds) { BaseUri = uri }, Timeout);
+                }
+                return _api_20_4;
             }
         }
 

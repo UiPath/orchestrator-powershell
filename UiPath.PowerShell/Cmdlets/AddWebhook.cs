@@ -30,7 +30,7 @@ namespace UiPath.PowerShell.Cmdlets
         public SwitchParameter AllEvents { get; set; }
 
         [Parameter(ParameterSetName =SpecificEventsSet)]
-        public string[] Events { get; set; }
+        public new string[] Events { get; set; }
 
         protected override void ProcessRecord()
         {
