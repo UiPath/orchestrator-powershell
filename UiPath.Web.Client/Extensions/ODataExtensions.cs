@@ -117,3 +117,13 @@ namespace UiPath.Web.Client201910.Models
 
     }
 }
+
+namespace UiPath.Web.Client20204.Models
+{
+    public partial class ODataValueIEnumerableBucketDto : IODataValues<BucketDto>
+    {
+
+    }
+
+
+}

@@ -83,7 +83,7 @@ namespace UiPath.PowerShell.Util
             return authToken.ApiVersion >= minVersion; 
         }
 
-        protected UiPathWebApi_18_1 Api
+        internal UiPathWebApi_18_1 Api
         {
             get
             {
@@ -96,7 +96,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_18_2 Api_18_2
+        internal UiPathWebApi_18_2 Api_18_2
         {
             get
             {
@@ -109,7 +109,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_18_3 Api_18_3
+        internal UiPathWebApi_18_3 Api_18_3
         {
             get
             {
@@ -122,7 +122,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_18_4 Api_18_4
+        internal UiPathWebApi_18_4 Api_18_4
         {
             get
             {
@@ -135,7 +135,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_19_1 Api_19_1
+        internal UiPathWebApi_19_1 Api_19_1
         {
             get
             {
@@ -148,7 +148,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_19_4 Api_19_4
+        internal UiPathWebApi_19_4 Api_19_4
         {
             get
             {
@@ -161,7 +161,7 @@ namespace UiPath.PowerShell.Util
             }
         }
         
-        protected UiPathWebApi_19_10 Api_19_10
+        internal UiPathWebApi_19_10 Api_19_10
         {
             get
             {
@@ -174,7 +174,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected UiPathWebApi_20_4 Api_20_4
+        internal UiPathWebApi_20_4 Api_20_4
         {
             get
             {

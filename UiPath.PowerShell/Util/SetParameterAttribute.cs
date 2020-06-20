@@ -4,5 +4,6 @@ namespace UiPath.PowerShell.Util
 {
     public class SetParameterAttribute: Attribute
     {
+        public string DtoProperty { get; set; }
     }
 }

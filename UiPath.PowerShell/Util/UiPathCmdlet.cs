@@ -83,7 +83,7 @@ namespace UiPath.PowerShell.Util
         /// <typeparam name="T"></typeparam>
         /// <param name="action"></param>
         /// <returns></returns>
-        protected T HandleHttpResponseException<T>(Func<Task<HttpOperationResponse<T>>> action) => HandleHttpOperationException(() =>
+        internal T HandleHttpResponseException<T>(Func<Task<HttpOperationResponse<T>>> action) => HandleHttpOperationException(() =>
             {
                 var task = action();
                 var response = task.Result;
