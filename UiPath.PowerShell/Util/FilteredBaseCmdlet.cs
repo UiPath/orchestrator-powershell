@@ -16,6 +16,9 @@ namespace UiPath.PowerShell.Util
         [Parameter]
         public SwitchParameter Paging { get; set; }
 
+        [Parameter]
+        public SwitchParameter ExactMatch { get; set; }
+
         protected void ProcessImpl<TDto>(Func<string, int?, int?, IODataValues<TDto>> getCollection, Func<TDto, object> writer)
         {
             HandlePaging(getCollection, writer);
@@ -23,9 +26,14 @@ namespace UiPath.PowerShell.Util
 
         protected void ProcessImpl<TDto>(Func<string, IEnumerable<TDto>> getCollection, Func<TDto, object> writer)
         {
-            var response = HandleHttpOperationException(() => getCollection(BuildFilter()));
+            var (odataFilter, localFilter) = BuildFilter<TDto>();
+            var response = HandleHttpOperationException(() => getCollection(odataFilter));
             foreach (var dto in response)
             {
+                if (ExactMatch.IsPresent && !localFilter(dto))
+                {
+                    continue;
+                }
                 WriteObject(writer(dto));
             }
         }
@@ -36,18 +44,24 @@ namespace UiPath.PowerShell.Util
             do
             {
                 last = 0;
-                var response = HandleHttpOperationException(() => getCollection(BuildFilter(), top, skip));
+                var (odataFilter, localFilter) = BuildFilter<TDto>();
+                var response = HandleHttpOperationException(() => getCollection(odataFilter, top, skip));
                 foreach (var dto in response.Value)
                 {
-                    WriteObject(writer(dto));
                     ++last;
+                    if (ExactMatch.IsPresent && !localFilter(dto))
+                    {
+                        continue;
+                    }
+                    WriteObject(writer(dto));
                 }
                 skip = (skip ?? 0) + last;
             } while (Paging.IsPresent && last == top);
         }
 
-        protected string BuildFilter()
+        protected (string, Func<TDto, bool>) BuildFilter<TDto>()
         {
+            Func<TDto, bool> localFilter = (dto) => true;
             StringBuilder sb = new StringBuilder();
             string and = null;
             foreach (var p in this.GetType()
@@ -64,11 +78,7 @@ namespace UiPath.PowerShell.Util
                     if (type.IsAssignableFrom(typeof(SwitchParameter)))
                     {
                         SwitchParameter sw = (SwitchParameter)value;
-                        if (!sw.IsPresent)
-                        {
-                            continue;
-                        }
-                        value = true;
+                        value = sw.ToBool();
                     }
                     type = value.GetType(); // value may had changed above
                     string eqToken;
@@ -82,18 +92,31 @@ namespace UiPath.PowerShell.Util
                     }
                     else if (type.IsAssignableFrom(typeof(Guid)))
                     {
-                        eqToken = $"'{value.ToString()}'";
+                        eqToken = $"'{value}'";
                     }
                     else
                     {
                         eqToken = $"'{HttpUtility.UrlEncode(value.ToString().Replace("'", "''"))}'";
                     }
                     sb.Append($"{and}{p.Name} eq {eqToken}");
+
+                    var dtoProperty = typeof(TDto).GetProperty(p.Name);
+                    if (dtoProperty != null)
+                    {
+                        var oldFilter = localFilter;
+                        Func<TDto, bool> newFilter = (dto) =>
+                        {
+                            var dtoValue = dtoProperty.GetValue(dto);
+                            return string.Compare(dtoValue.ToString(), value.ToString()) == 0;
+                        };
+                        localFilter = (dto) => oldFilter(dto) && newFilter(dto);
+                    }
+
                     and = " and ";
                 }
             }
             WriteVerbose($"filter: {sb}");
-            return sb.Length > 0 ? sb.ToString() : null;
+            return (sb.Length > 0 ? sb.ToString() : null, localFilter);
         }
     }
 }

@@ -7,8 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathRole [-AuthToken <AuthToken>] [-DisplayName <string>] [-Name <string>] [-Paging <SwitchParameter>] 
-    [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathRole [-AuthToken <AuthToken>] [-DisplayName <string>] [-ExactMatch <SwitchParameter>] [-Name <string>] 
+    [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -32,6 +32,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

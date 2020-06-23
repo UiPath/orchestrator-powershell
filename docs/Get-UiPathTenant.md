@@ -8,10 +8,11 @@ SYNOPSIS
     
 SYNTAX
     Get-UiPathTenant [-AdminEmailAddress <string>] [-AdminName <string>] [-AdminSurname <string>] [-AuthToken 
-    <AuthToken>] [-Name <string>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
-    
-    Get-UiPathTenant -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    <AuthToken>] [-ExactMatch <SwitchParameter>] [-Name <string>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
     [<CommonParameters>]
+    
+    Get-UiPathTenant -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -59,6 +60,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

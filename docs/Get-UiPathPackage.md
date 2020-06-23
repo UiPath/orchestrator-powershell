@@ -7,9 +7,9 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathPackage [-AuthToken <AuthToken>] [-Id <string>] [-IsActive <bool>] [-IsLatestVersion <bool>] [-Key 
-    <string>] [-OldVersion <string>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [-Title <string>] [-Version 
-    <string>] [<CommonParameters>]
+    Get-UiPathPackage [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Id <string>] [-IsActive <bool>] 
+    [-IsLatestVersion <bool>] [-Key <string>] [-OldVersion <string>] [-Paging <SwitchParameter>] [-RequestTimeout 
+    <int>] [-Title <string>] [-Version <string>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -73,6 +73,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named
