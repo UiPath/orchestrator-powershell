@@ -26,10 +26,10 @@ namespace UiPath.PowerShell.Cmdlets
         {
             if (ParameterSetName == "Defaults")
             {
-                var id = HandleHttpResponseException(() => Api_19_10.CredentialStores.GetDefaultStoreForResourceTypeByResourcetypeWithHttpMessagesAsync(Default));
-                if (id.Value.HasValue)
+                var id = this.GetDefaultCredentialStore(Default);
+                if (id.HasValue)
                 {
-                    var store = HandleHttpResponseException(() => Api_19_10.CredentialStores.GetByIdWithHttpMessagesAsync(id.Value.Value));
+                    var store = HandleHttpResponseException(() => Api_19_10.CredentialStores.GetByIdWithHttpMessagesAsync(id.Value));
                     WriteObject(CredentialStore.FromDto(store));
                 }
             }

@@ -6,12 +6,6 @@ namespace UiPath.PowerShell.Util
 {
     public abstract class EditCmdlet: AuthenticatedCmdlet 
     {
-        protected string MapParameterToProperty(string parameter)
-        {
-            return parameter;
-        }
-
-
         protected void ProcessImpl<DtoType>(
             Func<DtoType> getItem,
             Action<DtoType> updateItem)
@@ -19,6 +13,8 @@ namespace UiPath.PowerShell.Util
             bool hasAction = false;
 
             DtoType dto = getItem();
+
+            (dto, hasAction) = this.ApplySetParameters(dto);
 
             foreach (var p in this.GetType()
                 .GetProperties()
@@ -29,7 +25,7 @@ namespace UiPath.PowerShell.Util
                 var value = p.GetValue(this);
                 if (value != null)
                 {
-                    var propertyName = MapParameterToProperty(p.Name);
+                    var propertyName = p.Name;
                     var dtoProperty = typeof(DtoType).GetProperty(propertyName);
 
                     // If there is a ValidateEnum attribute, parse the value as enum and assign the enum
