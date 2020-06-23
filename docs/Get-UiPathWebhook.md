@@ -7,11 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathWebhook [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [-Url <string>] 
-    [<CommonParameters>]
+    Get-UiPathWebhook [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [-Url <string>] [<CommonParameters>]
     
-    Get-UiPathWebhook -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Get-UiPathWebhook -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -35,6 +35,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

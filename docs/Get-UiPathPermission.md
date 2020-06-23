@@ -7,8 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathPermission [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Get-UiPathPermission [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -16,6 +16,14 @@ DESCRIPTION
 
 PARAMETERS
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

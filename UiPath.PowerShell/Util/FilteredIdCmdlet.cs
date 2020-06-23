@@ -29,9 +29,14 @@ namespace UiPath.PowerShell.Util
             }
             else
             {
-                var dtos = HandleHttpOperationException(() => getCollection(BuildFilter()));
+                var (odataFilter, localFilter) = BuildFilter<TDto>();
+                var dtos = HandleHttpOperationException(() => getCollection(odataFilter));
                 foreach(var dto in dtos)
                 {
+                    if (ExactMatch.IsPresent && !localFilter(dto))
+                    {
+                        continue;
+                    }
                     WriteObject(writer(dto));
                 }
             }

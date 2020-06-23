@@ -7,11 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathStorageBucket [-AuthToken <AuthToken>] [-Name <string>] [-Paging <SwitchParameter>] [-RequestTimeout 
-    <int>] [-StorageProvider <string>] [<CommonParameters>]
+    Get-UiPathStorageBucket [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Name <string>] [-Paging 
+    <SwitchParameter>] [-RequestTimeout <int>] [-StorageProvider <string>] [<CommonParameters>]
     
-    Get-UiPathStorageBucket -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Get-UiPathStorageBucket -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging 
+    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -43,6 +43,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

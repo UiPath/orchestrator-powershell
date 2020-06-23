@@ -7,12 +7,13 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathUser [-AuthToken <AuthToken>] [-EmailAddress <string>] [-FullName <string>] [-IsActive <bool>] 
-    [-IsEmailConfirmed <bool>] [-Name <string>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [-Surname 
-    <string>] [-TenancyName <string>] [-Type <string>] [-UserName <string>] [<CommonParameters>]
-    
-    Get-UiPathUser -Id <long> [-AuthToken <AuthToken>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] 
+    Get-UiPathUser [-AuthToken <AuthToken>] [-EmailAddress <string>] [-ExactMatch <SwitchParameter>] [-FullName 
+    <string>] [-IsActive <bool>] [-IsEmailConfirmed <bool>] [-Name <string>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [-Surname <string>] [-TenancyName <string>] [-Type <string>] [-UserName <string>] 
     [<CommonParameters>]
+    
+    Get-UiPathUser -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -100,6 +101,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named

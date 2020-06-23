@@ -7,11 +7,11 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathFolderUsers [-Folder] <Folder> [-AuthToken <AuthToken>] [-IncludeInherited <bool>] [-Paging 
-    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathFolderUsers [-Folder] <Folder> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] 
+    [-IncludeInherited <bool>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
-    Get-UiPathFolderUsers -Id <long> [-AuthToken <AuthToken>] [-IncludeInherited <bool>] [-Paging <SwitchParameter>] 
-    [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathFolderUsers -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-IncludeInherited 
+    <bool>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -43,6 +43,14 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -Paging <SwitchParameter>
+        
+        Required?                    false
+        Position?                    named
+        Default value                False
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ExactMatch <SwitchParameter>
         
         Required?                    false
         Position?                    named
