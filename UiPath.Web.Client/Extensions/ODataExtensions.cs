@@ -116,6 +116,16 @@ namespace UiPath.Web.Client201910.Models
     {
 
     }
+
+    public partial  class ODataResponseListUserDto : IODataValues<UserDto>
+    {
+
+    }
+
+    public partial class ODataResponseListRobotDto : IODataValues<RobotDto>
+    {
+
+    }
 }
 
 namespace UiPath.Web.Client20204.Models
@@ -125,5 +135,18 @@ namespace UiPath.Web.Client20204.Models
 
     }
 
+    public partial class ODataValueIEnumerableUserDto : IODataValues<UserDto>
+    {
 
+    }
+
+    public partial class ODataValueIEnumerableRobotDto : IODataValues<RobotDto>
+    {
+
+    }
+
+    public partial class ODataValueIEnumerableExtendedMachineDto : IODataValues<ExtendedMachineDto>
+    {
+
+    }
 }

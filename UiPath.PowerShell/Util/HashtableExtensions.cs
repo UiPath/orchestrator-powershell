@@ -5,7 +5,7 @@ using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Util
 {
-    internal static class HashtableExtenssions
+    internal static class HashtableExtensions
     {
         public static List<CustomKeyValuePair> ToKeyList(this Hashtable ht)
         {
@@ -15,5 +15,7 @@ namespace UiPath.PowerShell.Util
                 Value = de.Value.ToString()
             }).ToList();
         }
+
+        public static Hashtable ToHashtable<TKey, TValue>(this IDictionary<TKey, TValue> dict) => new Hashtable((IDictionary)dict);
     }
 }

@@ -4,8 +4,7 @@ using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20182;
 using UiPath.Web.Client20183;
-using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
-using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using UiPath.Web.Client20204;
 using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -18,13 +17,20 @@ namespace UiPath.PowerShell.Cmdlets
         public string Name { get; set; }
 
         [Filter]
-        [ValidateEnum(typeof(MachineDtoType))]
         [Parameter(ParameterSetName = "Filter")]
         public string Type { get; set; }
 
         protected override void ProcessRecord()
         {
-            if (Supports(OrchestratorProtocolVersion.V18_3))
+            if (Supports(OrchestratorProtocolVersion.V20_4))
+            {
+                ProcessImpl(
+                    (filter, top, skip) => Api_20_4.Machines.Get(filter: filter, top: top, skip: skip, count: false),
+                    id => Api_20_4.Machines.GetById(id).To<UiPath.Web.Client20204.Models.ExtendedMachineDto>(),
+                    dto => Machine.FromDto(dto));
+
+            }
+            else if (Supports(OrchestratorProtocolVersion.V18_3))
             {
                 ProcessImpl(
                     (filter, top, skip) => Api_18_3.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
