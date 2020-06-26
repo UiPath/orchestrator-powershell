@@ -73,7 +73,7 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        protected bool Supports(Version minVersion)
+        internal bool Supports(Version minVersion)
         {
             return Supports(minVersion, InternalAuthToken);
         }

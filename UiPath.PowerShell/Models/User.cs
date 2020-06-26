@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181.Models;
 
 namespace UiPath.PowerShell.Models
 {
+
     [TypeConverter(typeof(UiPathTypeConverter))]
     public class User
     {
@@ -23,31 +22,19 @@ namespace UiPath.PowerShell.Models
         public IList<string> RolesList { get; private set; }
         public string Surname { get; private set; }
         public string TenancyName { get; private set; }
-        public UserDtoType? Type { get; private set; }
+        public string Type { get; private set; }
         public string UserName { get; private set; }
         public IEnumerable<int?> UserRoles { get; private set; }
+        public string ProvisionType { get; private set; }
+        public bool? MayHavePersonalWorkspace { get; private set; }
+        public bool? MayHaveRobotSession { get; private set; }
+        public bool? MayHaveUserSession { get; private set; }
+        public bool? MayHaveUnattendedSession { get; private set; }
+        public string LicenseType { get; private set; }
+        public bool? BypassBasicAuthRestriction { get; private set; }
+        public string Domain { get; private set; }
+        public bool? IsExternalLicensed { get; private set; }
 
-        internal static User FromDto(UserDto dto)
-        {
-            return new User
-            {
-                AuthenticationSource = dto.AuthenticationSource,
-                CreationTime = dto.CreationTime,
-                EmailAddress = dto.EmailAddress,
-                FullName = dto.FullName,
-                Id = dto.Id.Value,
-                IsActive = dto.IsActive,
-                IsEmailConfirmed = dto.IsEmailConfirmed,
-                LastLoginTime = dto.LastLoginTime,
-                LoginProviders = dto.LoginProviders,
-                Name = dto.Name,
-                RolesList = dto.RolesList,
-                Surname = dto.Surname,
-                TenancyName = dto.TenancyName,
-                Type = dto.Type,
-                UserName = dto.UserName,
-                UserRoles = dto.UserRoles?.Select(r => r.RoleId)
-            };
-        }
+        internal static User FromDto<TDto>(TDto dto) => dto.To<User>();
     }
 }

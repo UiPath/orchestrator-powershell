@@ -6,8 +6,11 @@ using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingTy
 using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
 using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
 using RobotDto20184 = UiPath.Web.Client20184.Models.RobotDto;
+using RobotDto201910 = UiPath.Web.Client201910.Models.RobotDto;
+using RobotDto20204 = UiPath.Web.Client20204.Models.RobotDto;
 using UiPath.PowerShell.Util;
 using System.ComponentModel;
+using System.Collections;
 
 namespace UiPath.PowerShell.Models
 {
@@ -23,31 +26,14 @@ namespace UiPath.PowerShell.Models
         public string Type { get; private set; }
         public string HostingType { get; private set; }
         public string CredentialType { get; private set; }
+        public long? CredentialStoreId { get; private set; }
+        public Hashtable ExecutionSettings { get; private set; }
+        public string ExternalName { get; private set; }
+        public string ProvisionType { get; private set; }
+        public bool? IsExternalLicensed { get; private set; }
+        public long? MachineId { get; private set; }
 
-        internal static Robot FromDto(RobotDto20181 dto)
-        {
-            return new Robot
-            {
-                Id = dto.Id.Value,
-                LicenseKey = dto.LicenseKey,
-                MachineName = dto.MachineName,
-                Name = dto.Name,
-                Description = dto.Description,
-                Username = dto.Username,
-                Type = dto.Type.ToString()
-            };
-        }
-
-        internal static Robot FromDto(RobotExecutorDto dto)
-        {
-            return new Robot
-            {
-                Id = dto.Id.Value,
-                MachineName = dto.MachineName,
-                Name = dto.Name,
-                Description = dto.Description,
-            };
-        }
+        internal static Robot FromDto<TDto>(TDto dto) => dto.To<Robot>();
 
         internal static RobotDto20181 ToDto20181(Robot robot)
         {
@@ -75,37 +61,6 @@ namespace UiPath.PowerShell.Models
                 Username = robot.Username,
                 Type = (RobotDtoType20183)Enum.Parse(typeof(RobotDtoType20183), robot.Type),
                 HostingType = (RobotDtoHostingType20183)Enum.Parse(typeof(RobotDtoHostingType20183), robot.HostingType)
-            };
-        }
-
-        internal static object FromDto(RobotDto20183 dto)
-        {
-            return new Robot
-            {
-                Id = dto.Id.Value,
-                LicenseKey = dto.LicenseKey,
-                MachineName = dto.MachineName,
-                Name = dto.Name,
-                Description = dto.Description,
-                Username = dto.Username,
-                Type = dto.Type.ToString(),
-                HostingType = dto.HostingType.ToString(),
-            };
-        }
-
-        internal static object FromDto(RobotDto20184 dto)
-        {
-            return new Robot
-            {
-                Id = dto.Id.Value,
-                LicenseKey = dto.LicenseKey,
-                MachineName = dto.MachineName,
-                Name = dto.Name,
-                Description = dto.Description,
-                Username = dto.Username,
-                Type = dto.Type.ToString(),
-                HostingType = dto.HostingType.ToString(),
-                CredentialType = dto.CredentialType.ToString()
             };
         }
     }
