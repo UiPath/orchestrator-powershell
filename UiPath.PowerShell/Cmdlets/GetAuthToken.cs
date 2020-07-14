@@ -210,7 +210,7 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
                     {
-                        WriteWarning("The use of OrganizationUnit is deprecated and will be removed. Use FolderName instead.");
+                        WriteWarning("The use of OrganizationUnit is deprecated and will be removed. Use FolderPath instead.");
                     }
                     SetOrganizationUnit(authToken, OrganizationUnit);
                 }
@@ -218,9 +218,14 @@ namespace UiPath.PowerShell.Cmdlets
                 {
                     if (authToken.ApiVersion < OrchestratorProtocolVersion.V19_10)
                     {
-                        WriteError("Use of FolderName requires Orchestrator version 19.10 or newer.");
+                        WriteError("Use of FolderPath requires Orchestrator version 19.10 or newer.");
                     }
                     SetCurrentFolder(authToken, FolderPath, Timeout);
+                }
+                else if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
+                {
+                    WriteVerbose("No FolderPath was specified, using 'Default'");
+                    SetCurrentFolder(authToken, "Default", Timeout);
                 }
                 else
                 {
