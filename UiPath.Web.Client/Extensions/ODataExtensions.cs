@@ -91,6 +91,14 @@ namespace UiPath.Web.Client20183.Models
     public partial class ODataResponseListRobotDto : IODataValues<RobotDto>
     {
     }
+
+    public partial class ODataResponseListJobDto : IODataValues<JobDto>
+    {
+    }
+
+    public partial class ODataResponseListReleaseDto : IODataValues<ReleaseDto>
+    {
+    }
 }
 
 namespace UiPath.Web.Client20184.Models

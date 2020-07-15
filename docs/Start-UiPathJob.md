@@ -7,14 +7,14 @@ SYNOPSIS
     
     
 SYNTAX
-    Start-UiPathJob -Process <Process> -RobotCount <int> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Start-UiPathJob -Process <Process> -RobotCount <int> [-AuthToken <AuthToken>] [-InputArguments <Hashtable>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
-    Start-UiPathJob -All <SwitchParameter> -Process <Process> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Start-UiPathJob -All <SwitchParameter> -Process <Process> [-AuthToken <AuthToken>] [-InputArguments <Hashtable>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
-    Start-UiPathJob -Process <Process> -Robots <List`1> [-AuthToken <AuthToken>] [-RequestTimeout <int>] 
-    [<CommonParameters>]
+    Start-UiPathJob -Process <Process> -Robots <List`1> [-AuthToken <AuthToken>] [-InputArguments <Hashtable>] 
+    [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -48,6 +48,14 @@ PARAMETERS
     -Process <Process>
         
         Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -InputArguments <Hashtable>
+        
+        Required?                    false
         Position?                    named
         Default value                
         Accept pipeline input?       false

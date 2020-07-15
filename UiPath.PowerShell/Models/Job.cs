@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
@@ -11,7 +12,8 @@ namespace UiPath.PowerShell.Models
         public long Id { get; private set; }
         public string Info { get; private set; }
         public Guid? Key { get; private set; }
-        public SimpleReleaseDto Release { get; private set; }
+        public Hashtable Release { get; private set; }
+        public string ReleaseName { get; private set; }
         public long? RobotId { get; private set; }
         public string Source { get; private set; }
         public DateTime? StartTime { get; private set; }
@@ -21,23 +23,10 @@ namespace UiPath.PowerShell.Models
         public DateTime? CreationTime { get; private set; }
         public DateTime? EndTime { get; private set; }
 
-        internal static Job FromDto(JobDto dto)
-        {
-            return new Job
-            {
-                Id = dto.Id.Value,
-                Info = dto.Info,
-                Key = dto.Key,
-                Release = dto.Release,
-                RobotId = dto.Robot?.Id.Value,
-                Source = dto.Source,
-                StartTime = dto.StartTime,
-                State = dto.State,
-                StartingScheduleId = dto.StartingScheduleId,
-                BatchExecutionKey = dto.BatchExecutionKey,
-                CreationTime = dto.CreationTime,
-                EndTime = dto.EndTime
-            };
-        }
+        public string InputArguments { get; private set; }
+
+        public string OutputArguments { get; private set; }
+
+        internal static Job FromDto<T>(T dto) => dto.To<Job>();
     }
 }
