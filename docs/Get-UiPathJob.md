@@ -7,6 +7,9 @@ SYNOPSIS
     
     
 SYNTAX
+    Get-UiPathJob [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] [-ReleaseName 
+    <string>] [-RequestTimeout <int>] [-Source <string>] [-State <string>] [<CommonParameters>]
+    
     Get-UiPathJob -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Paging <SwitchParameter>] 
     [-RequestTimeout <int>] [<CommonParameters>]
     
@@ -15,6 +18,30 @@ DESCRIPTION
     
 
 PARAMETERS
+    -Source <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -State <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ReleaseName <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
     -Id <long>
         
         Required?                    true

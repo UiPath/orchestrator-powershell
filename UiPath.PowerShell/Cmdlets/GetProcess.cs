@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
+using UiPath.Web.Client20183;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -44,8 +44,8 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                (filter, top, skip) => Api.Releases.GetReleases(filter: filter, top: top, skip: skip, count: false),
-                id => Api.Releases.GetById(id),
+                (filter, top, skip) => Api_18_3.Releases.GetReleases(filter: filter, top: top, skip: skip, count: false),
+                id => Api_18_3.Releases.GetById(id),
                 dto => Process.FromDto(dto));
         }
     }

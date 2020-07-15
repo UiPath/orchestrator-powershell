@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
@@ -17,20 +18,8 @@ namespace UiPath.PowerShell.Models
         public string ProcessId { get; private set; }
         public string ProcessVersion { get; private set; }
 
-        internal static Process FromDto(ReleaseDto dto)
-        {
-            return new Process
-            {
-                Id = dto.Id.Value,
-                IsLatestVersion = dto.IsLatestVersion,
-                IsProcessDeleted = dto.IsProcessDeleted,
-                Name = dto.Name,
-                Description = dto.Description,
-                EnvironmentId = dto.EnvironmentId,
-                Key = dto.Key,
-                ProcessId = dto.ProcessKey,
-                ProcessVersion = dto.ProcessVersion,
-            };
-        }
+        public Hashtable Arguments { get; private set; }
+
+        internal static Process FromDto<T>(T dto) => dto.To<Process>();
     }
 }

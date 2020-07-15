@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
+using System.Reflection;
 
 namespace UiPath.PowerShell.Util
 {
@@ -35,6 +37,11 @@ namespace UiPath.PowerShell.Util
                     var s = p.From.GetValue(from)?.ToString();
                     p.To.SetValue(mapped, s);
                 }
+                else if (typeof(Hashtable).IsAssignableFrom(toType))
+                {
+                    var ht = p.From.GetValue(from).ToHashtable();
+                    p.To.SetValue(mapped, ht);
+                }
                 else if (fromType.IsAssignableFrom(toType))
                 {
                     var v = p.From.GetValue(from);
@@ -43,6 +50,40 @@ namespace UiPath.PowerShell.Util
             }
 
             return mapped;
+        }
+
+        internal static Hashtable ToHashtable(this object from)
+        {
+            if (from == null)
+            {
+                return null;
+            }
+
+            var props = from.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            var ht = new Hashtable();
+
+            foreach(var pi in  props)
+            {
+                var v = pi.GetValue(from);
+                if (v == null)
+                {
+                    continue;
+                }
+
+                var vType = v.GetType();
+
+                if (vType.IsClass && !(v is string))
+                {
+                    ht.Add(pi.Name, v.ToHashtable());
+                }
+                else
+                {
+                    ht.Add(pi.Name, v);
+                }
+            }
+
+            return ht;
         }
     }
 }
