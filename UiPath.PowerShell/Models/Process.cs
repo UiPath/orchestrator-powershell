@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using System.Management.Automation;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181.Models;
 
@@ -15,9 +16,10 @@ namespace UiPath.PowerShell.Models
         public string Description { get; private set; }
         public long EnvironmentId { get; private set; }
         public string Key { get; private set; }
-        public string ProcessId { get; private set; }
+        public string ProcessId => ProcessKey;
         public string ProcessVersion { get; private set; }
-
+        [Hidden]
+        public string ProcessKey { get; private set; }
         public Hashtable Arguments { get; private set; }
 
         internal static Process FromDto<T>(T dto) => dto.To<Process>();
