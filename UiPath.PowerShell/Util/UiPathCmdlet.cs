@@ -12,6 +12,8 @@ namespace UiPath.PowerShell.Util
     {
         private bool ProtocolIgnored = SecurityProtocolFix.Ignored;
 
+        private static PSCmdlet _cmdlet;
+
         private static RestVerboseTracer VerboseTracer { get; set; }
 
         static UiPathCmdlet()
@@ -19,6 +21,11 @@ namespace UiPath.PowerShell.Util
             VerboseTracer = new RestVerboseTracer();
             ServiceClientTracing.AddTracingInterceptor(VerboseTracer);
             ServiceClientTracing.IsEnabled = true;
+        }
+
+        internal static void DebugMessage(string message)
+        {
+            _cmdlet.WriteDebug(message);
         }
 
         internal bool VerboseEnabled
@@ -53,6 +60,8 @@ namespace UiPath.PowerShell.Util
 
         protected override void BeginProcessing()
         {
+            _cmdlet = this;
+
             RestVerboseTracer.ETraceFlags traceFlags = 0;
 
             if (VerboseEnabled)
@@ -75,6 +84,13 @@ namespace UiPath.PowerShell.Util
             base.EndProcessing();
             VerboseTracer.Flush(this);
             VerboseTracer.StopTracing();
+            _cmdlet = null;
+        }
+
+        protected override void StopProcessing()
+        {
+            base.StopProcessing();
+            _cmdlet = null;
         }
 
         /// <summary>

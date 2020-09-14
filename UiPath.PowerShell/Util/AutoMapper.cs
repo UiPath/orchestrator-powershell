@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -20,32 +21,39 @@ namespace UiPath.PowerShell.Util
 
             foreach(var p in map)
             {
-                var fromType = Nullable.GetUnderlyingType(p.From.PropertyType) ?? p.From.PropertyType;
-                var toType = Nullable.GetUnderlyingType(p.To.PropertyType) ?? p.To.PropertyType;
-
-                if (toType.IsEnum)
+                try
                 {
-                    var s = p.From.GetValue(from)?.ToString();
-                    if (s != null)
+                    var fromType = Nullable.GetUnderlyingType(p.From.PropertyType) ?? p.From.PropertyType;
+                    var toType = Nullable.GetUnderlyingType(p.To.PropertyType) ?? p.To.PropertyType;
+
+                    if (toType.IsEnum)
                     {
-                        var e = Enum.Parse(toType, s);
-                        p.To.SetValue(mapped, e);
+                        var s = p.From.GetValue(from)?.ToString();
+                        if (s != null)
+                        {
+                            var e = Enum.Parse(toType, s);
+                            p.To.SetValue(mapped, e);
+                        }
+                    }
+                    else if (fromType.IsEnum && toType.IsAssignableFrom(typeof(string)))
+                    {
+                        var s = p.From.GetValue(from)?.ToString();
+                        p.To.SetValue(mapped, s);
+                    }
+                    else if (typeof(Hashtable).IsAssignableFrom(toType))
+                    {
+                        var ht = p.From.GetValue(from).ToHashtable();
+                        p.To.SetValue(mapped, ht);
+                    }
+                    else if (fromType.IsAssignableFrom(toType))
+                    {
+                        var v = p.From.GetValue(from);
+                        p.To.SetValue(mapped, v);
                     }
                 }
-                else if (fromType.IsEnum && toType.IsAssignableFrom(typeof(string)))
+                catch (Exception e)
                 {
-                    var s = p.From.GetValue(from)?.ToString();
-                    p.To.SetValue(mapped, s);
-                }
-                else if (typeof(Hashtable).IsAssignableFrom(toType))
-                {
-                    var ht = p.From.GetValue(from).ToHashtable();
-                    p.To.SetValue(mapped, ht);
-                }
-                else if (fromType.IsAssignableFrom(toType))
-                {
-                    var v = p.From.GetValue(from);
-                    p.To.SetValue(mapped, v);
+                    UiPathCmdlet.DebugMessage($"{from?.GetType().Name}->{typeof(TMapped)}:{p.From.Name}: {e.GetType().Name}: {e.Message}");
                 }
             }
 
