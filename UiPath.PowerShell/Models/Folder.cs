@@ -34,5 +34,7 @@ namespace UiPath.PowerShell.Models
                 ParentId = dto.ParentId,
             };
         }
+
+        public override string ToString() => FullyQualifiedName;
     }
 }

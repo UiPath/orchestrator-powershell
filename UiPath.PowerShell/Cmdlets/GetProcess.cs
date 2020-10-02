@@ -43,10 +43,21 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            ProcessImpl(
-                (filter, top, skip) => Api_18_3.Releases.GetReleases(filter: filter, top: top, skip: skip, count: false),
-                id => Api_18_3.Releases.GetById(id),
-                dto => Process.FromDto(dto));
+            if (Supports(OrchestratorProtocolVersion.V19_10))
+            {
+                ProcessImpl(
+                    (filter, top, skip) => HandleHttpResponseException(() => Api_19_10.Releases.GetReleasesWithHttpMessagesAsync(filter: filter, top: top, skip: skip, count: false)),
+                    id => HandleHttpResponseException(() => Api_19_10.Releases.GetByIdWithHttpMessagesAsync(id)),
+                    dto => Process.FromDto(dto));
+
+            }
+            else
+            {
+                ProcessImpl(
+                    (filter, top, skip) => Api_18_3.Releases.GetReleases(filter: filter, top: top, skip: skip, count: false),
+                    id => Api_18_3.Releases.GetById(id),
+                    dto => Process.FromDto(dto));
+            }
         }
     }
 }
