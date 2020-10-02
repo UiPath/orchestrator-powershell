@@ -21,6 +21,9 @@ SYNTAX
     [-FolderPath <string>] [-OrganizationUnit <string>] [-RequestTimeout <int>] [-Session <SwitchParameter>] 
     [-TenantName <string>] [<CommonParameters>]
     
+    Get-UiPathAuthToken [-URL] <string> -Host <SwitchParameter> -Password <string> -Username <string> [-RequestTimeout 
+    <int>] [-Session <SwitchParameter>] [<CommonParameters>]
+    
     Get-UiPathAuthToken -CurrentSession <SwitchParameter> [-RequestTimeout <int>] [<CommonParameters>]
     
     Get-UiPathAuthToken [-URL] <string> -Password <string> -Username <string> [-FolderPath <string>] 
@@ -108,6 +111,14 @@ PARAMETERS
         Required?                    true
         Position?                    named
         Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Host <SwitchParameter>
+        
+        Required?                    true
+        Position?                    named
+        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

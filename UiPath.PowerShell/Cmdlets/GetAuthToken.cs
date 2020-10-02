@@ -42,6 +42,7 @@ namespace UiPath.PowerShell.Cmdlets
         private const string CloudInteractiveSet = "CloudInteractiveSet";
         private const string CloudCodeSet = "CloudCodeSet";
         private const string CloudAPISet = "CloudAPISet";
+        private const string HostSet = "HostSet";
 
         private const string CurrentSessionSet = "CurrentSession";
 
@@ -78,18 +79,24 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = CloudCodeSet)]
         public string AuthorizationVerifier { get; set; }
 
+        [Parameter(Mandatory = true, ParameterSetName = HostSet)]
+        public new SwitchParameter Host { get; set; }
+
         [Parameter(Mandatory = true, ParameterSetName =CurrentSessionSet)]
         public SwitchParameter CurrentSession { get; set; }
 
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = WindowsCredentialsSet)]
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = UnauthenticatedSet)]
+        [Parameter(Mandatory = true, Position = 0, ParameterSetName = HostSet)]
         public string URL { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = true, ParameterSetName = HostSet)]
         public string Username { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = UserPasswordSet)]
+        [Parameter(Mandatory = true, ParameterSetName = HostSet)]
         public string Password { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = WindowsCredentialsSet)]
@@ -136,6 +143,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = CloudInteractiveSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudCodeSet)]
         [Parameter(Mandatory = false, ParameterSetName = CloudAPISet)]
+        [Parameter(Mandatory = false, ParameterSetName = HostSet)]
         public SwitchParameter Session { get; set; }
 
         /// <summary>
@@ -155,7 +163,13 @@ namespace UiPath.PowerShell.Cmdlets
             else
             {
                 AuthToken authToken = null;
-                if (ParameterSetName == UserPasswordSet)
+
+                if (Host.IsPresent)
+                {
+                    TenantName = "Host";
+                }
+
+                if (ParameterSetName == UserPasswordSet || ParameterSetName == HostSet)
                 {
                     authToken = GetUserToken();
                 }
@@ -206,6 +220,8 @@ namespace UiPath.PowerShell.Cmdlets
 
                 GetServerVersion(authToken);
 
+                authToken.TenantName = authToken.TenantName ?? TenantName;
+
                 if (!string.IsNullOrWhiteSpace(OrganizationUnit))
                 {
                     if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
@@ -222,7 +238,9 @@ namespace UiPath.PowerShell.Cmdlets
                     }
                     SetCurrentFolder(authToken, FolderPath, Timeout);
                 }
-                else if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
+                else if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10 && 
+                    0 != string.Compare(TenantName, "Host", true) &&
+                    !Host.IsPresent)
                 {
                     WriteVerbose("No FolderPath was specified, using 'Default'");
                     SetCurrentFolder(authToken, "Default", Timeout);
@@ -233,8 +251,6 @@ namespace UiPath.PowerShell.Cmdlets
                     authToken.OrganizationUnit = default;
                     authToken.OrganizationUnitId = default;
                 }
-
-                authToken.TenantName = authToken.TenantName ?? TenantName ?? "Default";
 
                 if (Session.IsPresent)
                 {
