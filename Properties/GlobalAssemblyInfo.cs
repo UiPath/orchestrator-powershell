@@ -7,8 +7,6 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-
-
 // The version should be set to match the current released platform version
 // IMPORTANT: see .vsts-ci.yml $patch variable
 // Remeber to reset the counter on each version bump
