@@ -10,6 +10,11 @@ namespace UiPath.PowerShell.Util
     {
         internal static TMapped To<TMapped>(this object from) where TMapped: new()
         {
+            if (from is Hashtable hashtable)
+            {
+                return FromHashtable<TMapped>(hashtable);
+            }
+
             var mapped = new TMapped();
 
             var map = from.GetType().GetProperties()
@@ -58,6 +63,26 @@ namespace UiPath.PowerShell.Util
             }
 
             return mapped;
+        }
+
+        internal static TMapped FromHashtable<TMapped>(this Hashtable from) where TMapped: new()
+        {
+            if (from == null)
+            {
+                return default;
+            }
+
+            var props = typeof(TMapped).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            var to = new TMapped();
+            foreach (var pi in props)
+            {
+                if (from.ContainsKey(pi.Name))
+                {
+                    var value = from[pi.Name];
+                    pi.SetValue(to, value);
+                }
+            }
+            return to;
         }
 
         internal static Hashtable ToHashtable(this object from)

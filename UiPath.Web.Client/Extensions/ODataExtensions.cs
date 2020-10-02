@@ -134,6 +134,11 @@ namespace UiPath.Web.Client201910.Models
     {
 
     }
+
+    public partial class ODataResponseListReleaseDto : IODataValues<ReleaseDto>
+    {
+
+    }
 }
 
 namespace UiPath.Web.Client20204.Models

@@ -106,7 +106,7 @@ namespace UiPath.PowerShell.Util
                 if (!response.Response.IsSuccessStatusCode)
                 {
                     var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", response.Response.StatusCode));
-                    ex.Request = new HttpRequestMessageWrapper(response.Request, response.Request?.Content?.AsString() ?? string.Empty);
+                    ex.Request = new HttpRequestMessageWrapper(response.Request, string.Empty); //Can't access disposed request content
                     ex.Response = new HttpResponseMessageWrapper(response.Response, response.Response?.Content?.AsString() ?? string.Empty);
                     throw ex;
                 }
