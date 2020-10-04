@@ -1,56 +1,131 @@
-pool:
-  name: Azure Pipelines
-  vmImage: windows-2019
+trigger:
+  branches:
+    include:
+      - develop
+      - master
+      - release/*
+
+pr:
+  branches:
+    include:
+      - develop
+      - master
+      - release/*
   
 variables:
-  Solution: "UiPath.Orchestrator.Powershell.sln"
-  BuildConfiguration: "Release"
-  BuildPlatform: "Any CPU"
+ 
   # TODO: reset counter on each GlobalAssemblyProperties version bump
   # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=vsts&tabs=yaml%2Cbatch#counters
   patch: $[counter('patch_counter_20_4', 1)]
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
+stages:
+ - stage: 'CI'
+   jobs:
+   - job: BuildSolution
+     displayName: Build Solution
+     pool:
+        name: Azure Pipelines
+        vmImage: windows-2019
+        demands:
+           - msbuild
+           - visualstudio
+     variables:
+        Solution: "UiPath.Orchestrator.Powershell.sln"
+        BuildConfiguration: "Release"
+        BuildPlatform: "Any CPU"
+        VSVersion: "16.0"
+        Build.Repository.Clean: true
 
-- task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.3.0
+     steps:
+     - task: NodeTool@0
+       inputs:
+        versionSpec: '10.x'
 
-- task: NuGetCommand@2
-  displayName: NuGet restore
-  inputs:
-    restoreSolution: "$(Solution)"
-     
-- task: VSBuild@1
-  displayName: Build solution
-  inputs:
-    solution: '$(Solution)'
-    msbuildArgs: '/p:Revision=$(patch)'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+     - task: NuGetCommand@2
+       displayName: NuGet restore
+       inputs:
+         restoreSolution: "$(Solution)"
+         
+     - task: VSBuild@1
+       displayName: Build solution
+       inputs:
+        solution: '$(Solution)'
+        platform: '$(BuildPlatform)'
+        msbuildArgs: '/p:Revision=$(patch)'
+        configuration: '$(BuildConfiguration)'
 
-- task: PowerShell@1
-  displayName: "Update Build Number"
-  inputs:
-    scriptType: "inlineScript"
-    inlineScript: |
-      $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\net472\UiPath.PowerShell.dll").ProductVersion
-      Write-Host "##vso[build.updatebuildnumber]$buildNumber"
+     - powershell: |
+         $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\net472\UiPath.PowerShell.dll").ProductVersion
+         Write-Host "##vso[build.updatebuildnumber]$buildNumber"
+       displayName: "Update Build Number"
 
-- task: NuGetCommand@2
-  displayName: NuGet pack
-  inputs:
-    command: pack
-    versioningScheme: byBuildNumber
-    includeSymbols: true
-    packagesToPack: "$(Build.SourcesDirectory)\\UiPath.PowerShell.nuspec"
+     - task: NuGetCommand@2
+       displayName: NuGet pack
+       inputs:
+        command: pack
+        versioningScheme: byBuildNumber
+        includeSymbols: true
+        symbolPackageFormat: snupkg
+        packagesToPack: "$(Build.SourcesDirectory)\\UiPath.PowerShell.nuspec"
+        configurationToPack: "$(BuildConfiguration)"
+        packDestination: '$(Build.ArtifactStagingDirectory)'
+        includeReferencedProjects: false
+        noPackageAnalysis: true
+        verbosityPack: 'Detailed'
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifact Setup
-  inputs:
-    PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-    ArtifactName: "Setup"
+     - powershell: |
+         Get-ChildItem $(Build.ArtifactStagingDirectory) -Recurse
+       displayName: Show ArtifactStagingDirectory content
 
+     - task: PublishBuildArtifacts@1
+       displayName: Publish Artifact NuGet Packages
+       inputs:
+        PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+        ArtifactName: "Setup"
 
+ - stage: 'Internal'
+   dependsOn: [ 'CI' ]
+   condition: and(
+        succeeded(), 
+        ne(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), 'true')
+      )
+   jobs:
+      - deployment: 'PublishPackageToDevPackages'
+        displayName: 'Publish package to feature feed'
+        environment: FEATURE
+        pool:
+          vmImage: windows-2019
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: NuGetCommand@2
+                  displayName: 'NuGet push - UiPath.PowerShell'
+                  inputs:
+                    command: push
+                    packagesToPush: '$(Agent.BuildDirectory)/**/*.nupkg;$(Agent.BuildDirectory)/**/*.snupkg;!$(Agent.BuildDirectory)/**/*.symbols.nupkg'
+                    publishVstsFeed: 'UiPath.PowerShell'
+
+ - stage: 'RELEASE'
+   dependsOn: [ 'CI' ]
+   condition: and(
+        succeeded(), 
+        startsWith(variables['Build.SourceBranch'], 'refs/heads/release')
+      )
+   jobs:
+      - deployment: 'PublishPackageMyGet'
+        displayName: 'Publish package to public MyGet feed'
+        environment: RELEASE
+        pool:
+          vmImage: windows-2019
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: NuGetCommand@2
+                  displayName: 'NuGet push - UiPath.PowerShell'
+                  inputs:
+                    command: push
+                    packagesToPush: '$(Agent.BuildDirectory)/**/*.nupkg;$(Agent.BuildDirectory)/**/*.snupkg;!$(Agent.BuildDirectory)/**/*.symbols.nupkg'
+                    nuGetFeedType: external
+                    publishFeedCredentials: 'UiPath Dev NuGet'
