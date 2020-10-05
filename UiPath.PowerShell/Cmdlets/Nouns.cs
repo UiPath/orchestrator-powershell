@@ -12,8 +12,9 @@
         internal const string Environment = UiPath + "Environment";
         internal const string EnvironmentRobot = UiPath + "EnvironmentRobot";
         internal const string Folder = UiPath + "Folder";
-        internal const string FolderUsers = UiPath + "FolderUsers";
+        internal const string FolderMachines = UiPath + "FolderMachines";
         internal const string FolderUser = UiPath + "FolderUser";
+        internal const string FolderUsers = UiPath + "FolderUsers";
         internal const string FolderUserRoles = UiPath + "FolderUserRoles";
         internal const string FolderCurrentUser = UiPath + "CurrentUserFolders";
         internal const string FolderCurrent = UiPath + "CurrentFolder";
