@@ -17,7 +17,7 @@ namespace UiPath.PowerShell.Models
         public long? RobotId { get; private set; }
         public string Source { get; private set; }
         public DateTime? StartTime { get; private set; }
-        public JobDtoState? State { get; private set; }
+        public string State { get; private set; }
         public long? StartingScheduleId { get; private set; }
         public Guid? BatchExecutionKey { get; private set; }
         public DateTime? CreationTime { get; private set; }

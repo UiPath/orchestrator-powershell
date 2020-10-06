@@ -15,9 +15,9 @@ namespace UiPath.PowerShell.Models
 
         public string Description { get; set; }
 
-        public FolderDtoProvisionType? ProvisionType { get; set; }
+        public string ProvisionType { get; set; }
 
-        public FolderDtoPermissionModel? PermissionModel { get; set; }
+        public string PermissionModel { get; set; }
 
         public long? ParentId { get; set; }
 
@@ -29,8 +29,8 @@ namespace UiPath.PowerShell.Models
                 DisplayName = dto.DisplayName,
                 FullyQualifiedName = dto.FullyQualifiedName,
                 Description = dto.Description,
-                ProvisionType = dto.ProvisionType,
-                PermissionModel = dto.PermissionModel,
+                ProvisionType = dto.ProvisionType.ToString(),
+                PermissionModel = dto.PermissionModel.ToString(),
                 ParentId = dto.ParentId,
             };
         }

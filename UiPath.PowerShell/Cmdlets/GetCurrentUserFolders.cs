@@ -11,9 +11,12 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             var folders = HandleHttpOperationException(() => Api_19_10.FoldersNavigation.GetAllFoldersForCurrentUser());
-            foreach (var f in folders)
+            if (folders != null)
             {
-                WriteObject(ExtendedFolder.FromDto(f));
+                foreach (var f in folders)
+                {
+                    WriteObject(ExtendedFolder.FromDto(f));
+                }
             }
         }
     }

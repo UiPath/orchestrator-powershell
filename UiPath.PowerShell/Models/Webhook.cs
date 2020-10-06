@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Collections;
+using System.ComponentModel;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20184.Models;
 
@@ -13,21 +13,9 @@ namespace UiPath.PowerShell.Models
         public bool Enabled { get; internal set; }
         public long? Id { get; private set; }
         public bool AllowInsecureSsl { get; private set; }
-        public WebhookEventDto[] Events { get; private set; }
+        public Hashtable[] Events { get; private set; }
         public bool AllEvents { get; private set; }
 
-        internal static Webhook FromDto(WebhookDto dto)
-        {
-            return new Webhook
-            {
-                Id = dto.Id,
-                Url = dto.Url,
-                Secret = dto.Secret,
-                Enabled = dto.Enabled,
-                AllowInsecureSsl = dto.AllowInsecureSsl,
-                Events = dto.Events?.ToArray(),
-                AllEvents = dto.SubscribeToAllEvents,
-            };
-        }
+        internal static Webhook FromDto(WebhookDto dto) => dto.To<Webhook>();
     }
 }

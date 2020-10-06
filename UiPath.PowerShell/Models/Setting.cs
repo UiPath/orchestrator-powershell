@@ -8,7 +8,7 @@ namespace UiPath.PowerShell.Models
     public class Setting
     {
         public string Name { get; private set; }
-        public SettingsDtoScope? Scope { get; private set; }
+        public string Scope { get; private set; }
         public string Value { get; private set; }
 
         internal static Setting FromDto(SettingsDto dto)
@@ -16,7 +16,7 @@ namespace UiPath.PowerShell.Models
             return new Setting
             {
                 Name = dto.Name,
-                Scope = dto.Scope,
+                Scope = dto.Scope.ToString(),
                 Value = dto.Value
             };
         }
@@ -27,7 +27,7 @@ namespace UiPath.PowerShell.Models
             {
                 Name = dto.Key,
                 Value = dto.Value,
-                Scope = scope
+                Scope = scope?.ToString()
             };
         }
     }
