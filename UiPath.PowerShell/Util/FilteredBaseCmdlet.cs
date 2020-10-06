@@ -59,11 +59,13 @@ namespace UiPath.PowerShell.Util
             } while (Paging.IsPresent && last == top);
         }
 
+        protected virtual string ImplicitFilter => default;
+
         protected (string, Func<TDto, bool>) BuildFilter<TDto>()
         {
             Func<TDto, bool> localFilter = (dto) => true;
-            StringBuilder sb = new StringBuilder();
-            string and = null;
+            StringBuilder sb = new StringBuilder(ImplicitFilter);
+            string and = string.IsNullOrWhiteSpace(ImplicitFilter) ? default : " and ";
             foreach (var p in this.GetType()
                 .GetProperties()
                 .Where(pi => MyInvocation.BoundParameters.ContainsKey(pi.Name))

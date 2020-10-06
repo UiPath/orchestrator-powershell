@@ -162,4 +162,9 @@ namespace UiPath.Web.Client20204.Models
     {
 
     }
+
+    public partial class ODataValueIEnumerableMachineFolderDto : IODataValues<MachineFolderDto>
+    {
+
+    }
 }
