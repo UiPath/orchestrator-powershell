@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using UiPath.PowerShell.Util;
@@ -11,18 +12,10 @@ namespace UiPath.PowerShell.Models
     {
         public long Id { get; set; }
 
-        public SimpleUserEntityDto UserEntity { get; set; }
+        public Hashtable UserEntity { get; set; }
 
-        public IEnumerable<SimpleRoleDto> Roles { get; set; }
+        public Hashtable[] Roles { get; set; }
 
-        public static UserRole FromDto(UserRolesDto dto)
-        {
-            return new UserRole
-            {
-                Id = dto.Id.Value,
-                UserEntity = dto.UserEntity,
-                Roles = dto.Roles.ToList()
-            };
-        }
+        public static UserRole FromDto(UserRolesDto dto) => dto.To<UserRole>();
     }
 }

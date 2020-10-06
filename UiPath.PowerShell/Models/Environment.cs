@@ -10,7 +10,7 @@ namespace UiPath.PowerShell.Models
         public long Id { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public EnvironmentDtoType Type { get; private set; }
+        public string Type { get; private set; }
 
         internal static Environment FromDto(EnvironmentDto dto)
         {
@@ -19,7 +19,7 @@ namespace UiPath.PowerShell.Models
                 Id = dto.Id.Value,
                 Name = dto.Name,
                 Description = dto.Description,
-                Type = dto.Type
+                Type = dto.Type.ToString(),
             };
         }
     }

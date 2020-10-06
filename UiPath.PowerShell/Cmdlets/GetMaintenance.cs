@@ -20,7 +20,7 @@ namespace UiPath.PowerShell.Cmdlets
     {
         protected override void ProcessRecord()
         {
-            var result = HandleHttpOperationException(() => Api_19_10.Maintenance.Get());
+            var result = HandleHttpResponseException(() => Api_19_10.Maintenance.GetWithHttpMessagesAsync());
             WriteObject(MaintenanceSetting.FromDto(result));
         }
     }

@@ -10,8 +10,7 @@ namespace UiPath.PowerShell.Cmdlets
     {
         private const string FolderParameterSet = "Folder";
 
-        [ValidateNotNull]
-        [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true, ParameterSetName = FolderParameterSet)]
+        [Parameter(Position = 0, ValueFromPipeline = true, ParameterSetName = FolderParameterSet)]
         public Folder Folder { get; private set; }
 
         [Parameter]
@@ -19,8 +18,10 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
+            var folder = Folder ?? InternalAuthToken.CurrentFolder;
+
             ProcessImpl(
-             (filter, top, skip) => Api_19_10.Folders.GetUsersForFolderByKeyAndIncludeinherited(Folder?.Id ?? Id.Value, IncludeInherited, filter: filter, top: top, skip: skip),
+             (filter, top, skip) => Api_19_10.Folders.GetUsersForFolderByKeyAndIncludeinherited(Id.HasValue ? Id.Value : folder.Id, IncludeInherited, filter: filter, top: top, skip: skip),
              dto => UserRole.FromDto(dto));
         }
     }

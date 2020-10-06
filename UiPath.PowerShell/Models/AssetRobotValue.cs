@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
@@ -21,18 +22,18 @@ namespace UiPath.PowerShell.Models
 
         public Hashtable KeyValueList { get; internal set; }
 
-        public AssetRobotValueDtoValueType ValueType { get; internal  set; }
+        public string ValueType { get; internal  set; }
 
         public AssetRobotValueDto ToDto()
         {
             return new AssetRobotValueDto
             {
                 RobotId = RobotId,
-                RobotName = "Ignore robot name require dby 19.10 bug",
+                RobotName = "Ignore robot name required by 19.10 bug",
                 StringValue = TextValue,
                 IntValue = IntValue,
                 BoolValue = BoolValue,
-                ValueType = ValueType,
+                ValueType = (AssetRobotValueDtoValueType) Enum.Parse(typeof(AssetRobotValueDtoValueType),ValueType),
                 CredentialUsername = Credential?.UserName,
                 CredentialPassword = Credential?.ExtractPassword()
             };

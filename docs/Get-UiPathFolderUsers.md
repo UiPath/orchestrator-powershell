@@ -7,7 +7,7 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathFolderUsers [-Folder] <Folder> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] 
+    Get-UiPathFolderUsers [[-Folder] <Folder>] [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] 
     [-IncludeInherited <bool>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     Get-UiPathFolderUsers -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-IncludeInherited 
@@ -20,7 +20,7 @@ DESCRIPTION
 PARAMETERS
     -Folder <Folder>
         
-        Required?                    true
+        Required?                    false
         Position?                    0
         Default value                
         Accept pipeline input?       true (ByValue)
