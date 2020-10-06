@@ -13,22 +13,6 @@ namespace UiPath.PowerShell.Models
 
         public int? Level { get; set; }
 
-        public static ExtendedFolder FromDto(ExtendedFolderDto dto)
-        {
-            return new ExtendedFolder
-            {
-                Id = dto.Id.Value,
-                DisplayName = dto.DisplayName,
-                FullyQualifiedName = dto.FullyQualifiedName,
-                Description = dto.Description,
-                ProvisionType = dto.ProvisionType == ExtendedFolderDtoProvisionType.Automatic ? FolderDtoProvisionType.Automatic : FolderDtoProvisionType.Manual,
-                PermissionModel = dto.PermissionModel == ExtendedFolderDtoPermissionModel.FineGrained ? FolderDtoPermissionModel.FineGrained : FolderDtoPermissionModel.InheritFromTenant,
-                ParentId = dto.ParentId,
-                IsSelectable = dto.IsSelectable,
-                HasChildren = dto.HasChildren,
-                Level = dto.Level,
-            };
-        }
-
+        public static ExtendedFolder FromDto(ExtendedFolderDto dto) => dto.To<ExtendedFolder>();
     }
 }

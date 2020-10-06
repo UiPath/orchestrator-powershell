@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -8,18 +8,51 @@ namespace UiPath.PowerShell.Util
 {
     internal static class AutoMapper
     {
-        internal static TMapped To<TMapped>(this object from) where TMapped: new()
+        internal static TMapped To<TMapped>(this object from) where TMapped : new()
+        {
+            return (TMapped)from.To(typeof(TMapped), () => new TMapped());
+        }
+
+        private static object To(this object from, Type tMapped)
+        {
+            var ctor = tMapped.GetConstructor(Array.Empty<Type>());
+            return To(from, tMapped, () => ctor.Invoke(BindingFlags.CreateInstance, Array.Empty<object>()));
+        }
+
+        private static Type EnumerableElementType(Type type)
+        {
+            var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
+
+            if (underlyingType.IsArray)
+            {
+                return underlyingType.GetElementType();
+            }
+
+            if (type.IsGenericType)
+            {
+                return underlyingType.GetGenericArguments()[0];
+            }
+
+            throw new Exception($"Don't know how to extract collection element type from {underlyingType.Name}");
+        }
+
+        private static object To(this object from, Type tMapped, Func<object> ctor)
         {
             if (from is Hashtable hashtable)
             {
-                return FromHashtable<TMapped>(hashtable);
+                return FromHashtable(hashtable, tMapped, ctor);
             }
 
-            var mapped = new TMapped();
+            if (typeof(Hashtable).IsAssignableFrom(tMapped))
+            {
+                return from.ToHashtable();
+            }
+
+            var mapped = ctor();
 
             var map = from.GetType().GetProperties()
                 .Join(
-                    typeof(TMapped).GetProperties(),
+                    tMapped.GetProperties(),
                     pf => pf.Name,
                     pt => pt.Name,
                     (pf, pt) => new { From = pf, To = pt });
@@ -31,7 +64,14 @@ namespace UiPath.PowerShell.Util
                     var fromType = Nullable.GetUnderlyingType(p.From.PropertyType) ?? p.From.PropertyType;
                     var toType = Nullable.GetUnderlyingType(p.To.PropertyType) ?? p.To.PropertyType;
 
-                    if (toType.IsEnum)
+                    if (toType.IsArray)
+                    {
+                        var toElementType = EnumerableElementType(toType);
+                        var fromValue = p.From.GetValue(from);
+                        var toValue = ToEnumerable(fromValue, toElementType);
+                        p.To.SetValue(mapped, ToArray(toValue, toElementType));
+                    }
+                    else if (toType.IsEnum)
                     {
                         var s = p.From.GetValue(from)?.ToString();
                         if (s != null)
@@ -58,22 +98,67 @@ namespace UiPath.PowerShell.Util
                 }
                 catch (Exception e)
                 {
-                    UiPathCmdlet.DebugMessage($"{from?.GetType().Name}->{typeof(TMapped)}:{p.From.Name}: {e.GetType().Name}: {e.Message}");
+                    UiPathCmdlet.DebugMessage($"{from?.GetType().Name}->{tMapped}:{p.From.Name}: {e.GetType().Name}: {e.Message}");
                 }
             }
 
             return mapped;
         }
 
-        internal static TMapped FromHashtable<TMapped>(this Hashtable from) where TMapped: new()
+        internal static TMapped FromHashtable<TMapped>(this Hashtable from) where TMapped : new()
+        {
+            return (TMapped)from.FromHashtable(typeof(TMapped), () => new TMapped());
+        }
+
+        private static Array ToArray(IEnumerable values, Type elementType)
+        {
+            if (values == null)
+            {
+                return null;
+            }
+
+            var arr = Array.CreateInstance(elementType, values.Cast<object>().Count());
+
+            int i = 0;
+            foreach(var value in values)
+            {
+                arr.SetValue(value, i);
+                ++i;
+            }
+
+            return arr;
+        }
+
+        private static IEnumerable ToEnumerable(object fromValues, Type toType)
+        {
+            if (fromValues == null)
+            {
+                return null;
+            }
+
+            var list = new List<object>();
+
+            if (fromValues is IEnumerable enumValues)
+            {
+                foreach (var fromValue in enumValues)
+                {
+                    var toValue = fromValue.To(toType);
+                    list.Add(toValue);
+                }
+            }
+
+            return list;
+        }
+
+        private static object FromHashtable(this Hashtable from, Type tMapped, Func<object> ctor)
         {
             if (from == null)
             {
                 return default;
             }
 
-            var props = typeof(TMapped).GetProperties(BindingFlags.Instance | BindingFlags.Public);
-            var to = new TMapped();
+            var props = tMapped.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            var to = ctor();
             foreach (var pi in props)
             {
                 if (from.ContainsKey(pi.Name))

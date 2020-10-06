@@ -7,11 +7,9 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-
-
 // The version should be set to match the current released platform version
 // IMPORTANT: see .vsts-ci.yml $patch variable
 // Remeber to reset the counter on each version bump
 // Eg. if you change version here to 18.4.2.*, in .vsts-ci.yml the line should be patch: $[counter('patch_counter_18_4_2', 1)]
 //
-[assembly: AssemblyVersion("20.4.0.*")]
+[assembly: AssemblyVersion("20.4.1.*")]

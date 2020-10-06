@@ -15,8 +15,14 @@
     <tags>PSModule</tags>
   </metadata>
   <files>
-    <file src="Output\Release\net472\*.*" target="lib\net472" exclude="**\*Test*;**\*.psd1;**\*.ps1" />
-    <file src="Output\Release\net472\UiPath.PowerShell.psd1" target="" exclude="" />
+    <!-- PowerShellGet is not able to correctly use upstreams and public repos so we cannot use NuGet deps -->
+    <file src="Output\Release\net472\UiPath.PowerShell.dll" target="lib\net472"/>
+      <file src="Output\Release\net472\UiPath.PowerShell.dll-Help.xml" target="lib\net472"/>
+      <file src="Output\Release\net472\UiPath.Web.Client.dll" target="lib\net472"/>
+      <file src="Output\Release\net472\Newtonsoft.Json.dll" target="lib\net472"/>
+      <file src="Output\Release\net472\Microsoft.Rest.ClientRuntime.dll" target="lib\net472"/>
+      <file src="Output\Release\net472\RestSharp.dll" target="lib\net472"/>
+      <file src="Output\Release\net472\UiPath.PowerShell.psd1" target="" exclude="" />
     <file src="Output\Release\net472\UiPath.BindingResolve.ps1" target="" exclude="" />
   </files>
 </package>

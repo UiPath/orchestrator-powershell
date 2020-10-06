@@ -15,8 +15,8 @@ namespace UiPath.PowerShell.Models
     {
         public long Id { get; private set; }
         public string Name { get; private set; }
-        public AssetDtoValueType? ValueType { get; private set; }
-        public AssetDtoValueScope ValueScope { get; private set; }
+        public string ValueType { get; private set; }
+        public string ValueScope { get; private set; }
         public string Value { get; private set; }
         public Dictionary<long, string> RobotValues { get; private set; }
         public bool? CanBeDeleted { get; private set; }
@@ -30,8 +30,8 @@ namespace UiPath.PowerShell.Models
             {
                 Id = dto.Id.Value,
                 Name = dto.Name,
-                ValueType = dto.ValueType,
-                ValueScope = dto.ValueScope,
+                ValueType = dto.ValueType.ToString(),
+                ValueScope = dto.ValueScope.ToString(),
                 Value = dto.ValueScope == AssetDtoValueScope.Global ? dto.Value : null,
                 RobotValues = dto.RobotValues?.ToDictionary(r => r.RobotId.Value, r => r.Value),
                 KeyValueList = dto.KeyValueList?.ToDictionary(kv => kv.Key, kv => kv.Value),

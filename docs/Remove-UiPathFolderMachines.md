@@ -1,17 +1,14 @@
 ﻿```PowerShell
 
 NAME
-    Get-UiPathFolderUsers
+    Remove-UiPathFolderMachines
     
 SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathFolderUsers [[-Folder] <Folder>] [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] 
-    [-IncludeInherited <bool>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
-    
-    Get-UiPathFolderUsers -Id <long> [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-IncludeInherited 
-    <bool>] [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
+    Remove-UiPathFolderMachines [[-Folder] <Folder>] -MachineIds <long[]> [-AuthToken <AuthToken>] [-RequestTimeout 
+    <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -26,35 +23,11 @@ PARAMETERS
         Accept pipeline input?       true (ByValue)
         Accept wildcard characters?  false
         
-    -IncludeInherited <bool>
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Id <long>
+    -MachineIds <long[]>
         
         Required?                    true
         Position?                    named
         Default value                
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -Paging <SwitchParameter>
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
-        Accept pipeline input?       false
-        Accept wildcard characters?  false
-        
-    -ExactMatch <SwitchParameter>
-        
-        Required?                    false
-        Position?                    named
-        Default value                False
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

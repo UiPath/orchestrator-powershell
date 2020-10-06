@@ -67,35 +67,35 @@ namespace UiPath.PowerShell.Cmdlets
             switch(ParameterSetName)
             {
                 case TextValueSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Text;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Text.ToString();
                     assetRobotValue.TextValue = TextValue;
                     break;
                 case IntValueSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Integer;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Integer.ToString();
                     assetRobotValue.IntValue = IntValue;
                     break;
                 case BoolValueSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Bool;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Bool.ToString();
                     assetRobotValue.BoolValue = BoolValue;
                     break;
                 case DBConnectionStringSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.DBConnectionString;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.DBConnectionString.ToString();
                     assetRobotValue.TextValue = DBConnectionString;
                     break;
                 case HttpConnectionStringSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.HttpConnectionString;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.HttpConnectionString.ToString();
                     assetRobotValue.TextValue = HttpConnectionString;
                     break;
                 case KeyValueListSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.KeyValueList;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.KeyValueList.ToString();
                     assetRobotValue.KeyValueList = KeyValueList;
                     break;
                 case CredentialSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Credential;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.Credential.ToString();
                     assetRobotValue.Credential = Credential;
                     break;
                 case WindowsCredentialSet:
-                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.WindowsCredential;
+                    assetRobotValue.ValueType = AssetRobotValueDtoValueType.WindowsCredential.ToString();
                     assetRobotValue.Credential = WindowsCredential;
                     break;
             }

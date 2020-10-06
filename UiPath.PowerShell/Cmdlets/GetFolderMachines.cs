@@ -1,28 +1,29 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client201910;
+using UiPath.Web.Client20204;
 
 namespace UiPath.PowerShell.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, Nouns.FolderUsers)]
-    public class GetFolderUsers : FilteredIdCmdlet
+    [Cmdlet(VerbsCommon.Get, Nouns.FolderMachines)]
+    public class GetFolderMachines :FilteredIdCmdlet
     {
+        internal const string IsAssignedtoFolderFilter = "IsAssignedToFolder eq true";
+
         private const string FolderParameterSet = "Folder";
 
         [Parameter(Position = 0, ValueFromPipeline = true, ParameterSetName = FolderParameterSet)]
         public Folder Folder { get; private set; }
-
-        [Parameter]
-        public bool IncludeInherited { get; private set; }
 
         protected override void ProcessRecord()
         {
             var folder = Folder ?? InternalAuthToken.CurrentFolder;
 
             ProcessImpl(
-             (filter, top, skip) => Api_19_10.Folders.GetUsersForFolderByKeyAndIncludeinherited(Id.HasValue ? Id.Value : folder.Id, IncludeInherited, filter: filter, top: top, skip: skip),
-             dto => UserRole.FromDto(dto));
+                (filter, top, skip) => Api_20_4.Folders.GetMachinesForFolderByKey(folder.Id, filter: filter, skip: skip, top: top),
+                dto => MachineFolder.FromDto(dto).WithFolder(folder));
         }
+
+        protected override string ImplicitFilter => IsAssignedtoFolderFilter;
     }
 }
