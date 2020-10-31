@@ -26,7 +26,7 @@ variables:
  
   # TODO: reset counter on each GlobalAssemblyProperties version bump
   # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=vsts&tabs=yaml%2Cbatch#counters
-  patch: $[counter('patch_counter_20_4_1', 1)]
+  patch: $[counter('patch_counter_20_4_2', 1)]
 
 stages:
  - stage: 'CI'
