@@ -1,9 +1,11 @@
-﻿using System;
+﻿using RestSharp.Extensions;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Windows.Forms;
 using UiPath.PowerShell.Models;
+using UiPath.PowerShell.Util;
 
 namespace UiPath.PowerShell.OAuth
 {
@@ -79,6 +81,12 @@ namespace UiPath.PowerShell.OAuth
 
         private void WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            if (e.Url.Host.EndsWith("uipath.com", StringComparison.OrdinalIgnoreCase))
+            {
+                // Thank you
+                webBrowser.DocumentText = "<!doctype html><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\">" + webBrowser.DocumentText;
+            }
+
             if (e.Url.ToString().StartsWith($"{AuthToken.AuthorizationUrl}/mobile", StringComparison.OrdinalIgnoreCase))
             {
                 var query = HttpUtility.ParseQueryString(e.Url.Query);
@@ -121,6 +129,7 @@ namespace UiPath.PowerShell.OAuth
 
         private void WebBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
+            UiPathCmdlet.VerboseTracer.Information($"Navigated to: {e.Url}");
             statusLoading.Text = e.Url.ToString();
         }
     }
