@@ -4,6 +4,11 @@ trigger:
       - develop
       - master
       - release/*
+  paths:
+    exclude:
+      - README.md
+      - LICENSE.md
+      - Examples/*
 
 pr:
   branches:
@@ -11,6 +16,11 @@ pr:
       - develop
       - master
       - release/*
+  paths:
+    exclude:
+      - README.md
+      - LICENSE.md
+      - Examples/*
   
 variables:
  

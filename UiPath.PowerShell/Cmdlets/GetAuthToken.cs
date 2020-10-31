@@ -169,6 +169,19 @@ namespace UiPath.PowerShell.Cmdlets
                     TenantName = "Host";
                 }
 
+                if (!string.IsNullOrWhiteSpace(URL))
+                {
+                    var uri = new Uri(URL);
+                    if (0 == string.Compare(uri.Host, "alpha.uipath.com", true) ||
+                        0 == string.Compare(uri.Host, "staging.uipath.com", true) ||
+                        0 == string.Compare(uri.Host, "cloud.uipath.com", true) ||
+                        0 == string.Compare(uri.Host, "platform.uipath.com", true))
+                    {
+                        WriteError("Use -CloudDeployment parameter to connect to UiPath Automation Cloud");
+                        return;
+                    }
+                }
+
                 if (ParameterSetName == UserPasswordSet || ParameterSetName == HostSet)
                 {
                     authToken = GetUserToken();

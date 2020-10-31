@@ -98,7 +98,7 @@ namespace UiPath.PowerShell.Models
                 case CloudDeployments.Staging:
                     return "https://staging.uipath.com";
                 case CloudDeployments.Production:
-                    return "https://platform.uipath.com";
+                    return "https://cloud.uipath.com";
                 default:
                     return null;
             }

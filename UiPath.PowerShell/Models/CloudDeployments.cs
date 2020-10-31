@@ -5,6 +5,7 @@
         None,
         Alpha,
         Staging,
-        Production
+        Production,
+        Cloud = Production,
     }
 }
