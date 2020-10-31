@@ -22,15 +22,12 @@ namespace UiPath.PowerShell.Util
 
         public bool IsEnabled => _traceFlags.HasFlag(ETraceFlags.Enabled);
 
-
-
         public void Configuration(string source, string name, string value)
         {
         }
 
         public void EnterMethod(string invocationId, object instance, string method, IDictionary<string, object> parameters)
         {
-
         }
 
         public void ExitMethod(string invocationId, object returnValue)

@@ -14,7 +14,7 @@ namespace UiPath.PowerShell.Util
 
         private static PSCmdlet _cmdlet;
 
-        private static RestVerboseTracer VerboseTracer { get; set; }
+        internal static RestVerboseTracer VerboseTracer { get; set; }
 
         static UiPathCmdlet()
         {
