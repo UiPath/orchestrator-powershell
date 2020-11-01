@@ -316,7 +316,7 @@ namespace UiPath.PowerShell.Util
             authToken.Token = accessToken;
             authToken.AuthorizationRefreshToken = refreshToken;
             authToken.AuthorizationTokenId = idToken;
-            authToken.URL = $"{authToken.AccountUrl}/{accountLogicalName}/{tenantLogicalName}";
+            authToken.URL = $"{authToken.AccountUrl}/{accountLogicalName}/{tenantLogicalName}/";
             authToken.TenantName = tenantLogicalName;
             authToken.AccountName = accountLogicalName;
         }
