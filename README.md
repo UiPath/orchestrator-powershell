@@ -7,8 +7,21 @@ PS C:\>Install-PackageProvider -Name NuGet -Force
 PS C:\>Register-PSRepository -Name UiPath -SourceLocation https://www.myget.org/F/uipath-dev/api/v2
 PS C:\>Install-Module -Repository UiPath -Name UiPath.Powershell -Force
 PS C:\>Import-Module UiPath.PowerShell
-PS C:\>Get-UiPathAuthToken -URL <orchestratorurl> -Username <OrchestratorUser> -Password <password> -Session
-PS C:\>Get-UiPathRobot
+```
+
+# Login to UiPath Automation Cloud using interactive login
+```
+PS C:\>Get-UiPathAuthToken -Session
+```
+
+# Login to UiPath Automation Cloud using API keys
+```
+PS C:\>Get-UiPathAuthToken -Session -ClientId <your_client_id> -UserKey <your_user_key>
+```
+
+#Login to your on-premise deployed Orchestrator
+```
+PS C:\>Get-UiPathAuthToken -Session -URL <orchestrator_url> -Username <username> -Password <password>
 ```
 
 # Using the UiPath.PowerShell module
