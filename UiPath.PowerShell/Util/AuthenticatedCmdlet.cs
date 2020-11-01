@@ -288,7 +288,6 @@ namespace UiPath.PowerShell.Util
                 out headers);
 
             string tenantLogicalName;
-            string serviceUrl;
 
             jt = JArray.Parse(response);
             if (!string.IsNullOrEmpty(authToken.TenantName))
@@ -299,7 +298,6 @@ namespace UiPath.PowerShell.Util
                     throw new ApplicationException($"The requested tenant {authToken.TenantName} was not found");
                 }
                 tenantLogicalName = tenant.Value<string>("serviceInstanceLogicalName");
-                serviceUrl = tenant.Value<string>("serviceUrl");
             }
             else
             {
@@ -313,13 +311,12 @@ namespace UiPath.PowerShell.Util
                 }
 
                 tenantLogicalName = jt[0].Value<string>("serviceInstanceLogicalName");
-                serviceUrl = jt[0].Value<string>("serviceUrl");
             }
 
             authToken.Token = accessToken;
             authToken.AuthorizationRefreshToken = refreshToken;
             authToken.AuthorizationTokenId = idToken;
-            authToken.URL = serviceUrl ?? $"{authToken.AccountUrl}/{accountLogicalName}/{tenantLogicalName}";
+            authToken.URL = $"{authToken.AccountUrl}/{accountLogicalName}/{tenantLogicalName}";
             authToken.TenantName = tenantLogicalName;
             authToken.AccountName = accountLogicalName;
         }
