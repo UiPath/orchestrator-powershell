@@ -1,9 +1,9 @@
 trigger:
   branches:
     include:
-      - develop
       - master
-      - release/*
+      - refs/heads/develop
+      - refs/heads/release/*
   paths:
     exclude:
       - README.md
@@ -13,9 +13,9 @@ trigger:
 pr:
   branches:
     include:
-      - develop
       - master
-      - release/*
+      - refs/heads/develop
+      - refs/heads/release/*
   paths:
     exclude:
       - README.md
