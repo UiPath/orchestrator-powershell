@@ -3,7 +3,6 @@ trigger:
     include:
       - develop
       - master
-      - release/*
   paths:
     exclude:
       - README.md
@@ -15,7 +14,6 @@ pr:
     include:
       - develop
       - master
-      - release/*
   paths:
     exclude:
       - README.md
@@ -97,7 +95,7 @@ stages:
    dependsOn: [ 'CI' ]
    condition: and(
         succeeded(), 
-        ne(startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), 'true')
+        ne(variables['Build.SourceBranch'], 'master')
       )
    jobs:
       - deployment: 'PublishPackageToDevPackages'
@@ -120,7 +118,7 @@ stages:
    dependsOn: [ 'CI' ]
    condition: and(
         succeeded(), 
-        startsWith(variables['Build.SourceBranch'], 'refs/heads/release')
+        eq(variables['Build.SourceBranch'], 'master')
       )
    jobs:
       - deployment: 'PublishPackageMyGet'
