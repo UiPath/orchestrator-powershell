@@ -7,8 +7,9 @@ SYNOPSIS
     
     
 SYNTAX
-    Add-UiPathMachine -Name <string> [-AuthToken <AuthToken>] [-LicenseKey <Guid>] [-NonProductionSlots <int>] 
-    [-RequestTimeout <int>] [-Type <string>] [-UnattendedSlots <int>] [<CommonParameters>]
+    Add-UiPathMachine -Name <string> [-AuthToken <AuthToken>] [-HeadlessSlots <int>] [-LicenseKey <Guid>] 
+    [-NonProductionSlots <int>] [-RequestTimeout <int>] [-TestAutomationSlots <int>] [-Type <string>] 
+    [-UnattendedSlots <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -40,6 +41,22 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -UnattendedSlots <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -TestAutomationSlots <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -HeadlessSlots <int>
         
         Required?                    false
         Position?                    named

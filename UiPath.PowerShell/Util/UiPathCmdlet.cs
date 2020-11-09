@@ -25,7 +25,14 @@ namespace UiPath.PowerShell.Util
 
         internal static void DebugMessage(string message)
         {
-            _cmdlet.WriteDebug(message);
+            try
+            {
+                _cmdlet.WriteDebug(message);
+            }
+            catch
+            {
+                // Ignore
+            }
         }
 
         internal bool VerboseEnabled
