@@ -4,9 +4,12 @@ using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20182;
 using UiPath.Web.Client20183;
+using UiPath.Web.Client20204;
 using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
 using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using MachineDto20204 = UiPath.Web.Client20204.Models.MachineDto;
 using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
+using MachineDtoType20204 = UiPath.Web.Client20204.Models.MachineDtoType;
 
 
 namespace UiPath.PowerShell.Cmdlets
@@ -28,11 +31,21 @@ namespace UiPath.PowerShell.Cmdlets
         public int? UnattendedSlots { get; private set; }
 
         [Parameter]
+        public int? TestAutomationSlots { get; private set; }
+
+        [Parameter]
+        public int? HeadlessSlots { get; private set; }
+
+        [Parameter]
         public Guid LicenseKey { get; private set; }
 
         protected override void ProcessRecord()
         {
-            if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
+            if (Supports(OrchestratorProtocolVersion.V20_4))
+            {
+                AddMachine20204();
+            }
+            else if (Supports(OrchestratorProtocolVersion.V18_3))
             {
                 AddMachine20183();
             }
@@ -40,6 +53,25 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 AddMachine20182();
             }
+        }
+
+        private void AddMachine20204()
+        {
+            var machine = new MachineDto20204
+            {
+                Name = Name,
+                NonProductionSlots = NonProductionSlots,
+                UnattendedSlots = UnattendedSlots,
+                TestAutomationSlots = TestAutomationSlots,
+                HeadlessSlots = HeadlessSlots,
+                Type = (MachineDtoType20204)Enum.Parse(typeof(MachineDtoType20204), Type ?? nameof(MachineDtoType20204.Standard))
+            };
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(LicenseKey)))
+            {
+                machine.LicenseKey = LicenseKey.ToString();
+            }
+            var response = HandleHttpOperationException(() => Api_20_4.Machines.Post(machine));
+            WriteObject(Machine.FromDto(response));
         }
 
         private void AddMachine20183()

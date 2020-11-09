@@ -3,6 +3,7 @@ using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20182;
 using UiPath.Web.Client20183;
+using UiPath.Web.Client20204;
 using UiPath.Web.Client20182.Models;
 using UiPath.Web.Client20183.Models;
 
@@ -31,11 +32,26 @@ namespace UiPath.PowerShell.Cmdlets
         public MachineDtoType Type { get; private set; }
 
         [Parameter]
+        [SetParameter]
         public int UnattendedSlots { get; private set; }
+
+        [Parameter]
+        [SetParameter]
+        public int TestAutomationSlots { get; private set; }
+
+        [Parameter]
+        [SetParameter]
+        public int HeadlessSlots { get; private set; }
 
         protected override void ProcessRecord()
         {
-            if (MyInvocation.BoundParameters.ContainsKey(nameof(Type)))
+            if (Supports(OrchestratorProtocolVersion.V20_4))
+            {
+                ProcessImpl(
+                    () => ParameterSetName == "Machine" ? Machine.ToDto20204(Machine) : HandleHttpOperationException(() => Api_20_4.Machines.GetById(Id)),
+                    newDto => HandleHttpOperationException(() => Api_20_4.Machines.PutById(newDto.Id.Value, newDto)));
+            }
+            else if (Supports(OrchestratorProtocolVersion.V18_3))
             {
                 ProcessImpl(
                     () => ParameterSetName == "Machine" ? Machine.ToDto20183(Machine) : HandleHttpOperationException(() => Api_18_3.Machines.GetById(Id)),

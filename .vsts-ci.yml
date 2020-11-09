@@ -1,8 +1,8 @@
 trigger:
   branches:
     include:
-      - develop
       - master
+      - develop
   paths:
     exclude:
       - README.md
@@ -12,8 +12,8 @@ trigger:
 pr:
   branches:
     include:
-      - develop
       - master
+      - develop
   paths:
     exclude:
       - README.md

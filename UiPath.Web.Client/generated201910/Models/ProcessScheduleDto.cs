@@ -349,29 +349,38 @@ namespace UiPath.Web.Client201910.Models
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "TimeZoneId");
             }
-            if (ItemsActivationThreshold > 10000)
+            if (ItemsActivationThreshold != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "ItemsActivationThreshold", 10000);
+                if (ItemsActivationThreshold > 10000)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMaximum, "ItemsActivationThreshold", 10000);
+                }
+                if (ItemsActivationThreshold < 1)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "ItemsActivationThreshold", 1);
+                }
             }
-            if (ItemsActivationThreshold < 1)
+            if (ItemsPerJobActivationTarget != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "ItemsActivationThreshold", 1);
+                if (ItemsPerJobActivationTarget > 10000)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMaximum, "ItemsPerJobActivationTarget", 10000);
+                }
+                if (ItemsPerJobActivationTarget < 1)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "ItemsPerJobActivationTarget", 1);
+                }
             }
-            if (ItemsPerJobActivationTarget > 10000)
+            if (MaxJobsForActivation != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "ItemsPerJobActivationTarget", 10000);
-            }
-            if (ItemsPerJobActivationTarget < 1)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "ItemsPerJobActivationTarget", 1);
-            }
-            if (MaxJobsForActivation > 10000)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "MaxJobsForActivation", 10000);
-            }
-            if (MaxJobsForActivation < 1)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "MaxJobsForActivation", 1);
+                if (MaxJobsForActivation > 10000)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMaximum, "MaxJobsForActivation", 10000);
+                }
+                if (MaxJobsForActivation < 1)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "MaxJobsForActivation", 1);
+                }
             }
         }
     }

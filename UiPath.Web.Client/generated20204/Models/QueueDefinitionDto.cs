@@ -184,21 +184,27 @@ namespace UiPath.Web.Client20204.Models
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Name");
             }
-            if (SlaInMinutes > 2147483647)
+            if (SlaInMinutes != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "SlaInMinutes", 2147483647);
+                if (SlaInMinutes > 2147483647)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMaximum, "SlaInMinutes", 2147483647);
+                }
+                if (SlaInMinutes < 0)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "SlaInMinutes", 0);
+                }
             }
-            if (SlaInMinutes < 0)
+            if (RiskSlaInMinutes != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "SlaInMinutes", 0);
-            }
-            if (RiskSlaInMinutes > 2147483647)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "RiskSlaInMinutes", 2147483647);
-            }
-            if (RiskSlaInMinutes < 0)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "RiskSlaInMinutes", 0);
+                if (RiskSlaInMinutes > 2147483647)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMaximum, "RiskSlaInMinutes", 2147483647);
+                }
+                if (RiskSlaInMinutes < 0)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "RiskSlaInMinutes", 0);
+                }
             }
         }
     }

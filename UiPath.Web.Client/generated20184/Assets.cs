@@ -971,7 +971,7 @@ namespace UiPath.Web.Client20184
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        [System.Obsolete()]
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<RobotAssetDto>> GetRobotAssetByRobotidAndAssetnameWithHttpMessagesAsync(string robotId, string assetName, Dictionary<string, List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (robotId == null)

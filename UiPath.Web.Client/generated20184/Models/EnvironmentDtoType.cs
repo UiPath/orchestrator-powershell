@@ -14,6 +14,7 @@ namespace UiPath.Web.Client20184.Models
     /// <summary>
     /// Defines values for EnvironmentDtoType.
     /// </summary>
+    [System.Obsolete("This type is deprecated. Please do not use it any longer.")]
     [JsonConverter(typeof(StringEnumConverter))]
     public enum EnvironmentDtoType
     {

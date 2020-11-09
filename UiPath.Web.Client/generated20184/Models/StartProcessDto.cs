@@ -94,6 +94,7 @@ namespace UiPath.Web.Client20184.Models
         /// greater than 0 only if the start strategy is RobotCount.
         /// </summary>
         [JsonProperty(PropertyName = "NoOfRobots")]
+        [System.Obsolete("This property is deprecated. Please do not use it any longer.")]
         public int? NoOfRobots { get; set; }
 
         /// <summary>

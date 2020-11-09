@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UiPath.PowerShell.Util;
 using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
 using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using MachineDto20204 = UiPath.Web.Client20204.Models.MachineDto;
 using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
 
 namespace UiPath.PowerShell.Models
@@ -22,6 +23,8 @@ namespace UiPath.PowerShell.Models
         public int? HeadlessSlots { get; private set; }
 
         internal static object FromDto<TDto>(TDto dto) => dto.To<Machine>();
+
+        internal static MachineDto20204 ToDto20204(Machine machine) => machine.To<MachineDto20204>();
 
         internal MachineDto20182 ToDto20182(Machine machine) => new MachineDto20182
         {

@@ -8,7 +8,6 @@ namespace UiPath.Web.Client20204.Models
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
-    using System;
     using System.Runtime;
     using System.Runtime.Serialization;
 
@@ -16,7 +15,6 @@ namespace UiPath.Web.Client20204.Models
     /// Defines values for BucketDtoOptions.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    [Flags]
     public enum BucketDtoOptions
     {
         [EnumMember(Value = "None")]
