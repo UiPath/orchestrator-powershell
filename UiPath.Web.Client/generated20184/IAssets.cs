@@ -206,7 +206,7 @@ namespace UiPath.Web.Client20184
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        [System.Obsolete()]
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         Task<HttpOperationResponse<RobotAssetDto>> GetRobotAssetByRobotidAndAssetnameWithHttpMessagesAsync(string robotId, string assetName, Dictionary<string, List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     }
 }

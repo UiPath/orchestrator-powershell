@@ -125,7 +125,7 @@ namespace UiPath.Web.Client20184
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "odata/LicensesRuntime/UiPath.Server.Configuration.OData.GetLicensesRuntime(robotType='{robotType}')").ToString();
-            _url = _url.Replace("{robotType}", System.Uri.EscapeDataString(robotType));
+            _url = _url.Replace("{robotType}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(robotType, Client.SerializationSettings).Trim('"')));
             List<string> _queryParameters = new List<string>();
             if (expand != null)
             {

@@ -79,6 +79,7 @@ namespace UiPath.Web.Client20184.Models
         /// values include: 'Dev', 'Test', 'Prod'
         /// </summary>
         [JsonProperty(PropertyName = "Type")]
+        [System.Obsolete("This property is deprecated. Please do not use it any longer.")]
         public EnvironmentDtoType? Type { get; set; }
 
         /// <summary>
