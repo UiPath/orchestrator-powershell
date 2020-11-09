@@ -7,11 +7,13 @@ SYNOPSIS
     
     
 SYNTAX
-    Edit-UiPathMachine [-Machine] <Machine> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] 
-    [-RequestTimeout <int>] [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
+    Edit-UiPathMachine [-Machine] <Machine> [-AuthToken <AuthToken>] [-HeadlessSlots <int>] [-Name <string>] 
+    [-NonProductionSlots <int>] [-RequestTimeout <int>] [-TestAutomationSlots <int>] [-Type {Standard | Template}] 
+    [-UnattendedSlots <int>] [<CommonParameters>]
     
-    Edit-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-Name <string>] [-NonProductionSlots <int>] 
-    [-RequestTimeout <int>] [-Type {Standard | Template}] [-UnattendedSlots <int>] [<CommonParameters>]
+    Edit-UiPathMachine -Id <long> [-AuthToken <AuthToken>] [-HeadlessSlots <int>] [-Name <string>] 
+    [-NonProductionSlots <int>] [-RequestTimeout <int>] [-TestAutomationSlots <int>] [-Type {Standard | Template}] 
+    [-UnattendedSlots <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -60,6 +62,22 @@ PARAMETERS
         Accept wildcard characters?  false
         
     -UnattendedSlots <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                0
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -TestAutomationSlots <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                0
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -HeadlessSlots <int>
         
         Required?                    false
         Position?                    named
