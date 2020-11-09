@@ -45,6 +45,13 @@ stages:
         Build.Repository.Clean: true
 
      steps:
+     - powershell: |
+          Write-Host "Variables for current build:"
+          Get-ChildItem ENV:* | Format-List
+        displayName: "Print variables"
+        continueOnError: true
+        condition: always()
+
      - task: NodeTool@0
        inputs:
         versionSpec: '10.x'
