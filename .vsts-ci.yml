@@ -102,7 +102,7 @@ stages:
    dependsOn: [ 'CI' ]
    condition: and(
         succeeded(), 
-        ne(variables['Build.SourceBranch'], 'master')
+        ne(variables['Build.SourceBranchName'], 'master')
       )
    jobs:
       - deployment: 'PublishPackageToDevPackages'
@@ -125,7 +125,7 @@ stages:
    dependsOn: [ 'CI' ]
    condition: and(
         succeeded(), 
-        eq(variables['Build.SourceBranch'], 'master')
+        eq(variables['Build.SourceBranchName'], 'master')
       )
    jobs:
       - deployment: 'PublishPackageMyGet'
