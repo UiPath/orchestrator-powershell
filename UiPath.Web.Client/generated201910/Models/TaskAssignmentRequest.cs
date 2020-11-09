@@ -62,13 +62,19 @@ namespace UiPath.Web.Client201910.Models
         /// </exception>
         public virtual void Validate()
         {
-            if (TaskId < 1)
+            if (TaskId != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "TaskId", 1);
+                if (TaskId < 1)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "TaskId", 1);
+                }
             }
-            if (UserId < 1)
+            if (UserId != null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "UserId", 1);
+                if (UserId < 1)
+                {
+                    throw new ValidationException(ValidationRules.InclusiveMinimum, "UserId", 1);
+                }
             }
         }
     }

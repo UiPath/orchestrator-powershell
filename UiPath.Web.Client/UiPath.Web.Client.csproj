@@ -22,48 +22,53 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Swagger\UiPath2018.1.swagger" />
-    <None Include="Swagger\UiPath2018.2.6.swagger" />
-    <None Include="Swagger\UiPath2018.3.0-CE.2.swagger" />
-    <None Include="Swagger\UiPath2018.4.1.swagger" />
-    <None Include="Swagger\UiPath2019.1.swagger" />
-    <None Include="Swagger\UiPath2019.4.swagger" />
-    <None Include="Swagger\UiPath2019.10.swagger" />
-    <None Include="Swagger\UiPath2020.4.swagger" />
+      <Swagger Include="UiPath2018.1.swagger">
+          <GenDir>generated20181</GenDir>
+          <Namespace>UiPath.Web.Client20181</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2018.2.6.swagger">
+          <GenDir>generated20182</GenDir>
+          <Namespace>UiPath.Web.Client20182</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2018.3.0-CE.2.swagger">
+          <GenDir>generated20183</GenDir>
+          <Namespace>UiPath.Web.Client20183</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2018.4.1.swagger">
+          <GenDir>generated20184</GenDir>
+          <Namespace>UiPath.Web.Client20184</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2019.1.swagger">
+          <GenDir>generated20191</GenDir>
+          <Namespace>UiPath.Web.Client20191</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2019.4.swagger">
+          <GenDir>generated20194</GenDir>
+          <Namespace>UiPath.Web.Client20194</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2019.10.swagger">
+          <GenDir>generated201910</GenDir>
+          <Namespace>UiPath.Web.Client201910</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2020.4.swagger">
+          <GenDir>generated20204</GenDir>
+          <Namespace>UiPath.Web.Client20204</Namespace>
+      </Swagger>
+      <Swagger Include="UiPath2020.10.swagger">
+          <GenDir>generated202010</GenDir>
+          <Namespace>UiPath.Web.Client202010</Namespace>
+      </Swagger>
   </ItemGroup>
-    <Target Name="Client20181" Inputs="Swagger\UiPath2018.1.swagger" Outputs="generated20181\UiPathWebApi.cs">
-        <Exec Outputs="generated20181\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2018.1.swagger --csharp --output-folder=generated20181 --csharp.namespace=UiPath.Web.Client20181 --add-credentials" />
-    </Target>
-    <Target Name="Client20182" Inputs="Swagger\UiPath2018.2.6.swagger" Outputs="generated20182\UiPathWebApi.cs">
-        <Exec Outputs="generated20182\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2018.2.6.swagger --output-folder=generated20182 --csharp --csharp.namespace=UiPath.Web.Client20182 --add-credentials" />
-    </Target>
-    <Target Name="Client20183" Inputs="Swagger\UiPath2018.3.0-CE.2.swagger" Outputs="generated20183\UiPathWebApi.cs">
-        <Exec Outputs="generated20183\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2018.3.0-CE.2.swagger --output-folder=generated20183 --csharp --csharp.namespace=UiPath.Web.Client20183 --add-credentials" />
-    </Target>
-    <Target Name="Client20184" Inputs="Swagger\UiPath2018.4.1.swagger" Outputs="generated20184\UiPathWebApi.cs">
-        <Exec Outputs="generated20184\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2018.4.1.swagger --output-folder=generated20184 --csharp --csharp.namespace=UiPath.Web.Client20184 --add-credentials" />
-    </Target>
-    <Target Name="Client20191" Inputs="Swagger\UiPath2019.1.swagger" Outputs="generated20191\UiPathWebApi.cs">
-        <Exec Outputs="generated20191\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.1.swagger --output-folder=generated20191 --csharp --csharp.namespace=UiPath.Web.Client20191 --add-credentials" />
-    </Target>
-    <Target Name="Client20194" Inputs="Swagger\UiPath2019.4.swagger" Outputs="generated20194\UiPathWebApi.cs">
-        <Exec Outputs="generated20194\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.4.swagger --output-folder=generated20194 --csharp --csharp.namespace=UiPath.Web.Client20194 --add-credentials" />
-    </Target>
-    <Target Name="Client201910" Inputs="Swagger\UiPath2019.10.swagger" Outputs="generated201910\UiPathWebApi.cs">
-        <Exec Outputs="generated201910\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2019.10.swagger --output-folder=generated201910 --csharp --csharp.namespace=UiPath.Web.Client201910 --add-credentials" />
-    </Target>
-    <Target Name="Client20204" Inputs="Swagger\UiPath2020.4.swagger" Outputs="generated20204\UiPathWebApi.cs">
-        <Exec Outputs="generated20204\UiPathWebApi.cs" Command="autorest --input-file=Swagger\UiPath2020.4.swagger --output-folder=generated20204 --csharp --csharp.namespace=UiPath.Web.Client20204 --add-credentials" />
-    </Target>
-    <Target Name="GenerateUiPathSwaggerClient" BeforeTargets="CoreCompile" DependsOnTargets="Client20181;Client20182;Client20183;Client20184;Client20191;Client20194;Client201910;Client20204">
+    <Target Name="Swagger"
+            BeforeTargets="CoreCompile"
+            Outputs="%(Swagger.GenDir)\UiPathWebApi.cs"
+            Inputs="Swagger/%(Swagger.Identity)">
         <ItemGroup>
-            <AutoRestGenerated Include="generated20181\*.cs;generated20181\Models\*.cs;generated20182\*.cs;generated20182\Models\*.cs;generated20183\*.cs;generated20183\Models\*.cs;generated20184\*.cs;generated20184\Models\*.cs;generated20191\*.cs;generated20191\Models\*.cs;generated20194\*.cs;generated20194\Models\*.cs;generated201910\*.cs;generated201910\Models\*.cs" />
-            <!--<Compile Include="@(AutoRestGenerated)">
-                <AutoGen>True</AutoGen>
-                <Visible>True</Visible>
-            </Compile> -->
+            <AutoRestGenerated Include="%(Swagger.GenDir)\*.cs;%(Swagger.GenDir)\Models\*.cs" />
             <FileWrites Include="@(AutoRestGenerated)" />
         </ItemGroup>
+        <Message Text="Generating @(Swagger): %(Swagger.GenDir) %(Namespace)"/>
+        <Exec Command="autorest --input-file=Swagger\%(Swagger.Identity) --csharp --override-client-name=UiPathWebApi --output-folder=%(GenDir) --csharp.namespace=%(Namespace) --add-credentials" />
     </Target>
     <Target Name="UpdateRevision" Condition="'$(Revision)' != ''" BeforeTargets="PrepareForBuild">
         <Error Condition="$(Revision) &gt; 65535" Text="The revision number $(Revision) cannot be greater than 65535" />

@@ -314,7 +314,7 @@ namespace UiPath.Web.Client20184
             /// <param name='assetName'>
             /// The name of the asset being fetched.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static RobotAssetDto GetRobotAssetByRobotidAndAssetname(this IAssets operations, string robotId, string assetName)
             {
                 return operations.GetRobotAssetByRobotidAndAssetnameAsync(robotId, assetName).GetAwaiter().GetResult();
@@ -340,7 +340,7 @@ namespace UiPath.Web.Client20184
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static async Task<RobotAssetDto> GetRobotAssetByRobotidAndAssetnameAsync(this IAssets operations, string robotId, string assetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
             {
                 using (var _result = await operations.GetRobotAssetByRobotidAndAssetnameWithHttpMessagesAsync(robotId, assetName, null, cancellationToken).ConfigureAwait(false))

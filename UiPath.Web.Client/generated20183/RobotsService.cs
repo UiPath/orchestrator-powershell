@@ -81,7 +81,7 @@ namespace UiPath.Web.Client20183
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        [System.Obsolete()]
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<IList<RobotCommand>>> SubmitHeartbeatWithHttpMessagesAsync(IList<HeartbeatDto> hbts, Dictionary<string, List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (hbts == null)
@@ -656,7 +656,7 @@ namespace UiPath.Web.Client20183
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        [System.Obsolete()]
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<IList<PublishedProcess>>> GetAssociatedProcessesWithHttpMessagesAsync(string robotKey, Dictionary<string, List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (robotKey == null)
@@ -815,7 +815,7 @@ namespace UiPath.Web.Client20183
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        [System.Obsolete()]
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<IList<RobotDetailsDto>>> GetRobotMappingsWithHttpMessagesAsync(string licenseKey, string machineName, Dictionary<string, List<string>> customHeaders = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (licenseKey == null)

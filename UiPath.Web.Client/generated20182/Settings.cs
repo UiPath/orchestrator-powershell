@@ -1415,16 +1415,24 @@ namespace UiPath.Web.Client20182
             MultipartFormDataContent _multiPartContent = new MultipartFormDataContent();
             if (file != null)
             {
-                 StreamContent _file = new StreamContent(file);
+                StreamContent _file = new StreamContent(file);
                 _file.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                FileStream _fileAsFileStream = file as FileStream;
-                if (_fileAsFileStream != null)
+                ContentDispositionHeaderValue _contentDispositionHeaderValue = new ContentDispositionHeaderValue("form-data");
+                _contentDispositionHeaderValue.Name = "file";
+                // get filename from stream if it's a file otherwise, just use  'unknown'
+                var _fileStream = file as FileStream;
+                var _fileName = (_fileStream != null ? _fileStream.Name : null) ?? "unknown";
+                if(System.Linq.Enumerable.Any(_fileName, c => c > 127) )
                 {
-                    ContentDispositionHeaderValue _contentDispositionHeaderValue = new ContentDispositionHeaderValue("form-data");
-                    _contentDispositionHeaderValue.Name = "file";
-                    _contentDispositionHeaderValue.FileName = _fileAsFileStream.Name;
-                    _file.Headers.ContentDisposition = _contentDispositionHeaderValue;
+                    // non ASCII chars detected, need UTF encoding:
+                    _contentDispositionHeaderValue.FileNameStar = _fileName;
                 }
+                else
+                {
+                    // ASCII only
+                    _contentDispositionHeaderValue.FileName = _fileName;
+                }
+                _file.Headers.ContentDisposition = _contentDispositionHeaderValue;
                 _multiPartContent.Add(_file, "file");
             }
             _httpRequest.Content = _multiPartContent;

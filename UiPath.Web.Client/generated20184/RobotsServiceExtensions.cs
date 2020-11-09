@@ -34,7 +34,7 @@ namespace UiPath.Web.Client20184
             /// </param>
             /// <param name='hbts'>
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static IList<RobotCommand> SubmitHeartbeat(this IRobotsService operations, IList<HeartbeatDto> hbts)
             {
                 return operations.SubmitHeartbeatAsync(hbts).GetAwaiter().GetResult();
@@ -60,7 +60,7 @@ namespace UiPath.Web.Client20184
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static async Task<IList<RobotCommand>> SubmitHeartbeatAsync(this IRobotsService operations, IList<HeartbeatDto> hbts, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
             {
                 using (var _result = await operations.SubmitHeartbeatWithHttpMessagesAsync(hbts, null, cancellationToken).ConfigureAwait(false))
@@ -196,7 +196,7 @@ namespace UiPath.Web.Client20184
             /// <param name='robotKey'>
             /// The unique key identifying the Robot.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static IList<PublishedProcess> GetAssociatedProcesses(this IRobotsService operations, string robotKey)
             {
                 return operations.GetAssociatedProcessesAsync(robotKey).GetAwaiter().GetResult();
@@ -217,7 +217,7 @@ namespace UiPath.Web.Client20184
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static async Task<IList<PublishedProcess>> GetAssociatedProcessesAsync(this IRobotsService operations, string robotKey, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
             {
                 using (var _result = await operations.GetAssociatedProcessesWithHttpMessagesAsync(robotKey, null, cancellationToken).ConfigureAwait(false))
@@ -244,7 +244,7 @@ namespace UiPath.Web.Client20184
             /// <param name='machineName'>
             /// The name of the Machine that the returned Robots must be associated with
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static IList<RobotDetailsDto> GetRobotMappings(this IRobotsService operations, string licenseKey, string machineName)
             {
                 return operations.GetRobotMappingsAsync(licenseKey, machineName).GetAwaiter().GetResult();
@@ -271,7 +271,7 @@ namespace UiPath.Web.Client20184
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            [System.Obsolete()]
+            [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
             public static async Task<IList<RobotDetailsDto>> GetRobotMappingsAsync(this IRobotsService operations, string licenseKey, string machineName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
             {
                 using (var _result = await operations.GetRobotMappingsWithHttpMessagesAsync(licenseKey, machineName, null, cancellationToken).ConfigureAwait(false))
