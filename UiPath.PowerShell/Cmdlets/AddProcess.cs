@@ -3,7 +3,7 @@ using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181;
 using Release20181 = UiPath.Web.Client20181.Models.ReleaseDto;
-using Release201910 = UiPath.Web.Client201910.Models.ReleaseDto;
+using Release20204 = UiPath.Web.Client20204.Models.ReleaseDto;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -36,9 +36,9 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            if (Supports(OrchestratorProtocolVersion.V19_10))
+            if (Supports(OrchestratorProtocolVersion.V20_4))
             {
-                var release = new Release201910
+                var release = new Release20204
                 {
                     Name = Name,
                     EnvironmentId = Environment?.Id ?? EnvironmentId,
@@ -47,7 +47,7 @@ namespace UiPath.PowerShell.Cmdlets
                     ProcessVersion = Package?.Version ?? PackageVersion,
                     AutoUpdate = AutoUpdate.IsPresent,
                 };
-                var dto = HandleHttpResponseException(() => Api_19_10.Releases.PostWithHttpMessagesAsync(release));
+                var dto = HandleHttpResponseException(() => Api_20_4.Releases.PostWithHttpMessagesAsync(release));
                 WriteObject(Process.FromDto(dto));
             }
             else
