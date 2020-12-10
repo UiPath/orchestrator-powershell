@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputPath>$(SolutionDir)\Output\$(Configuration)</OutputPath>
       <Deterministic>False</Deterministic>
       <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -8,13 +8,15 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.20" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.22" />
     <PackageReference Include="MSBuildTasks" Version="1.5.0.235">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="RestSharp" Version="106.10.1" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Properties\GlobalAssemblyInfo.cs">
@@ -59,15 +61,12 @@
           <Namespace>UiPath.Web.Client202010</Namespace>
       </Swagger>
   </ItemGroup>
-    <Target Name="Swagger"
-            BeforeTargets="CoreCompile"
-            Outputs="%(Swagger.GenDir)\UiPathWebApi.cs"
-            Inputs="Swagger/%(Swagger.Identity)">
+    <Target Name="Swagger" BeforeTargets="CoreCompile" Outputs="%(Swagger.GenDir)\UiPathWebApi.cs" Inputs="Swagger/%(Swagger.Identity)">
         <ItemGroup>
             <AutoRestGenerated Include="%(Swagger.GenDir)\*.cs;%(Swagger.GenDir)\Models\*.cs" />
             <FileWrites Include="@(AutoRestGenerated)" />
         </ItemGroup>
-        <Message Text="Generating @(Swagger): %(Swagger.GenDir) %(Namespace)"/>
+        <Message Text="Generating @(Swagger): %(Swagger.GenDir) %(Namespace)" />
         <Exec Command="autorest --input-file=Swagger\%(Swagger.Identity) --csharp --override-client-name=UiPathWebApi --output-folder=%(GenDir) --csharp.namespace=%(Namespace) --add-credentials" />
     </Target>
     <Target Name="UpdateRevision" Condition="'$(Revision)' != ''" BeforeTargets="PrepareForBuild">

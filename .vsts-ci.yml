@@ -24,7 +24,7 @@ variables:
  
   # TODO: reset counter on each GlobalAssemblyProperties version bump
   # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=vsts&tabs=yaml%2Cbatch#counters
-  patch: $[counter('patch_counter_20_4_2', 1)]
+  patch: $[counter('patch_counter_20_12_1', 1)]
 
 stages:
  - stage: 'CI'
@@ -70,7 +70,7 @@ stages:
         configuration: '$(BuildConfiguration)'
 
      - powershell: |
-         $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\net472\UiPath.PowerShell.dll").ProductVersion
+         $buildNumber = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("$($ENV:BUILD_SOURCESDIRECTORY)\Output\$($ENV:BUILDCONFIGURATION)\netstandard2.0\UiPath.PowerShell.dll").ProductVersion
          Write-Host "##vso[build.updatebuildnumber]$buildNumber"
        displayName: "Update Build Number"
 

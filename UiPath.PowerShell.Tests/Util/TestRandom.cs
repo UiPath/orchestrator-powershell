@@ -1,13 +1,7 @@
 ﻿using NuGet;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Text;
-using System.Web.Security;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace UiPath.PowerShell.Tests.Util
 {
@@ -40,7 +34,7 @@ namespace UiPath.PowerShell.Tests.Util
         {
             var length = Random.Next(minLength, maxLength);
 
-            return Membership.GeneratePassword(length, minLength / 2);
+            return RandomAlphaNumeric(length, minLength / 2);
         }
 
 

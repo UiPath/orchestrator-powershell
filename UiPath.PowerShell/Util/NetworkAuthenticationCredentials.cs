@@ -11,9 +11,10 @@ namespace UiPath.PowerShell.Util
 
         public override void InitializeServiceClient<T>(ServiceClient<T> client)
         {
-            var handler = client.HttpMessageHandlers.First(h => h is WebRequestHandler) as WebRequestHandler;
+
+            var handler = client.HttpMessageHandlers.First();
             
-            handler.Credentials = Credentials;
+            //handler.Credentials = Credentials;
         }
     }
 }
