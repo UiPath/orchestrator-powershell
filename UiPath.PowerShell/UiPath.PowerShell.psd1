@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'lib\net472\UiPath.PowerShell.dll'
+RootModule = 'lib\netstandard2.0\UiPath.PowerShell.dll'
 
 # Version number of this module.
 ModuleVersion = '$(UiPathFileVersion)'

@@ -14,7 +14,7 @@
 
 if ($env:UIPATH_POWERSHELL_SKIP_BINDING_REDIRECT -ne $true)
 {
-  $dllPath = "$PSScriptRoot\lib\net472\UiPath.PowerShell.dll"
+  $dllPath = "$PSScriptRoot\lib\netstandard2.0\UiPath.PowerShell.dll"
   if (Test-Path $dllPath)
   {
 	  Write-Verbose "Installing assembly resolve binding redirect callback, loading: $dllPath"
