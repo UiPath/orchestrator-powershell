@@ -44,9 +44,6 @@
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Web.Client\UiPath.Web.Client.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
 
   <Target Name="BeforeBuild" Condition="'$(Revision)' != '' ">
     <FileUpdate Files="..\properties\GlobalAssemblyInfo.cs" Regex="(?&lt;=AssemblyVersion\(&quot;\d+\.\d+\.\d+\.)(\*)" ReplacementText="$(Revision)" />
