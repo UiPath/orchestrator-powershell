@@ -206,8 +206,8 @@ namespace UiPath.PowerShell.Cmdlets
                     0 != string.Compare(TenantName, "Host", true) &&
                     !Host.IsPresent)
                 {
-                    WriteVerbose("No FolderPath was specified, using 'Default'");
-                    SetCurrentFolder(authToken, "Default", Timeout);
+                    FindAndSetDefaultFolder(authToken, Timeout);
+                    WriteVerbose($"No FolderPath was specified, using {authToken.CurrentFolder?.DisplayName}");
                 }
                 else
                 {

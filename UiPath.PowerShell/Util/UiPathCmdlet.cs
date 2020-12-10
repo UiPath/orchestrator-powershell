@@ -215,6 +215,21 @@ namespace UiPath.PowerShell.Util
             }
         }
 
+        internal void FindAndSetDefaultFolder(AuthToken authToken, TimeSpan timeout)
+        {
+            using (var api = AuthenticatedCmdlet.MakeApi_19_10(authToken, timeout))
+            {
+                var folders = HandleHttpResponseException(() => api.Folders.GetFoldersWithHttpMessagesAsync(
+                    filter: $"FullyQualifiedName in ('Default', 'Shared')")).Value;
+                var folder = folders.FirstOrDefault();
+
+                if (folder != null)
+                {
+                    SetCurrentFolder(authToken, folder.FullyQualifiedName, timeout);
+                }
+            }
+        }
+
         internal void SetCurrentFolder(AuthToken authToken, string folderPath, TimeSpan timeout)
         {
             var oldFolderId = authToken.OrganizationUnitId;
