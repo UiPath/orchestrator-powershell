@@ -226,9 +226,7 @@ namespace UiPath.PowerShell.Util
             JObject req = string.IsNullOrWhiteSpace(authToken.AuthorizationRefreshToken) ?
                 new JObject(
                     new JProperty("grant_type", "authorization_code"),
-                    new JProperty("code", authToken.AuthorizationCode),
                     new JProperty("redirect_uri", $"{authToken.AuthorizationUrl}/mobile"),
-                    new JProperty("code_verifier", authToken.AuthorizationVerifier),
                     new JProperty("client_id", authToken.ApplicationId))
                 : new JObject(
                     new JProperty("grant_type", "refresh_token"),
@@ -245,7 +243,7 @@ namespace UiPath.PowerShell.Util
             var jr = JToken.Parse(response);
             var accessToken = jr.Value<string>("access_token");
             var refreshToken = authToken.AuthorizationRefreshToken ?? jr.Value<string>("refresh_token");
-            var idToken = authToken.AuthorizationTokenId ?? jr.Value<string>("id_token");
+            var idToken = jr.Value<string>("id_token");
 
             if (string.IsNullOrWhiteSpace(accessToken)
                 || string.IsNullOrWhiteSpace(refreshToken)
@@ -260,73 +258,8 @@ namespace UiPath.PowerShell.Util
                 BaseUri = new Uri(authToken.AccountUrl)
             };
 
-            api.MakeHttpRequest(
-                HttpMethod.Get,
-                "cloudrpa/api/getAccountsForUser",
-                null,
-                out response,
-                out headers);
-            var ja = JObject.Parse(response);
-
-            string accountLogicalName;
-            var jt = ja.Value<JArray>("accounts");
-            if (!string.IsNullOrWhiteSpace(authToken.AccountName))
-            {
-                var account = jt.FirstOrDefault(acc =>
-                    0 == string.Compare(acc.Value<string>("accountLogicalName"), authToken.AccountName, true));
-                if (account == null)
-                {
-                    throw new ApplicationException($"The requested account {authToken.AccountName} was not found");
-                }
-                accountLogicalName = account.Value<string>("accountLogicalName");
-            }
-            else
-            {
-                if (jt.Count == 0)
-                {
-                    throw new ApplicationException($"There is no active account for this user");
-                }
-
-                if (jt.Count > 1)
-                {
-                    throw new ApplicationException($"There are multiple accounts for this user. Specify the desired account using -AccountName");
-                }
-
-                accountLogicalName = jt[0].Value<string>("accountLogicalName");
-            }
-
-            api.MakeHttpRequest(
-                HttpMethod.Get,
-                $"cloudrpa/api/account/{accountLogicalName}/getAllServiceInstances",
-                null,
-                out response,
-                out headers);
-
-            string tenantLogicalName;
-
-            jt = JArray.Parse(response);
-            if (!string.IsNullOrEmpty(authToken.TenantName))
-            {
-                var tenant = jt.FirstOrDefault(t => 0 == string.Compare(t.Value<string>("serviceInstanceLogicalName"), authToken.TenantName, true));
-                if (tenant == null)
-                {
-                    throw new ApplicationException($"The requested tenant {authToken.TenantName} was not found");
-                }
-                tenantLogicalName = tenant.Value<string>("serviceInstanceLogicalName");
-            }
-            else
-            {
-                if (jt.Count == 0)
-                {
-                    throw new ApplicationException($"There are no tenants for this account");
-                }
-                else if (jt.Count > 1)
-                {
-                    throw new ApplicationException($"There are multiple tenants for this account. Specify the desired tenant using -TenantName");
-                }
-
-                tenantLogicalName = jt[0].Value<string>("serviceInstanceLogicalName");
-            }
+            string accountLogicalName = authToken.AccountName;
+            string tenantLogicalName = authToken.TenantName;
 
             authToken.Token = accessToken;
             authToken.AuthorizationRefreshToken = refreshToken;
@@ -344,7 +277,7 @@ namespace UiPath.PowerShell.Util
         internal static T MakeApi<T>(AuthToken authToken, Func<ServiceClientCredentials, Uri, T> ctor, TimeSpan timeout) where T:ServiceClient<T>, IUiPathWebApi
         {
             ServiceClientCredentials creds = null;
-            if (!string.IsNullOrWhiteSpace(authToken.AuthorizationCode) || !string.IsNullOrWhiteSpace(authToken.AuthorizationRefreshToken))
+            if (!string.IsNullOrWhiteSpace(authToken.AuthorizationRefreshToken))
             {
                 RefreshAuthToken(authToken);
                 creds = new TokenCredentials(authToken.Token);

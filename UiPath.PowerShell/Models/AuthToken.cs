@@ -46,12 +46,6 @@ namespace UiPath.PowerShell.Models
         internal long? OrganizationUnitId { get; set; }
 
         [Hidden]
-        public string AuthorizationCode { get; internal set; }
-
-        [Hidden]
-        public string AuthorizationVerifier { get; internal set; }
-
-        [Hidden]
         public string AuthorizationTokenId { get; internal set; }
 
         [Hidden]
