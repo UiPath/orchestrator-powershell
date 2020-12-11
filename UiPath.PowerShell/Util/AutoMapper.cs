@@ -8,15 +8,45 @@ namespace UiPath.PowerShell.Util
 {
     internal static class AutoMapper
     {
-        internal static TMapped To<TMapped>(this object from) where TMapped : new()
+        internal static TMapped Extract<TMapped>(this object from, string property) where TMapped : new()
         {
-            return (TMapped)from.To(typeof(TMapped), () => new TMapped());
+            if (from == default)
+            {
+                return default;
+            }
+
+            var pi = from.GetType().GetProperty(property);
+            if (pi == default)
+            {
+                return default;
+            }
+
+            var value = pi.GetValue(from);
+
+            return value.To<TMapped>();
         }
 
-        private static object To(this object from, Type tMapped)
+        internal static TMapped To<TMapped>(this object from) where TMapped : new()
+        {
+            return (TMapped)from.To(typeof(TMapped), () => new TMapped(), o => o);
+        }
+
+        internal static TMapped To<TMapped>(this object from, Action<TMapped> custom) where TMapped : new()
+        {
+            return (TMapped)from.To(typeof(TMapped), () => new TMapped(), o =>
+            {
+                custom((TMapped)o);
+                return o;
+            });
+        }
+
+        private static object To(this object from, Type tMapped, Func<object, object> custom)
         {
             var ctor = tMapped.GetConstructor(Array.Empty<Type>());
-            return To(from, tMapped, () => ctor.Invoke(BindingFlags.CreateInstance, Array.Empty<object>()));
+            return To(from,
+                tMapped,
+                () => ctor.Invoke(BindingFlags.CreateInstance, Array.Empty<object>()),
+                custom);
         }
 
         private static Type EnumerableElementType(Type type)
@@ -36,16 +66,21 @@ namespace UiPath.PowerShell.Util
             throw new Exception($"Don't know how to extract collection element type from {underlyingType.Name}");
         }
 
-        private static object To(this object from, Type tMapped, Func<object> ctor)
+        private static object To(this object from, Type tMapped, Func<object> ctor, Func<object, object> custom)
         {
+            if (from == default)
+            {
+                return default;
+            }
+
             if (from is Hashtable hashtable)
             {
-                return FromHashtable(hashtable, tMapped, ctor);
+                return custom(FromHashtable(hashtable, tMapped, ctor));
             }
 
             if (typeof(Hashtable).IsAssignableFrom(tMapped))
             {
-                return from.ToHashtable();
+                return custom(from.ToHashtable());
             }
 
             var mapped = ctor();
@@ -102,7 +137,7 @@ namespace UiPath.PowerShell.Util
                 }
             }
 
-            return mapped;
+            return custom(mapped);
         }
 
         internal static TMapped FromHashtable<TMapped>(this Hashtable from) where TMapped : new()
@@ -142,7 +177,7 @@ namespace UiPath.PowerShell.Util
             {
                 foreach (var fromValue in enumValues)
                 {
-                    var toValue = fromValue.To(toType);
+                    var toValue = fromValue.To(toType, o => o);
                     list.Add(toValue);
                 }
             }

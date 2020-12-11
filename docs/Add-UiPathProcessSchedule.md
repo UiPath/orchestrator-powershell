@@ -20,6 +20,10 @@ SYNTAX
     [-AuthToken <AuthToken>] [-RequestTimeout <int>] [-StopAfterMinutes <int>] [-StopStrategy <string>] [-TimeZoneId 
     <string>] [<CommonParameters>]
     
+    Add-UiPathProcessSchedule [-Name] <string> -Process <Process> -Queue <QueueDefinition> -StartProcessCron <string> 
+    [-AuthToken <AuthToken>] [-ItemsActivationThreshold <long>] [-ItemsPerJobActivationTarget <long>] 
+    [-MaxJobsForActivation <int>] [-RequestTimeout <int>] [<CommonParameters>]
+    
     
 DESCRIPTION
     
@@ -94,6 +98,38 @@ PARAMETERS
         Required?                    false
         Position?                    named
         Default value                Kill
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Queue <QueueDefinition>
+        
+        Required?                    true
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ItemsActivationThreshold <long>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -ItemsPerJobActivationTarget <long>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -MaxJobsForActivation <int>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
         Accept pipeline input?       false
         Accept wildcard characters?  false
         

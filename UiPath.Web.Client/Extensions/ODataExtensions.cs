@@ -139,6 +139,11 @@ namespace UiPath.Web.Client201910.Models
     {
 
     }
+
+    public partial class ODataResponseListProcessScheduleDto : IODataValues<ProcessScheduleDto>
+    {
+
+    }
 }
 
 namespace UiPath.Web.Client20204.Models
