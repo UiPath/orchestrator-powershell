@@ -14,10 +14,20 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            ProcessImpl(
-                (filter, top, skip) => Api.ProcessSchedules.GetProcessSchedules(filter: filter, top: top, skip: skip, count: false),
-                id => Api.ProcessSchedules.GetById(id),
-                dto => ProcessSchedule.FromDto(dto));
+            if (Supports(OrchestratorProtocolVersion.V19_10))
+            {
+                ProcessImpl(
+                    (filter, top, skip) => HandleHttpResponseException(() => Api_19_10.ProcessSchedules.GetProcessSchedulesWithHttpMessagesAsync(filter: filter, top: top, skip: skip, count: false)),
+                    id => HandleHttpResponseException(() => Api_19_10.ProcessSchedules.GetByIdWithHttpMessagesAsync(id)),
+                    dto => ProcessSchedule.FromDto(dto));
+            }
+            else
+            {
+                ProcessImpl(
+                    (filter, top, skip) => Api.ProcessSchedules.GetProcessSchedules(filter: filter, top: top, skip: skip, count: false),
+                    id => Api.ProcessSchedules.GetById(id),
+                    dto => ProcessSchedule.FromDto(dto));
+            }
         }
     }
 }

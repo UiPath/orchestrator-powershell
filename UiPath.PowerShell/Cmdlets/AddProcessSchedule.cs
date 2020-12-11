@@ -6,6 +6,8 @@ using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
 using UiPath.Web.Client20181;
 using UiPath.Web.Client20181.Models;
+using ProcessSchedule20181Dto = UiPath.Web.Client20181.Models.ProcessScheduleDto;
+using ProcessSchedule201910Dto = UiPath.Web.Client201910.Models.ProcessScheduleDto;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -15,6 +17,7 @@ namespace UiPath.PowerShell.Cmdlets
     [Cmdlet(VerbsCommon.Add, Nouns.ProcessSchedule)]
     public class AddProcessSchedule : AuthenticatedCmdlet
     {
+        private const string QueueSet = "QueueSet";
         private const string AllRobotsSet = "AllRobots";
         private const string RobotCountSet = "RobotCount";
         private const string SpecificRobotsSet = "SpecificRobots";
@@ -39,19 +42,72 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = SpecificRobotsSet)]
         public List<Robot> Robots { get; private set; }
 
-        [Parameter]
+        [Parameter(Mandatory = false, ParameterSetName = AllRobotsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = RobotCountSet)]
+        [Parameter(Mandatory = false, ParameterSetName = SpecificRobotsSet)]
         public string TimeZoneId { get; private set; } = "UTC";
 
-        [Parameter]
+        [Parameter(Mandatory = false, ParameterSetName = AllRobotsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = RobotCountSet)]
+        [Parameter(Mandatory = false, ParameterSetName = SpecificRobotsSet)]
         public int? StopAfterMinutes { get; private set; }
 
         [ValidateEnum(typeof(ProcessScheduleDtoStopStrategy))]
-        [Parameter]
+        [Parameter(Mandatory = false, ParameterSetName = AllRobotsSet)]
+        [Parameter(Mandatory = false, ParameterSetName = RobotCountSet)]
+        [Parameter(Mandatory = false, ParameterSetName = SpecificRobotsSet)]
         public string StopStrategy { get; private set; } = ProcessScheduleDtoStopStrategy.Kill.ToString();
+
+        [Parameter(Mandatory = true, ParameterSetName = QueueSet)]
+        public QueueDefinition Queue { get; private set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = QueueSet)]
+        public long? ItemsActivationThreshold { get; private set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = QueueSet)]
+        public long? ItemsPerJobActivationTarget { get; private set; }
+
+
+        [Parameter(Mandatory = false, ParameterSetName = QueueSet)]
+        public int? MaxJobsForActivation { get; private set; }
 
         protected override void ProcessRecord()
         {
-            var dto = new ProcessScheduleDto
+            if (ParameterSetName == AllRobotsSet ||
+                ParameterSetName == SpecificRobotsSet ||
+                ParameterSetName == RobotCountSet)
+            {
+                AddClassicCronSchedule();
+            }
+            else if (ParameterSetName == QueueSet)
+            {
+                AddQueueSchedule();
+            }
+        }
+
+        private void AddQueueSchedule()
+        {
+            var dto = new ProcessSchedule201910Dto
+            {
+                Name = Name,
+                QueueDefinitionId = Queue.Id,
+                ReleaseId = Process.Id,
+                ItemsActivationThreshold = ItemsActivationThreshold,
+                ItemsPerJobActivationTarget = ItemsPerJobActivationTarget,
+                MaxJobsForActivation = MaxJobsForActivation,
+                TimeZoneId = TimeZoneId,
+                StartProcessCron = StartProcessCron,
+                StartProcessCronDetails = "{\"type\": 5, \"advancedCronExpression\":\"" + StartProcessCron + "\"}",
+                StartStrategy = -1,
+            };
+
+            var schedule = HandleHttpResponseException(() => Api_19_10.ProcessSchedules.PostWithHttpMessagesAsync(dto));
+            WriteObject(ProcessSchedule.FromDto(schedule));
+        }
+
+        private void AddClassicCronSchedule()
+        {
+            var dto = new ProcessSchedule20181Dto
             {
                 Name = Name,
                 StartProcessCron = StartProcessCron,

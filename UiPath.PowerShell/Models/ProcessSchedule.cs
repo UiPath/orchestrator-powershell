@@ -15,6 +15,7 @@ namespace UiPath.PowerShell.Models
         public string PackageName { get; internal set; }
         public string ReleaseKey { get; internal set; }
         public string ReleaseName { get; internal set; }
+        public long ReleaseId { get; internal set; }
         public string StartProcessCron { get; internal set; }
         public string StopProcessCron { get; internal set; }
         public string TimeZoneIana { get; internal set; }
@@ -25,26 +26,16 @@ namespace UiPath.PowerShell.Models
         public long? Id { get; internal set; }
         public string StartProcessCronSummary { get; private set; }
 
-        internal static ProcessSchedule FromDto(ProcessScheduleDto dto)
+        public long? QueueDefinitionId { get; set; }
+        public string QueueDefinitionName { get; set; }
+        public long? ItemsActivationThreshold { get; set; }
+        public long? ItemsPerJobActivationTarget { get; set; }
+        public int? MaxJobsForActivation { get; set; }
+
+        internal static ProcessSchedule FromDto<T>(T dto) where T : new() => dto.To<ProcessSchedule>(schedule =>
         {
-            return new ProcessSchedule
-            {
-                Id = dto.Id,
-                EnvironmentName = dto.EnvironmentName,
-                Enabled = dto.Enabled,
-                Name = dto.Name,
-                PackageName = dto.PackageName,
-                ReleaseKey = dto.ReleaseKey,
-                ReleaseName = dto.ReleaseName,
-                StartProcessCron = dto.StartProcessCron,
-                StartProcessCronSummary = dto.StartProcessCronSummary,
-                StopProcessCron = dto.StopProcessExpression,
-                TimeZoneIana = dto.TimeZoneIana,
-                TimeZoneId = dto.TimeZoneId,
-                StopStrategy = dto.StopStrategy.ToString(),
-                ExecutorRobots = dto.ExecutorRobots?.Select(re => Robot.FromDto(re)).ToList(),
-                ExternalJobKey = dto.ExternalJobKey
-            };
-        }
+            var executors = dto.Extract<List<object>>("ExecutorRobots");
+            schedule.ExecutorRobots = executors?.Select(re => Robot.FromDto(re)).ToList();
+        });
     }
 }
