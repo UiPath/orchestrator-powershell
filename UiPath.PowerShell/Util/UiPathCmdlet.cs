@@ -219,13 +219,18 @@ namespace UiPath.PowerShell.Util
         {
             using (var api = AuthenticatedCmdlet.MakeApi_19_10(authToken, timeout))
             {
-                var folders = HandleHttpResponseException(() => api.Folders.GetFoldersWithHttpMessagesAsync(
-                    filter: $"FullyQualifiedName in ('Default', 'Shared')")).Value;
-                var folder = folders.FirstOrDefault();
-
-                if (folder != null)
+                // 19.10 Folders OData endpoint does not support `in (...)`
+                foreach (var folderName in new[] { "Default", "Shared" })
                 {
-                    SetCurrentFolder(authToken, folder.FullyQualifiedName, timeout);
+                    var folders = HandleHttpResponseException(() => api.Folders.GetFoldersWithHttpMessagesAsync(
+                        filter: $"FullyQualifiedName eq '{folderName}'")).Value;
+                    var folder = folders.FirstOrDefault();
+
+                    if (folder != null)
+                    {
+                        SetCurrentFolder(authToken, folder.FullyQualifiedName, timeout);
+                        break;
+                    }
                 }
             }
         }
