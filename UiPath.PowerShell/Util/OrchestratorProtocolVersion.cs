@@ -14,6 +14,6 @@ namespace UiPath.PowerShell.Util
 
         internal static Version V19_10 => Version.Parse("9.0");
 
-        internal static Version V20_4 => Version.Parse("11.0");
+        internal static Version V20_4 => Version.Parse("10.0");
     }
 }
