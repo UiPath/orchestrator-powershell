@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 using UiPath.Web.Client201910;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -22,7 +22,7 @@ namespace UiPath.PowerShell.Cmdlets
                 }
                 else
                 {
-                    HandleHttpOperationException(() => Api_18_3.Libraries.UploadPackage(fileStream));
+                    HandleHttpOperationException(() => Api_19_4.Libraries.UploadPackage(fileStream));
                 }
             }
         }

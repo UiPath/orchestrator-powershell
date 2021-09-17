@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20184;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -18,7 +18,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            HandleHttpOperationException(() => Api_18_4.Webhooks.DeleteById(Webhook?.Id ?? Id.Value));
+            HandleHttpOperationException(() => Api.Webhooks.DeleteById(Webhook?.Id ?? Id.Value));
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 using UiPath.Web.Client20204;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -51,14 +50,6 @@ namespace UiPath.PowerShell.Cmdlets
                     id => HandleHttpResponseException(() => Api_19_10.Robots.GetByIdWithHttpMessagesAsync(id)),
                     dto => Robot.FromDto(dto));
 
-            }
-            else if (Supports(OrchestratorProtocolVersion.V18_3) || 
-                MyInvocation.BoundParameters.ContainsKey(nameof(HostingType)))
-            {
-                ProcessImpl(
-                    (filter, top, skip) => Api_18_3.Robots.GetRobots(filter: filter, top: top, skip: skip, count: false),
-                    id => Api_18_3.Robots.GetById(id),
-                    dto => Robot.FromDto(dto));
             }
             else
             {

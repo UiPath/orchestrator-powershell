@@ -24,26 +24,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-      <Swagger Include="UiPath2018.1.swagger">
-          <GenDir>generated20181</GenDir>
-          <Namespace>UiPath.Web.Client20181</Namespace>
-      </Swagger>
-      <Swagger Include="UiPath2018.2.6.swagger">
-          <GenDir>generated20182</GenDir>
-          <Namespace>UiPath.Web.Client20182</Namespace>
-      </Swagger>
-      <Swagger Include="UiPath2018.3.0-CE.2.swagger">
-          <GenDir>generated20183</GenDir>
-          <Namespace>UiPath.Web.Client20183</Namespace>
-      </Swagger>
-      <Swagger Include="UiPath2018.4.1.swagger">
-          <GenDir>generated20184</GenDir>
-          <Namespace>UiPath.Web.Client20184</Namespace>
-      </Swagger>
-      <Swagger Include="UiPath2019.1.swagger">
-          <GenDir>generated20191</GenDir>
-          <Namespace>UiPath.Web.Client20191</Namespace>
-      </Swagger>
       <Swagger Include="UiPath2019.4.swagger">
           <GenDir>generated20194</GenDir>
           <Namespace>UiPath.Web.Client20194</Namespace>

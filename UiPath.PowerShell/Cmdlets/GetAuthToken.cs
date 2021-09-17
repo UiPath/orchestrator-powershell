@@ -5,8 +5,8 @@ using System.Management.Automation;
 using System.Net.Http;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194;
+using UiPath.Web.Client20194.Models;
 
 
 namespace UiPath.PowerShell.Cmdlets
@@ -85,15 +85,6 @@ namespace UiPath.PowerShell.Cmdlets
 
         [Parameter(Mandatory = true, ParameterSetName = CloudAPISet)]
         public string AccountName { get; set; }
-
-        /// <summary>
-        /// Sets the current Organization Unit for the authentication token.
-        /// This parameter is only valid for ORchestrator deployments with Organization Units feature enabled.
-        /// </summary>
-        [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
-        [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
-        [Parameter(Mandatory = false, ParameterSetName = UnauthenticatedSet)]
-        public string OrganizationUnit { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = UserPasswordSet)]
         [Parameter(Mandatory = false, ParameterSetName = WindowsCredentialsSet)]
@@ -186,15 +177,7 @@ namespace UiPath.PowerShell.Cmdlets
 
                 authToken.TenantName = authToken.TenantName ?? TenantName;
 
-                if (!string.IsNullOrWhiteSpace(OrganizationUnit))
-                {
-                    if (authToken.ApiVersion >= OrchestratorProtocolVersion.V19_10)
-                    {
-                        WriteWarning("The use of OrganizationUnit is deprecated and will be removed. Use FolderPath instead.");
-                    }
-                    SetOrganizationUnit(authToken, OrganizationUnit);
-                }
-                else if (!string.IsNullOrWhiteSpace(FolderPath))
+                if (!string.IsNullOrWhiteSpace(FolderPath))
                 {
                     if (authToken.ApiVersion < OrchestratorProtocolVersion.V19_10)
                     {
@@ -230,18 +213,6 @@ namespace UiPath.PowerShell.Cmdlets
             }
         }
 
-        private void SetOrganizationUnit(AuthToken authToken, string organizationUnit)
-        {
-            using (var api = AuthenticatedCmdlet.MakeApi(authToken, Timeout))
-            {
-                var unit = HandleHttpOperationException(() => api.OrganizationUnits.GetOrganizationUnits(filter: $"DisplayName eq '{organizationUnit}'").Value.First(ou => ou.DisplayName == organizationUnit));
-                authToken.OrganizationUnit = unit.DisplayName;
-                authToken.OrganizationUnitId = unit.Id.Value;
-                authToken.CurrentFolder = default;
-            }
-        }
-
-
         private void GetServerVersion(AuthToken authToken)
         {
             authToken.ApiVersion = OrchestratorProtocolVersion.V18_1;
@@ -260,7 +231,7 @@ namespace UiPath.PowerShell.Cmdlets
                     }
                     // v18.1 client type system cannot parse the response
                     //
-                    var dict = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<Web.Client20182.Models.ResponseDictionaryDto>(response);
+                    var dict = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<Web.Client20194.Models.ResponseDictionaryDto>(response);
                     for(int i=0; i< dict.Keys.Count; ++i)
                     {
                         if (0 != String.Compare(dict.Keys[i], "Build.Version", true))

@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -24,8 +24,8 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                (filter, top, skip) => Api_18_3.Jobs.GetJobs(filter: filter, top: top, skip: skip, count: false),
-                id => Api_18_3.Jobs.GetById(id),
+                (filter, top, skip) => Api_19_4.Jobs.GetJobs(filter: filter, top: top, skip: skip, count: false),
+                id => Api_19_4.Jobs.GetById(id),
                 dto => Models.Job.FromDto(dto));
         }
     }

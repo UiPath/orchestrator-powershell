@@ -8,11 +8,6 @@ using System.Net.Http;
 using UiPath.PowerShell.Cmdlets;
 using UiPath.PowerShell.Models;
 using UiPath.Web.Client.Generic;
-using UiPathWebApi_18_1 = UiPath.Web.Client20181.UiPathWebApi;
-using UiPathWebApi_18_2 = UiPath.Web.Client20182.UiPathWebApi;
-using UiPathWebApi_18_3 = UiPath.Web.Client20183.UiPathWebApi;
-using UiPathWebApi_18_4 = UiPath.Web.Client20184.UiPathWebApi;
-using UiPathWebApi_19_1 = UiPath.Web.Client20191.UiPathWebApi;
 using UiPathWebApi_19_4 = UiPath.Web.Client20194.UiPathWebApi;
 using UiPathWebApi_19_10 = UiPath.Web.Client201910.UiPathWebApi;
 using UiPathWebApi_20_4 = UiPath.Web.Client20204.UiPathWebApi;
@@ -31,11 +26,6 @@ namespace UiPath.PowerShell.Util
         [Parameter()]
         public int RequestTimeout { get; set; } = 100;
 
-        private UiPathWebApi_18_1 _api;
-        private UiPathWebApi_18_2 _api_18_2;
-        private UiPathWebApi_18_3 _api_18_3;
-        private UiPathWebApi_18_4 _api_18_4;
-        private UiPathWebApi_19_1 _api_19_1;
         private UiPathWebApi_19_4 _api_19_4;
         private UiPathWebApi_19_10 _api_19_10;
         private UiPathWebApi_20_4 _api_20_4;
@@ -85,70 +75,7 @@ namespace UiPath.PowerShell.Util
             return authToken.ApiVersion >= minVersion; 
         }
 
-        internal UiPathWebApi_18_1 Api
-        {
-            get
-            {
-                if (_api == null)
-                {
-                    var authToken = InternalAuthToken;
-                    _api = MakeApi<UiPathWebApi_18_1>(authToken, (creds,uri) => new UiPathWebApi_18_1(creds) { BaseUri = uri }, Timeout);
-                }
-                return _api;
-            }
-        }
-
-        internal UiPathWebApi_18_2 Api_18_2
-        {
-            get
-            {
-                if (_api_18_2 == null)
-                {
-                    var authToken = InternalAuthToken;
-                    _api_18_2 = MakeApi<UiPathWebApi_18_2>(authToken, (creds, uri) => new UiPathWebApi_18_2(creds) { BaseUri = uri }, Timeout);
-                }
-                return _api_18_2;
-            }
-        }
-
-        internal UiPathWebApi_18_3 Api_18_3
-        {
-            get
-            {
-                if (_api_18_3 == null)
-                {
-                    var authToken = InternalAuthToken;
-                    _api_18_3 = MakeApi<UiPathWebApi_18_3>(authToken, (creds, uri) => new UiPathWebApi_18_3(creds) { BaseUri = uri }, Timeout);
-                }
-                return _api_18_3;
-            }
-        }
-
-        internal UiPathWebApi_18_4 Api_18_4
-        {
-            get
-            {
-                if (_api_18_4 == null)
-                {
-                    var authToken = InternalAuthToken;
-                    _api_18_4 = MakeApi<UiPathWebApi_18_4>(authToken, (creds, uri) => new UiPathWebApi_18_4(creds) { BaseUri = uri }, Timeout);
-                }
-                return _api_18_4;
-            }
-        }
-
-        internal UiPathWebApi_19_1 Api_19_1
-        {
-            get
-            {
-                if (_api_19_1 == null)
-                {
-                    var authToken = InternalAuthToken;
-                    _api_19_1 = MakeApi<UiPathWebApi_19_1>(authToken, (creds, uri) => new UiPathWebApi_19_1(creds) { BaseUri = uri }, Timeout);
-                }
-                return _api_19_1;
-            }
-        }
+        internal UiPathWebApi_19_4 Api => Api_19_4;
 
         internal UiPathWebApi_19_4 Api_19_4
         {
@@ -202,9 +129,9 @@ namespace UiPath.PowerShell.Util
             }
         }
 
-        public static UiPathWebApi_18_1 MakeApi(AuthToken authToken, TimeSpan timeout)
+        public static UiPathWebApi_19_4 MakeApi(AuthToken authToken, TimeSpan timeout)
         {
-            return MakeApi<UiPathWebApi_18_1>(authToken, (creds, uri) => new UiPathWebApi_18_1(creds) { BaseUri = uri }, timeout);
+            return MakeApi<UiPathWebApi_19_4>(authToken, (creds, uri) => new UiPathWebApi_19_4(creds) { BaseUri = uri }, timeout);
         }
 
         internal static void RefreshAuthToken(AuthToken authToken)
@@ -217,7 +144,7 @@ namespace UiPath.PowerShell.Util
                 return;
             }
 
-            var api = new UiPathWebApi_18_1(
+            var api = new UiPathWebApi_19_4(
                 new BasicAuthenticationCredentials())
             {
                 BaseUri = new Uri(authToken.AuthorizationUrl)
@@ -252,7 +179,7 @@ namespace UiPath.PowerShell.Util
                 throw new ApplicationException("The authorization response is missing the required tokens");
             }
 
-            api = new UiPathWebApi_18_1(
+            api = new UiPathWebApi_19_4(
                 new TokenCredentials(idToken))
             {
                 BaseUri = new Uri(authToken.AccountUrl)
@@ -301,7 +228,6 @@ namespace UiPath.PowerShell.Util
             var api = ctor(creds, new Uri(authToken.URL));
             api.SetRetryPolicy(null);
             api.HttpClient.Timeout = timeout;
-            api.SerializationSettings.Converters.Add(new SpecificItemDtoConverter());
             api.DeserializationSettings.Converters.Add(new KeyValuePairConverter());
             if (authToken.OrganizationUnitId.HasValue)
             {

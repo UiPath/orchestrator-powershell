@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Models
 {

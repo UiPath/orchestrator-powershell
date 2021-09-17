@@ -4,9 +4,9 @@ using System.Linq;
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using UiPath.Web.Client20181.Models;
-using ProcessSchedule20181Dto = UiPath.Web.Client20181.Models.ProcessScheduleDto;
+using UiPath.Web.Client20194;
+using UiPath.Web.Client20194.Models;
+using ProcessSchedule20194Dto = UiPath.Web.Client20194.Models.ProcessScheduleDto;
 using ProcessSchedule201910Dto = UiPath.Web.Client201910.Models.ProcessScheduleDto;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -107,7 +107,7 @@ namespace UiPath.PowerShell.Cmdlets
 
         private void AddClassicCronSchedule()
         {
-            var dto = new ProcessSchedule20181Dto
+            var dto = new ProcessSchedule20194Dto
             {
                 Name = Name,
                 StartProcessCron = StartProcessCron,

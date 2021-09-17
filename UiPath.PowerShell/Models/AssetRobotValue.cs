@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Models
 {

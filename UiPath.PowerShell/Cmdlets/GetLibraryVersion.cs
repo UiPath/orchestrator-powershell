@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -28,7 +28,7 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                (filter, top, skip) => Api_18_3.Libraries.GetVersionsByPackageid(Library?.Id ?? Id, filter: filter, top: top, skip: skip, count: false),
+                (filter, top, skip) => Api.Libraries.GetVersionsByPackageid(Library?.Id ?? Id, filter: filter, top: top, skip: skip, count: false),
                 dto => Library.FromDto(dto));
         }
     }

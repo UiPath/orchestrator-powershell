@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
+using UiPath.Web.Client20194;
 using Environment = UiPath.PowerShell.Models.Environment;
 
 namespace UiPath.PowerShell.Cmdlets

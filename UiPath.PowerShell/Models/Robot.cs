@@ -1,11 +1,8 @@
 ﻿using System;
-using RobotExecutorDto = UiPath.Web.Client20181.Models.RobotExecutorDto;
-using RobotDtoType20181 = UiPath.Web.Client20181.Models.RobotDtoType;
-using RobotDtoType20183 = UiPath.Web.Client20183.Models.RobotDtoType;
-using RobotDtoHostingType20183 = UiPath.Web.Client20183.Models.RobotDtoHostingType;
-using RobotDto20181 = UiPath.Web.Client20181.Models.RobotDto;
-using RobotDto20183 = UiPath.Web.Client20183.Models.RobotDto;
-using RobotDto20184 = UiPath.Web.Client20184.Models.RobotDto;
+using RobotExecutorDto = UiPath.Web.Client20194.Models.RobotExecutorDto;
+using RobotDtoType20194 = UiPath.Web.Client20194.Models.RobotDtoType;
+using RobotDtoHostingType20194 = UiPath.Web.Client20194.Models.RobotDtoHostingType;
+using RobotDto20194 = UiPath.Web.Client20194.Models.RobotDto;
 using RobotDto201910 = UiPath.Web.Client201910.Models.RobotDto;
 using RobotDto20204 = UiPath.Web.Client20204.Models.RobotDto;
 using UiPath.PowerShell.Util;
@@ -35,9 +32,9 @@ namespace UiPath.PowerShell.Models
 
         internal static Robot FromDto<TDto>(TDto dto) => dto.To<Robot>();
 
-        internal static RobotDto20181 ToDto20181(Robot robot)
+        internal static RobotDto20194 ToDto20183(Robot robot)
         {
-            return new RobotDto20181
+            return new RobotDto20194
             {
                 Id = robot.Id,
                 LicenseKey = robot.LicenseKey,
@@ -45,22 +42,8 @@ namespace UiPath.PowerShell.Models
                 Name = robot.Name,
                 Description = robot.Description,
                 Username = robot.Username,
-                Type = (RobotDtoType20181)Enum.Parse(typeof(RobotDtoType20181), robot.Type)
-            };
-        }
-
-        internal static RobotDto20183 ToDto20183(Robot robot)
-        {
-            return new RobotDto20183
-            {
-                Id = robot.Id,
-                LicenseKey = robot.LicenseKey,
-                MachineName = robot.MachineName,
-                Name = robot.Name,
-                Description = robot.Description,
-                Username = robot.Username,
-                Type = (RobotDtoType20183)Enum.Parse(typeof(RobotDtoType20183), robot.Type),
-                HostingType = (RobotDtoHostingType20183)Enum.Parse(typeof(RobotDtoHostingType20183), robot.HostingType)
+                Type = (RobotDtoType20194)Enum.Parse(typeof(RobotDtoType20194), robot.Type),
+                HostingType = (RobotDtoHostingType20194)Enum.Parse(typeof(RobotDtoHostingType20194), robot.HostingType)
             };
         }
     }
