@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20194;
-using UiPath.Web.Client20194.Models;
+using UiPath.Web.Client201910;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -14,10 +12,14 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(ParameterSetName = "Filter")]
         public string Name { get; set; }
 
+        [Filter]
+        [Parameter(ParameterSetName = "Filter")]
+        public string Description { get; set; }
+
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                (filter, top, skip) => Api.Assets.GetAssets(filter: filter, expand: "RobotValues", top: top, skip: skip, count: false),
+                (filter, top, skip) => Api_19_10.Assets.GetAssets(filter: filter, expand: "RobotValues", top: top, skip: skip, count: false),
                 dto => Asset.FromDto(dto));
         }
     }

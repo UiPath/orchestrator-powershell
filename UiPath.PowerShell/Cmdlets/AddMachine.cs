@@ -28,9 +28,11 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public int? UnattendedSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public int? TestAutomationSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public int? HeadlessSlots { get; private set; }
 

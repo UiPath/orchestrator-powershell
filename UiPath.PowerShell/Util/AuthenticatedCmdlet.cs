@@ -12,6 +12,7 @@ using UiPathWebApi_19_4 = UiPath.Web.Client20194.UiPathWebApi;
 using UiPathWebApi_19_10 = UiPath.Web.Client201910.UiPathWebApi;
 using UiPathWebApi_20_4 = UiPath.Web.Client20204.UiPathWebApi;
 using UiPathWebApi_20_10 = UiPath.Web.Client20204.UiPathWebApi;
+using System.Reflection;
 
 namespace UiPath.PowerShell.Util
 {
@@ -30,6 +31,34 @@ namespace UiPath.PowerShell.Util
         private UiPathWebApi_19_10 _api_19_10;
         private UiPathWebApi_20_4 _api_20_4;
         private UiPathWebApi_20_10 _api_20_10;
+
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            ValidateVersion();
+        }
+
+        private void ValidateVersion()
+        {
+            var props = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach(var p in props)
+            {
+                if (MyInvocation.BoundParameters.ContainsKey(p.Name))
+                {
+                    var attr = p.GetCustomAttribute<RequiredVersionAttribute>(true);
+                    if (attr != default)
+                    {
+                        var version = Version.Parse(attr.MinVersion);
+                        var authToken = InternalAuthToken;
+                        if (!Supports(version, authToken))
+                        {
+                            throw new Exception($"Property {p.Name} requires minimum Orchestrator protocol version {version}. {authToken.URL} supports version {authToken.ApiVersion}.");
+                        }
+                    }
+                }
+            }
+        }
 
         private TimeSpan Timeout
         {

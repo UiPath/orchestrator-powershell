@@ -6,8 +6,8 @@ using System.Net;
 using System.Security;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20194;
-using UiPath.Web.Client20194.Models;
+using UiPath.Web.Client201910;
+using UiPath.Web.Client201910.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -63,11 +63,16 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, ParameterSetName = RobotValuesSet)]
         public AssetRobotValue[] RobotValues { get; set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV19_10)]
+        [Parameter]
+        public string Description { get; set; }
+
         protected override void ProcessRecord()
         {
             var asset = new AssetDto
             {
                 Name = Name,
+                Description = Description,
                 ValueScope = AssetDtoValueScope.Global
             };
             switch (ParameterSetName)
@@ -121,7 +126,7 @@ namespace UiPath.PowerShell.Cmdlets
                     break;
             }
 
-            var dto = HandleHttpOperationException(() => Api.Assets.Post(asset));
+            var dto = HandleHttpOperationException(() => Api_19_10.Assets.Post(asset));
             WriteObject(Asset.FromDto(dto));
         }
 

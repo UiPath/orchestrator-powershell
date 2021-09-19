@@ -31,6 +31,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public string Description { get; set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public SwitchParameter AutoUpdate { get; set; }
 

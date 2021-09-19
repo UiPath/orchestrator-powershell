@@ -81,6 +81,10 @@ namespace UiPath.Web.Client20194.Models
 
 namespace UiPath.Web.Client201910.Models
 {
+    public partial class ODataResponseListAssetDto : IODataValues<AssetDto>
+    {
+    }
+
     public partial class ODataResponseListFolderDto : IODataValues<FolderDto>
     {
 
