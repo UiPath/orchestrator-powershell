@@ -3,8 +3,8 @@ using System.Linq;
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client201910;
+using UiPath.Web.Client201910.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -19,6 +19,7 @@ namespace UiPath.PowerShell.Cmdlets
     [Cmdlet(VerbsData.Edit, Nouns.Asset)]
     public class EditAsset : AuthenticatedCmdlet
     {
+        private const string DescriptionSet = "Description";
 
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
         public Asset Asset { get; set; }
@@ -53,14 +54,30 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = false, ParameterSetName = AddAsset.RobotValuesSet)]
         public long[] RemoveRobotIdValues { get; set; }
 
+        [Parameter(ParameterSetName = NewAssetRobotValue.BoolValueSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.CredentialSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.DBConnectionStringSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.HttpConnectionStringSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.IntValueSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.KeyValueListSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.TextValueSet)]
+        [Parameter(ParameterSetName = NewAssetRobotValue.WindowsCredentialSet)]
+        [Parameter(Mandatory = true, ParameterSetName = DescriptionSet)]
+        public string Description { get; set; }
+
         protected override void ProcessRecord()
         {
-            var dto = HandleHttpOperationException(() => Api.Assets.GetAssets(filter: $"Name eq '{Asset.Name}'", expand: "RobotValues").Value.First(a => a.Name == Asset.Name));
+            var dto = HandleHttpOperationException(() => Api_19_10.Assets.GetAssets(filter: $"Name eq '{Asset.Name}'", expand: "RobotValues").Value.First(a => a.Name == Asset.Name));
             ProcessDto(dto);
         }
 
         private void ProcessDto(AssetDto dto)
         {
+            if (MyInvocation.BoundParameters.ContainsKey(nameof(Description)))
+            {
+                dto.Description = Description;
+            }
+
             if (dto.ValueScope == AssetDtoValueScope.Global && ParameterSetName != AddAsset.RobotValuesSet)
             {
                 switch (ParameterSetName)
@@ -109,11 +126,11 @@ namespace UiPath.PowerShell.Cmdlets
                     rv => rv.RobotId)                                                               // T->K Key selector expression
                     .ToList();
             }
-            else
+            else if (ParameterSetName != DescriptionSet)
             {
-                throw new RuntimeException("Mismatched parameters and asset scope");
+                throw new RuntimeException($"Mismatched parameters and asset scope: {ParameterSetName}:{dto.ValueScope}");
             }
-            HandleHttpOperationException(() => Api.Assets.PutById(dto.Id.Value, dto));
+            HandleHttpOperationException(() => Api_19_10.Assets.PutById(dto.Id.Value, dto));
         }
     }
 }

@@ -14,13 +14,13 @@
       <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-06">
           <PrivateAssets>All</PrivateAssets>
       </PackageReference>
-    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.22" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.23" />
     <PackageReference Include="MSBuildTasks" Version="1.5.0.235">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
       <PackageReference Include="PowerShellStandard.Library" Version="5.1.0">
           <PrivateAssets>All</PrivateAssets>
       </PackageReference>

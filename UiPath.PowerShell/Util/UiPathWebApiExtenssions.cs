@@ -4,7 +4,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
-using UiPath.Web.Client20181;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Util
 {

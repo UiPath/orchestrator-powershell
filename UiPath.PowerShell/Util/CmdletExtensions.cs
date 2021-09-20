@@ -4,9 +4,6 @@ using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
 using System.Threading.Tasks;
-using UiPathWebApi_18_4 = UiPath.Web.Client20184.UiPathWebApi;
-using UiPathWebApi_19_10 = UiPath.Web.Client201910.UiPathWebApi;
-using UiPathWebApi_20_4 = UiPath.Web.Client20204.UiPathWebApi;
 
 namespace UiPath.PowerShell.Util
 {

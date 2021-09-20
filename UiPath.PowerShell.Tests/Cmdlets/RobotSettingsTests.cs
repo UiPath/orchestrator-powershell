@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UiPath.PowerShell.Cmdlets;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Tests.Util;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Tests.Cmdlets
 {

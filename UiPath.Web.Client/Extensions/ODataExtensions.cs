@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UiPath.Web.Client.Extensions;
 
 namespace UiPath.Web.Client.Extensions
@@ -11,7 +12,7 @@ namespace UiPath.Web.Client.Extensions
     }
 }
 
-namespace UiPath.Web.Client20181.Models
+namespace UiPath.Web.Client20194.Models
 {
     public partial class ODataResponseListAssetDto : IODataValues<AssetDto>
     {
@@ -30,10 +31,6 @@ namespace UiPath.Web.Client20181.Models
     }
 
     public partial class ODataResponseListJobDto : IODataValues<JobDto>
-    {
-    }
-
-    public partial class ODataResponseListOrganizationUnitDto : IODataValues<OrganizationUnitDto>
     {
     }
 
@@ -65,21 +62,14 @@ namespace UiPath.Web.Client20181.Models
     {
     }
 
+    public partial class ODataResponseListWebhookDto : IODataValues<WebhookDto>
+    {
+    }
+
     public partial class ODataResponseListKeyValuePairStringString : IODataValues<KeyValuePairStringString>
     {
     }
-}
 
-namespace UiPath.Web.Client20182.Models
-{
-    public partial class ODataResponseListMachineDto : IODataValues<MachineDto>
-    {
-    }
-}
-
-
-namespace UiPath.Web.Client20183.Models
-{
     public partial class ODataResponseListLibraryDto : IODataValues<LibraryDto>
     {
     }
@@ -87,29 +77,14 @@ namespace UiPath.Web.Client20183.Models
     public partial class ODataResponseListMachineDto : IODataValues<MachineDto>
     {
     }
-
-    public partial class ODataResponseListRobotDto : IODataValues<RobotDto>
-    {
-    }
-
-    public partial class ODataResponseListJobDto : IODataValues<JobDto>
-    {
-    }
-
-    public partial class ODataResponseListReleaseDto : IODataValues<ReleaseDto>
-    {
-    }
-}
-
-namespace UiPath.Web.Client20184.Models
-{
-    public partial class ODataResponseListWebhookDto : IODataValues<WebhookDto>
-    {
-    }
 }
 
 namespace UiPath.Web.Client201910.Models
 {
+    public partial class ODataResponseListAssetDto : IODataValues<AssetDto>
+    {
+    }
+
     public partial class ODataResponseListFolderDto : IODataValues<FolderDto>
     {
 

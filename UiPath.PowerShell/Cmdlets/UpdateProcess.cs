@@ -1,7 +1,7 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -44,7 +44,7 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 HandleHttpOperationException(() => Api.Releases.UpdateToSpecificPackageVersionById(
                     Process?.Id ?? Id,
-                    new Web.Client20181.Models.SpecificPackageParameters
+                    new Web.Client20194.Models.SpecificPackageParameters
                     {
                         PackageVersion = Package?.Version ?? PackageVersion
                     }));

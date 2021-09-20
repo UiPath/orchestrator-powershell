@@ -1,8 +1,8 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using Release20181 = UiPath.Web.Client20181.Models.ReleaseDto;
+using UiPath.Web.Client20194;
+using Release20194 = UiPath.Web.Client20194.Models.ReleaseDto;
 using Release20204 = UiPath.Web.Client20204.Models.ReleaseDto;
 
 namespace UiPath.PowerShell.Cmdlets
@@ -31,6 +31,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public string Description { get; set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public SwitchParameter AutoUpdate { get; set; }
 
@@ -52,7 +53,7 @@ namespace UiPath.PowerShell.Cmdlets
             }
             else
             {
-                var release = new Release20181
+                var release = new Release20194
                 {
                     Name = Name,
                     EnvironmentId = Environment?.Id ?? EnvironmentId.Value,

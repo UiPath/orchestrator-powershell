@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client201910.Models;
 
 namespace UiPath.PowerShell.Models
 {
@@ -23,6 +23,7 @@ namespace UiPath.PowerShell.Models
         public Dictionary<string, string> KeyValueList { get; private set; }
         public PSCredential WindowsCredential { get; private set; }
         public PSCredential Credential { get; private set; }
+        public string Description { get; private set; }
 
         internal static Asset FromDto(AssetDto dto)
         {
@@ -36,6 +37,7 @@ namespace UiPath.PowerShell.Models
                 RobotValues = dto.RobotValues?.ToDictionary(r => r.RobotId.Value, r => r.Value),
                 KeyValueList = dto.KeyValueList?.ToDictionary(kv => kv.Key, kv => kv.Value),
                 CanBeDeleted = dto.CanBeDeleted,
+                Description = dto.Description,
             };
 
             if (dto.ValueScope == AssetDtoValueScope.Global && dto.ValueType == AssetDtoValueType.WindowsCredential)

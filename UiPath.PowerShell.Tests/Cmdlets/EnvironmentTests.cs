@@ -2,7 +2,7 @@
 using System;
 using System.Management.Automation;
 using UiPath.PowerShell.Tests.Util;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194.Models;
 using Environment = UiPath.PowerShell.Models.Environment;
 
 namespace UiPath.PowerShell.Tests.Cmdlets

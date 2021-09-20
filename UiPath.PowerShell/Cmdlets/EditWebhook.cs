@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20184;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -61,8 +61,8 @@ namespace UiPath.PowerShell.Cmdlets
         protected override void ProcessRecord()
         {
             ProcessImpl(
-                () => Api_18_4.Webhooks.GetById(Webhook?.Id ?? Id.Value),
-                dto => Api_18_4.Webhooks.PatchById(dto.Id.Value, dto));
+                () => Api_19_4.Webhooks.GetById(Webhook?.Id ?? Id.Value),
+                dto => Api_19_4.Webhooks.PatchById(dto.Id.Value, dto));
         }
     }
 }

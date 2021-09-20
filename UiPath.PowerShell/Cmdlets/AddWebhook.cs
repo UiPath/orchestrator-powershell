@@ -3,8 +3,8 @@ using System.Linq;
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20184;
-using UiPath.Web.Client20184.Models;
+using UiPath.Web.Client20194;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -53,7 +53,7 @@ namespace UiPath.PowerShell.Cmdlets
                 dto.SubscribeToAllEvents = false;
             }
 
-            var webhook = Api_18_4.Webhooks.Post(dto);
+            var webhook = Api_19_4.Webhooks.Post(dto);
             WriteObject(Webhook.FromDto(webhook));
         }
     }

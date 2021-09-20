@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Models
 {

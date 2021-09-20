@@ -1,7 +1,8 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20181;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -15,7 +16,7 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "JobId")]
         public long? JobId { get; set; }
 
-        [ValidateEnum(typeof(ProcessScheduleDtoStopStrategy))]
+        [ValidateEnum(typeof(StopJobParametersEnum))]
         [Parameter(Mandatory = true, Position = 1)]
         public string Strategy { get; set; }
 
@@ -23,7 +24,7 @@ namespace UiPath.PowerShell.Cmdlets
         {
             HandleHttpOperationException(() => Api.Jobs.StopJobById(Job?.Id ?? JobId.Value, new StopJobParameters
             {
-                Strategy = Strategy
+                Strategy = (StopJobParametersEnum)Enum.Parse(typeof(StopJobParametersEnum), Strategy)
             }));
         }
     }

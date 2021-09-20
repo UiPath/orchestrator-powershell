@@ -5,8 +5,8 @@ using System.Linq;
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20183;
-using UiPath.Web.Client20183.Models;
+using UiPath.Web.Client20194.Models;
+using UiPath.Web.Client20194;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -58,7 +58,7 @@ namespace UiPath.PowerShell.Cmdlets
                 startJob.StartInfo.InputArguments = JsonConvert.SerializeObject(InputArguments);
             }
 
-            var jobs = HandleHttpOperationException(() => Api_18_3.Jobs.StartJobs(startJob));
+            var jobs = HandleHttpOperationException(() => Api.Jobs.StartJobs(startJob));
             foreach(var dto in jobs.Value)
             {
                 WriteObject(Models.Job.FromDto(dto));

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using UiPath.PowerShell.Util;
-using License20181Dto = UiPath.Web.Client20181.Models.LicenseDto;
-using License20183Dto = UiPath.Web.Client20183.Models.LicenseDto;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Models
 {
@@ -49,34 +48,7 @@ namespace UiPath.PowerShell.Models
             return dtDateTime;
         }
 
-        internal static License FromDto(License20181Dto dto)
-        {
-            return new License
-            {
-                AllowedAttended = dto.AllowedRobots?.Attended,
-                AllowedDevelopment = dto.AllowedRobots?.Development,
-                AllowedNonProduction = dto.AllowedRobots?.NonProduction,
-                AllowedUnattended = dto.AllowedRobots?.Unattended,
-
-                DefinedAttended = dto.DefinedRobots?.Attended,
-                DefinedDevelopment = dto.DefinedRobots?.Development,
-                DefinedNonProduction = dto.DefinedRobots?.NonProduction,
-                DefinedUnattended = dto.DefinedRobots?.Unattended,
-
-                ConcurrentAttended = dto.ConcurrentRobots?.Attended,
-                ConcurrentDevelopment = dto.ConcurrentRobots?.Development,
-                ConcurrentNonProduction = dto.ConcurrentRobots?.NonProduction,
-                ConcurrentUnattended = dto.ConcurrentRobots?.Unattended,
-
-                Concurrent = dto.Concurrent,
-
-                ExpireDate = UnixTimeStampToDateTime(dto.ExpireDate ?? 0),
-                IsExpired = dto.IsExpired,
-                IsRegistered = dto.IsRegistered,
-            };
-        }
-
-        internal static License FromDto(License20183Dto dto)
+        internal static License FromDto(LicenseDto dto)
         {
             return new License
             {

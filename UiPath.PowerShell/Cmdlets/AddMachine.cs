@@ -2,13 +2,11 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20182;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
+using UiPath.Web.Client20194.Models;
 using UiPath.Web.Client20204;
-using MachineDto20182 = UiPath.Web.Client20182.Models.MachineDto;
-using MachineDto20183 = UiPath.Web.Client20183.Models.MachineDto;
+using MachineDto20194 = UiPath.Web.Client20194.Models.MachineDto;
 using MachineDto20204 = UiPath.Web.Client20204.Models.MachineDto;
-using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
 using MachineDtoType20204 = UiPath.Web.Client20204.Models.MachineDtoType;
 
 
@@ -30,9 +28,11 @@ namespace UiPath.PowerShell.Cmdlets
         [Parameter]
         public int? UnattendedSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public int? TestAutomationSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         public int? HeadlessSlots { get; private set; }
 
@@ -45,13 +45,9 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 AddMachine20204();
             }
-            else if (Supports(OrchestratorProtocolVersion.V18_3))
-            {
-                AddMachine20183();
-            }
             else
             {
-                AddMachine20182();
+                AddMachine20194();
             }
         }
 
@@ -74,9 +70,9 @@ namespace UiPath.PowerShell.Cmdlets
             WriteObject(Machine.FromDto(response));
         }
 
-        private void AddMachine20183()
+        private void AddMachine20194()
         { 
-            var machine = new MachineDto20183
+            var machine = new MachineDto20194
             {
                 Name = Name,
                 NonProductionSlots = NonProductionSlots,
@@ -87,23 +83,7 @@ namespace UiPath.PowerShell.Cmdlets
             {
                 machine.LicenseKey = LicenseKey.ToString();
             }
-            var response = HandleHttpOperationException(() => Api_18_3.Machines.Post(machine));
-            WriteObject(Machine.FromDto(response));
-        }
-
-        private void AddMachine20182()
-        {
-            var machine = new MachineDto20182
-            {
-                Name = Name,
-                NonProductionSlots = NonProductionSlots,
-                UnattendedSlots = UnattendedSlots,
-            };
-            if (MyInvocation.BoundParameters.ContainsKey(nameof(LicenseKey)))
-            {
-                machine.LicenseKey = LicenseKey.ToString();
-            }
-            var response = HandleHttpOperationException(() => Api_18_2.Machines.Post(machine));
+            var response = HandleHttpOperationException(() => Api_19_4.Machines.Post(machine));
             WriteObject(Machine.FromDto(response));
         }
     }

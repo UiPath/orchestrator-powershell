@@ -2,10 +2,9 @@
 using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20182;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 using UiPath.Web.Client20204;
-using MachineDtoType = UiPath.Web.Client20183.Models.MachineDtoType;
+using MachineDtoType = UiPath.Web.Client20194.Models.MachineDtoType;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -30,20 +29,10 @@ namespace UiPath.PowerShell.Cmdlets
                     dto => Machine.FromDto(dto));
 
             }
-            else if (Supports(OrchestratorProtocolVersion.V18_3))
-            {
                 ProcessImpl(
-                    (filter, top, skip) => Api_18_3.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
-                    id => Api_18_3.Machines.GetById(id),
+                    (filter, top, skip) => Api.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
+                    id => Api.Machines.GetById(id),
                     dto => Machine.FromDto(dto));
-            }
-            else
-            {
-                ProcessImpl(
-                    (filter, top, skip) => Api_18_2.Machines.GetMachines(filter: filter, top: top, skip: skip, count: false),
-                    id => Api_18_2.Machines.GetById(id),
-                    dto => Machine.FromDto(dto));
-            }
         }
     }
 }

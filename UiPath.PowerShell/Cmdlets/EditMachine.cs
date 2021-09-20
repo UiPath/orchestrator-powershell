@@ -1,11 +1,9 @@
 ﻿using System.Management.Automation;
 using UiPath.PowerShell.Models;
 using UiPath.PowerShell.Util;
-using UiPath.Web.Client20182;
-using UiPath.Web.Client20183;
+using UiPath.Web.Client20194;
 using UiPath.Web.Client20204;
-using UiPath.Web.Client20182.Models;
-using UiPath.Web.Client20183.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Cmdlets
 {
@@ -35,10 +33,12 @@ namespace UiPath.PowerShell.Cmdlets
         [SetParameter]
         public int UnattendedSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         [SetParameter]
         public int TestAutomationSlots { get; private set; }
 
+        [RequiredVersion(MinVersion = OrchestratorProtocolVersion.sV20_4)]
         [Parameter]
         [SetParameter]
         public int HeadlessSlots { get; private set; }
@@ -51,17 +51,10 @@ namespace UiPath.PowerShell.Cmdlets
                     () => ParameterSetName == "Machine" ? Machine.ToDto20204(Machine) : HandleHttpOperationException(() => Api_20_4.Machines.GetById(Id)),
                     newDto => HandleHttpOperationException(() => Api_20_4.Machines.PutById(newDto.Id.Value, newDto)));
             }
-            else if (Supports(OrchestratorProtocolVersion.V18_3))
             {
                 ProcessImpl(
-                    () => ParameterSetName == "Machine" ? Machine.ToDto20183(Machine) : HandleHttpOperationException(() => Api_18_3.Machines.GetById(Id)),
-                    newDto => HandleHttpOperationException(() => Api_18_3.Machines.PutById(newDto.Id.Value, newDto)));
-            }
-            else
-            {
-                ProcessImpl(
-                    () => ParameterSetName == "Machine" ? Machine.ToDto20182(Machine) : HandleHttpOperationException(() => Api_18_2.Machines.GetById(Id)),
-                    newDto => HandleHttpOperationException(() => Api_18_2.Machines.PutById(newDto.Id.Value, newDto)));
+                    () => ParameterSetName == "Machine" ? Machine.ToDto20194(Machine) : HandleHttpOperationException(() => Api_19_4.Machines.GetById(Id)),
+                    newDto => HandleHttpOperationException(() => Api_19_4.Machines.PutById(newDto.Id.Value, newDto)));
             }
         }
     }

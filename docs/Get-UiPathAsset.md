@@ -7,8 +7,8 @@ SYNOPSIS
     
     
 SYNTAX
-    Get-UiPathAsset [-AuthToken <AuthToken>] [-ExactMatch <SwitchParameter>] [-Name <string>] [-Paging 
-    <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
+    Get-UiPathAsset [-AuthToken <AuthToken>] [-Description <string>] [-ExactMatch <SwitchParameter>] [-Name <string>] 
+    [-Paging <SwitchParameter>] [-RequestTimeout <int>] [<CommonParameters>]
     
     
 DESCRIPTION
@@ -16,6 +16,14 @@ DESCRIPTION
 
 PARAMETERS
     -Name <string>
+        
+        Required?                    false
+        Position?                    named
+        Default value                
+        Accept pipeline input?       false
+        Accept wildcard characters?  false
+        
+    -Description <string>
         
         Required?                    false
         Position?                    named

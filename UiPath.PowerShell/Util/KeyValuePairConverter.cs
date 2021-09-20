@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using UiPath.Web.Client20181.Models;
+using UiPath.Web.Client20194.Models;
 
 namespace UiPath.PowerShell.Util
 {
